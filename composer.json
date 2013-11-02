@@ -1,5 +1,5 @@
 {
-  "name": "Bolknoms",
+  "name": "jakobuis/bolknoms",
   "description": "Bolknoms: the very best application in the world for feeding your members in an organized and predictable way.",
   "license": "GPL-3.0",
   "authors": [
@@ -33,5 +33,5 @@
     "post-create-project-cmd": [
       "php artisan key:generate"
     ]
-  },
+  }
 }
