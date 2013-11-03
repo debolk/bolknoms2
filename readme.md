@@ -1,21 +1,37 @@
-## Laravel PHP Framework
+# Bolknoms
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework)
+The very best application in the world for feeding your members in an organized and predictable way.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+## Requirements
+* PHP >= 5.3.7
+* MCrypt PHP extension
+* SQL-compatible database
+* Something to send e-mails with
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+## Installation
+FIXME: Update for laravel
+1. Clone the repository using git
+1. Copy the following configuration files and change as needed
+    1. application/config/database.sample.php -> application/config/database.php
+    1. application/config/bolknoms.sample.php -> application/config/bolknoms.php
+    1. public/.htaccess.sample -> public/.htaccess
+1. Create a database and execute all migrations (/migrations/*.sql) in alphabetical filename order
+1. Install the dependencies using composer by executing `composer install`
+1. The application/cache and application/logs must be writeable by the server
+1. Upload to your server
+1. Point your servers webroot to /public/
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Usage
+Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
 
-## Official Documentation
+### Maintenance mode
+You can put the application in maintenance mode by copying public/maintenance.sample.html to public/maintenance.html. Please note that this is only a simple HTML-page and that the application will be accessible to anyone who knows the URLs.
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+## Architecture
+Bolknoms is built using [laravel 4](http://laravel.com/).
 
-### Contributing To Laravel
+## Project organisation
+The project follows the [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html). Please adhere to the (very basic) standards set. Any new work must be branched of in a feature branch. These branches are prefixed with "feature-", for example "feature-moreswedishchef". Preferrably no underscores.
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## License
+Copyright 2012-2013 [Jakob Buis](http://www.jakobbuis.com). Distributed under the [GNU Lesser General Public License, version 3.0](http://opensource.org/licenses/lgpl-3.0.html).
