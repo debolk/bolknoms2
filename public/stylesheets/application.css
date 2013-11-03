@@ -1,0 +1,324 @@
+body {
+    background-color: #E0E0E0;
+    font-family: Verdana, Helvetica, Arial;
+    font-size: 14px;
+}
+
+.logo {
+    float: left;
+    margin: 0 1em 1em 0;
+}
+
+h1 {
+    color: #066FA2;
+}
+
+h2 {
+    color: #1283BA;
+    margin-bottom: 0;
+}
+
+p, ul, ol {
+    margin-top: 0;
+}
+
+.navigation {
+    margin-top: 1em;
+}
+
+a img {
+    border: none;
+}
+
+a {
+    color: #FF8900;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+.clear {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+}
+
+#container {
+    float: left;
+    margin: 1em;
+    max-width: 650px;
+    min-width: 220px;
+    background-color: #FFF;
+    padding: 20px 40px;
+    margin-top: 20px;
+}
+
+#sidebar {
+    float: left;
+    max-width: 650px;
+    min-width: 220px;
+}
+
+#sidebar .block {
+    margin: 1em;
+    background-color: #FFF;
+    padding: 20px;
+    margin-top: 20px; 
+}
+
+#sidebar h2 { margin-top: 0;}
+
+#flash_notice, #flash_error, #flash_alert {
+    padding: 5px 8px;
+    margin: 10px 0;
+    clear: both;
+}
+
+#flash_notice {
+    background-color: #CFC;
+    border: solid 1px #6C6;
+}
+
+#flash_error, #flash_alert {
+    background-color: #FCC;
+    border: solid 1px #C66;
+}
+
+.fieldWithErrors {
+    display: inline;
+}
+
+.error_messages {
+    width: 400px;
+    border: 2px solid #CF0000;
+    padding: 0px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    font-size: 12px;
+}
+
+.error_messages h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 0;
+    background-color: #c00;
+    color: #fff;
+}
+
+.error_messages p {
+    margin: 8px 10px;
+}
+
+.error_messages ul {
+    margin: 0;
+}
+
+#articles h2 {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+#articles h2 .comments {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#articles .created_at {
+    font-style: italic;
+    color: #333;
+}
+
+#comments {
+    font-size: 12px;
+    background-color: #DDD;
+    padding: 0 20px;
+    width: 325px;
+    border: solid 1px #333;
+}
+
+.comment {
+    border-bottom: solid 1px #999;
+    margin: 15px 0;
+}
+
+.comment .author_name {
+    font-weight: bold;
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+#user_nav {
+    float: right;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.introduction {
+    margin-bottom: 4em;
+    font-style: italic;
+}
+
+form {
+    margin-bottom: 1em;
+}
+
+.label {
+    font-weight: bold;
+    clear: left;
+    width: 150px;
+    float: left;
+}
+
+form small {
+    float: left;
+    display: block;
+    color: darkgray;
+    font-style: italic;
+    width: 280px;
+    margin-left: 10px;
+}
+
+form .warning { 
+    display: block;
+    margin-left: 150px;
+    color: red;
+    float: none;
+    display: inline;
+    font-style: italic;
+    font-size: x-small;
+}
+
+.clearfix:after, form p:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+input[type="text"], input[type="password"] {
+    width: 200px;
+    float: left;
+}
+
+form input[type="submit"] {
+    float: left;
+    margin-left: 150px;
+    margin-right: 5px;
+}
+
+/*
+* Table formatting
+*/
+table th, table td {
+    vertical-align: top;
+}
+
+th {
+    text-align: left;
+}
+
+td {
+    padding: 0 5px 0 5px;
+}
+
+.number, .control { text-align: center; }
+.date   { text-align: right; }
+
+tbody tr:nth-child(2n-1) {
+    background-color: #E0E0E0;
+}
+
+.meal th {
+    background-color: #E0E0F0 !important;
+}
+
+/*
+ * Messages
+ */
+.notification {
+    border: 2px solid black;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.notification ul {
+    margin-bottom: 0;
+}
+
+.notification.success {
+    background-color: #BFB;
+    border-color: #9E9;
+}
+
+.notification.error {
+    background-color: #FBB;
+    border-color: #E99;
+}
+
+.notification.warning {
+    background-color: #FFB;
+    border-color: #EE9;
+}
+
+.zero {
+    font-style: italic;
+    color: rgb(128, 128, 128);
+}
+
+.navigation {
+    font-size: small;
+}
+
+h1.error {
+    color: red;
+}
+
+.names {
+    display: none;
+}
+
+.expander {
+    cursor: pointer;
+}
+
+/* Mobile styling */
+@media (max-width: 550px) {
+  body {
+    margin: 0;
+    background-color: white;
+  }
+  #container {
+    margin: 0;
+    padding: 3px;
+  }
+  #container, .content, .block, #sidebar {
+    max-width: 480px;
+    width: 480px;
+  }
+  h1 {
+    margin-top: 3px;
+  }
+  .introduction {
+    margin-bottom: 0.5em;
+  }
+  #sidebar {
+    float: none;
+  }
+  #sidebar .block {
+    clear: both;
+    margin: 1em 0 0 0;
+  }
+  .logo {
+    margin: 0 3px 3px 0;
+    width: 50px;
+    height: 50px;
+  }
+}

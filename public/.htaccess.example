@@ -1,0 +1,13 @@
+# Redirect all traffic to noms.debolk.nl
+RewriteCond %{HTTP_HOST} !^noms\.debolk\.nl$
+RewriteRule (.*) http://noms.debolk.nl/$1 [L,R=301]
+
+# Display maintenance notice, if set
+DirectoryIndex maintenance.html index.php
+
+# Laravel configuration
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

@@ -25,7 +25,7 @@ FIXME: Update for laravel
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
 
 ### Maintenance mode
-You can put the application in maintenance mode by copying public/maintenance.sample.html to public/maintenance.html. Please note that this is only a simple HTML-page and that the application will be accessible to anyone who knows the URLs.
+You can put the application in maintenance mode by copying public/maintenance.example.html to public/maintenance.html. Please note that this is only a simple HTML-page and that the application will be accessible to anyone who knows the URLs.
 
 ## Architecture
 Bolknoms is built using [laravel 4](http://laravel.com/).
