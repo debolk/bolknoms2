@@ -15,16 +15,17 @@ class CreateExistingDatabase extends Migration {
               $table->increments('id');
               $table->date('date');
               $table->time('locked');
-              $table->string('event');
+              $table->string('event')->nullable();
               $table->boolean('promoted');
               $table->timestamps();
             });
             Schema::create('registrations', function($table){
               $table->increments('id');
               $table->string('name');
+              $table->string('handicap')->nullable();
               $table->integer('meal_id')->unsigned();
               $table->foreign('meal_id')->references('id')->on('meals');
-              $table->string('email');
+              $table->string('email')->nullable();
               $table->string('salt');
               $table->timestamps();
             });
