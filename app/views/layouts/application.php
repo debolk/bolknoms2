@@ -21,7 +21,7 @@
             </div>
         </div>
         <div id="sidebar">
-            <?php //echo View::make('layouts/_promotions'); ?>
+            <?php echo View::make('layouts/_promotions'); ?>
             <?php //echo View::make('front/_top'); ?>
         </div>
     <?php echo View::make('layouts/_google_analytics'); ?>
