@@ -1,7 +1,9 @@
 <?php
 
-class BaseController extends Controller {
-
+class ApplicationController extends Controller
+{
+    protected $layout = 'layouts/application';
+    
 	/**
 	 * Setup the layout used by the controller.
 	 *

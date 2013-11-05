@@ -8,5 +8,5 @@ Route::get('/uitgebreidaanmelden', 'Front@uitgebreidaanmelden');
 Route::get('/aanmelden', 'Front@aanmelden');
 Route::get('/afmelden/{id}/{salt}', 'Front@afmelden');
 Route::get('/disclaimer', 'Front@disclaimer');
-Route::get('/privacy', '/privacy');
+Route::get('/privacy', 'Front@privacy');
 Route::get('/', 'Front@index');
