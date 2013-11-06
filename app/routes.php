@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/inschrijven', 'Front@index');
-Route::get('/inschrijven/{id}', 'Front@inschrijven_specifiek');
+Route::get('/inschrijven/{id}', ['as' => 'inschrijven_specifiek', 'uses' => 'Front@inschrijven_specifiek']);
 Route::get('/aanmelden/{id}', 'Front@aanmelden_specifiek');
 Route::get('/uitgebreid-inschrijven', 'Front@uitgebreidinschrijven');
 Route::get('/uitgebreidaanmelden', 'Front@uitgebreidaanmelden');

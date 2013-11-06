@@ -2,16 +2,15 @@
 
 class ApplicationController extends Controller
 {
-    protected $layout = 'layouts/application';
+    public function __construct()
+    {
+      $this->layout = View::make('layouts/application');
 
-    // public function __construct()
-    // {
-    //   parent::__construct();
-    //   $this->promotions();
-    // }
+      $this->promotions();
+    }
 
     public function promotions()
     {
-  //      $this->layout->promoted_meals = Meal::promotions();
+      $this->layout->promoted_meals = View::make('layouts/_promotions', ['meals' => Meal::promotions()]);
     }
 }
