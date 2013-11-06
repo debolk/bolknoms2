@@ -22,7 +22,7 @@
         </div>
         <div id="sidebar">
             <?php echo $promoted_meals; ?>
-            <?php //echo View::make('front/_top'); ?>
+            <?php echo $top_eaters; ?>
         </div>
     <?php echo View::make('layouts/_google_analytics'); ?>
     </body>
