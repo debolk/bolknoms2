@@ -19,7 +19,7 @@ class ApplicationController extends Controller
     {
       $this->layout->top_eaters = View::make('layouts/_top', [
         'top_alltime' => Registration::top_alltime(),
-        //'top_ytd' => Registration::top_ytd(),
+        'top_ytd' => Registration::top_ytd(),
       ]);
     }
 }
