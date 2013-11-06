@@ -7,9 +7,10 @@ class Front extends ApplicationController
 
   }
 
-  public function inschrijven_specifiek()
+  public function inschrijven_specifiek($id)
   {
-    //FIXME implement method
+    $meal = Meal::find($id);
+    $this->layout->content = View::make('front/inschrijven_specifiek', ['meal' => $meal]);
   }
 
   public function aanmelden_specifiek()
@@ -62,10 +63,4 @@ class Front extends ApplicationController
   {
     //FIXME implement method
   }
-
-  private function find_meal()
-  {
-    //FIXME implement method
-  }
-  
 }

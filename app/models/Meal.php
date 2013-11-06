@@ -20,4 +20,10 @@ class Meal extends Eloquent
         }
         return $output;
     }
+
+    public function open_for_registrations()
+    {
+      $closing_moment = strtotime($this->date.' '.$this->locked);
+      return ($closing_moment > time());
+    }
 }
