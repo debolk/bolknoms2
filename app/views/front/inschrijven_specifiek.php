@@ -1,9 +1,7 @@
 <h2>Aanmelden voor maaltijd</h2>
-<?php //echo Flash::display_messages(); ?>
+<?php echo Flash::display_messages(); ?>
 
-<?php if (isset($validation)): ?>
-    <?php echo Helper_Form::error_messages_for($validation); ?>
-<?php endif; ?>
+<?php echo Hform::error_messages_for(Session::get('validation_errors')); ?>
 
 <?php echo Form::open(['url' => URL::route('aanmelden_specifiek', ['id' => $meal->id])]); ?>
     <p>
