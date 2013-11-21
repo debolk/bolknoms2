@@ -2,6 +2,18 @@
 
 class Meal extends Eloquent
 {
+    protected $fillable = ['date', 'locked', 'event', 'promotion'];
+
+    /**
+     * Scope: all meals open for new registrations
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->where('date', '>', date('Y-m-d'))->orWhere(function($q){
+            $q->where('date', '=', date('Y-m-d'))->where('locked', '>=', strftime('%H:%I'));
+        })->orderBy('date');
+    }
+
       public static function promotions()
       {
           return self::where('promoted', '=', '1')->get();
@@ -25,5 +37,14 @@ class Meal extends Eloquent
     {
       $closing_moment = strtotime($this->date.' '.$this->locked);
       return ($closing_moment > time());
+    }
+
+    /**
+     * Returns whether a meal is today
+     * @return boolean
+     */
+    public function today()
+    {
+        return ($this->date === strftime('%Y-%m-%d'));
     }
 }

@@ -2,6 +2,8 @@
 
 class Registration extends Eloquent
 {
+    protected $fillable = ['name', 'email', 'handicap'];
+
   public static function top_ytd($count = 10)
   {
     $query = self::statistics($count);

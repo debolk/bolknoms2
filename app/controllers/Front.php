@@ -4,8 +4,45 @@ class Front extends ApplicationController
 {
   public function index()
   {
-
+    $this->layout->content = View::make('front/index', ['upcoming_meal' => Meal::available()->first()]);
   }
+
+    public function aanmelden()
+    {
+        $meal = Meal::available()->first();
+
+        $validator = Validator::make(Input::all(), [
+            'name' => ['required', 'regex:/[A-Za-z -]+/'],
+        ],[
+            'name.required' => 'Je moet je naam invullen',
+            'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
+        ]);
+
+        if ($validator->passes()) {
+            // Escape data
+            $name = e(Input::get('name'));
+
+            if ($meal) {
+                $registration = new Registration(['name' => $name]);
+                $registration->meal_id = $meal->id;
+
+                if ($registration->save()) {
+                    Log::info("Aangemeld: snel|$registration->id|$registration->name");
+                    Flash::set(Flash::SUCCESS, '<p>Aanmelding geslaagd. Je kunt mee-eten.</p>'.Chef::random_video());
+                }
+                else {
+                    Flash::set(Flash::ERROR, "Je aanmelding is mislukt. Probeer het nogmaals.");
+                }
+            }
+            else {
+                App::abort(404, 'Maaltijd niet gevonden');
+            }
+        }
+        else {
+            Session::flash('validation_errors', $validator->messages());
+        }
+        return Redirect::to('/');
+    }
 
   public function inschrijven_specifiek($id)
   {
@@ -15,8 +52,6 @@ class Front extends ApplicationController
 
   public function aanmelden_specifiek($id)
   {
-
-    //FIXME implement method
     $meal = Meal::find($id);
 
     $validator = Validator::make(Input::all(), [
@@ -62,11 +97,6 @@ class Front extends ApplicationController
     //FIXME implement method
   }
   
-  public function aanmelden()
-  {
-    //FIXME implement method
-  }
-
   public function uitgebreidaanmelden()
   {
     //FIXME implement method
