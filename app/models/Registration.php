@@ -31,7 +31,7 @@ class Registration extends Eloquent
     $query->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id');
     $query->where('meals.date', '<=', 'NOW()');
     $query->groupBy('name');
-    $query->orderBy('count');
+    $query->orderBy('count', 'desc');
     $query->take($count);
     return $query;
   }
