@@ -4,6 +4,11 @@ class Meal extends Eloquent
 {
     protected $fillable = ['date', 'locked', 'event', 'promotion'];
 
+    public function registrations()
+    {
+        return $this->hasMany('Registration');
+    }
+
     /**
      * Scope: all meals open for new registrations
      */

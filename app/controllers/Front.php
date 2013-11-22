@@ -54,6 +54,7 @@ class Front extends ApplicationController
   {
     $meal = Meal::find($id);
 
+    //FIXME Extra validation rules are missing
     $validator = Validator::make(Input::all(), [
         'name' => ['required', 'regex:/[A-Za-z -]+/'],
     ],[
@@ -94,12 +95,55 @@ class Front extends ApplicationController
   
   public function uitgebreidinschrijven()
   {
-    //FIXME implement method
+    $this->layout->content = View::make('front/uitgebreidinschrijven', ['meals' => Meal::available()->get()]);
   }
   
   public function uitgebreidaanmelden()
   {
-    //FIXME implement method
+    //FIXME extra validations are missing (email, etc)
+    $validator = Validator::make(Input::all(), [
+        'name' => ['required', 'regex:/[A-Za-z -]+/'],
+    ],[
+        'name.required' => 'Je moet je naam invullen',
+        'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
+    ]);
+
+    if ($validator->passes()) {
+        // Escape data
+        $name = e(Input::get('name'));
+        $handicap = e(Input::get('handicap'));
+        $email = e(Input::get('email'));
+
+        // Create registrations
+        $registrations = array();
+        foreach (Input::get('meals') as $meal_id) {
+            $registration = new Registration();
+            $registration->name = $name;
+            $registration->email = $email;
+            $registration->handicap = $handicap;
+            $registration->meal_id = (int)$meal_id;
+            $registration->save();
+            Log::info("Aangemeld: uitgebreid|$registration->id|$registration->name");
+            $registrations[] = $registration;
+        }
+        // Update user
+        //FIXME Does not (yet) send e-mail
+        //MailerRegistration::send_confirmation($name, $email, $registrations);
+
+        // Determine success text
+        if (trim($email)) {
+            $text = 'Aanmelding geslaagd. Je ontvangt een e-mail met alle details.';
+        }
+        else {
+            $text = 'Aanmelding geslaagd. ';
+        }
+
+        Flash::set(Flash::SUCCESS, "<p>$text</p>".Chef::random_video());
+    }
+    else {
+        Session::flash('validation_errors', $validator->messages());
+    }
+    return Redirect::to('/uitgebreid-inschrijven');
   }
   
   public function afmelden()

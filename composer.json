@@ -19,7 +19,8 @@
       "app/models",
       "app/database/migrations",
       "app/database/seeds",
-      "app/helpers"
+      "app/helpers",
+      "app/mailers"
     ]
   },
   "scripts": {

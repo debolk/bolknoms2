@@ -33,6 +33,6 @@
     <?php endif; ?>
 </form>
 
-<?php echo View::make('front/_afmelden.php'); ?>
+<?php echo View::make('front/_afmelden'); ?>
 <?php echo View::make('front/_spelregels'); ?>
 <?php echo View::make('layouts/_navigation'); ?>
