@@ -24,6 +24,6 @@
             <?php echo $promoted_meals; ?>
             <?php echo $top_eaters; ?>
         </div>
-    <?php echo View::make('layouts/_google_analytics'); ?>
+        <?php echo View::make('layouts/_google_analytics'); ?>
     </body>
 </html>

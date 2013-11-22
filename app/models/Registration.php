@@ -9,6 +9,15 @@ class Registration extends Eloquent
         return $this->belongsTo('Meal');
     }
 
+    /**
+     * Controls output when an object of the class is printed
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
   public static function top_ytd($count = 10)
   {
     $query = self::statistics($count);

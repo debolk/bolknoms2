@@ -1,0 +1,197 @@
+<?php
+
+class Administratie extends ApplicationController
+{
+    /**
+     * Initializes the controller, forcing all users to authenticate before touching anything
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Authenticate users
+        $this->authenticate();
+    }
+
+    /**
+     * List all past and current meals
+     * @return void
+     */
+    public function index()
+    {
+        $count = Input::get('count', 5);
+        if (!is_numeric($count)) {
+            App::abort(400, "Count parameter not an integer");
+        }
+        $upcoming_meals = Meal::upcoming();
+        $previous_meals = Meal::previous();
+        if ($count > 0) {
+          $upcoming_meals->take($count);
+          $previous_meals->take($count);
+        }
+        $this->layout->content = View::make('administratie/index', [
+            'upcoming_meals' => $upcoming_meals->get(),
+            'previous_meals' => $previous_meals->get(),
+        ]);
+    }
+
+    // /**
+    //  * Creates a new meal
+    //  * @return void
+    //  */
+    // public function action_nieuwe_maaltijd()
+    // {
+    //     $this->template->content->meal = $meal = ORM::factory('Meal');
+
+    //     if ($_POST) {
+    //         $_POST = Helper_Form::prep_form($_POST);
+    //         $meal->values($_POST, array('date','locked', 'event', 'promoted'));
+    //         try {
+    //             $meal->save();
+    //             Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd');
+    //             Log::instance()->add(Log::NOTICE, "Nieuwe maaltijd: $meal->id|$meal->date");
+    //             $this->redirect('/administratie');
+    //         }
+    //         catch (ORM_Validation_Exception $e) {
+    //             // Nothing here, errors are retrieved in the view
+    //             // specifically the Helper_Form class
+    //         }
+    //     }
+    // }
+
+    // /**
+    //  * Edits a meal
+    //  * @throws HTTP_Exception_404
+    //  * @return void
+    //  */
+    // public function action_bewerk()
+    // {
+    //     $this->template->content->meal = $meal = ORM::factory('meal',$this->request->param('id'));
+    //     if (! $meal->loaded()) {
+    //         throw new HTTP_Exception_404;
+    //     }
+
+    //     if ($_POST) {
+    //         $_POST = Helper_Form::prep_form($_POST);
+    //         $_POST['promoted'] = (isset($_POST['promoted'])) ? (1) : (0);
+    //         $meal->values($_POST, array('date','locked', 'event', 'promoted'));
+    //         try {
+    //             $meal->save();
+    //             Flash::set(Flash::SUCCESS, 'Maaltijd geüpdate');
+    //             Log::instance()->add(Log::NOTICE, "Maaltijd veranderd: $meal->id|$meal->date");
+    //             $this->redirect(Route::url('default',array('controller' => 'administratie')));
+    //         }
+    //         catch (ORM_Validation_Exception $e) {
+    //             // Nothing here, errors are retrieved in the view
+    //         }
+    //     }
+    // }
+
+    // /**
+    //  * Removes a meal
+    //  * @return void
+    //  */
+    // public function action_verwijder()
+    // {
+    //     $meal = ORM::factory('meal',$this->request->param('id'));
+    //     $date = (string)$meal;
+
+    //     $meal->delete();
+
+    //     Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd");
+    //     Log::instance()->add(Log::NOTICE, "Maaltijd verwijderd: $date");
+    //     $this->redirect('/administratie');
+    // }
+
+    // /**
+    //  * Creates a registration
+    //  * @return void
+    //  */
+    // public function action_aanmelden()
+    // {
+    //     // Build an array of the data to store
+    //     $data = array(
+    //         'meal_id' => (int)$_POST['meal_id'],
+    //         'name' => (string)$_POST['name'],
+    //         'handicap' => (string)$_POST['handicap']
+    //     );
+    //     // Find the meal we're changing
+    //     $meal = ORM::factory('meal',$data['meal_id']);
+    //     if (! $meal->loaded()) {
+    //         throw new HTTP_Exception_404;
+    //     }
+
+    //     // Create a new registration
+    //     $registration = ORM::factory('Registration')->values($data,array('meal_id','name','handicap'));
+    //     try {
+    //         $registration->save();
+    //         Log::instance()->add(Log::NOTICE, "Aangemeld: administratie|$registration->id|$registration->name");
+    //         echo View::factory('administratie/_meal',array('meal' => $meal));
+    //     }
+    //     catch (ORM_Validation_Exception $e) {
+    //         echo 'error';
+    //     }
+    //     //FIXME Manual override of template engine
+    //     exit;
+    // }
+
+    // /**
+    //  * Removes a registration
+    //  * @return void
+    //  */
+    // public function action_afmelden()
+    // {
+    //     $registration = ORM::factory('registration',$this->request->param('id'));
+    //     $id = $registration->id;
+    //     $name = $registration->name;
+    //     $meal = $registration->meal;
+
+    //     $registration->delete();
+    //     Log::instance()->add(Log::NOTICE, "Afgemeld: administratie|$id|$name|$meal");
+
+    //     if ($this->request->is_ajax()) {
+    //         echo 'success';
+    //         exit;
+    //     }
+    //     else {
+    //         Flash::set(Flash::SUCCESS,"$name afgemeld voor de maaltijd op $meal");
+    //         $this->redirect('/administratie');
+    //     }
+    // }
+
+    // /**
+    //  * Prints an array (json-encoded) of all upcoming dates with meals planned
+    //  * used for the date-picker to hide all dates already filled
+    //  * @return void
+    //  */
+    // public function action_gevulde_dagen()
+    // {
+    //     $id = Arr::get($_GET, 'meal_id');
+
+    //     $meals = ORM::factory('Meal')->upcoming()->find_all();
+    //     $dates = array();
+    //     foreach ($meals as $meal) {
+    //         if ($id !== $meal->id) {
+    //             $dates[] = $meal->date;
+    //         }
+    //     }
+    //     header('Content-Type: application/json');
+    //     print(json_encode($dates));
+    //     exit;
+    // }
+    
+    // /**
+    //  * Prints a checklist for crossing off visiting users
+    //  * not intended to be viewed, only printed
+    //  */
+    // public function action_checklist()
+    // {
+    //     $meal_id = $this->request->param('id');
+    //     $meal = ORM::factory('meal',$meal_id);
+    //     if (!$meal->loaded()) {
+    //         throw new HTTP_Exception_404("Maaltijd niet gevonden");
+    //     }
+    //     echo View::factory('administratie/checklist',array('meal' => $meal));
+    //     exit;
+    // }
+}

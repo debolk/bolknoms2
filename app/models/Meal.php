@@ -19,10 +19,27 @@ class Meal extends Eloquent
         })->orderBy('date');
     }
 
-      public static function promotions()
-      {
-          return self::where('promoted', '=', '1')->get();
-      }
+    /**
+     * Scope: all meals dated today or later
+     */
+    public function scopeUpcoming($query)
+    {
+        return $query->where('date', '>=', date('Y-m-d'));
+    }
+
+    /**
+     * Scope: all meals dated before today, ordered in reverse date (last one first)
+     */
+    public function scopePrevious($query)
+    {
+        return $query->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc');
+    }
+
+    //FIXME rewrite as scope
+    public static function promotions()
+    {
+        return self::where('promoted', '=', '1')->get();
+    }
 
     /**
      * Controls output when an object of the class is printed
@@ -38,6 +55,9 @@ class Meal extends Eloquent
         return $output;
     }
 
+    /**
+     * 
+     */
     public function open_for_registrations()
     {
       $closing_moment = strtotime($this->date.' '.$this->locked);
@@ -51,5 +71,19 @@ class Meal extends Eloquent
     public function today()
     {
         return ($this->date === strftime('%Y-%m-%d'));
+    }
+
+    public function deadline()
+    {
+        return strftime('%H:%M',strtotime($this->locked)).' uur';
+    }
+
+    /**
+     * Returns whether a meal is being promoted
+     * @return boolean
+     */
+    public function promoted()
+    {
+        return ($this->promoted === '1');
     }
 }
