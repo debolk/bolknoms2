@@ -161,19 +161,4 @@ class Front extends ApplicationController
   {
     $this->layout->content = View::make('front/privacy');
   }
-
-  private function valideer_aanmelding()
-  {
-    //FIXME implement method
-  }
-  
-  private function valideer_uitgebreideaanmelding()
-  {
-    //FIXME implement method
-  }
-
-  public function errors()
-  {
-    //FIXME implement method
-  }
 }
