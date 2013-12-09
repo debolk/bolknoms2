@@ -12,6 +12,7 @@ class ApplicationController extends Controller
 
     public function promotions()
     {
+      //FIXME only show upcoming promotions
       $this->layout->promoted_meals = View::make('layouts/_promotions', ['meals' => Meal::promotions()]);
     }
 
