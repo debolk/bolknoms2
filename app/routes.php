@@ -14,3 +14,5 @@ Route::get('/', 'Front@index');
 
 // Administration routes
 Route::get('/administratie', 'Administratie@index');
+Route::get('/administratie/nieuwe_maaltijd', 'Administratie@nieuwe_maaltijd');
+Route::post('/administratie/nieuwe_maaltijd_maken', 'Administratie@nieuwe_maaltijd_maken');

@@ -35,29 +35,45 @@ class Administratie extends ApplicationController
         ]);
     }
 
-    // /**
-    //  * Creates a new meal
-    //  * @return void
-    //  */
-    // public function action_nieuwe_maaltijd()
-    // {
-    //     $this->template->content->meal = $meal = ORM::factory('Meal');
+    public function nieuwe_maaltijd()
+    {
+        $this->layout->content = View::make('administratie/nieuwe_maaltijd', [
+            'meal' => new Meal,
+        ]);
+    }
 
-    //     if ($_POST) {
-    //         $_POST = Helper_Form::prep_form($_POST);
-    //         $meal->values($_POST, array('date','locked', 'event', 'promoted'));
-    //         try {
-    //             $meal->save();
-    //             Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd');
-    //             Log::instance()->add(Log::NOTICE, "Nieuwe maaltijd: $meal->id|$meal->date");
-    //             $this->redirect('/administratie');
-    //         }
-    //         catch (ORM_Validation_Exception $e) {
-    //             // Nothing here, errors are retrieved in the view
-    //             // specifically the Helper_Form class
-    //         }
-    //     }
-    // }
+    public function nieuwe_maaltijd_maken()
+    {
+        $meal = new Meal;
+
+        $validator = Validator::make(Input::all(), [
+            'date' => ['required', 'date'], //FIXME validate that the day is after today; and not taken
+            'locked' => ['required', 'regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+            'event' => ['alpha'],
+            'promoted' => ['in:0,1'],
+        ]);
+
+        if ($validator->passes()) {
+            // Set data
+            $meal->date = e(Input::get('date'));
+            $meal->locked = e(Input::get('locked'));
+            $meal->event = e(Input::get('event'));
+            $meal->promoted = e(Input::get('promoted'));
+
+            if ($meal->save()) {
+                Log::info("Nieuwe maaltijd: $meal->id|$meal->date");
+                Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op '.$meal);
+                return Redirect::to('/administratie');
+            }
+            else {
+                Flash::set(Flash::ERROR, 'Maaltijd kon niet worden toegevoegd');
+            }
+        }
+        else {
+            Session::flash('validation_errors', $validator->messages());
+        }
+        return Redirect::to('/administratie/nieuwe_maaltijd');
+    }
 
     // /**
     //  * Edits a meal
