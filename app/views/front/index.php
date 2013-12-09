@@ -3,10 +3,7 @@
 <h2>Snel aanmelden</h2>
 <?php echo Flash::display_messages(); ?>
 
-
-<?php if (isset($validation)): ?>
-    <?php echo Helper_Form::error_messages_for($validation); ?>
-<?php endif; ?>
+<?php echo Hform::error_messages_for(Session::get('validation_errors')); ?>
 
 <?php if ($upcoming_meal): ?>
     <form action="/aanmelden" method="post" accept-charset="utf-8" class="clearfix">
