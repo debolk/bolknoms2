@@ -14,7 +14,7 @@
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     </head>
-    <body>
+    <body class="<?php echo RequestHelper::url_classes(); ?>">
         <div id="container" class="clearfix">
             <div class="content clearfix">
                 <?php echo $content; ?>
