@@ -104,6 +104,8 @@ class Administratie extends ApplicationController
         return Redirect::to('/administratie');
     }
 
+    //FIXME Function and method documentation is incorrect in a lot of places
+
     // /**
     //  * Edits a meal
     //  * @throws HTTP_Exception_404
