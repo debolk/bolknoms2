@@ -2,6 +2,8 @@
 
 class Registration extends Eloquent
 {
+    //FIXME not auto-ordered on name
+    
     protected $fillable = ['name', 'email', 'handicap'];
 
     public function meal()
