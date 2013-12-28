@@ -75,6 +75,35 @@ class Administratie extends ApplicationController
         return Redirect::to('/administratie/nieuwe_maaltijd');
     }
 
+    /**
+     * Removes a meal
+     * @return void
+     */
+    public function verwijder($id)
+    {
+        // Find the meal
+        $meal = Meal::find($id);
+        if (!$meal) {
+            App::abort(404, "Maaltijd niet gevonden");
+        }
+
+        // Store the name of the meal for usage in the flash message
+        $date = (string)$meal;
+
+        // Remove all guests
+        foreach ($meal->registrations()->get() as $registration) {
+            $registration->delete();
+        }
+
+        // Remove the meal
+        $meal->delete();
+
+        // Update user
+        Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd");
+        Log::info("Maaltijd verwijderd: $date");
+        return Redirect::to('/administratie');
+    }
+
     // /**
     //  * Edits a meal
     //  * @throws HTTP_Exception_404
@@ -103,21 +132,6 @@ class Administratie extends ApplicationController
     //     }
     // }
 
-    // /**
-    //  * Removes a meal
-    //  * @return void
-    //  */
-    // public function action_verwijder()
-    // {
-    //     $meal = ORM::factory('meal',$this->request->param('id'));
-    //     $date = (string)$meal;
-
-    //     $meal->delete();
-
-    //     Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd");
-    //     Log::instance()->add(Log::NOTICE, "Maaltijd verwijderd: $date");
-    //     $this->redirect('/administratie');
-    // }
 
     // /**
     //  * Creates a registration

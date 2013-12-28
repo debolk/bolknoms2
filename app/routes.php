@@ -16,3 +16,4 @@ Route::get('/', 'Front@index');
 Route::get('/administratie', 'Administratie@index');
 Route::get('/administratie/nieuwe_maaltijd', 'Administratie@nieuwe_maaltijd');
 Route::post('/administratie/nieuwe_maaltijd_maken', 'Administratie@nieuwe_maaltijd_maken');
+Route::get('/administratie/verwijder/{id}', 'Administratie@verwijder');
