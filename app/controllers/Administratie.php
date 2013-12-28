@@ -189,26 +189,25 @@ class Administratie extends ApplicationController
     //     }
     // }
 
-    // /**
-    //  * Prints an array (json-encoded) of all upcoming dates with meals planned
-    //  * used for the date-picker to hide all dates already filled
-    //  * @return void
-    //  */
-    // public function action_gevulde_dagen()
-    // {
-    //     $id = Arr::get($_GET, 'meal_id');
+    /**
+     * Prints an array (json-encoded) of all upcoming dates with meals planned
+     * used for the date-picker to hide all dates already filled
+     * @return void
+     */
+    public function gevulde_dagen()
+    {
+        $id = Input::get('meal_id', null);
 
-    //     $meals = ORM::factory('Meal')->upcoming()->find_all();
-    //     $dates = array();
-    //     foreach ($meals as $meal) {
-    //         if ($id !== $meal->id) {
-    //             $dates[] = $meal->date;
-    //         }
-    //     }
-    //     header('Content-Type: application/json');
-    //     print(json_encode($dates));
-    //     exit;
-    // }
+        $meals = Meal::upcoming()->get();
+        $dates = array();
+        foreach ($meals as $meal) {
+            if ($id !== $meal->id) {
+                $dates[] = $meal->date;
+            }
+        }
+        header('Content-Type: application/json');
+        return json_encode($dates);
+    }
     
     // /**
     //  * Prints a checklist for crossing off visiting users

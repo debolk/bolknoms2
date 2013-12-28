@@ -5,7 +5,6 @@ $(document).ready(function() {
     if ($('body.administratie.nieuwe_maaltijd, body.administratie.bewerk').size() > 0) {
         // Load disabled days
         get_disabled_days();
-        console.log(disabled_days);
 
         $('.datepicker').datepicker({
             minDate: 0,
