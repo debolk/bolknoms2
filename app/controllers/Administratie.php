@@ -209,18 +209,17 @@ class Administratie extends ApplicationController
         return json_encode($dates);
     }
     
-    // /**
-    //  * Prints a checklist for crossing off visiting users
-    //  * not intended to be viewed, only printed
-    //  */
-    // public function action_checklist()
-    // {
-    //     $meal_id = $this->request->param('id');
-    //     $meal = ORM::factory('meal',$meal_id);
-    //     if (!$meal->loaded()) {
-    //         throw new HTTP_Exception_404("Maaltijd niet gevonden");
-    //     }
-    //     echo View::factory('administratie/checklist',array('meal' => $meal));
-    //     exit;
-    // }
+    /**
+     * Prints a checklist for crossing off visiting users
+     * not intended to be viewed, only printed
+     */
+    public function checklist($id)
+    {
+        $meal = Meal::find($id);
+        if (!$meal) {
+            App::abort(404, 'Maaltijd niet gevonden');
+        }
+
+        return View::make('administratie/checklist',['meal' => $meal]);
+    }
 }
