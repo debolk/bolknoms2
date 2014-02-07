@@ -187,29 +187,23 @@ class Administratie extends ApplicationController
         }
     }
 
-    // /**
-    //  * Removes a registration
-    //  * @return void
-    //  */
-    // public function action_afmelden()
-    // {
-    //     $registration = ORM::factory('registration',$this->request->param('id'));
-    //     $id = $registration->id;
-    //     $name = $registration->name;
-    //     $meal = $registration->meal;
+    public function afmelden($id)
+    {
+        // Find registration
+        $registration = Registration::find((int)$id);
+        if (!$registration) {
+            App::abort(404, 'Registratie bestaat niet');
+        }
 
-    //     $registration->delete();
-    //     Log::instance()->add(Log::NOTICE, "Afgemeld: administratie|$id|$name|$meal");
+        // Store data for later usage
+        $id = $registration->id;
+        $name = $registration->name;
+        $meal = $registration->meal;
 
-    //     if ($this->request->is_ajax()) {
-    //         echo 'success';
-    //         exit;
-    //     }
-    //     else {
-    //         Flash::set(Flash::SUCCESS,"$name afgemeld voor de maaltijd op $meal");
-    //         $this->redirect('/administratie');
-    //     }
-    // }
+        $registration->delete();
+        Log::info("Afgemeld: administratie|$id|$name|$meal");
+        return 'success';
+    }
 
     /**
      * Prints an array (json-encoded) of all upcoming dates with meals planned
