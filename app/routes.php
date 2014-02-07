@@ -19,3 +19,5 @@ Route::post('/administratie/nieuwe_maaltijd_maken', 'Administratie@nieuwe_maalti
 Route::get('/administratie/verwijder/{id}', 'Administratie@verwijder');
 Route::get('/administratie/gevulde_dagen', 'Administratie@gevulde_dagen');
 Route::get('/administratie/checklist/{id}', 'Administratie@checklist');
+Route::get('/administratie/bewerk/{id}', 'Administratie@bewerk');
+Route::post('/administratie/update/{id}', ['as' => 'update_meal', 'uses' => 'Administratie@update']);
