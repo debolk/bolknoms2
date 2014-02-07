@@ -16,7 +16,7 @@ class CreateExistingDatabase extends Migration {
               $table->date('date');
               $table->time('locked');
               $table->string('event')->nullable();
-              $table->boolean('promoted');
+              $table->boolean('promoted')->default(false);
               $table->timestamps();
             });
             Schema::create('registrations', function($table){

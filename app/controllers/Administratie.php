@@ -56,9 +56,9 @@ class Administratie extends ApplicationController
         if ($validator->passes()) {
             // Set data
             $meal->date = e(Input::get('date'));
-            $meal->locked = e(Input::get('locked'));
-            $meal->event = e(Input::get('event'));
-            $meal->promoted = e(Input::get('promoted'));
+            $meal->locked = e(Input::get('locked', '15:00'));
+            $meal->event = (Input::get('event')) ? (e(Input::get('event'))) : null;
+            $meal->promoted = Input::get('promoted', false);
 
             if ($meal->save()) {
                 Log::info("Nieuwe maaltijd: $meal->id|$meal->date");
@@ -106,12 +106,29 @@ class Administratie extends ApplicationController
 
     //FIXME Function and method documentation is incorrect in a lot of places
 
-    // /**
-    //  * Edits a meal
-    //  * @throws HTTP_Exception_404
-    //  * @return void
-    //  */
-    // public function action_bewerk()
+    /**
+     * Edits a meal
+     * @throws HTTP_Exception_404
+     * @return void
+     */
+    public function bewerk($id)
+    {
+        $meal = Meal::find($id);
+
+        if (!$meal) {
+            App::abort(404, "Maaltijd niet gevonden");
+        }
+
+        $this->layout->content = View::make('administratie/bewerk', ['meal' => $meal]);
+    }
+
+    public function update()
+    {
+        die();
+    }
+
+    //POST
+    // public function bewerk()
     // {
     //     $this->template->content->meal = $meal = ORM::factory('meal',$this->request->param('id'));
     //     if (! $meal->loaded()) {
