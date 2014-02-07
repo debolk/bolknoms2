@@ -158,37 +158,34 @@ class Administratie extends ApplicationController
         return Redirect::to('/administratie/bewerk/'.$meal->id);
     }
 
-    // /**
-    //  * Creates a registration
-    //  * @return void
-    //  */
-    // public function action_aanmelden()
-    // {
-    //     // Build an array of the data to store
-    //     $data = array(
-    //         'meal_id' => (int)$_POST['meal_id'],
-    //         'name' => (string)$_POST['name'],
-    //         'handicap' => (string)$_POST['handicap']
-    //     );
-    //     // Find the meal we're changing
-    //     $meal = ORM::factory('meal',$data['meal_id']);
-    //     if (! $meal->loaded()) {
-    //         throw new HTTP_Exception_404;
-    //     }
+    /**
+     * Creates a registration
+     * @return void
+     */
+    public function aanmelden()
+    {
+        $meal = Meal::find((int)Input::get('meal_id'));
+        if (!$meal) {
+            App::abort(404, 'Maaltijd niet gevonden');
+        }
 
-    //     // Create a new registration
-    //     $registration = ORM::factory('Registration')->values($data,array('meal_id','name','handicap'));
-    //     try {
-    //         $registration->save();
-    //         Log::instance()->add(Log::NOTICE, "Aangemeld: administratie|$registration->id|$registration->name");
-    //         echo View::factory('administratie/_meal',array('meal' => $meal));
-    //     }
-    //     catch (ORM_Validation_Exception $e) {
-    //         echo 'error';
-    //     }
-    //     //FIXME Manual override of template engine
-    //     exit;
-    // }
+        //FIXME validate data
+
+        // Create a new registration
+        $registration = new Registration([
+            'name' => e(Input::get('name')),
+            'handicap' => e(Input::get('handicap'))
+        ]);
+        $registration->meal_id = $meal->id;
+
+        if ($registration->save()) {
+            Log::info("Aangemeld: administratie|$registration->id|$registration->name");
+            return View::make('administratie/_meal', ['meal' => $meal]);
+        }
+        else {
+            return 'error';
+        }
+    }
 
     // /**
     //  * Removes a registration

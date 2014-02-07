@@ -21,3 +21,4 @@ Route::get('/administratie/gevulde_dagen', 'Administratie@gevulde_dagen');
 Route::get('/administratie/checklist/{id}', 'Administratie@checklist');
 Route::get('/administratie/bewerk/{id}', 'Administratie@bewerk');
 Route::post('/administratie/update/{id}', ['as' => 'update_meal', 'uses' => 'Administratie@update']);
+Route::post('/administratie/aanmelden', 'Administratie@aanmelden');
