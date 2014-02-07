@@ -4,7 +4,7 @@ class Meal extends Eloquent
 {
     //FIXME not ordered by default on date
 
-    protected $fillable = ['date', 'locked', 'event', 'promotion'];
+    protected $fillable = ['date', 'locked', 'event', 'promoted'];
 
     public function registrations()
     {

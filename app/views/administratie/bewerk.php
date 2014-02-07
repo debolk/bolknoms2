@@ -9,7 +9,7 @@
     </p>
     <p>
        <label class="label" for="locked">Inschrijving sluit</label>
-       <?php echo Form::text('locked', $meal->locked); ?>
+       <?php echo Form::text('locked', strftime('%H:%M', strtotime($meal->locked))); ?>
     </p>
     <p>
       <label for="event" class="label">Evenement</label>

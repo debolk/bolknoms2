@@ -122,35 +122,41 @@ class Administratie extends ApplicationController
         $this->layout->content = View::make('administratie/bewerk', ['meal' => $meal]);
     }
 
-    public function update()
+    public function update($id)
     {
-        die();
+        $meal = Meal::find($id);
+        if (!$meal) {
+            App::abort(404, 'Maaltijd niet gevonden');
+        }
+
+        $validator = Validator::make(Input::all(), [
+            'date' => ['required', 'date'], //FIXME validate that the day is after today; and not taken
+            'locked' => ['required', 'regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+            'event' => ['alpha'],
+            'promoted' => ['in:0,1'],
+        ]);
+
+        if ($validator->passes()) {
+            $data = [
+                'date' => e(Input::get('date')),
+                'locked' => e(Input::get('locked')),
+                'event' => e(Input::get('event')),
+                'promoted' => Input::get('promoted', false)
+            ];
+            if ($meal->update($data)) {
+                Flash::set(Flash::SUCCESS,"Maaltijd ge&uuml;pdate");
+                Log::info("Maaltijd veranderd: $meal->id|$meal->date");
+                return Redirect::to('/administratie');
+            }
+            else {
+                Flash::set(Flash::ERROR, 'Maaltijd kon niet worden bewerkt');
+            }
+        }
+        else {
+            Session::flash('validation_errors', $validator->messages());
+        }
+        return Redirect::to('/administratie/bewerk/'.$meal->id);
     }
-
-    //POST
-    // public function bewerk()
-    // {
-    //     $this->template->content->meal = $meal = ORM::factory('meal',$this->request->param('id'));
-    //     if (! $meal->loaded()) {
-    //         throw new HTTP_Exception_404;
-    //     }
-
-    //     if ($_POST) {
-    //         $_POST = Helper_Form::prep_form($_POST);
-    //         $_POST['promoted'] = (isset($_POST['promoted'])) ? (1) : (0);
-    //         $meal->values($_POST, array('date','locked', 'event', 'promoted'));
-    //         try {
-    //             $meal->save();
-    //             Flash::set(Flash::SUCCESS, 'Maaltijd geüpdate');
-    //             Log::instance()->add(Log::NOTICE, "Maaltijd veranderd: $meal->id|$meal->date");
-    //             $this->redirect(Route::url('default',array('controller' => 'administratie')));
-    //         }
-    //         catch (ORM_Validation_Exception $e) {
-    //             // Nothing here, errors are retrieved in the view
-    //         }
-    //     }
-    // }
-
 
     // /**
     //  * Creates a registration
