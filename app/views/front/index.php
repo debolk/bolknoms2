@@ -17,7 +17,7 @@
         </p>
         <p>
             <label for="name" class="label">Naam</label>
-            <input type="text" name="name" value="" />
+            <?php echo Form::text('name', Input::old('name')); ?>
             <small>Gebruik je volledige voor- en achternaam. Onduidelijke inschrijvingen worden vernietigd.</small>
         </p>
         <p>

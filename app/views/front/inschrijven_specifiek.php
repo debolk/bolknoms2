@@ -11,16 +11,16 @@
     <?php if ($meal->open_for_registrations()): ?>
         <p>
             <label for="name" class="label">Naam</label>
-            <input type="text" name="name" value="" />
+            <?php echo Form::text('name', Input::old('name')); ?>
             <small>Gebruik je volledige voor- en achternaam. Onduidelijke inschrijvingen worden vernietigd.</small>
         </p>
         <p>
 	        <label for="email" class="label">E-mail</label>
-	        <input type="text" name="email" id="email"/>
+	        <?php echo Form::text('email', Input::old('email')); ?>
 	    </p>
 	    <p>
 	        <label for="handicap" class="label">Handicap</label>
-	        <input type="text" name="handicap" id="handicap">
+	        <?php echo Form::text('handicap', Input::old('handicap')); ?>
 	        <small>Bijvoorbeeld vegetari&euml;r, geen pinda's, etc..</small>
 	    </p>
         <p>

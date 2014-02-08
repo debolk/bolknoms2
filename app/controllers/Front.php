@@ -48,6 +48,8 @@ class Front extends ApplicationController
         }
         else {
             Session::flash('validation_errors', $validator->messages());
+            // Repopulate the form
+            Input::flash();
         }
         return Redirect::to('/');
     }
@@ -108,6 +110,8 @@ class Front extends ApplicationController
         }
         else {
             Session::flash('validation_errors', $validator->messages());
+            // Repopulate the form
+            Input::flash();
         }
         return Redirect::route('inschrijven_specifiek', ['id' => $meal->id]);
     }
@@ -156,20 +160,23 @@ class Front extends ApplicationController
                 Log::info("Aangemeld: uitgebreid|$registration->id|$registration->name");
                 $registrations[] = $registration;
             }
-            // Update user
-            MailerRegistration::send_confirmation($name, $email, $registrations);
 
-            // Determine success text
+            // Send e-mail if needed
+            $text = '';
             if (trim($email)) {
+                // Send e-mail
+                MailerRegistration::send_confirmation($name, $email, $registrations);
+
+                // Change success message
                 $text = 'Aanmelding geslaagd. Je ontvangt een e-mail met alle details.';
             }
-            else {
-                $text = 'Aanmelding geslaagd. ';
-            }
-            Flash::set(Flash::SUCCESS, "<p>$text</p>".Chef::random_video());
+            Flash::set(Flash::SUCCESS, "<p>Aanmelding geslaagd. $text</p>".Chef::random_video());
         }
         else {
             Session::flash('validation_errors', $validator->messages());
+            // Repopulate the form
+            Input::flash();
+
         }
         return Redirect::to('/uitgebreid-inschrijven');
     }

@@ -8,16 +8,16 @@
 <form action="/uitgebreidaanmelden" method="post" accept-charset="utf-8" class="clearfix">
     <p>
         <label for="name" class="label">Naam</label>
-        <input type="text" name="name" id="name"/>
+        <?php echo Form::text('name', Input::old('name')); ?>
         <small>Gebruik je volledige voor- en achternaam. Onduidelijke inschrijvingen worden vernietigd.</small>
     </p>
     <p>
         <label for="email" class="label">E-mail</label>
-        <input type="text" name="email" id="email"/>
+        <?php echo Form::text('email', Input::old('email')); ?>
     </p>
     <p>
         <label for="handicap" class="label">Handicap</label>
-        <input type="text" name="handicap" id="handicap">
+        <?php echo Form::text('handicap', Input::old('handicap')); ?>
         <small>Bijvoorbeeld vegetari&euml;r, geen pinda's, etc..</small>
     </p>
 
@@ -35,7 +35,9 @@
                 <tbody>
                     <?php foreach ($meals as $meal): ?>
                         <tr>
-                            <td class="checkbox"><?php echo Form::checkbox('meals[]', $meal->id); ?></td>
+                            <td class="checkbox">
+                                <?php echo Form::checkbox('meals[]', $meal->id, in_array($meal->id, Input::old('meals', []))); ?>
+                            </td>
                             <td class="date"><?php echo $meal; ?></td>
                             <td class="number"><?php echo $meal->registrations->count(); ?></td>
                         </tr>
