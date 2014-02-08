@@ -11,7 +11,10 @@ return array(
     |
     */
     'email' => [
-        'reply_to' => 'Bestuur De Bolk <bestuur@debolk.nl>',
+        'reply_to' => [
+            'name' => 'Bestuur De Bolk',
+            'email' => 'bestuur@debolk.nl'
+        ],
         'footer' => 'Met vriendelijke groet,<br />Bram van Zwet<br />Commissaris Maaltijden, D.S.V. Nieuwe Delft (De Bolk)',
     ],
 

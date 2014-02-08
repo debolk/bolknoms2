@@ -8,7 +8,7 @@
     <?php foreach ($registrations as $registration): ?>
         <li>
             <?php echo $registration->meal; ?>
-            (<a href="<?php echo Route::url('afmelden',array('id' => $registration->id, 'salt' => $registration->salt), true); ?>">afmelden</a>)
+            (<a href="<?php echo URL::to('/afmelden/{id}/{salt}/', ['id' => $registration->id, 'salt' => $registration->salt]); ?>">afmelden</a>)
         </li>
     <?php endforeach; ?>
 </ul>

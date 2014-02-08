@@ -11,11 +11,12 @@ class MailerRegistration
      */
     public static function send_confirmation($name, $email, $registrations)
     {
-        Mail::send('front/email', ['name' => $name, 'registrations' => $registrations], function($mail){
-            $mail->to("$name <$email>");
-            $mail->from('no-reply@debolk.nl');
+        Mail::send('front/email', ['name' => $name, 'registrations' => $registrations], function($mail) use ($name, $email)
+        {
+            $mail->to($email, $name);
+            $mail->from('no-reply@debolk.nl', 'De Bolk');
             $mail->subject('[deBolk] Aanmelding eettafel');
-            $mail->reply_to(Config::get('app.email.reply_to'));
+            $mail->replyTo(Config::get('app.email.reply_to.email'), Config::get('app.email.reply_to.name'));
         });
     }
 }
