@@ -2,8 +2,6 @@
 
 class Meal extends Eloquent
 {
-    //FIXME not ordered by default on date
-
     /**
      * All attributes that can be mass-assigned
      */
@@ -33,7 +31,7 @@ class Meal extends Eloquent
      */
     public function scopeUpcoming($query)
     {
-        return $query->where('date', '>=', date('Y-m-d'));
+        return $query->where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc');
     }
 
     /**
