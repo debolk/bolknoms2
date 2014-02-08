@@ -56,11 +56,19 @@ class Administratie extends ApplicationController
         $meal = new Meal;
 
         $validator = Validator::make(Input::all(), [
-            'date' => ['required', 'date'], //FIXME validate that the day is after today; and not taken
+            'date' => ['required', 'date', 'unique:meals', 'after:yesterday'],
             'locked' => ['required', 'regex:/^[0-2][0-9]:[0-5][0-9]$/'],
-            'event' => ['alpha'],
             'promoted' => ['in:0,1'],
-        ]);
+        ],[
+            'date.required' => 'Je moet een datum invullen',
+            'date.date' => 'De ingevulde datum is ongeldig',
+            'date.unique' => 'Op de ingevulde datum is al een maaltijd gepland',
+            'date.after' => 'Je kunt geen maaltijden aanmaken in het verleden',
+            'locked.required' => 'Je moet een sluitingstijd van de inschrijving invullen',
+            'locked.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
+            'promoted.in' => 'Je kunt alleen ja of nee kiezen voor promotie',
+        ]
+        );
 
         if ($validator->passes()) {
             // Set data
@@ -143,11 +151,19 @@ class Administratie extends ApplicationController
         }
 
         $validator = Validator::make(Input::all(), [
-            'date' => ['required', 'date'], //FIXME validate that the day is after today; and not taken
+            'date' => ['required', 'date', 'unique:meals,date,'.$id, 'after:yesterday'],
             'locked' => ['required', 'regex:/^[0-2][0-9]:[0-5][0-9]$/'],
-            'event' => ['alpha'],
             'promoted' => ['in:0,1'],
-        ]);
+        ],[
+            'date.required' => 'Je moet een datum invullen',
+            'date.date' => 'De ingevulde datum is ongeldig',
+            'date.unique' => 'Op de ingevulde datum is al een andere maaltijd gepland',
+            'date.after' => 'Je kunt geen maaltijden aanmaken in het verleden',
+            'locked.required' => 'Je moet een sluitingstijd van de inschrijving invullen',
+            'locked.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
+            'promoted.in' => 'Je kunt alleen ja of nee kiezen voor promotie',
+        ]
+        );
 
         if ($validator->passes()) {
             $data = [
