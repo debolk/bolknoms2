@@ -187,7 +187,7 @@ class Administratie extends ApplicationController
         // Create a new registration
         $registration = new Registration([
             'name' => e(Input::get('name')),
-            'handicap' => e(Input::get('handicap'))
+            'handicap' => (Input::get('handicap') != '') ? e(Input::get('handicap')) : null,
         ]);
         $registration->meal_id = $meal->id;
 
