@@ -88,6 +88,8 @@ class Administratie extends ApplicationController
         }
         else {
             Session::flash('validation_errors', $validator->messages());
+            // Repopulate the form
+            Input::flash();
         }
         return Redirect::to('/administratie/nieuwe_maaltijd');
     }
@@ -183,6 +185,8 @@ class Administratie extends ApplicationController
         }
         else {
             Session::flash('validation_errors', $validator->messages());
+            // Repopulate the form
+            Input::flash();
         }
         return Redirect::to('/administratie/bewerk/'.$meal->id);
     }

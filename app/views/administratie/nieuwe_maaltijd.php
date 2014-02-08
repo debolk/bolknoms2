@@ -5,19 +5,19 @@
 <form action="/administratie/nieuwe_maaltijd_maken" method="post" accept-charset="utf-8" class="clearfix">
     <p>
        <label class="label" for="date">Datum</label>
-       <input type="text" name="date" id="date" class="datepicker">
+       <?php echo Form::text('date', Input::old('date'), ['class' => 'datepicker']); ?>
     </p>
     <p>
        <label class="label" for="locked">Inschrijving sluit</label>
-       <input type="text" name="locked" value="15:00">
+       <?php echo Form::text('locked', Input::old('locked', '15:00')); ?>
     </p>
     <p>
       <label for="event" class="label">Evenement</label>
-      <input type="text" name="event">
+       <?php echo Form::text('event', Input::old('event')); ?>
     </p>
     <p>
       <label for="promoted" class="label">Extra promotie</label>
-      <input type="checkbox" name="promoted" value="1">
+      <?php echo Form::checkbox('promoted', true, Input::old('promoted')); ?>
     </p>
     <p>
         <input type="submit" value="Maaltijd toevoegen" />
