@@ -2,8 +2,6 @@
 
 class Registration extends Eloquent
 {
-    //FIXME not auto-ordered on name
-    
     /**
      * All properties that can be mass-assigned
      */
