@@ -47,9 +47,9 @@ class Meal extends Eloquent
     /**
      * Scope: all meals that are promoted
      */
-    public static function scopePromotions()
+    public static function scopePromotions($query)
     {
-        return self::where('promoted', '=', '1')->get();
+        return $query->where('promoted', '=', '1');
     }
 
     /**
