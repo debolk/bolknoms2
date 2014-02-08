@@ -58,7 +58,6 @@ class Meal extends Eloquent
     {
         $output = strftime('%A %d %B %Y', strtotime($this->date));
 
-        //FIXME also do not show when empty? or fix nulls in database
         if ($this->event !== null) {
             $output .= ' ('.$this->event.')';
         }
