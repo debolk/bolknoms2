@@ -198,8 +198,6 @@ class Administratie extends ApplicationController
             App::abort(404, 'Maaltijd niet gevonden');
         }
 
-        //FIXME validate data
-
         // Create a new registration
         $registration = new Registration([
             'name' => e(Input::get('name')),
