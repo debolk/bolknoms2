@@ -4,8 +4,10 @@ class MailerRegistration
 {
     /**
      * Sends a confirmation email for a given set of registrations
+     * @param string $name the name of the registered user
+     * @param string $email the e-mail address to sent the confirmation to
      * @param array(Registration) $registrations
-     * @return void
+     * @return Mail
      */
     public static function send_confirmation($name, $email, $registrations)
     {

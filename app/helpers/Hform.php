@@ -4,7 +4,8 @@ class Hform
 {
     /**
      * Formats errors in a readable way using HTML
-     * @param array
+     * @param array $validation_errors the array with Laravel validation errors
+     * @return string HTML-code for friendly display of errors
      */
     public static function error_messages_for($validation_errors)
     {

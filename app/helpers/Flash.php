@@ -19,8 +19,9 @@ class Flash
 
     /**
      * Sets a flash message
-     * @param string $message
      * @param const $type either warning, error or success
+     * @param string $message
+     * @return void
      */
     public static function set($type, $message)
     {

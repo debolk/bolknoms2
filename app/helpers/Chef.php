@@ -4,7 +4,7 @@ class Chef
 {
     /**
      * Outputs a random youtube-movie of the swedish chef
-     * @return string of HTML
+     * @return string HTML iframe for Youtube movies
      */
     public static function random_video()
     {

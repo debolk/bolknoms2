@@ -4,7 +4,7 @@ class RequestHelper
 {
     /**
      * Outputs CSS-classes of the current route for page detection
-     * @return string
+     * @return string keywords of the URL, separated by spaces
      */
     public static function url_classes()
     {

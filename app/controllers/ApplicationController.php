@@ -2,6 +2,10 @@
 
 class ApplicationController extends Controller
 {
+    /**
+     * Setups the controller, loading data on statistics
+     * @return void
+     */
     public function __construct()
     {
       $this->layout = View::make('layouts/application');
@@ -10,12 +14,20 @@ class ApplicationController extends Controller
       $this->top_eaters();
     }
 
+    /**
+     * Shows upcoming promoted meals
+     * @return View
+     */
     public function promotions()
     {
       //FIXME only show upcoming promotions
       $this->layout->promoted_meals = View::make('layouts/_promotions', ['meals' => Meal::promotions()]);
     }
 
+    /**
+     * Show the list of people who've eaten the most in all time
+     * @return View
+     */
     private function top_eaters()
     {
       $this->layout->top_eaters = View::make('layouts/_top', [
@@ -24,6 +36,10 @@ class ApplicationController extends Controller
       ]);
     }
 
+    /**
+     * Forces a user to authenticate
+     * @return void
+     */
     protected function authenticate()
     {
         // If no password is supplied, force the user to authenticate

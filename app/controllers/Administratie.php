@@ -4,6 +4,7 @@ class Administratie extends ApplicationController
 {
     /**
      * Initializes the controller, forcing all users to authenticate before touching anything
+     * @return void
      */
     public function __construct()
     {
@@ -15,7 +16,7 @@ class Administratie extends ApplicationController
 
     /**
      * List all past and current meals
-     * @return void
+     * @return View
      */
     public function index()
     {
@@ -35,6 +36,10 @@ class Administratie extends ApplicationController
         ]);
     }
 
+    /**
+     * Shows the page for creating a new meal
+     * @return View
+     */
     public function nieuwe_maaltijd()
     {
         $this->layout->content = View::make('administratie/nieuwe_maaltijd', [
@@ -42,6 +47,10 @@ class Administratie extends ApplicationController
         ]);
     }
 
+    /**
+     * Processes the new meal form to create a new meal
+     * @return Redirect
+     */
     public function nieuwe_maaltijd_maken()
     {
         $meal = new Meal;
@@ -77,7 +86,8 @@ class Administratie extends ApplicationController
 
     /**
      * Removes a meal
-     * @return void
+     * @param int $id the id of the meal to remove
+     * @return Redirect
      */
     public function verwijder($id)
     {
@@ -104,12 +114,10 @@ class Administratie extends ApplicationController
         return Redirect::to('/administratie');
     }
 
-    //FIXME Function and method documentation is incorrect in a lot of places
-
     /**
-     * Edits a meal
-     * @throws HTTP_Exception_404
-     * @return void
+     * Shows the form to edit an existing meal
+     * @param int $id the id of the meal to edit
+     * @return View
      */
     public function bewerk($id)
     {
@@ -122,6 +130,11 @@ class Administratie extends ApplicationController
         $this->layout->content = View::make('administratie/bewerk', ['meal' => $meal]);
     }
 
+    /**
+     * Processes the form to edit an existing meal
+     * @param int $id the id of the meal to update
+     * @return Redirect
+     */
     public function update($id)
     {
         $meal = Meal::find($id);
@@ -160,7 +173,7 @@ class Administratie extends ApplicationController
 
     /**
      * Creates a registration
-     * @return void
+     * @return View or a string "error" upon failure
      */
     public function aanmelden()
     {
@@ -187,6 +200,11 @@ class Administratie extends ApplicationController
         }
     }
 
+    /**
+     * Removes a registration from a meal
+     * @param int $id the id of the registration to remove
+     * @return string "success" if succesfull
+     */
     public function afmelden($id)
     {
         // Find registration
@@ -208,7 +226,7 @@ class Administratie extends ApplicationController
     /**
      * Prints an array (json-encoded) of all upcoming dates with meals planned
      * used for the date-picker to hide all dates already filled
-     * @return void
+     * @return string
      */
     public function gevulde_dagen()
     {
@@ -228,6 +246,8 @@ class Administratie extends ApplicationController
     /**
      * Prints a checklist for crossing off visiting users
      * not intended to be viewed, only printed
+     * @param int $id the id of the meal for which registrations are requested
+     * @return View
      */
     public function checklist($id)
     {

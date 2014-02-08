@@ -4,8 +4,15 @@ class Meal extends Eloquent
 {
     //FIXME not ordered by default on date
 
+    /**
+     * All attributes that can be mass-assigned
+     */
     protected $fillable = ['date', 'locked', 'event', 'promoted'];
 
+    /**
+     * Relationship: one meal has many registrations
+     * @return Relations\HasMany
+     */
     public function registrations()
     {
         return $this->hasMany('Registration');
@@ -37,9 +44,12 @@ class Meal extends Eloquent
         return $query->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc');
     }
 
-    //FIXME rewrite as scope
+    /**
+     * Scope: all meals that are promoted
+     */
     public static function promotions()
     {
+        //FIXME rewrite as scope
         return self::where('promoted', '=', '1')->get();
     }
 
@@ -59,7 +69,8 @@ class Meal extends Eloquent
     }
 
     /**
-     * 
+     * Return whether this meal can be subscribed to
+     * @return boolean true if the meal is open for registrations, false if not
      */
     public function open_for_registrations()
     {
@@ -76,6 +87,10 @@ class Meal extends Eloquent
         return ($this->date === strftime('%Y-%m-%d'));
     }
 
+    /**
+     * Returns the formatted deadline of this meal
+     * @return string
+     */
     public function deadline()
     {
         return strftime('%H:%M',strtotime($this->locked)).' uur';
