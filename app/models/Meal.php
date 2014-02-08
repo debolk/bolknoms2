@@ -13,7 +13,7 @@ class Meal extends Eloquent
      */
     public function registrations()
     {
-        return $this->hasMany('Registration');
+        return $this->hasMany('Registration')->orderBy('name');
     }
 
     /**
