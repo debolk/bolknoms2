@@ -72,12 +72,13 @@ class Front extends ApplicationController
     {
         $meal = Meal::find($id);
 
-        //FIXME Extra validation rules are missing
         $validator = Validator::make(Input::all(), [
             'name' => ['required', 'regex:/[A-Za-z -]+/'],
+            'email' => 'email',
             ],[
             'name.required' => 'Je moet je naam invullen',
             'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
+            'email.email' => 'Het ingevulde e-mailadres is niet geldig',
         ]);
 
         if ($validator->passes()) {
@@ -126,12 +127,15 @@ class Front extends ApplicationController
      */
     public function uitgebreidaanmelden()
     {
-        //FIXME extra validations are missing (email, etc)
         $validator = Validator::make(Input::all(), [
             'name' => ['required', 'regex:/[A-Za-z -]+/'],
+            'email' => 'email',
+            'meals' => 'required',
             ],[
             'name.required' => 'Je moet je naam invullen',
             'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
+            'email.email' => 'Het ingevulde e-mailadres is niet geldig',
+            'meals.required' => 'Je moet minstens &eacute;&eacute;n maaltijd aanvinken',
         ]);
 
         if ($validator->passes()) {
