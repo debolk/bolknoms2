@@ -19,7 +19,7 @@ class OAuthFilter
     public function filter($route, $request)
     {
         // Store the URL we attempt to visit
-        Session::put('oauth_goal', $route);
+        Session::put('oauth_goal', $route->getAction());
 
         // Determine whether we're authenticated
         if (Session::has('oauth_access_token')) {
@@ -55,48 +55,51 @@ class OAuthFilter
 
     public function authorize()
     {
-        return 'x';
-        // Get resource
-        // If resource acceptable
-            // redirect to original URL
-        // else
-            // abort 403, user not authorized to access this
+        // Get resource status code
+        $request = curl_init();
+        curl_setopt($request,CURLOPT_URL, $this->config['endpoint'].'ictcom/?access_token='.Session::get('oauth_access_token'));
+        $result = curl_exec($request);
+        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
+        curl_close($request);
+
+        // Continue if the resource is acceptable
+        if ($status === 200) {
+            return;
+        }
+        else {
+            App::abort(403, 'Access denied: you\'re not authorized to access this');
+        }
     }
 
     public function callback()
     {
         // Check state to prevent CSRF
-        if (Input::get('state') !== Session::get('oauth_state')) {
+        if ((string)Input::get('state') !== (string)Session::get('oauth_state')) {
             App::abort(400, 'OAuth state mismatch');
         }
 
-        dd('x');
-
         // Retrieve access code
-        //FIXME Fix
-        // $request = curl_init();
-        // $fields = [
-        //     'grant_type' => 'authorization_code',
-        //     'code' => Input::get('code'),
-        //     'redirect_uri' => $this->config['callback'],
-        //     'client_id' => $this->config['client_id'],
-        //     'client_secret' => $this->config['client_secret'],
-        // ];
-        // curl_setopt($request,CURLOPT_URL, $this->config['endpoint'].'token/');
-        // curl_setopt($request,CURLOPT_POST, count($fields));
-        // curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
-        // var_dump($request);
+        $request = curl_init();
+        $fields = [
+            'grant_type' => 'authorization_code',
+            'code' => Input::get('code'),
+            'redirect_uri' => $this->config['callback'],
+            'client_id' => $this->config['client_id'],
+            'client_secret' => $this->config['client_secret'],
+        ];
+        curl_setopt($request,CURLOPT_URL, $this->config['endpoint'].'token/');
+        curl_setopt($request,CURLOPT_POST, count($fields));
+        curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($request));
 
-        // $result = curl_exec($request);
-
-        // var_dump($result);
-        // curl_close($request);
-        // return '';
-
+        if (! isset($result->access_token)) {
+            App::abort(500, 'Authentication code expired');
+        } 
         // Store access code
-        //FIXME Implement
+        Session::put('oauth_access_token', $result->access_token);
 
         // Redirect to original URL
-        return Redirect::to(Session::get('oauth_goal'));
+        return Redirect::action(Session::get('oauth_goal'));
     }
 }
