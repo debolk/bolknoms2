@@ -3,18 +3,6 @@
 class Administratie extends ApplicationController
 {
     /**
-     * Initializes the controller, forcing all users to authenticate before touching anything
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        // Authenticate users
-        $this->authenticate();
-    }
-
-    /**
      * List all past and current meals
      * @return View
      */

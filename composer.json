@@ -20,7 +20,8 @@
       "app/database/migrations",
       "app/database/seeds",
       "app/helpers",
-      "app/mailers"
+      "app/mailers",
+      "app/filters"
     ]
   },
   "scripts": {
