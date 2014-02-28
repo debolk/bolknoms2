@@ -27,10 +27,9 @@ return array(
     |
     */
     'oauth' => [
-        'endpoint' => 'https://auth.debolk.nl/authorize/',
+        'endpoint' => 'https://auth.debolk.nl/',
         'client_id' => '1234',
         'client_secret' => '1234',
-        'resource' => 'https://auth.debolk.nl/{resource}/',
         'callback' => 'http://bolknoms.dev/',
     ],
 
