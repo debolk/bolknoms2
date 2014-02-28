@@ -20,15 +20,18 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Administration
+    | OAuth authentication
     |--------------------------------------------------------------------------
     |
-    | Use these settings to log in to the administration area.
+    | Configuration for which OAUth Endpoint to use
     |
     */
-    'administration' => [
-        'username' => 'bestuur',
-        'password' => '1234',
+    'oauth' => [
+        'endpoint' => 'https://auth.debolk.nl/authorize/',
+        'client_id' => '1234',
+        'client_secret' => '1234',
+        'resource' => 'https://auth.debolk.nl/{resource}/',
+        'callback' => 'http://bolknoms.dev/',
     ],
 
 	/*

@@ -30,10 +30,8 @@ App::after(function($request, $response)
 | Custom authentication filter for De Bolk OAUth
 |
 */
-
-Route::filter('oauth', 'OAuthFilter');
-// Route::filter('oauth', function(){
-//     return 'access denied!';
-// });
+Route::filter('oauth', 'OAuthFilter@filter');
+Route::filter('oauth_callback', 'OAuthFilter@callback');
 
 Route::when('administratie*', 'oauth');   // Must authenticate before proceeding
+Route::when('oauth', 'oauth_callback');        // Catch the callback to authenticate
