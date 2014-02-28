@@ -32,6 +32,7 @@ class OAuthFilter
 
     /**
      * Redirect a user to the OAuth provider to authenticate
+     * @return Redirect
      */
     private function authenticate()
     {
@@ -53,6 +54,10 @@ class OAuthFilter
         return Redirect::to($url);
     }
 
+    /**
+     * Determine whether a user is authorized to access this system
+     * @return void if succesfull (continues the view building) or App::abort(403) on failure
+     */
     public function authorize()
     {
         // Get resource status code
@@ -71,6 +76,11 @@ class OAuthFilter
         }
     }
 
+    /**
+     * Provides the callback function for the authentication code
+     * retrieves the access code, stores it and redirects to the original URL
+     * @return Redirect
+     */
     public function callback()
     {
         // Check state to prevent CSRF
@@ -93,13 +103,15 @@ class OAuthFilter
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         $result = json_decode(curl_exec($request));
 
+        // Check if the authentication hasn't expired
         if (! isset($result->access_token)) {
             App::abort(500, 'Authentication code expired');
         } 
+
         // Store access code
         Session::put('oauth_access_token', $result->access_token);
 
-        // Redirect to original URL
+        // Redirect to the original URL
         return Redirect::action(Session::get('oauth_goal'));
     }
 }
