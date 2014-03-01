@@ -8,6 +8,6 @@ class RequestHelper
      */
     public static function url_classes()
     {
-        return trim(str_replace('/', ' ', Route::getCurrentRoute()->getPath()));
+        return trim(str_replace('/', ' ', Route::current()->getPath()));
     }
 }
