@@ -65,7 +65,7 @@ class Registration extends Eloquent
         $query = DB::table('registrations');
         $query->select(DB::raw('name, COUNT(name) as count'));
         $query->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id');
-        $query->where('meals.date', '<=', 'NOW()');
+        $query->where('meals.date', '<=', DB::raw('NOW()'));
         $query->groupBy('name');
         $query->orderBy('count', 'desc');
         $query->take($count);
