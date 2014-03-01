@@ -50,7 +50,17 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 
 App::error(function(Exception $exception, $code)
 {
+    // Log the error
 	Log::error($exception);
+
+    // Send an e-mail to to the technical admin
+    MailerBug::send_bug_notification($code, $exception->getMessage());
+
+    // Show a friendly error page
+    return Response::view('error/index', [
+        'code'    => $code,
+        'message' => $exception->getMessage(),
+    ], $code);
 });
 
 /*

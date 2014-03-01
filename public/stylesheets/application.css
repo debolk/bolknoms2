@@ -322,3 +322,12 @@ h1.error {
     height: 50px;
   }
 }
+
+body.error h1 {
+    color: red;
+}
+
+body.error .error_message {
+    font-style: italic;
+    color: darkgray;
+}

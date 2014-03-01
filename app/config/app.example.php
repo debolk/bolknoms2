@@ -16,6 +16,7 @@ return array(
             'email' => 'bestuur@debolk.nl'
         ],
         'footer' => 'Met vriendelijke groet,<br />Bram van Zwet<br />Commissaris Maaltijden, D.S.V. Nieuwe Delft (De Bolk)',
+        'admin' => 'ictcom@nieuwedelft.nl',
     ],
 
     /*
