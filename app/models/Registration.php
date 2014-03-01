@@ -3,6 +3,11 @@
 class Registration extends Eloquent
 {
     /**
+     * This model isn't removed from the dabase upon deletion
+     */
+    protected $softDelete = true;
+
+    /**
      * All properties that can be mass-assigned
      */
     protected $fillable = ['name', 'email', 'handicap'];
@@ -66,6 +71,7 @@ class Registration extends Eloquent
         $query->select(DB::raw('name, COUNT(name) as count'));
         $query->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id');
         $query->where('meals.date', '<=', DB::raw('NOW()'));
+        $query->whereRaw('registrations.deleted_at IS NULL');
         $query->groupBy('name');
         $query->orderBy('count', 'desc');
         $query->take($count);

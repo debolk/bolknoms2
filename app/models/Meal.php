@@ -3,6 +3,11 @@
 class Meal extends Eloquent
 {
     /**
+     * This model isn't removed from the dabase upon deletion
+     */
+    protected $softDelete = true;
+    
+    /**
      * All attributes that can be mass-assigned
      */
     protected $fillable = ['date', 'locked', 'event', 'promoted'];
