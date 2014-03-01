@@ -18,7 +18,7 @@ $(document).ready(function() {
     }
 
     // Set the total amount of meals in the administration interface
-    $('body.administratie.index select#count').change(function(){
+    $('body.administratie select#count').change(function(){
       $(this).parents('form').submit();
     });
 
