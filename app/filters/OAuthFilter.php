@@ -19,7 +19,7 @@ class OAuthFilter
     public function filter($route, $request)
     {
         // Store the URL we attempt to visit
-        Session::put('oauth_goal', $route->getAction());
+        Session::put('oauth_goal', $route->getActionName());
 
         // Determine whether we're authenticated
         if (Session::has('oauth_access_token')) {
