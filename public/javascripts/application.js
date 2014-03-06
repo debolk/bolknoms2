@@ -22,12 +22,12 @@ $(document).ready(function() {
       $(this).parents('form').submit();
     });
 
-    $('.confirmation-needed').live("click",confirm_intent);
+    $(document).on('click', '.confirmation-needed', confirm_intent);
 
-    $('.destroy-registration').live("click",remove_registration);
+    $(document).on('click', '.destroy-registration', remove_registration);
 
-    $('.new_registration input[type="submit"]').live('click',add_registration);
-    $('.new_registration input[type="text"]').live('keyup',add_registration_if_enter);
+    $(document).on('click', '.new_registration input[type="submit"]', add_registration);
+    $(document).on('keyup', '.new_registration input[type="text"]', add_registration_if_enter);
     
     $('input[name="all-meals"]').change(select_all_meals);
     
