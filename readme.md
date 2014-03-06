@@ -3,7 +3,7 @@
 The very best application in the world for feeding your members in an organized and predictable way.
 
 ## Requirements
-Bolknoms runs on the Laravel-framework and a SQL-compatible database. Bolknoms has been developed and tested using nginx and MySQl, but you're free to make your own choices. The minumum requirements are:
+Bolknoms runs on the Laravel-framework and a SQL-compatible database. Bolknoms has been developed and tested using nginx and MySQl, but you're free to make your own choices. The minimum requirements are:
 
 * PHP >= 5.3.7
 * PHP mcrypt extension
@@ -22,9 +22,6 @@ Bolknoms runs on the Laravel-framework and a SQL-compatible database. Bolknoms h
 
 ## Usage
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
-
-### Maintenance mode
-You can put the application in maintenance mode by copying public/maintenance.example.html to public/maintenance.html. Please note that this is only a simple HTML-page and that the application will be accessible to anyone who knows the URLs.
 
 ## Architecture
 Bolknoms is built using [laravel 4](http://laravel.com/).
