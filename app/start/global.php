@@ -46,19 +46,21 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
+// Generic error handler logs the stack trace
 App::error(function(Exception $exception, $code)
 {
-    // Log the error
-	Log::error($exception);
+    // Log relevant data
+    $log = "$code at " . Request::url();
+    if ($code >= 500) {
+        $log .= ". Stack trace:\n$exception";
+    }
+    Log::error($log);
 
-    // Send an e-mail to to the technical admin
-    MailerBug::send_bug_notification($code, $exception->getMessage());
+    // Send notification to the technical administrator
+    MailerBug::send_bug_notification($log);
 
     // Show a friendly error page
-    return Response::view('error/index', [
-        'code'    => $code,
-        'message' => $exception->getMessage(),
-    ], $code);
+    return Response::view('error/index', ['code' => $code], $code);
 });
 
 /*

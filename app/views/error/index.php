@@ -22,7 +22,7 @@
                     Er is iets fout gegaan. Onze excuses voor het ongemak. Je kunt het nog een keer proberen. <strong>Het probleem is automatisch gemeld bij de ICTcom.</strong> Als je dat wilt, kun je zelf contact opnemen via <a href="mailto:ictcom@nieuwedelft.nl">ictcom@nieuwedelft.nl</a>.
                 </p>
                 <p class="error_message">
-                    <?php echo $code; ?> - <?php echo $message; ?>
+                    <?php echo $code; ?>
                 </p>
             </div>
         </div>
