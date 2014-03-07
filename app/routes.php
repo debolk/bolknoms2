@@ -7,7 +7,7 @@ Route::post('/aanmelden/{id}', ['as' => 'aanmelden_specifiek', 'uses' => 'Front@
 Route::get('/uitgebreid-inschrijven', 'Front@uitgebreidinschrijven');
 Route::post('/uitgebreidaanmelden', 'Front@uitgebreidaanmelden');
 Route::post('/aanmelden', 'Front@aanmelden');
-Route::get('/afmelden/{id}/{salt}', 'Front@afmelden');
+Route::get('/afmelden/{id}/{salt}', ['as' => 'afmelden', 'uses' => 'Front@afmelden');
 Route::get('/disclaimer', 'Front@disclaimer');
 Route::get('/privacy', 'Front@privacy');
 Route::get('/', 'Front@index');

@@ -8,7 +8,7 @@
     <?php foreach ($registrations as $registration): ?>
         <li>
             <?php echo $registration->meal; ?>
-            (<a href="<?php echo URL::to('/afmelden/{id}/{salt}/', ['id' => $registration->id, 'salt' => $registration->salt]); ?>">afmelden</a>)
+            (<?php echo link_to_route('afmelden', 'afmelden', ['id' => $registration->id, 'salt' => $registration->salt]); ?>)
         </li>
     <?php endforeach; ?>
 </ul>
