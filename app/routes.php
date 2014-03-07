@@ -7,10 +7,12 @@ Route::post('/aanmelden/{id}', ['as' => 'aanmelden_specifiek', 'uses' => 'Front@
 Route::get('/uitgebreid-inschrijven', 'Front@uitgebreidinschrijven');
 Route::post('/uitgebreidaanmelden', 'Front@uitgebreidaanmelden');
 Route::post('/aanmelden', 'Front@aanmelden');
-Route::get('/afmelden/{id}/{salt}', 'Front@afmelden');
 Route::get('/disclaimer', 'Front@disclaimer');
 Route::get('/privacy', 'Front@privacy');
 Route::get('/', 'Front@index');
+
+// Deregister from a meal
+Route::get('/afmelden/{id}/{salt}', 'DeregisterController@afmelden');
 
 // Creating and editing meals
 Route::get('/administratie/nieuwe_maaltijd', 'MealController@new_meal');
