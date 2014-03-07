@@ -12,15 +12,17 @@ Route::get('/disclaimer', 'Front@disclaimer');
 Route::get('/privacy', 'Front@privacy');
 Route::get('/', 'Front@index');
 
+// Creating and editing meals
+Route::get('/administratie/nieuwe_maaltijd', 'MealController@new_meal');
+Route::post('/administratie/nieuwe_maaltijd_maken', 'MealController@create');
+Route::get('/administratie/bewerk/{id}', 'MealController@edit');
+Route::post('/administratie/update/{id}', ['as' => 'update_meal', 'uses' => 'MealController@update']);
+Route::get('/administratie/gevulde_dagen', 'MealController@gevulde_dagen');
+
 // Administration routes
 Route::get('/administratie', 'Administratie@index');
-Route::get('/administratie/nieuwe_maaltijd', 'Administratie@nieuwe_maaltijd');
-Route::post('/administratie/nieuwe_maaltijd_maken', 'Administratie@nieuwe_maaltijd_maken');
 Route::get('/administratie/verwijder/{id}', 'Administratie@verwijder');
-Route::get('/administratie/gevulde_dagen', 'Administratie@gevulde_dagen');
 Route::get('/administratie/checklist/{id}', 'Administratie@checklist');
-Route::get('/administratie/bewerk/{id}', 'Administratie@bewerk');
-Route::post('/administratie/update/{id}', ['as' => 'update_meal', 'uses' => 'Administratie@update']);
 Route::post('/administratie/aanmelden', 'Administratie@aanmelden');
 Route::post('/administratie/afmelden/{id}', 'Administratie@afmelden');
 
