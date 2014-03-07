@@ -11,7 +11,7 @@
     <?php if ($meal->open_for_registrations()): ?>
         <p>
             <label for="name" class="label">Naam</label>
-            <?php echo Form::text('name', Input::old('name')); ?>
+            <?php echo Form::text('name', Input::old('name'), ['maxlength' => 30]); ?>
             <small>Gebruik je volledige voor- en achternaam. Onduidelijke inschrijvingen worden vernietigd.</small>
         </p>
         <p>

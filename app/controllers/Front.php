@@ -20,10 +20,11 @@ class Front extends ApplicationController
         $meal = Meal::available()->first();
 
         $validator = Validator::make(Input::all(), [
-            'name' => ['required', 'regex:/[A-Za-z -]+/'],
+            'name' => ['required', 'regex:/[A-Za-z -]+/', 'between:2,30'],
         ],[
             'name.required' => 'Je moet je naam invullen',
             'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
+            'between' => 'Je naam moet minimaal twee en maximaal 30 tekens bevatten',
         ]);
 
         if ($validator->passes()) {
@@ -75,11 +76,12 @@ class Front extends ApplicationController
         $meal = Meal::find($id);
 
         $validator = Validator::make(Input::all(), [
-            'name' => ['required', 'regex:/[A-Za-z -]+/'],
+            'name' => ['required', 'regex:/[A-Za-z -]+/', 'between:2,30'],
             'email' => 'email',
             ],[
             'name.required' => 'Je moet je naam invullen',
             'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
+            'between' => 'Je naam moet minimaal twee en maximaal 30 tekens bevatten',
             'email.email' => 'Het ingevulde e-mailadres is niet geldig',
         ]);
 
@@ -132,12 +134,13 @@ class Front extends ApplicationController
     public function uitgebreidaanmelden()
     {
         $validator = Validator::make(Input::all(), [
-            'name' => ['required', 'regex:/[A-Za-z -]+/'],
+            'name' => ['required', 'regex:/[A-Za-z -]+/', 'between:2,30'],
             'email' => 'email',
             'meals' => 'required',
             ],[
             'name.required' => 'Je moet je naam invullen',
             'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
+            'between' => 'Je naam moet minimaal twee en maximaal 30 tekens bevatten',
             'email.email' => 'Het ingevulde e-mailadres is niet geldig',
             'meals.required' => 'Je moet minstens &eacute;&eacute;n maaltijd aanvinken',
         ]);
