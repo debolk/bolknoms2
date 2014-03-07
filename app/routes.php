@@ -19,12 +19,14 @@ Route::get('/administratie/bewerk/{id}', 'MealController@edit');
 Route::post('/administratie/update/{id}', ['as' => 'update_meal', 'uses' => 'MealController@update']);
 Route::get('/administratie/gevulde_dagen', 'MealController@gevulde_dagen');
 
-// Administration routes
-Route::get('/administratie', 'Administratie@index');
-Route::get('/administratie/verwijder/{id}', 'Administratie@verwijder');
-Route::get('/administratie/checklist/{id}', 'Administratie@checklist');
-Route::post('/administratie/aanmelden', 'Administratie@aanmelden');
-Route::post('/administratie/afmelden/{id}', 'Administratie@afmelden');
+// Printing checklist
+Route::get('/administratie/checklist/{id}', 'PrintController@checklist');
+
+// Administration dashboard
+Route::get('/administratie', 'DashboardController@index');
+Route::get('/administratie/verwijder/{id}', 'DashboardController@verwijder');
+Route::post('/administratie/aanmelden', 'DashboardController@aanmelden');
+Route::post('/administratie/afmelden/{id}', 'DashboardController@afmelden');
 
 // OAuth callback
 Route::get('/oauth', ''); // Does nothing, handled in filter

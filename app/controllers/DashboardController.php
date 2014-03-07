@@ -1,6 +1,6 @@
 <?php
 
-class Administratie extends ApplicationController
+class DashboardController extends ApplicationController
 {
     /**
      * List all past and current meals
@@ -102,21 +102,5 @@ class Administratie extends ApplicationController
         $registration->delete();
         Log::info("Afgemeld: administratie|$id|$name|$meal");
         return 'success';
-    }
-    
-    /**
-     * Prints a checklist for crossing off visiting users
-     * not intended to be viewed, only printed
-     * @param int $id the id of the meal for which registrations are requested
-     * @return View
-     */
-    public function checklist($id)
-    {
-        $meal = Meal::find($id);
-        if (!$meal) {
-            App::abort(404, 'Maaltijd niet gevonden');
-        }
-
-        return View::make('administratie/checklist',['meal' => $meal]);
     }
 }
