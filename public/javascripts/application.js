@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 function select_all_meals()
 {
-    $('input[type="checkbox"]').attr('checked',($(this).attr('checked')=='checked'));
+    $('input[name="meals[]"]').prop('checked',$(this).prop('checked'));
 }
 
 /**
