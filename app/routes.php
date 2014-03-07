@@ -10,7 +10,7 @@ Route::post('/aanmelden', 'RegisterController@aanmelden');
 Route::get('/', 'RegisterController@index');
 
 // Deregister from a meal
-Route::get('/afmelden/{id}/{salt}', ['as' => 'afmelden', 'uses' =>'DeregisterController@afmelden');
+Route::get('/afmelden/{id}/{salt}', ['as' => 'afmelden', 'uses' =>'DeregisterController@afmelden']);
 
 // Creating and editing meals
 Route::get('/administratie/nieuwe_maaltijd', 'MealController@new_meal');
