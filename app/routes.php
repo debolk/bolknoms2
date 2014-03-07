@@ -1,13 +1,13 @@
 <?php
 
-// Front-end routes
-Route::get('/inschrijven', 'Front@index');
-Route::get('/inschrijven/{id}', ['as' => 'inschrijven_specifiek', 'uses' => 'Front@inschrijven_specifiek']);
-Route::post('/aanmelden/{id}', ['as' => 'aanmelden_specifiek', 'uses' => 'Front@aanmelden_specifiek']);
-Route::get('/uitgebreid-inschrijven', 'Front@uitgebreidinschrijven');
-Route::post('/uitgebreidaanmelden', 'Front@uitgebreidaanmelden');
-Route::post('/aanmelden', 'Front@aanmelden');
-Route::get('/', 'Front@index');
+// RegisterController-end routes
+Route::get('/inschrijven', 'RegisterController@index');
+Route::get('/inschrijven/{id}', ['as' => 'inschrijven_specifiek', 'uses' => 'RegisterController@inschrijven_specifiek']);
+Route::post('/aanmelden/{id}', ['as' => 'aanmelden_specifiek', 'uses' => 'RegisterController@aanmelden_specifiek']);
+Route::get('/uitgebreid-inschrijven', 'RegisterController@uitgebreidinschrijven');
+Route::post('/uitgebreidaanmelden', 'RegisterController@uitgebreidaanmelden');
+Route::post('/aanmelden', 'RegisterController@aanmelden');
+Route::get('/', 'RegisterController@index');
 
 // Deregister from a meal
 Route::get('/afmelden/{id}/{salt}', 'DeregisterController@afmelden');

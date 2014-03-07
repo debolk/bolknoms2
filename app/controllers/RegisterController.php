@@ -1,6 +1,6 @@
 <?php
 
-class Front extends ApplicationController
+class RegisterController extends ApplicationController
 {
     /**
       * Show the index that allows users to quickly register for the upcoming meal
