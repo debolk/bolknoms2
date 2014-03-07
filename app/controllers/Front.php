@@ -183,22 +183,4 @@ class Front extends ApplicationController
         }
         return Redirect::to('/uitgebreid-inschrijven');
     }
-
-    /**
-     * Displays the disclaimer page
-     * @return View
-     */
-    public function disclaimer()
-    {
-        $this->layout->content = View::make('front/disclaimer');
-    }
-
-    /**
-     * Displays the privacy statement
-     * @return View
-     */
-    public function privacy()
-    {
-        $this->layout->content = View::make('front/privacy');
-    }
 }

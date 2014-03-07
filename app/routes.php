@@ -7,8 +7,6 @@ Route::post('/aanmelden/{id}', ['as' => 'aanmelden_specifiek', 'uses' => 'Front@
 Route::get('/uitgebreid-inschrijven', 'Front@uitgebreidinschrijven');
 Route::post('/uitgebreidaanmelden', 'Front@uitgebreidaanmelden');
 Route::post('/aanmelden', 'Front@aanmelden');
-Route::get('/disclaimer', 'Front@disclaimer');
-Route::get('/privacy', 'Front@privacy');
 Route::get('/', 'Front@index');
 
 // Deregister from a meal
@@ -29,6 +27,10 @@ Route::get('/administratie', 'DashboardController@index');
 Route::get('/administratie/verwijder/{id}', 'DashboardController@verwijder');
 Route::post('/administratie/aanmelden', 'DashboardController@aanmelden');
 Route::post('/administratie/afmelden/{id}', 'DashboardController@afmelden');
+
+// Information pages
+Route::get('/disclaimer', 'PageController@disclaimer');
+Route::get('/privacy', 'PageController@privacy');
 
 // OAuth callback
 Route::get('/oauth', ''); // Does nothing, handled in filter
