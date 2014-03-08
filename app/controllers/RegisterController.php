@@ -8,6 +8,7 @@ class RegisterController extends ApplicationController
       */ 
     public function index()
     {
+        xxx
         $this->layout->content = View::make('front/index', ['upcoming_meal' => Meal::available()->first()]);
     }
 

@@ -56,11 +56,17 @@ App::error(function(Exception $exception, $code)
     }
     Log::error($log);
 
-    // Send notification to the technical administrator
-    MailerBug::send_bug_notification($log);
+    // Send notification to the technical administrator, except for 404 errors
+    if ($code == 404) {
+        $reported_automatically = false;
+    }
+    else {
+        MailerBug::send_bug_notification($log);
+        $reported_automatically = true;
+    }
 
     // Show a friendly error page
-    return Response::view('error/index', ['code' => $code], $code);
+    return Response::view('error/index', ['code' => $code, 'reported_automatically' => $reported_automatically], $code);
 });
 
 /*
