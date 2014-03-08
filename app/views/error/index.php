@@ -34,6 +34,6 @@
                 </p>
             </div>
         </div>
-        <?php echo View::make('layouts/_google_analytics'); ?>
+        <?php echo View::make('application/_google_analytics'); ?>
     </body>
 </html>

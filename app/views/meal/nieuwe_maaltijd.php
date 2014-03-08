@@ -24,4 +24,4 @@
     </p>
 </form>
 
-<?php echo View::make('layouts/_navigation'); ?>
+<?php echo View::make('application/_navigation'); ?>

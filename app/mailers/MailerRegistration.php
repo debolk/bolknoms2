@@ -11,7 +11,7 @@ class MailerRegistration
      */
     public static function send_confirmation($name, $email, $registrations)
     {
-        Mail::send('front/email', ['name' => $name, 'registrations' => $registrations], function($mail) use ($name, $email)
+        Mail::send('register/email', ['name' => $name, 'registrations' => $registrations], function($mail) use ($name, $email)
         {
             $mail->to($email, $name);
             $mail->from('no-reply@debolk.nl', 'De Bolk');

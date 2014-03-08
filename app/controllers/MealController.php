@@ -8,7 +8,7 @@ class MealController extends ApplicationController
      */
     public function new_meal()
     {
-        $this->layout->content = View::make('administratie/nieuwe_maaltijd', [
+        $this->layout->content = View::make('meal/nieuwe_maaltijd', [
             'meal' => new Meal,
         ]);
     }
@@ -73,7 +73,7 @@ class MealController extends ApplicationController
             App::abort(404, "Maaltijd niet gevonden");
         }
 
-        $this->layout->content = View::make('administratie/bewerk', ['meal' => $meal]);
+        $this->layout->content = View::make('meal/bewerk', ['meal' => $meal]);
     }
 
     /**

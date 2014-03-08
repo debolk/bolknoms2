@@ -8,7 +8,7 @@ class RegisterController extends ApplicationController
       */ 
     public function index()
     {
-        $this->layout->content = View::make('front/index', ['upcoming_meal' => Meal::available()->first()]);
+        $this->layout->content = View::make('register/index', ['upcoming_meal' => Meal::available()->first()]);
     }
 
     /**
@@ -63,7 +63,7 @@ class RegisterController extends ApplicationController
     public function inschrijven_specifiek($id)
     {
         $meal = Meal::find($id);
-        $this->layout->content = View::make('front/inschrijven_specifiek', ['meal' => $meal]);
+        $this->layout->content = View::make('register/inschrijven_specifiek', ['meal' => $meal]);
     }
 
     /**
@@ -124,7 +124,7 @@ class RegisterController extends ApplicationController
      */
     public function uitgebreidinschrijven()
     {
-        $this->layout->content = View::make('front/uitgebreidinschrijven', ['meals' => Meal::available()->get()]);
+        $this->layout->content = View::make('register/uitgebreidinschrijven', ['meals' => Meal::available()->get()]);
     }
   
     /**

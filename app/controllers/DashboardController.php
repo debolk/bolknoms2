@@ -18,7 +18,7 @@ class DashboardController extends ApplicationController
           $upcoming_meals->take($count);
           $previous_meals->take($count);
         }
-        $this->layout->content = View::make('administratie/index', [
+        $this->layout->content = View::make('dashboard/index', [
             'upcoming_meals' => $upcoming_meals->get(),
             'previous_meals' => $previous_meals->get(),
         ]);
@@ -74,7 +74,7 @@ class DashboardController extends ApplicationController
 
         if ($registration->save()) {
             Log::info("Aangemeld: administratie|$registration->id|$registration->name");
-            return View::make('administratie/_meal', ['meal' => $meal]);
+            return View::make('dashboard/_meal', ['meal' => $meal]);
         }
         else {
             return 'error';

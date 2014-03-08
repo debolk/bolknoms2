@@ -18,9 +18,9 @@
 </form>
 
 <h2>Komende maaltijden</h2>
-<?php echo View::make('administratie/_meals',array('meals' => $upcoming_meals)); ?>
+<?php echo View::make('dashboard/_meals',array('meals' => $upcoming_meals)); ?>
 
 <h2>Afgelopen maaltijden</h2>
-<?php echo View::make('administratie/_meals',array('meals' => $previous_meals)); ?>
+<?php echo View::make('dashboard/_meals',array('meals' => $previous_meals)); ?>
 
-<?php echo View::make('layouts/_navigation'); ?>
+<?php echo View::make('application/_navigation'); ?>

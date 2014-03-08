@@ -10,7 +10,7 @@
             <th>&nbsp;</th>
         </tr></thead>
         <?php foreach ($meals as $meal): ?>
-            <?php echo View::make('administratie/_meal',array('meal' => $meal)); ?>
+            <?php echo View::make('dashboard/_meal',array('meal' => $meal)); ?>
         <?php endforeach; ?>
     </table>
 <?php else: ?>

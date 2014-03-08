@@ -30,4 +30,4 @@
 <h2>Aanpassen privacy statement</h2>
 <p>Wij behouden ons het recht voor deze privacy statement aan te passen. Wijzigingen zullen op deze website worden gepubliceerd.</p>
 
-<?php echo View::make('layouts/_navigation'); ?>
+<?php echo View::make('application/_navigation'); ?>

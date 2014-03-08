@@ -15,6 +15,6 @@ class PrintController extends ApplicationController
             App::abort(404, 'Maaltijd niet gevonden');
         }
 
-        return View::make('administratie/checklist',['meal' => $meal]);
+        return View::make('print/checklist',['meal' => $meal]);
     }
 }

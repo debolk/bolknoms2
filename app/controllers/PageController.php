@@ -8,7 +8,7 @@ class PageController extends ApplicationController
      */
     public function disclaimer()
     {
-        $this->layout->content = View::make('front/disclaimer');
+        $this->layout->content = View::make('page/disclaimer');
     }
 
     /**
@@ -17,6 +17,6 @@ class PageController extends ApplicationController
      */
     public function privacy()
     {
-        $this->layout->content = View::make('front/privacy');
+        $this->layout->content = View::make('page/privacy');
     }
 }

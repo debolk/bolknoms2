@@ -1,4 +1,4 @@
-<?php echo View::make('front/_introductie'); ?>
+<?php echo View::make('register/_introductie'); ?>
 
 <h2>Snel aanmelden</h2>
 <?php echo Flash::display_messages(); ?>
@@ -35,7 +35,7 @@
     </p>
 <?php endif; ?>
 
-<?php echo View::make('front/_spelregels'); ?>
+<?php echo View::make('register/_spelregels'); ?>
 
 <h2>Nog sneller aanmelden</h2>
 <p>
@@ -43,4 +43,4 @@
     <a href="https://chrome.google.com/webstore/detail/cpofokaclgokgfcalaiodpkjkhafahfe/">bolknoms-app</a>!
 </p>
 
-<?php echo View::make('layouts/_navigation'); ?>
+<?php echo View::make('application/_navigation'); ?>
