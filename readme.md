@@ -30,4 +30,4 @@ Bolknoms is built using [laravel 4](http://laravel.com/).
 The project follows the [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html). Please adhere to the (very basic) standards set. Any new work must be branched of in a feature branch. These branches are prefixed with "feature-", for example "feature-moreswedishchef". Preferrably no underscores.
 
 ## License
-Copyright 2012-2014 [Jakob Buis](http://www.jakobbuis.com). Distributed under the [GNU Lesser General Public License, version 3.0](http://opensource.org/licenses/lgpl-3.0.html).
+Copyright 2012-2014 [Jakob Buis](http://www.jakobbuis.com). Distributed under the [GNU Affero General Public License, version 3.0](http://opensource.org/licenses/AGPL-3.0). See `LICENSE` for the complete license. 
