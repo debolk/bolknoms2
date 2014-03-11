@@ -26,8 +26,11 @@ class Meal extends Eloquent
      */
     public function scopeAvailable($query)
     {
-        return $query->where('date', '>', date('Y-m-d'))->orWhere(function($q){
-            $q->where('date', '=', date('Y-m-d'))->where('locked', '>=', strftime('%H:%I'));
+        return $query->where(function($q){
+            $q->where('date', '>', date('Y-m-d'));
+            $q->orWhere(function($q){
+                $q->where('date', '=', date('Y-m-d'))->where('locked', '>=', strftime('%H:%I'));
+            });
         })->orderBy('date');
     }
 
