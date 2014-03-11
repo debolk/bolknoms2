@@ -40,7 +40,7 @@ class MealController extends ApplicationController
             // Set data
             $meal->date = e(Input::get('date'));
             $meal->locked = e(Input::get('locked', '15:00'));
-            $meal->event = (Input::get('event')) ? (e(Input::get('event'))) : null;
+            $meal->event = e(Input::get('event', null));
             $meal->promoted = Input::get('promoted', false);
 
             if ($meal->save()) {

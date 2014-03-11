@@ -66,7 +66,7 @@ class Meal extends Eloquent
     {
         $output = strftime('%A %d %B %Y', strtotime($this->date));
 
-        if ($this->event !== null) {
+        if (! empty($this->event)) {
             $output .= ' ('.$this->event.')';
         }
         return $output;
