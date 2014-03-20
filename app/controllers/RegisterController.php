@@ -62,7 +62,13 @@ class RegisterController extends ApplicationController
      */
     public function inschrijven_specifiek($id)
     {
+        // Find the meal
         $meal = Meal::find($id);
+        if (!$meal) {
+            App::abort(404, "Meal not found");
+        }
+
+        // Show the form
         $this->layout->content = View::make('register/inschrijven_specifiek', ['meal' => $meal]);
     }
 
@@ -73,7 +79,11 @@ class RegisterController extends ApplicationController
      */
     public function aanmelden_specifiek($id)
     {
+        // Find the meal
         $meal = Meal::find($id);
+        if (!$meal) {
+            App::abort(404, "Meal not found");
+        }
 
         $validator = Validator::make(Input::all(), [
             'name' => ['required', 'regex:/[A-Za-z -]+/', 'between:2,30'],
