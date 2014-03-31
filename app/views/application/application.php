@@ -6,6 +6,7 @@
 
         <link rel="stylesheet" href="/stylesheets/jquery-ui.css" type="text/css"/>
         <link rel="stylesheet" href="/stylesheets/application.css" type="text/css"/>
+        <link rel="stylesheet" href="/stylesheets/april.css" type="text/css"/>
 
         <script type="text/javascript" src="/javascripts/jquery.js"></script>
         <script type="text/javascript" src="/javascripts/jquery-ui.js"></script>
