@@ -204,7 +204,7 @@ function localstorage_supported()
 
 function on_front()
 {
-    return $('body').hasClass('front');
+    return !$('body').hasClass('administratie');
 }
 
 function save_form_value()
