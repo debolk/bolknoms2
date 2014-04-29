@@ -56,8 +56,8 @@ App::error(function(Exception $exception, $code)
     }
     Log::error($log);
 
-    // Send notification to the technical administrator, except for 404 errors
-    if ($code == 404) {
+    // Send notification to the technical administrator, except for common errors we don't want to see
+    if (in_array($code, [403, 404])) {
         $reported_automatically = false;
     }
     else {
