@@ -12,11 +12,11 @@ return array(
     */
     'email' => [
         'reply_to' => [
-            'name' => 'Bestuur De Bolk',
-            'email' => 'bestuur@debolk.nl'
+            'name' => getenv('EMAIL_REPLYTO_NAME'),
+            'email' => getenv('EMAIL_REPLYTO_EMAIL'),
         ],
-        'footer' => 'Met vriendelijke groet,<br />Bram van Zwet<br />Commissaris Maaltijden, D.S.V. Nieuwe Delft (De Bolk)',
-        'admin' => 'ictcom@nieuwedelft.nl',
+        'footer' => getenv('EMAIL_FOOTER'),
+        'admin' => getenv('EMAIL_ADMIN'),
     ],
 
     /*
@@ -28,10 +28,10 @@ return array(
     |
     */
     'oauth' => [
-        'endpoint' => 'https://auth.debolk.nl/',
-        'client_id' => '1234',
-        'client_secret' => '1234',
-        'callback' => 'http://bolknoms.dev/',
+        'endpoint' => getenv('OAUTH_ENDPOINT'),
+        'client_id' => getenv('OAUTH_CLIENT_ID'),
+        'client_secret' => getenv('OAUTH_CLIENT_SECRET'),
+        'callback' => getenv('OAUTH_CLIENT_CALLBACK'),
     ],
 
 	/*
@@ -45,7 +45,7 @@ return array(
 	|
 	*/
 
-	'key' => 'somethinglongandrandomgoeshere',
+	'key' => getenv('SECURITY_KEY'),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +58,7 @@ return array(
     |
     */
 
-    'debug' => true,
+    'debug' => (getenv('DEBUG') === 'true'),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ return array(
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => getenv('APPLICATION_URL'),
 
     /* --- No configuration usually needed below this point ---------------- */
 
@@ -87,7 +87,7 @@ return array(
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Amsterdam',
 
     /*
     |--------------------------------------------------------------------------
