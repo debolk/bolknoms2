@@ -5,5 +5,4 @@ composer.phar
 Thumbs.db
 public/.htaccess
 app/config/app.php
-app/config/database.php
 .fuse*
