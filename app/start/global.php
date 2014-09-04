@@ -49,6 +49,11 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 // Generic error handler logs the stack trace
 App::error(function(Exception $exception, $code)
 {
+    // Do not handle errors in debug mode
+    if (Config::get('app.debug')) {
+        return;
+    }
+
     // Log relevant data
     $log = "$code at " . Request::url();
     if ($code >= 500) {
