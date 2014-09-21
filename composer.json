@@ -10,7 +10,6 @@
     }
   ],
   "require": {
-    "php": "~5.5.16",
     "laravel/framework": "4.1.*",
     "sendgrid/sendgrid": "2.0.5"
   },
