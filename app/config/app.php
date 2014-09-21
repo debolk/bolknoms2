@@ -31,7 +31,7 @@ return array(
         'endpoint' => getenv('OAUTH_ENDPOINT'),
         'client_id' => getenv('OAUTH_CLIENT_ID'),
         'client_secret' => getenv('OAUTH_CLIENT_SECRET'),
-        'callback' => getenv('OAUTH_CLIENT_CALLBACK'),
+        'callback' => getenv('OAUTH_CALLBACK'),
     ],
 
 	/*
