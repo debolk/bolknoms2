@@ -63,7 +63,7 @@ class OAuthFilter
         // Get resource status code
         $request = curl_init();
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request,CURLOPT_URL, $this->config['endpoint'].'ictcom/?access_token='.Session::get('oauth_access_token'));
+        curl_setopt($request,CURLOPT_URL, $this->config['endpoint'].'bestuur/?access_token='.Session::get('oauth_access_token'));
         $result = curl_exec($request);
         $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);
