@@ -6,7 +6,6 @@
         Administratie
     </a><br>
     <a href="/disclaimer">Disclaimer</a> |
-    <a href="/privacy">Privacy</a> |
-    <a href="/top-eters">Top eters</a> |
+    <a href="/privacy">Privacy</a> | 
     <a href="https://www.github.com/debolk/bolknoms2">Broncode</a>
 </p>

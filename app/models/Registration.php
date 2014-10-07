@@ -35,9 +35,9 @@ class Registration extends Eloquent
      * @param int $count the number of entries to retrieve
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function top_ytd()
+    public static function top_ytd($count = 10)
     {
-        $query = self::statistics();
+        $query = self::statistics($count);
 
         // Determine last 1-sep
         if (time() > strtotime('01 September')) {
@@ -55,9 +55,9 @@ class Registration extends Eloquent
      * @param int $count the number of entries to retrieve
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function top_alltime()
+    public static function top_alltime($count = 10)
     {
-        return self::statistics()->get();
+        return self::statistics($count)->get();
     }
 
     /**
@@ -65,7 +65,7 @@ class Registration extends Eloquent
      * @param int $count the number of entries to retrieve
      * @return Illuminate\Database\Eloquent\Builder
      */
-    private static function statistics()
+    private static function statistics($count)
     {
         $query = DB::table('registrations');
         $query->select(DB::raw('name, COUNT(name) as count'));
@@ -74,6 +74,7 @@ class Registration extends Eloquent
         $query->whereRaw('registrations.deleted_at IS NULL');
         $query->groupBy('name');
         $query->orderBy('count', 'desc');
+        $query->take($count);
         return $query;
     }
 
