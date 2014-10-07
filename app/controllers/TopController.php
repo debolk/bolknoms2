@@ -9,7 +9,8 @@ class TopController extends ApplicationController
     public function index()
     {
         $data = [
-            'registrations' => Registration::top_ytd()
+            'statistics_ytd' => Registration::top_ytd(),
+            'statistics_alltime' => Registration::top_alltime(),
         ];
 
         $this->layout->content = View::make('top/index', $data);
