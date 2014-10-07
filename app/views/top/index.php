@@ -13,3 +13,8 @@
 </ol>
 
 <?php echo View::make('application/_navigation'); ?>
+
+<?php 
+    $queries = DB::getQueryLog();
+    var_dump($queries);
+?>
