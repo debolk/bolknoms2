@@ -1,6 +1,6 @@
 <?php
 
-class TopController extends Controller
+class TopController extends ApplicationController
 {
     /**
      * Show a list of all eaters
