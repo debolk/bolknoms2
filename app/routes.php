@@ -31,6 +31,7 @@ Route::post('/administratie/afmelden/{id}', 'DashboardController@afmelden');
 // Information pages
 Route::get('/disclaimer', 'PageController@disclaimer');
 Route::get('/privacy', 'PageController@privacy');
+Route::get('/top-eters', 'TopController@index');
 
 // OAuth callback
 Route::get('/oauth', ''); // Does nothing, handled in filter

@@ -11,7 +11,6 @@ class ApplicationController extends Controller
       $this->layout = View::make('application/application');
 
       $this->promotions();
-      $this->top_eaters();
     }
 
     /**
@@ -21,17 +20,5 @@ class ApplicationController extends Controller
     public function promotions()
     {
       $this->layout->promoted_meals = View::make('application/_promotions', ['meals' => Meal::promotions()->available()->get()]);
-    }
-
-    /**
-     * Show the list of people who've eaten the most in all time
-     * @return View
-     */
-    private function top_eaters()
-    {
-      $this->layout->top_eaters = View::make('application/_top', [
-        'top_alltime' => Registration::top_alltime(),
-        'top_ytd' => Registration::top_ytd(),
-      ]);
     }
 }
