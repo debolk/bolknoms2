@@ -74,7 +74,7 @@ class Registration extends Eloquent
         $query->whereRaw('registrations.deleted_at IS NULL');
         $query->groupBy('name');
         $query->orderBy('count', 'desc');
-        $query->having('count', '>', 1);
+        $query->where('count', '>', 1);
         return $query;
     }
 
