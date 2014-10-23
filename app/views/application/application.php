@@ -21,6 +21,7 @@
             </div>
         </div>
         <div id="sidebar">
+            <?php echo $promoted_meals; ?>
         </div>
         <?php echo View::make('application/_google_analytics'); ?>
     </body>
