@@ -46,6 +46,7 @@ return array(
 	*/
 
 	'key' => getenv('SECURITY_KEY'),
+    'cipher' => MCRYPT_RIJNDAEL_256,
 
     /*
     |--------------------------------------------------------------------------

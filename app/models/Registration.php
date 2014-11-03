@@ -5,7 +5,7 @@ class Registration extends Eloquent
     /**
      * This model isn't removed from the dabase upon deletion
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
 
     /**
      * All properties that can be mass-assigned

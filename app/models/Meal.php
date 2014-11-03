@@ -5,7 +5,7 @@ class Meal extends Eloquent
     /**
      * This model isn't removed from the dabase upon deletion
      */
-    protected $softDelete = true;
+    use SoftDeletingTrait;
     
     /**
      * All attributes that can be mass-assigned
