@@ -11,7 +11,7 @@
   ],
   "require": {
     "laravel/framework": "4.2.*",
-    "sendgrid/sendgrid": "2.0.5"
+    "sendgrid/sendgrid": "2.1.*"
   },
   "autoload": {
     "classmap": [
