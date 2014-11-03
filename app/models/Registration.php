@@ -6,6 +6,7 @@ class Registration extends Eloquent
      * This model isn't removed from the dabase upon deletion
      */
     protected $softDelete = true;
+    protected $dates = ['deleted_at'];
 
     /**
      * All properties that can be mass-assigned
