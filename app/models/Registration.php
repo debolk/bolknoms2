@@ -5,7 +5,7 @@ class Registration extends Eloquent
     /**
      * This model isn't removed from the dabase upon deletion
      */
-    use SoftDeletingTrait;
+    use Illuminate\Database\Eloquent\SoftDeletingTrait;
     protected $dates = ['deleted_at'];
 
     /**
