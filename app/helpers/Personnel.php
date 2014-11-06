@@ -16,7 +16,7 @@ class Personnel
 
         // Get the worksheet we need, i.e. the last worksheet that has the desired month name as title
         $month = strftime('%B', strtotime($meal->date));
-        $worksheet = array_pop(array_filter($workspaces['worksheets'], function($worksheet) use ($month) {
+        $worksheet = array_pop(array_filter($workspaces['data']['worksheets'], function($worksheet) use ($month) {
             return $worksheet['name'] == $month;
         }));
         $worksheet_id = $worksheet['id'];
