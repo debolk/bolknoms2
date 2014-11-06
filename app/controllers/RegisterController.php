@@ -11,7 +11,7 @@ class RegisterController extends ApplicationController
         $data = [];
         $data['upcoming_meal'] = Meal::available()->first();
         if ($data['upcoming_meal']) {
-            $data['cook'] = Personnel::cook_for($meal); 
+            $data['cook'] = Personnel::cook_for($data['upcoming_meal']); 
         }
         $this->layout->content = View::make('register/index', $data);
     }
