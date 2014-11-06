@@ -101,7 +101,7 @@ return array(
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'nl_NL',
 
 
     /*
