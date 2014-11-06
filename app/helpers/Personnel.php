@@ -16,8 +16,8 @@ class Personnel
 
         // Get the worksheet we need, i.e. the last worksheet that has the desired month name as title
         $month = strftime('%B', strtotime($meal->date));
-        $worksheet = array_pop(array_filter($workspaces['data']['worksheets'], function($worksheet) use ($month) {
-            return $worksheet['name'] == $month;
+        $worksheet = array_pop(array_filter($workspaces->data->worksheets, function($worksheet) use ($month) {
+            return $worksheet->name == $month;
         }));
         $worksheet_id = $worksheet['id'];
 
@@ -27,12 +27,12 @@ class Personnel
 
         // Find the cell with the desired date
         $key = strftime('%a %e %b', strtotime($meal->date));
-        foreach ($worksheet['data']['tables'][0]['cells'] as $cell) {
-            if (strtolower($cell['content']) == $key) {
+        foreach ($worksheet->data->tables[0]->cells as $cell) {
+            if (strtolower($cell->content) == $key) {
                 // Return the next cell, if filled
                 $answer = current($array);
-                if (length($answer['subscriptions']) > 0) {
-                    return $answer['subscriptions'][0]['name'];
+                if (length($answer->subscriptions) > 0) {
+                    return $answer->subscriptions[0]->name;
                 }
                 return 'geen kok aangemeld';
             }
