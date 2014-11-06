@@ -13,7 +13,7 @@
 
 App::before(function($request)
 {
-	//
+	setlocale(LC_ALL,  'nl_NL');
 });
 
 
