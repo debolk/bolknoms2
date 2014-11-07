@@ -9,29 +9,38 @@ class Personnel
      */
     public static function cook_for($meal)
     {
-        // Find all workspaces
+        // Get all worksheets
         $browser = new Buzz\Browser();
         $response = $browser->get('http://inschrijven.dcm360.nl/getworkspace?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050');
-        $workspaces = json_decode($response);
+        if (! $response->isOk()) {
+            return 'onbekend';
+        }
+        $worksheets = json_decode($response->getContent())->data->worksheets;
 
-        // Get the worksheet we need, i.e. the last worksheet that has the desired month name as title
+        // Find the worksheet we need, i.e. the last worksheet that has the desired month name as title
         $month = strftime('%B', strtotime($meal->date));
-        $worksheet = array_pop(array_filter($workspaces->data->worksheets, function($worksheet) use ($month) {
-            return $worksheet->name == $month;
-        }));
-        $worksheet_id = $worksheet['id'];
+        $worksheets = array_filter($worksheets, function($worksheet) use ($month) {
+            return strtolower($worksheet->name) == strtolower($month);
+        });
+        if ($worksheets == null || count($worksheets) == 0) {
+            return 'onbekend';
+        }
+        $worksheet = array_pop($worksheets);
 
-        // Get the complete worksheet
-        $response = $browser->get('http://inschrijven.dcm360.nl/getworksheet?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050&id=' . $worksheet_id);
-        $worksheet = json_decode($response);
+        // Get the cells in the worksheet
+        $response = $browser->get('http://inschrijven.dcm360.nl/getworksheet?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050&id=' . $worksheet->id);
+        $cells = json_decode($response->getContent())->data->tables[0]->cells;
+        if (! $response->isOk()) {
+            return 'onbekend';
+        }
 
         // Find the cell with the desired date
         $key = strftime('%a %e %b', strtotime($meal->date));
-        foreach ($worksheet->data->tables[0]->cells as $cell) {
+        foreach ($cells as $cell) {
             if (strtolower($cell->content) == $key) {
                 // Return the next cell, if filled
-                $answer = current($array);
-                if (length($answer->subscriptions) > 0) {
+                $answer = current($cells);
+                if (count($answer->subscriptions) > 0) {
                     return $answer->subscriptions[0]->name;
                 }
                 return 'geen kok aangemeld';
@@ -39,6 +48,6 @@ class Personnel
         }
 
         // No answer found
-        return 'onbekend';
+        return 'C onbekend';
     }
 }
