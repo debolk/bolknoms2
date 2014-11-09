@@ -13,6 +13,9 @@
     "laravel/framework": "4.2.*",
     "sendgrid/sendgrid": "2.1.*"
   },
+  "require-dev": {
+    "heroku/heroku-buildpack-php": "dev-master"
+  },
   "autoload": {
     "classmap": [
       "app/commands",
