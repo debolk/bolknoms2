@@ -6,14 +6,6 @@
 class OAuthFilter
 {
     /**
-     * Start the instance, retrieving the configuration
-     */
-    public function __construct()
-    {
-        $this->config = Config::get('app.oauth');
-    }
-
-    /**
      * Perform the filter, authenticating the user if needed
      */
     public function filter($route, $request)
@@ -43,12 +35,12 @@ class OAuthFilter
         // Build the authentication URL from configuration
         $query_string = http_build_query([
             'response_type' => 'code',
-            'client_id' => $this->config['client_id'],
-            'client_pass' => $this->config['client_secret'],
-            'redirect_uri' => $this->config['callback'],
+            'client_id' => getenv('OAUTH_CLIENT_ID'),
+            'client_pass' => getenv('OAUTH_CLIENT_SECRET'),
+            'redirect_uri' => getenv('OAUTH_CALLBACK'),
             'state'=> $state,
         ]);
-        $url = $this->config['endpoint'].'authorize/?'.$query_string;
+        $url = getenv('OAUTH_ENDPOINT').'authorize/?'.$query_string;
 
         // Redirect to the constructed URL
         return Redirect::to($url);
@@ -63,7 +55,7 @@ class OAuthFilter
         // Get resource status code
         $request = curl_init();
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request,CURLOPT_URL, $this->config['endpoint'].'bestuur/?access_token='.Session::get('oauth_access_token'));
+        curl_setopt($request,CURLOPT_URL, getenv('OAUTH_ENDPOINT').'bestuur/?access_token='.Session::get('oauth_access_token'));
         $result = curl_exec($request);
         $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);
@@ -94,11 +86,11 @@ class OAuthFilter
         $fields = [
             'grant_type' => 'authorization_code',
             'code' => Input::get('code'),
-            'redirect_uri' => $this->config['callback'],
-            'client_id' => $this->config['client_id'],
-            'client_secret' => $this->config['client_secret'],
+            'redirect_uri' => getenv('OAUTH_CALLBACK'),
+            'client_id' => getenv('OAUTH_CLIENT_ID'),
+            'client_secret' => getenv('OAUTH_CLIENT_SECRET'),
         ];
-        curl_setopt($request,CURLOPT_URL, $this->config['endpoint'].'token/');
+        curl_setopt($request,CURLOPT_URL, getenv('OAUTH_ENDPOINT').'token/');
         curl_setopt($request,CURLOPT_POST, count($fields));
         curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
