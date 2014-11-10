@@ -16,7 +16,7 @@
             <?php endif; ?>
         </p>
         <p>
-            <label for="cook">Koker</label>
+            <label for="date" class="label">Koker</label>
             <?php echo $cook; ?>
         </p>
         <p>
