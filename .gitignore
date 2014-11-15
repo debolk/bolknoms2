@@ -4,3 +4,4 @@ composer.phar
 .DS_Store
 Thumbs.db
 .fuse*
+.env.development.php

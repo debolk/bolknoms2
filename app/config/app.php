@@ -19,21 +19,6 @@ return array(
         'admin' => getenv('EMAIL_ADMIN'),
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | OAuth authentication
-    |--------------------------------------------------------------------------
-    |
-    | Configuration for which OAUth Endpoint to use
-    |
-    */
-    'oauth' => [
-        'endpoint' => getenv('OAUTH_ENDPOINT'),
-        'client_id' => getenv('OAUTH_CLIENT_ID'),
-        'client_secret' => getenv('OAUTH_CLIENT_SECRET'),
-        'callback' => getenv('OAUTH_CALLBACK'),
-    ],
-
 	/*
 	|--------------------------------------------------------------------------
 	| Encryption Key
@@ -58,8 +43,7 @@ return array(
     | application. If disabled, a simple generic error page is shown.
     |
     */
-
-    'debug' => (bool)getenv('DEBUG'),
+    'debug' => (getenv('DEBUG') == 1),
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +85,7 @@ return array(
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'nl_NL',
 
 
     /*

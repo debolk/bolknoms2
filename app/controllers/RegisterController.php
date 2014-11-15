@@ -8,7 +8,13 @@ class RegisterController extends ApplicationController
       */ 
     public function index()
     {
-        $this->layout->content = View::make('register/index', ['upcoming_meal' => Meal::available()->first()]);
+        $data = [];
+        $data['upcoming_meal'] = Meal::available()->first();
+        if ($data['upcoming_meal']) {
+            $personnel = new Personnel($data['upcoming_meal']);
+            $data['cook'] = $personnel->cook();
+        }
+        $this->layout->content = View::make('register/index', $data);
     }
 
     /**
