@@ -43,8 +43,7 @@ return array(
     | application. If disabled, a simple generic error page is shown.
     |
     */
-
-    'debug' => (bool)getenv('DEBUG'),
+    'debug' => (getenv('DEBUG') == 1),
 
     /*
     |--------------------------------------------------------------------------

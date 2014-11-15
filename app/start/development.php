@@ -2,12 +2,17 @@
 
 /*
 |--------------------------------------------------------------------------
-| Load the environment variables
+| Application Error Handler
 |--------------------------------------------------------------------------
 |
-| We use phpdotenv (https://github.com/vlucas/phpdotenv) to load essential
-| environment variables from the .env file in the root folder, when it 
-| exists, i.e. only on development machines.
+| Here you may handle any errors that occur in your application, including
+| logging them or displaying custom views for specific errors. You may
+| even register several error handlers to handle different types of
+| exceptions. If nothing is returned, the default error view is
+| shown, which includes a detailed stack trace during debug.
 |
 */
-Dotenv::load(base_path());
+App::error(function(Exception $exception, $code)
+{
+    // Return nothing to have detailed error reporting
+});

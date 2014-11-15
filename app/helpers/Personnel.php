@@ -9,10 +9,24 @@ class Personnel
      */
     public static function cook_for($meal)
     {
+        // Connect to memcache
+        $mc = new Memcached();
+        $mc->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
+        $mc->addServers(array_map(function($server) { return explode(':', $server, 2); }, explode(',', getenv('MEMCACHEDCLOUD_SERVERS'))));
+        $mc->setSaslAuthData(getenv('MEMCACHEDCLOUD_USERNAME'), getenv('MEMCACHEDCLOUD_PASSWORD'));
+
+        // Check for a cached value
+        $memcached_key = 'cook_' + $meal->id;
+        $cook = $mc->get($memcached_key, null);
+        if ($cook !== null) {
+            return 'cache_' . $cook;
+        }
+
         // Get all worksheets
         $browser = new Buzz\Browser();
         $response = $browser->get('http://inschrijven.dcm360.nl/getworkspace?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050');
         if (! $response->isOk()) {
+            $mc->set($memcached_key, 'onbekend', 60*60);
             return 'onbekend';
         }
         $worksheets = json_decode($response->getContent())->data->worksheets;
@@ -23,6 +37,7 @@ class Personnel
             return strtolower($worksheet->name) == strtolower($month);
         });
         if ($worksheets == null || count($worksheets) == 0) {
+            $mc->set($memcached_key, 'onbekend', 60*60);
             return 'onbekend';
         }
         $worksheet = array_pop($worksheets);
@@ -31,6 +46,7 @@ class Personnel
         $response = $browser->get('http://inschrijven.dcm360.nl/getworksheet?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050&id=' . $worksheet->id);
         $cells = json_decode($response->getContent())->data->tables[0]->cells;
         if (! $response->isOk()) {
+            $mc->set($memcached_key, 'onbekend', 60*60);
             return 'onbekend';
         }
 
@@ -43,11 +59,13 @@ class Personnel
                 if (count($answer->subscriptions) > 0) {
                     return $answer->subscriptions[0]->name;
                 }
+                $mc->set($memcached_key, 'geen kok aangemeld', 60*60);
                 return 'geen kok aangemeld';
             }
         }
 
         // No answer found
-        return 'C onbekend';
+        $mc->set($memcached_key, 'onbekend', 60*60);
+        return 'onbekend';
     }
 }
