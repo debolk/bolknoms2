@@ -26,7 +26,9 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'development' => array('anniek'),
+	'development' => ['anniek'],
+    'staging' => ['bolknoms-staging.herokuapp.com'],
+    'production' => ['noms.debolk.nl'],
 
 ));
 
