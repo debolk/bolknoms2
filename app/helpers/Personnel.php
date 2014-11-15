@@ -28,14 +28,10 @@ class Personnel
      */
     public function cook()
     {
-        var_dump($this->memcache->getServerList());
         $cook = $this->memcache->get('cook_'.$this->meal->id);
-        var_dump($this->memcache->getResultCode());
         if (!$cook) {
-            echo 'fresh';
             $cook = $this->query_kcb();
             $this->memcache->set('cook_'.$this->meal->id, $cook, 60*60);
-            var_dump($this->memcache->getResultCode());
         }
         return $cook;
     }
