@@ -149,16 +149,38 @@ class RegisterController extends ApplicationController
      */
     public function uitgebreidaanmelden()
     {
+        // Add custom validations
+        Validator::extend('all_exist', function($attribute, $value, $parameters) {
+            foreach ($value as $meal_id) {
+                if (! Meal::find($meal_id)) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        Validator::extend('all_open', function($attribute, $value, $parameters) {
+            foreach ($value as $meal_id) {
+                if (!Meal::find($meal_id) || !Meal::find($meal_id)->open_for_registrations()) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+
         $validator = Validator::make(Input::all(), [
             'name' => ['required', 'regex:/[A-Za-z -]+/', 'between:2,30'],
             'email' => 'email',
-            'meals' => 'required',
+            'meals' => 'required|all_exist|all_open',
             ],[
             'name.required' => 'Je moet je naam invullen',
             'name.regex' => 'Je naam mag alleen (hoofd)letters, streepjes en spaties bevatten',
             'between' => 'Je naam moet minimaal twee en maximaal 30 tekens bevatten',
             'email.email' => 'Het ingevulde e-mailadres is niet geldig',
             'meals.required' => 'Je moet minstens &eacute;&eacute;n maaltijd aanvinken',
+            'meals.all_exist' => 'Je probeert je aan te melden voor een of meerdere maaltijden die niet bestaan',
+            'meals.all_open' => 'Je probeert je aan te melden voor een maaltijd waarvan de aanmeldtijd al verstreken is',
         ]);
 
         if ($validator->passes()) {
