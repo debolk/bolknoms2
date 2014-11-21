@@ -42,15 +42,23 @@ class Personnel
      */
     public function query_kcb()
     {
+        $headers = ['Accept' => 'application/json'];
+        $options = ['timeout' => 3];
+
         // Get all worksheets
-        $browser = new Buzz\Browser();
-        $response = $browser->get('http://inschrijven.dcm360.nl/getworkspace?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050');
-        if (! $response->isOk()) {
+        try {
+            $response = Requests::get('http://inschrijven.dcm360.nl/getworkspace?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050', $headers, $options);
+            
+        } catch (Requests_Exception $e) {
+            Log::warning("Failed to retrieve cook for {$this->meal->date}: {$e->getMessage()}");
             return 'onbekend';
         }
-        $worksheets = json_decode($response->getContent())->data->worksheets;
+        if (! $response->status_code === 200) {
+            return 'onbekend';
+        }
 
         // Find the worksheet we need, i.e. the last worksheet that has the desired month name as title
+        $worksheets = json_decode($response->body)->data->worksheets;
         $month = strftime('%B', strtotime($this->meal->date));
         $worksheets = array_filter($worksheets, function($worksheet) use ($month) {
             return strtolower($worksheet->name) == strtolower($month);
@@ -60,14 +68,19 @@ class Personnel
         }
         $worksheet = array_pop($worksheets);
 
-        // Get the cells in the worksheet
-        $response = $browser->get('http://inschrijven.dcm360.nl/getworksheet?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050&id=' . $worksheet->id);
-        $cells = json_decode($response->getContent())->data->tables[0]->cells;
-        if (! $response->isOk()) {
+        // Get the current worksheet
+        try {
+            $response = Requests::get('http://inschrijven.dcm360.nl/getworksheet?workspace=5b6512257ca3725166d92b2a87887790011203ae85d92003a5c60b82ddf85050&id=' . $worksheet->id, $headers);
+        } catch (Requests_Exception $e) {
+            Log::warning("Failed to retrieve cook for {$this->meal->date}: {$e->getMessage()}");
+            return 'onbekend';
+        }
+        if (! $response->status_code === 200) {
             return 'onbekend';
         }
 
         // Find the cell with the desired date
+        $cells = json_decode($response->body)->data->tables[0]->cells;
         $key = strftime('%a %e %b', strtotime($this->meal->date));
         foreach ($cells as $cell) {
             if (strtolower($cell->content) == $key) {
