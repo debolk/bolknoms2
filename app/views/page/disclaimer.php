@@ -6,5 +6,3 @@
 
 <h2>Beperkte aansprakelijkheid</h2>
 <p>De op bolknoms aangeboden materialen worden aangeboden zonder enige vorm van garantie of aanspraak op juistheid. Deze materialen kunnen op elk moment wijzigen zonder voorafgaande mededeling van De Bolk. </p>
-
-<?php echo View::make('application/_navigation'); ?>

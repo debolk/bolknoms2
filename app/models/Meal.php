@@ -7,7 +7,7 @@ class Meal extends Eloquent
      */
     use Illuminate\Database\Eloquent\SoftDeletingTrait;
     protected $dates = ['deleted_at'];
-    
+
     /**
      * All attributes that can be mass-assigned
      */
@@ -49,14 +49,6 @@ class Meal extends Eloquent
     public function scopePrevious($query)
     {
         return $query->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc');
-    }
-
-    /**
-     * Scope: all meals that are promoted
-     */
-    public static function scopePromotions($query)
-    {
-        return $query->where('promoted', '=', '1');
     }
 
     /**

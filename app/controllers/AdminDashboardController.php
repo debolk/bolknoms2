@@ -1,6 +1,6 @@
 <?php
 
-class DashboardController extends ApplicationController
+class AdminDashboardController extends ApplicationController
 {
     /**
      * List all past and current meals

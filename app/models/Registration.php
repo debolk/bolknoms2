@@ -78,25 +78,4 @@ class Registration extends Eloquent
         $query->havingRaw('count > 1');
         return $query;
     }
-
-    /**
-     * Generate a salt, then save the model
-     * @see Illuminate\Databse\Eloquent\Model::save()
-     * @param  array    $options
-     * @return boolean
-     */
-    public function save(array $options = array())
-    {
-        $this->salt = $this->generate_salt();
-        return parent::save($options);
-    }
-
-    /**
-     * Generates a random string of 10 characters in the a-z range, used for securing cancellation requests
-     * @return string
-     */
-    private function generate_salt()
-    {
-        return substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz',10)),0,10);
-    }
 }

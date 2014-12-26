@@ -23,5 +23,3 @@
         <input type="submit" value="Maaltijd bewerken" />
     </p>
 </form>
-
-<?php echo View::make('application/_navigation'); ?>

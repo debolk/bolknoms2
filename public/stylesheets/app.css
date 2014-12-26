@@ -95,11 +95,13 @@ button::-moz-focus-inner {
 button:active {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     transition: 0.1s all;
+    cursor: inherit;
 }
 
 button.selected, button.busy {
     color: white;
     box-shadow: none;
+    cursor: inherit;
 }
 button.selected {
     background-color: #0f9d58;

@@ -19,7 +19,7 @@
 <p>Wij maken bij het aanbieden van elektronische diensten gebruik van lokale opslag. Gegevens die u invult in een formulier op deze website worden lokaal in uw browser bewaard. Op deze manier kunt u zich de volgende keer makkelijker en sneller aanmelden. Deze gegevens worden niet verstuurd naar of opgeslagen op onze servers.</p>
 
 <h2>Inzage, correctie en recht van verzet</h2>
-<p>Indien u een relatie met ons bedrijf heeft, heeft u na schriftelijk verzoek de mogelijkheid uw persoonlijke gegevens in te zien. Indien het door ons verstrekte overzicht onjuistheden bevat, kunt u ons schriftelijk verzoeken de gegevens te wijzigen of te laten verwijderen. Daarnaast kunt u ons schriftelijk op de hoogte stellen, indien u niet wilt worden benaderd door dit te melden bij navolgend adres:</p>
+<p>Indien u een relatie met onze vereniging heeft, heeft u na schriftelijk verzoek de mogelijkheid uw persoonlijke gegevens in te zien. Indien het door ons verstrekte overzicht onjuistheden bevat, kunt u ons schriftelijk verzoeken de gegevens te wijzigen of te laten verwijderen. Daarnaast kunt u ons schriftelijk op de hoogte stellen, indien u niet wilt worden benaderd door dit te melden bij navolgend adres:</p>
 
 <p>
 	D.S.V. "Nieuwe Delft"<br>
@@ -29,5 +29,3 @@
 
 <h2>Aanpassen privacy statement</h2>
 <p>Wij behouden ons het recht voor deze privacy statement aan te passen. Wijzigingen zullen op deze website worden gepubliceerd.</p>
-
-<?php echo View::make('application/_navigation'); ?>

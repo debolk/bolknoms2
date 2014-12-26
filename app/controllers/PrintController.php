@@ -1,7 +1,7 @@
 <?php
 
 class PrintController extends ApplicationController
-{   
+{
     /**
      * Prints a checklist for crossing off visiting users
      * not intended to be viewed, only printed
@@ -15,6 +15,6 @@ class PrintController extends ApplicationController
             App::abort(404, 'Maaltijd niet gevonden');
         }
 
-        return View::make('print/checklist',['meal' => $meal]);
+        return View::make('print/checklist', ['meal' => $meal]);
     }
 }

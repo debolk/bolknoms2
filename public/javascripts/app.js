@@ -54,15 +54,42 @@ document.addEventListener('DOMContentLoaded', function(){
      */
     var buttons = document.querySelectorAll('button');
     Array.prototype.forEach.call(buttons, function(button, i){
-        button.addEventListener('click', function(){
+        button.addEventListener('click', function(event){
+            event.preventDefault();
+
             // Set button to working state
             set_button_state(button, 'busy');
 
-            // Fake AJAX-call, timeout two seconds
-            setTimeout(function(button) {
-                // Set button to done state
-                set_button_state(button, 'selected');
-            }, 2000, this);
+            // Grab variables
+            var data = {
+                name: name_input.value,
+                handicap: document.getElementById('handicap_text').value,
+                meal_id: button.dataset.id
+            };
+
+            // Validate presence of name
+            if (data.name == '') {
+                toggle_name_error(true);
+                set_button_state('normal');
+                return;
+            }
+
+            // Send AJAX-call to register for meal
+            var request = new XMLHttpRequest();
+            request.open('POST', '/aanmelden', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    set_button_state(button, 'selected');
+                }
+                else {
+                    show_fatal_error(request.responseText);
+                    window.location.reload();
+                }
+            };
+            request.onerror = show_fatal_error;
+            request.send(data);
         });
     });
 });
@@ -133,21 +160,29 @@ function set_button_state(button, state = 'normal')
             button.classList.remove('selected');
             button.classList.remove('busy');
             button.innerHTML = 'nom!';
+            button.disabled = false;
             break;
         }
         case 'busy':
         {
-            button.classList.remove('selected');
             button.classList.add('busy');
+            button.classList.remove('selected');
             button.innerHTML = 'nom! <img src="images/spinner.gif" height="16" width="16" alt="">';
+            button.disabled = true;
             break;
         }
         case 'selected':
         {
-            button.classList.remove('busy');
             button.classList.add('selected');
+            button.classList.remove('busy');
             button.innerHTML = 'nom! &#10004;';
+            button.disabled = true;
             break;
         }
     }
+}
+
+function show_fatal_error(details)
+{
+    alert("Fatale fout. Het is onduidelijk of je correct bent aangemeld voor de maaltijd. Bel of mail het bestuur via de contactgegevens op de pagina.\n\nTechnische details: " + details.toString());
 }
