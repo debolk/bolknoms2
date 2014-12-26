@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    font-family: "Cardo", serif;
+    font-size: x-large;
+    padding: 0;
+    background-color: #800000;
+}
+
+header, footer {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    clear: both;
+    color: white;
+    background-color: #800000;
+}
+
+header {
+    padding: 0 0 0 1em;
+    position: fixed;
+    top: 0;
+    box-shadow: 0px 1px 5px rgba(0,0,0, 0.5);
+}
+
+footer {
+    padding: 0.25em 0.25em 0.25em 1em;
+}
+
+section {
+    padding: 1em;
+}
+
+header h1 {
+    font-size: 200%;
+    font-weight: boldest;
+    margin: 0;
+}
+
+section {
+    margin-top: 66px;
+    padding: 1em;
+    background-color: white;
+}
+
+p, ul, ol {
+    margin-top: 0;
+}
+
+input {
+    font-size: 1.5em;
+}
+input[type=checkbox] {
+  transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+}
+h3 {
+    margin-bottom: 0;
+}
+
+header a, footer a {
+    color: white;
+}
+
+.meal {
+    margin-bottom: 0.5em;
+}
+
+.error_explanation {
+    display: none;
+    font-weight: bold;
+    color: #ff0033;
+}
+
+#handicap_text {
+    display: none;
+}
+
+/* Button */
+button {
+    width: 112px;
+    border: 0;
+    background-color: #fff;
+    text-transform: uppercase;
+    padding: 0.25em;
+    font-size: 1em;
+    margin-right: 0.5em;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+button:active {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: 0.1s all;
+}
+
+button.selected, button.busy {
+    color: white;
+    box-shadow: none;
+}
+button.selected {
+    background-color: #0f9d58;
+}
+button.busy {
+    background-color: #f1c40f;
+}
