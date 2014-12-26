@@ -17,10 +17,13 @@ class RegisterController extends ApplicationController
      */
     public function aanmelden()
     {
-        return new Illuminate\Http\Response(json_encode(['error' => 'not_authorized', 'error_details' => 'random fluke was not okay']), 406);
+        // Find the meal
+        $meal = Meal::find((int) Input::get('meal_id'));
+        if (!$meal) {
+            return Response::json(['error' => 'meal_not_found', 'error_details' => 'De maaltijd waarvoor je je probeert aan te melden bestaat niet'], 404);
+        }
 
-        $meal = Meal::available()->first();
-
+        // Validate form
         $validator = Validator::make(Input::all(), [
             'name' => ['required', 'regex:/[A-Za-z -]+/', 'between:2,30'],
         ],[
@@ -32,28 +35,22 @@ class RegisterController extends ApplicationController
         if ($validator->passes()) {
             // Escape data
             $name = e(Input::get('name'));
+            $handicap = e(Input::get('handicap'));
 
-            if ($meal) {
-                $registration = new Registration(['name' => $name]);
-                $registration->meal_id = $meal->id;
+            $registration = new Registration(['name' => $name, 'handicap' => $handicap]);
+            $registration->meal_id = $meal->id;
 
-                if ($registration->save()) {
-                    Log::info("Aangemeld: snel|$registration->id|$registration->name");
-                    Flash::set(Flash::SUCCESS, '<p>Aanmelding geslaagd. Je kunt mee-eten.</p>'.Chef::random_video());
-                }
-                else {
-                    Flash::set(Flash::ERROR, "Je aanmelding is mislukt. Probeer het nogmaals.");
-                }
+            if ($registration->save()) {
+                Log::info("Aangemeld: $registration->id|$registration->name");
+                return Response::json([], 200);
             }
             else {
-                App::abort(404, 'Maaltijd niet gevonden');
+                Log::error("Aanmelding mislukt, onbekend");
+                return Response::json(['error' => 'unknown', 'error_details' => 'unknown_internal_server_error'], 500);
             }
         }
         else {
-            Session::flash('validation_errors', $validator->messages());
-            // Repopulate the form
-            Input::flash();
+            return Response::json(['error' => 'invalid_data', 'error_details' => 'De data die je verstuurde is niet geldig'], 406);
         }
-        return Redirect::to('/');
     }
 }

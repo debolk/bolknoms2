@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 }
             };
             request.onerror = show_fatal_error;
-            request.send(data);
+            request.send(JSON.stringify(data));
         });
     });
 });
