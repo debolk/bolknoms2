@@ -14,29 +14,25 @@
     <p>
         <label for="meals">Dagen om mee te eten:</label>
     </p>
+    <?php if (count($meals) == 0): ?>
+        <p class="empty">Er zijn geen maaltijden open waarvoor je je kunt aanmelden.</p>
+    <?php endif; ?>
     <div class="meals">
-        <div class="meal">
-            <button data-id="1">nom!</button>
-            <span class="date">maandag 30 november</span>
-        </div>
-        <div class="meal">
-            <button data-id="2">nom!</button>
-            <span class="date">dinsdag 31 november</span>
-        </div>
-        <div class="meal">
-            <button data-id="3">nom!</button>
-            <span class="date">woensdag 32 november</span>
-        </div>
+        <?php foreach ($meals as $meal): ?>
+            <div class="meal">
+                <button data-id="<?= $meal->id ;?>">nom!</button>
+                <span class="date"><?= $meal; ?></span>
+            </div>
+        <?php endforeach; ?>
     </div>
 </form>
 
 <h3>Spelregels</h3>
 <ol>
     <li>Je kunt niet mee-eten zonder je aan te melden.</li>
-    <li>Je kunt je aanmelden tot 15:00 uur op de dag van de eettafel.</li>
-    <li>Je kunt je weer afmelden tot 15:00 uur op de dag van de eettafel.
-    Gebruik hiervoor de link in de e-mail.</li>
-    <li>Als je niet op tijd afmeldt en niet komt opdagen, betaal je &euro;3,50 per Bolkrekening.</li>
+    <li>Je kunt je aanmelden tot de vastgestelde sluitingstijd. De sluitingstijd wordt bepaald door het bestuur.</li>
+    <li>Je kunt je weer afmelden tot aan de sluitingstijd. Hiervoor moet je zijn aangemeld met je Bolkaccount.</li>
+    <li>Als je niet op tijd afmeldt en niet komt opdagen, betaal je de kosten van de maaltijd (meestal &euro; 3,50) per Bolkrekening.</li>
 </ol>
 
 <h3>Overige vragen of informatie</h3>

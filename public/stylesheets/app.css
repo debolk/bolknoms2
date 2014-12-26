@@ -109,3 +109,11 @@ button.selected {
 button.busy {
     background-color: #f1c40f;
 }
+
+/* Notifications */
+.empty {
+    padding: 0.5em;
+    margin: 1em 0;
+    background-color: #cff;
+    border: solid 1px #6cc;
+}
