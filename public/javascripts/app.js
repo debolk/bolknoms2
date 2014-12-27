@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 }
                 else {
                     show_fatal_error(request.responseText);
-                    window.location.reload();
                 }
             };
             request.onerror = show_fatal_error;
