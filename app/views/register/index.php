@@ -1,39 +1,29 @@
 <form action="#" id="form_name">
     <p>
-        <a class="button-bolk" href="https://auth.debolk.nl/">
-            <img src="images/bolkvis-wit.png" width="32" height="32" alt="Logo De Bolk">
-            Aanmelden met je Bolk-account
-        </a>
-        of <a href="#" id="signin_no_account">aanmelden zonder Bolk-account</a>
+        <label for="name">Je naam:</label><br>
+        <input type="text" name="name" id="name"><br>
+        <span class="error_explanation">Je naam is nodig om je aan te melden</span>
     </p>
 
-    <div class="submission_form">
-        <p>
-            <label for="name">Je naam:</label><br>
-            <input type="text" name="name" id="name"><br>
-            <span class="error_explanation">Je naam is nodig om je aan te melden</span>
-        </p>
+    <p>
+        <input type="checkbox" name="handicap_checkbox" id="handicap_checkbox">
+        <label for="handicap_text">Ik volg een speciaal dieet</label><br>
+        <input type="text" name="handicap_text" id="handicap_text">
+    </p>
 
-        <p>
-            <input type="checkbox" name="handicap_checkbox" id="handicap_checkbox">
-            <label for="handicap_text">Ik volg een speciaal dieet</label><br>
-            <input type="text" name="handicap_text" id="handicap_text">
-        </p>
-
-        <p>
-            <label for="meals">Dagen om mee te eten:</label>
-        </p>
-        <?php if (count($meals) == 0): ?>
-            <p class="empty">Er zijn geen maaltijden open waarvoor je je kunt aanmelden.</p>
-        <?php endif; ?>
-        <div class="meals">
-            <?php foreach ($meals as $meal): ?>
-                <div class="meal">
-                    <button data-id="<?= $meal->id ;?>">nom!</button>
-                    <span class="date"><?= $meal; ?></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
+    <p>
+        <label for="meals">Dagen om mee te eten:</label>
+    </p>
+    <?php if (count($meals) == 0): ?>
+        <p class="empty">Er zijn geen maaltijden open waarvoor je je kunt aanmelden.</p>
+    <?php endif; ?>
+    <div class="meals">
+        <?php foreach ($meals as $meal): ?>
+            <div class="meal">
+                <button data-id="<?= $meal->id ;?>">nom!</button>
+                <span class="date"><?= $meal; ?></span>
+            </div>
+        <?php endforeach; ?>
     </div>
 </form>
 

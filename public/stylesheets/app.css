@@ -117,22 +117,3 @@ button.busy {
     background-color: #cff;
     border: solid 1px #6cc;
 }
-
-/* De Bolk account social login button */
-.button-bolk {
-    display: inline-block;
-    padding: 0.25em;
-    background-color: #800000;
-    border-color: #400000;
-    border-radius: 10px;
-    color: white;
-    text-decoration: none;
-}
-
-.button-bolk img {
-    vertical-align: middle;
-}
-
-.submission_form {
-    display: none;
-}
