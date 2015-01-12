@@ -38,7 +38,7 @@ class CreateMealsCommand extends Command {
             $current_date = date('Y-m-d', strtotime("+{$i} days", $date));
             echo "Attempting {$current_date}...";
             if (Meal::withTrashed()->where('date', '=', $current_date)->count() == 0) {
-                Meal::create(['date' => $current_date]);
+                Meal::create(['date' => $current_date, 'locked' => '15:00']);
                 echo "created\n";
             }
             else {
