@@ -48,7 +48,7 @@ class OAuthFilter
 
     /**
      * Determine whether a user is authorized to access this system
-     * @return void if succesfull (continues the view building) or App::abort(403) on failure
+     * @return void if successful (continues the view building) or App::abort(403) on failure
      */
     public function authorize()
     {
