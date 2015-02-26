@@ -98,8 +98,8 @@ class OAuthFilter
 
         // Check if the authentication hasn't expired
         if (! isset($result->access_token)) {
-            App::abort(500, 'Authentication code expired');
-        } 
+            App::abort(500, $result->error);
+        }
 
         // Store access code
         Session::put('oauth_access_token', $result->access_token);
