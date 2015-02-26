@@ -28,31 +28,11 @@ $(document).ready(function() {
 
     $(document).on('click', '.new_registration input[type="submit"]', add_registration);
     $(document).on('keyup', '.new_registration input[type="text"]', add_registration_if_enter);
-    
-    $('input[name="all-meals"]').change(select_all_meals);
-    
-    if ($('body').hasClass('administratie') && $('body').hasClass('checklist')) {
-        window.print();
-    }
 
     // Interactive tables for administration
     hide_subtables();
     $('.expander').click(toggle_subtable);
-
-    // Hiding and showing form help texts
-    $('form p small').hide();
-    $('form p input[type="text"]').focus(show_input_help);
-    $('form p input[type="text"]').blur(hide_input_help);
-
-    // Store values of forms in localstorage for form persistence
-    $('input[type="text"]').blur(save_form_value);
-    fill_form_values();
 });
-
-function select_all_meals()
-{
-    $('input[name="meals[]"]').prop('checked',$(this).prop('checked'));
-}
 
 /**
  * Confirms the intent of the user
@@ -109,58 +89,19 @@ function remove_registration()
     var name = $('.name',registration).html();
 
     if (confirm('Weet je zeker dat je '+name+' wilt uitschrijven?')) {
-        $.post($(this).attr('href'), null, 
+        $.post($(this).attr('href'), null,
             function(result){
                 if (result == 'success') {
-                    $(registration).remove();    
+                    $(registration).remove();
                 }
                 else {
                     alert('Er is een fout opgetreden. Probeer de pagina te verversen.')
                 }
             });
     }
-    
+
     // Stop default event (follow link)
     return false;
-}
-
-/**
- * Retrieves an array of all disabled dates from the server
- * @return void
- */
-function get_disabled_days() {
-    // Exclude current day
-    var meal_id = null;
-    if ($('form').size() > 0) {
-        meal_id = $('form').attr('data-id');
-    }
-
-    $.ajax({
-        url: '/administratie/gevulde_dagen',
-        data: {
-            meal_id: meal_id
-        },
-        success: function(result) {
-            disabled_days = result
-        },
-        dataType: 'json',
-        async: false
-    });
-}
-
-/**
- * Checks whether a specific date is still free
- * @param Date date
- * @return array[boolean]
- */
-function check_free_date(date) {
-    var date_string = date.format('yyyy-mm-dd');
-    if ($.inArray(date_string, disabled_days) > -1) {
-        return [false];
-    }
-    else {
-        return [true];
-    }
 }
 
 function hide_subtables() {
@@ -181,46 +122,5 @@ function toggle_subtable() {
     else {
         $(this).attr('src', '/images/arrow-right.png');
     }
-    
-}
 
-function show_input_help() {
-    $('small',$(this).parents('p')).show();
-}
-
-function hide_input_help() {
-    $('small',$(this).parents('p')).hide();
-}
-
-function localstorage_supported()
-{
-    try {
-        return 'localStorage' in window && window['localStorage'] !== null;
-    }
-    catch (e) {
-        return false;
-    }
-}
-
-function on_front()
-{
-    return !$('body').hasClass('administratie');
-}
-
-function save_form_value()
-{
-    if (on_front() && localstorage_supported()) {
-        localStorage[$(this).attr('name')] = $(this).val();
-    }
-}
-
-function fill_form_values()
-{
-    if (on_front() && localstorage_supported()) {
-        $('input[type="text"]').each(function () {
-            if (localStorage.getItem($(this).attr('name')) !== null) {
-                $(this).val(localStorage[$(this).attr('name')]);
-            }
-        });
-    }
 }
