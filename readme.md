@@ -1,5 +1,7 @@
 # Bolknoms
 
+[![Dependency Status](https://www.versioneye.com/user/projects/5502b68b4a10640f8c000184/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5502b68b4a10640f8c000184)
+
 The very best application in the world for feeding your members in an organized and predictable way.
 
 ## Requirements
@@ -29,4 +31,4 @@ Bolknoms is built using [laravel 4](http://laravel.com/).
 The project follows the [git-flow](http://nvie.com/posts/a-successful-git-branching-model/). Please adhere to the (very basic) standards set. Any new work must be branched of in a feature branch. These branches are prefixed with "feature-", for example "feature-moreswedishchef". Preferrably no underscores.
 
 ## License
-Copyright 2012-2015 [Jakob Buis](http://www.jakobbuis.com). 
+Copyright 2012-2015 [Jakob Buis](http://www.jakobbuis.com).
