@@ -1,3 +1,3 @@
-if ($('body').hasClass('administratie') && $('body').hasClass('checklist')) {
+document.addEventListener('DOMContentLoaded', function(){
     window.print();
-}
+});
