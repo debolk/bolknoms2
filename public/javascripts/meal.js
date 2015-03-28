@@ -35,6 +35,7 @@ function add_registration(event)
     request.onload = function() {
         if (this.status >= 200 && this.status < 400) {
             document.getElementById('registrations').innerHTML += request.responseText;
+            update_counter(+1);
         }
         else {
             alert('Er is een fout opgetreden. Probeer de pagina te verversen.')
@@ -67,6 +68,7 @@ function remove_registration(event)
         request.onload = function() {
             if (this.status >= 200 && this.status < 400) {
                 registration.remove();
+                update_counter(-1);
             }
             else {
                 alert('Er is een fout opgetreden. Probeer de pagina te verversen.')
@@ -77,4 +79,16 @@ function remove_registration(event)
         }
         request.send();
     }
+}
+
+/**
+ * Updates the number of registrations in the interface
+ * @param  {int} increment the number to add to the counter, can be negative
+ */
+function update_counter(increment)
+{
+    var counter = document.getElementById('count');
+    var value = parseInt(counter.innerHTML);
+    value += increment;
+    counter.innerHTML = value;
 }

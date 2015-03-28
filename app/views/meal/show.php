@@ -1,6 +1,7 @@
 <h1><?= $meal ?></h1>
 <p class="subtitle">
-    <?= $meal->registrations()->count(); ?> eters &mdash; sluitingstijd <?= $meal->deadline(); ?>
+    <span id="count"><?= $meal->registrations()->count(); ?></span>
+    eters &mdash; sluitingstijd <?= $meal->deadline(); ?>
 </p>
 
 <h2>
