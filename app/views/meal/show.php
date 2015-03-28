@@ -10,18 +10,12 @@
 
 <ul id="registrations">
     <?php foreach ($meal->registrations()->get() as $r): ?>
-        <li>
-            <input type="checkbox" /> <span class="name"><?= $r->name; ?></span>
-            <?php if (!empty($r->handicap)): ?>
-                (<?php echo $r->handicap; ?>)
-            <?php endif; ?>
-            <img class="remove_registration" data-name="<?= $r->name; ?>" data-id="<?=$r->id;?>" src="/images/cross.png" alt="Eter uitschrijven" title="Eter uitschrijven">
-        </li>
+        <?= View::make('meal/_registration', ['registration' => $r]); ?>
     <?php endforeach; ?>
 </ul>
 
 <h2>Nieuwe eter toevoegen</h2>
-<form action="#new_registration">
+<form action="#new_registration" id="new_registration" data-meal_id="<?= $meal->id; ?>">
     <p>
         <label for="name">Naam</label><br>
         <input type="text" id="name" name="name">

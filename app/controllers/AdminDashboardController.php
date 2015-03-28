@@ -53,31 +53,4 @@ class AdminDashboardController extends ApplicationController
         Log::info("Maaltijd verwijderd: $date");
         return Redirect::to('/administratie');
     }
-
-    /**
-     * Creates a registration
-     * @return View or a string "error" upon failure
-     */
-    public function aanmelden()
-    {
-        $meal = Meal::find((int)Input::get('meal_id'));
-        if (!$meal) {
-            App::abort(404, 'Maaltijd niet gevonden');
-        }
-
-        // Create a new registration
-        $registration = new Registration([
-            'name' => e(Input::get('name')),
-            'handicap' => (Input::get('handicap') != '') ? e(Input::get('handicap')) : null,
-        ]);
-        $registration->meal_id = $meal->id;
-
-        if ($registration->save()) {
-            Log::info("Aangemeld: administratie|$registration->id|$registration->name");
-            return View::make('dashboard/_meal', ['meal' => $meal]);
-        }
-        else {
-            return 'error';
-        }
-    }
 }
