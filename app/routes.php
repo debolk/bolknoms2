@@ -7,12 +7,7 @@ Route::post('/aanmelden', 'RegisterController@aanmelden');
 // Creating and editing meals
 Route::get('/administratie/nieuwe_maaltijd', 'MealController@new_meal');
 Route::post('/administratie/nieuwe_maaltijd_maken', 'MealController@create');
-Route::get('/administratie/bewerk/{id}', 'MealController@edit');
-Route::post('/administratie/update/{id}', ['as' => 'update_meal', 'uses' => 'MealController@update']);
-Route::get('/administratie/gevulde_dagen', 'MealController@gevulde_dagen');
-
-// Printing checklist
-Route::get('/administratie/checklist/{id}', 'PrintController@checklist');
+Route::get('/administratie/{id}', 'MealController@show');
 
 // Administration dashboard
 Route::get('/administratie', 'AdminDashboardController@index');

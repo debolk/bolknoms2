@@ -1,71 +1,100 @@
-var disabled_days = null;
-
-$(document).ready(function() {
-    // Only execute loading days on the page that's needed
-    if ($('body.administratie.nieuwe_maaltijd, body.administratie.bewerk').size() > 0) {
-        // Load disabled days
-        get_disabled_days();
-
-        $('.datepicker').datepicker({
-            minDate: 0,
-            showWeek: true,
-            firstDay: 1,
-            dayNames: ['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'],
-            dayNamesMin: ['zo','ma','di','wo','do','vr','za'],
-            dateFormat: 'yy-mm-dd',
-            beforeShowDay: check_free_date
-        });
-    }
-
-    // Interactive tables for administration
-    hide_subtables();
-    $('.expander').click(toggle_subtable);
+document.addEventListener('DOMContentLoaded', function(){
+    // Print action
+    document.getElementById('print').addEventListener('click', function(){
+        window.print();
+    });
 });
 
-function add_registration_if_enter(data) {
-    // If enter is pressed
-    if (data.which == 13) {
-        // Trigger the submit-function
-        var row = $(this).parents('.new_registration');
-        $('input[type="submit"]',row).click();
-    }
-}
+// function add_registration_if_enter(data) {
+//     // If enter is pressed
+//     if (data.which == 13) {
+//         // Trigger the submit-function
+//         var row = $(this).parents('.new_registration');
+//         $('input[type="submit"]',row).click();
+//     }
+// }
 
-/**
- * Retrieves an array of all disabled dates from the server
- * @return void
- */
-function get_disabled_days() {
-    // Exclude current day
-    var meal_id = null;
-    if ($('form').size() > 0) {
-        meal_id = $('form').attr('data-id');
-    }
+ // // Remove a registration
+    // var destroy_links = document.getElementsByClassName('destroy-registration');
+    // for (var i = destroy_links.length - 1; i >= 0; i--) {
+    //     destroy_links[i].addEventListener('click', remove_registration);
+    // };
 
-    $.ajax({
-        url: '/administratie/gevulde_dagen',
-        data: {
-            meal_id: meal_id
-        },
-        success: function(result) {
-            disabled_days = result
-        },
-        dataType: 'json',
-        async: false
-    });
-}
+    // // // Submit a new registration when pressing enter
+    // // var inputs = document.querySelectorAll('.new_registration input[type="text"]');
+    // // for (var i = inputs.length - 1; i >= 0; i--) {
+    // //     inputs[i].addEventListener('keyup', add_registration);
+    // // };
 
-/**
- * Checks whether a specific date is still free
- * @param Date date
- * @return array[boolean]
- */
-function check_free_date(date) {
-    var date_string = date.format('yyyy-mm-dd');
-    if ($.inArray(date_string, disabled_days) > -1) {
-        return [false];
-    }
-    else {
-        return [true];
-    }
-}
+    // // Collapsable tables
+    // hide_subtables();
+    // var expanders = document.getElementsByClassName('expander');
+    // for (var i = expanders.length - 1; i >= 0; i--) {
+    //     expanders[i].addEventListener('click', toggle_subtable);
+    // };
+
+// function add_registration(data) {
+//     // Only process when [Enter] is pressed
+//     if (data.which != 13) {
+//         return;
+//     }
+
+//     // // Get the values, ignoring whitespace
+//     // var form = $(this).parents('.new_registration');
+//     // var meal_id = $(this).parents('tbody').attr('data-id');
+//     // var name = $('input[name="name"]',form).val().trim();
+//     // var handicap = $('input[name="handicap"]',form).val().trim();
+
+//     // if (name !== '') {
+//     //     // Update the server
+//     //     $.post('/administratie/aanmelden',{
+//     //             meal_id: meal_id,
+//     //             name: name,
+//     //             handicap: handicap
+//     //         },
+//     //         function(new_row){
+//     //             // Update meal
+//     //             $('tbody[data-id="'+meal_id+'"]').replaceWith(new_row);
+//     //             // Re-open the list of names
+//     //             $('.expander', 'tbody[data-id="'+meal_id+'"]').click();
+//     //         },'html');
+//     // }
+// }
+
+
+// /**
+//  * Remove a registration from the server
+//  */
+// function remove_registration(event)
+// {
+//     // Do not follow the link
+//     event.preventDefault();
+
+//     // Find relevant elements
+//     var meal = ancestorWithClass(this, 'meal');
+//     console.log(meal);
+//     var registration = ancestorWithClass(this, 'registration');
+
+//     // Read values
+//     var meal_id = meal.dataset.id;
+//     var name = registration.querySelector('.meal').innerHTML();
+
+//     // Ask for confirmation
+//     if (confirm('Weet je zeker dat je '+name+' wilt uitschrijven?')) {
+
+//             var request = new XMLHttpRequest();
+//             request.open('POST', this.getAttribute('href'), true);
+//             request.onload = function() {
+//                 if (this.status >= 200 && this.status < 400) {
+//                     registration.remove();
+//                 }
+//                 else {
+//                     alert('Er is een fout opgetreden. Probeer de pagina te verversen.')
+//                 }
+//             }
+//             request.onerror = function() {
+//                 alert('Er is een fout opgetreden. Probeer de pagina te verversen.')
+//             }
+//     }
+
+// }

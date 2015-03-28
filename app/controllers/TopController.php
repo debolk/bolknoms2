@@ -4,7 +4,6 @@ class TopController extends ApplicationController
 {
     /**
      * Show a list of all eaters
-     * @return [type] [description]
      */
     public function index()
     {

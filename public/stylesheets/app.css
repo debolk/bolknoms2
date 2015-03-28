@@ -117,3 +117,83 @@ button.busy {
     background-color: #cff;
     border: solid 1px #6cc;
 }
+
+/* Meal styling for administration */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+th, td {
+    text-align: left;
+    padding: 3px 1em 3px 3px;
+}
+.date {
+    text-align: right;
+}
+.number {
+    text-align: center;
+}
+.meal:nth-child(2n) {
+    background-color: #ddd;
+}
+
+.zero {
+    font-style: italic;
+}
+
+/*
+ * Form errors
+ */
+.notification {
+    border: 2px solid black;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.notification ul {
+    margin-bottom: 0;
+}
+
+.notification.success {
+    background-color: #BFB;
+    border-color: #9E9;
+}
+
+.notification.error {
+    background-color: #FBB;
+    border-color: #E99;
+}
+
+.notification.warning {
+    background-color: #FFB;
+    border-color: #EE9;
+}
+
+.subtitle {
+    margin-top: -1em;
+    font-style: italic;
+}
+
+#print {
+    cursor: pointer;
+}
+
+.registrations input {
+    display: none;
+}
+
+.registrations {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    width: 50%;
+    float: left;
+    margin-left: 0;
+}
+

@@ -4,22 +4,15 @@
 
 <form action="/administratie/nieuwe_maaltijd_maken" method="post" accept-charset="utf-8" class="clearfix">
     <p>
-       <label class="label" for="date">Datum</label>
-       <?php echo Form::text('date', Input::old('date'), ['class' => 'datepicker']); ?>
+        <label class="label" for="date">Datum</label><br>
+        <input type="date" placeholder="<?= date('d-m-Y'); ?>" autofocus name="date" min="<?=date('Y-m-d');?>">
     </p>
     <p>
-       <label class="label" for="locked">Inschrijving sluit</label>
-       <?php echo Form::text('locked', Input::old('locked', '15:00')); ?>
-    </p>
-    <p>
-      <label for="event" class="label">Evenement</label>
-       <?php echo Form::text('event', Input::old('event')); ?>
-    </p>
-    <p>
-      <label for="promoted" class="label">Extra promotie</label>
-      <?php echo Form::checkbox('promoted', true, Input::old('promoted')); ?>
+        <label class="label" for="locked">Inschrijving sluit</label><br>
+        <input type="time" placeholder="15:00" name="locked">
     </p>
     <p>
         <input type="submit" value="Maaltijd toevoegen" />
+        of <a href="/administratie">niet toevoegen</a>
     </p>
 </form>
