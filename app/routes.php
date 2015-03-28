@@ -8,12 +8,12 @@ Route::post('/aanmelden', 'RegisterController@aanmelden');
 Route::get('/administratie/nieuwe_maaltijd', 'MealController@new_meal');
 Route::post('/administratie/nieuwe_maaltijd_maken', 'MealController@create');
 Route::get('/administratie/{id}', 'MealController@show');
+Route::post('/administratie/afmelden/{id}', 'MealController@afmelden');
 
 // Administration dashboard
 Route::get('/administratie', 'AdminDashboardController@index');
 Route::get('/administratie/verwijder/{id}', 'AdminDashboardController@verwijder');
 Route::post('/administratie/aanmelden', 'AdminDashboardController@aanmelden');
-Route::post('/administratie/afmelden/{id}', 'AdminDashboardController@afmelden');
 
 // Information pages
 Route::get('/disclaimer', 'PageController@disclaimer');

@@ -81,4 +81,27 @@ class MealController extends ApplicationController
         }
         return Redirect::to('/administratie/nieuwe_maaltijd');
     }
+
+    /**
+     * Removes a registration from a meal
+     * @param int $id the id of the registration to remove
+     * @return string "success" if succesfull
+     */
+    public function afmelden($id)
+    {
+        // Find registration
+        $registration = Registration::find((int)$id);
+        if (!$registration) {
+            App::abort(404, 'Registratie bestaat niet');
+        }
+
+        // Store data for later usage
+        $id = $registration->id;
+        $name = $registration->name;
+        $meal = $registration->meal;
+
+        $registration->delete();
+        Log::info("Afgemeld: administratie|$id|$name|$meal");
+        return 'success';
+    }
 }

@@ -174,26 +174,15 @@ th, td {
     font-style: italic;
 }
 
-#print {
+#print, .remove_registration {
     cursor: pointer;
 }
 
-.registrations input {
+#registrations input {
     display: none;
 }
 
-.registrations {
+#registrations {
     list-style-type: none;
     padding: 0;
 }
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-li {
-    width: 50%;
-    float: left;
-    margin-left: 0;
-}
-

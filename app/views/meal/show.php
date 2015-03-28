@@ -8,13 +8,14 @@
     <img id="print" src="/images/printer.png" alt="Print eterslijst" title="Print eterslijst" width="32" height="32">
 </h2>
 
-<ul class="registrations">
+<ul id="registrations">
     <?php foreach ($meal->registrations()->get() as $r): ?>
         <li>
-            <input type="checkbox" /> <?php echo $r->name; ?>
+            <input type="checkbox" /> <span class="name"><?= $r->name; ?></span>
             <?php if (!empty($r->handicap)): ?>
                 (<?php echo $r->handicap; ?>)
             <?php endif; ?>
+            <img class="remove_registration" data-name="<?= $r->name; ?>" data-id="<?=$r->id;?>" src="/images/cross.png" alt="Eter uitschrijven" title="Eter uitschrijven">
         </li>
     <?php endforeach; ?>
 </ul>

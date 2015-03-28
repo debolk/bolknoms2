@@ -3,7 +3,44 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('print').addEventListener('click', function(){
         window.print();
     });
+
+    // Remove registration
+    var list = document.getElementById('registrations');
+    list.addEventListener('click', remove_registration);
 });
+
+/**
+ * Remove a registration from this meal
+ * @param  {Event} event
+ */
+function remove_registration(event)
+{
+    // Only fire on destroy icons
+    if (! event.target.classList.contains('remove_registration')) {
+        return;
+    }
+
+    // Ask for confirmation
+    var button = event.target;
+    var registration = button.parentNode;
+    if (confirm('Weet je zeker dat je '+button.getAttribute('data-name')+' wilt uitschrijven?')) {
+        // Remove registration
+        var request = new XMLHttpRequest();
+        request.open('POST', '/administratie/afmelden/'+button.getAttribute('data-id'), true);
+        request.onload = function() {
+            if (this.status >= 200 && this.status < 400) {
+                registration.remove();
+            }
+            else {
+                alert('Er is een fout opgetreden. Probeer de pagina te verversen.')
+            }
+        }
+        request.onerror = function() {
+            alert('Er is een fout opgetreden. Probeer de pagina te verversen.')
+        }
+        request.send();
+    }
+}
 
 // function add_registration_if_enter(data) {
 //     // If enter is pressed
