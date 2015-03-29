@@ -1,7 +1,26 @@
-header, footer, h2, form {
+body {
+    font-size: x-large;
+}
+header, footer, h2, form, .remove_registration {
     display: none;
 }
 
-.registrations input {
+#registrations .box {
     display: inline-block;
+}
+
+#registrations {
+    list-style-type: none;
+    list-style-position: outside;
+    padding: 0;
+}
+
+#registrations li {
+    float: left;
+    width: 50%;
+}
+
+.subtitle {
+    margin-top: -1em;
+    font-style: italic;
 }

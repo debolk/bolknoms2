@@ -1,4 +1,4 @@
-<h1><?= $meal ?></h1>
+<h1>Aftekenlijst <?= $meal ?></h1>
 <p class="subtitle">
     <span id="count"><?= $meal->registrations()->count(); ?></span>
     eters &mdash; sluitingstijd <?= $meal->deadline(); ?>
@@ -8,6 +8,10 @@
     Eters
     <img id="print" src="/images/printer.png" alt="Print eterslijst" title="Print eterslijst" width="32" height="32">
 </h2>
+
+<p id="print_instructions">
+    Bonnetjes opgehaald door: ____________________________________
+</p>
 
 <ul id="registrations">
     <?php foreach ($meal->registrations()->get() as $r): ?>

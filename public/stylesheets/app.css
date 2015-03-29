@@ -178,11 +178,15 @@ th, td {
     cursor: pointer;
 }
 
-#registrations input {
+#registrations .box {
     display: none;
 }
 
 #registrations {
     list-style-type: none;
     padding: 0;
+}
+
+#print_instructions {
+    display: none;
 }

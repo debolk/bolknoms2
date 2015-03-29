@@ -1,5 +1,5 @@
-<li>
-    <input type="checkbox" /> <span class="name"><?= $registration->name; ?></span>
+<li class="registration">
+    <span class="box">&square;</span> <span class="name"><?= $registration->name; ?></span>
     <?php if (!empty($registration->handicap)): ?>
         (<?php echo $registration->handicap; ?>)
     <?php endif; ?>
