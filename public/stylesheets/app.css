@@ -133,7 +133,7 @@ th, td {
 .number {
     text-align: center;
 }
-.meal:nth-child(2n) {
+table .meal:nth-child(2n) {
     background-color: #ddd;
 }
 
