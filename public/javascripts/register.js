@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function(){
             // Validate presence of name
             if (data.name == '') {
                 toggle_name_error(true);
-                set_button_state('normal');
+                set_button_state(button, 'normal');
                 return;
             }
 
