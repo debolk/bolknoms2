@@ -22,6 +22,9 @@
             <div class="meal">
                 <button data-id="<?= $meal->id ;?>">nom!</button>
                 <span class="date"><?= $meal; ?></span>
+                <?php if ($meal->locked != '15:00:00'): ?>
+                    (aanmelden tot <?= $meal->deadline(); ?>)
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     </div>
@@ -30,7 +33,7 @@
 <h3>Spelregels</h3>
 <ol>
     <li>Je kunt niet mee-eten zonder je aan te melden.</li>
-    <li>Je kunt je aanmelden tot de vastgestelde sluitingstijd. De sluitingstijd wordt bepaald door het bestuur.</li>
+    <li>Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). De sluitingstijd wordt bepaald door het bestuur.</li>
     <li>Je kunt je weer afmelden tot aan de sluitingstijd. Hiervoor moet je zijn aangemeld met je Bolkaccount.</li>
     <li>Als je niet op tijd afmeldt en niet komt opdagen, betaal je de kosten van de maaltijd (meestal &euro; 3,50) per Bolkrekening.</li>
 </ol>
