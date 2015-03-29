@@ -151,30 +151,27 @@ function toggle_handicap(event, initial = false)
  * @param {String} state either one of 'normal', 'busy' or 'selected'
  * @return {undefined}
  */
-function set_button_state(button, state = 'normal')
+function set_button_state(button, state)
 {
     switch (state)
     {
         case 'normal':
         {
-            button.classList.remove('selected');
-            button.classList.remove('busy');
+            button.className = '';
             button.innerHTML = 'nom!';
             button.disabled = false;
             break;
         }
         case 'busy':
         {
-            button.classList.add('busy');
-            button.classList.remove('selected');
+            button.className = 'busy';
             button.innerHTML = 'nom! <img src="images/spinner.gif" height="16" width="16" alt="">';
             button.disabled = true;
             break;
         }
         case 'selected':
         {
-            button.classList.add('selected');
-            button.classList.remove('busy');
+            button.className = 'selected';
             button.innerHTML = 'nom! &#10004;';
             button.disabled = true;
             break;
