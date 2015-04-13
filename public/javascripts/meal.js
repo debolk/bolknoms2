@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
     // Print action
-    document.getElementById('print').addEventListener('click', function(){
-        window.print();
-    });
+    document.getElementById('print').addEventListener('click', print_list);
 
     // Add a new registration
     var form = document.getElementById('new_registration');
@@ -12,6 +10,15 @@ document.addEventListener('DOMContentLoaded', function(){
     var list = document.getElementById('registrations');
     list.addEventListener('click', remove_registration);
 });
+
+function print_list()
+{
+    // Ask for confirmation if there are no names on the list
+    if (get_counter() == 0 && !confirm('De lijst is leeg. Weet je zeker dat je deze wilt afdrukken?')) {
+        return;
+    }
+    window.print();
+}
 
 /**
  * Add a new registration
@@ -79,6 +86,12 @@ function remove_registration(event)
         }
         request.send();
     }
+}
+
+function get_counter()
+{
+    var counter = document.getElementById('count');
+    return parseInt(counter.innerHTML);
 }
 
 /**
