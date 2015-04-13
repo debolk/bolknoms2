@@ -3,16 +3,16 @@
   "description": "Bolknoms: the very best application in the world for feeding your members in an organized and predictable way.",
   "license": "GPL-3.0",
   "authors": [
-    {"name": "Jakob Buis", 
+    {"name": "Jakob Buis",
       "email": "jpabuis@gmail.com",
       "homepage": "http://www.jakobbuis.com",
       "role": "lead developer"
     }
   ],
   "require": {
-    "laravel/framework": "4.2.*",
-    "sendgrid/sendgrid": "2.1.*",
-    "rmccue/requests": "1.6.*",
+    "laravel/framework": "~4.2",
+    "sendgrid/sendgrid": "~2.2",
+    "rmccue/requests": "~1.6",
     "ext-memcached": "*"
   },
   "require-dev": {
