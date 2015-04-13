@@ -130,8 +130,13 @@ function toggle_name_error(error)
  * @param  {Boolean} initial whether this is the initial check done on page load
  * @return {undefined}
  */
-function toggle_handicap(event, initial = false)
+function toggle_handicap(event, initial)
 {
+    // Default argument
+    if (typeof(initial) === undefined) {
+        initial = false;
+    }
+
     var handicap_text = document.getElementById('handicap_text');
 
     if (this.checked == true) {
