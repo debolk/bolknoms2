@@ -4,12 +4,14 @@
 Route::get('/', 'RegisterController@index');
 Route::post('/aanmelden', 'RegisterController@aanmelden');
 
-// Creating and editing meals
-Route::get('/administratie/nieuwe_maaltijd', 'MealController@new_meal');
-Route::post('/administratie/nieuwe_maaltijd_maken', 'MealController@create');
-Route::get('/administratie/{id}', 'MealController@show');
-Route::post('/administratie/afmelden/{id}', 'MealController@afmelden');
-Route::post('/administratie/aanmelden', 'MealController@aanmelden');
+// Create new meals
+Route::get('/administratie/nieuwe_maaltijd', 'CreateMealController@new_meal');
+Route::post('/administratie/nieuwe_maaltijd_maken', 'CreateMealController@create');
+
+// Show meals in the backend
+Route::get('/administratie/{id}', 'ShowMealController@show');
+Route::post('/administratie/afmelden/{id}', 'ShowMealController@afmelden');
+Route::post('/administratie/aanmelden', 'ShowMealController@aanmelden');
 
 // Administration dashboard
 Route::get('/administratie', 'AdminDashboardController@index');
