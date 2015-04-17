@@ -2,7 +2,7 @@
 
 <?php echo Hform::error_messages_for(Session::get('validation_errors')); ?>
 
-<form action="/administratie/nieuwe_maaltijd_maken" method="post" accept-charset="utf-8" class="clearfix">
+<form action="/administratie/nieuwe_maaltijd_maken" method="post" accept-charset="utf-8">
     <p>
         <label class="label" for="date">Datum</label><br>
         <input type="text" placeholder="<?= date('d-m-Y'); ?>" autofocus name="date">

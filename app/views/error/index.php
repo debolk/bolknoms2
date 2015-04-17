@@ -16,7 +16,7 @@
     </header>
 
     <section>
-        <div class="content clearfix">
+        <div class="content">
             <h1>Foutmelding</h1>
             <p>
                 Er is iets fout gegaan. Onze excuses voor het ongemak. Je kunt het nog een keer proberen.
