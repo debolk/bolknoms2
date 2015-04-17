@@ -37,10 +37,11 @@
 
     <footer>
         <nav>
+            <a href="/">Aanmelden</a> |
+            <a href="/administratie">Administratie</a> |
             <a href="/disclaimer">Disclaimer</a> |
             <a href="/privacy">Privacy</a> |
             <a href="/top-eters">Top eters</a> |
-            <a href="/administratie">Administratie</a>
         </nav>
     </footer>
 
