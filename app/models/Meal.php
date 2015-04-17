@@ -11,7 +11,7 @@ class Meal extends Eloquent
     /**
      * All attributes that can be mass-assigned
      */
-    protected $fillable = ['date', 'locked'];
+    protected $fillable = ['date', 'locked', 'event'];
 
     /**
      * Relationship: one meal has many registrations

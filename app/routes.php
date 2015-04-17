@@ -13,6 +13,10 @@ Route::get('/administratie/{id}', 'ShowMealController@show');
 Route::post('/administratie/afmelden/{id}', 'ShowMealController@afmelden');
 Route::post('/administratie/aanmelden', 'ShowMealController@aanmelden');
 
+// Update meals
+Route::get('/administratie/{id}/edit', 'UpdateMealController@edit');
+Route::post('/administratie/{id}', 'UpdateMealController@update');
+
 // Administration dashboard
 Route::get('/administratie', 'AdminDashboardController@index');
 Route::get('/administratie/verwijder/{id}', 'AdminDashboardController@verwijder');
