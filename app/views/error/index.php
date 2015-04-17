@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>bolknoms</title>
 
-    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css"/>
+    <link rel="stylesheet" href="/stylesheets/app.css" type="text/css"/>
     <link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
 
@@ -16,7 +16,7 @@
     </header>
 
     <section>
-        <div class="content clearfix">
+        <div class="content">
             <h1>Foutmelding</h1>
             <p>
                 Er is iets fout gegaan. Onze excuses voor het ongemak. Je kunt het nog een keer proberen.
@@ -37,10 +37,11 @@
 
     <footer>
         <nav>
+            <a href="/">Aanmelden</a> |
+            <a href="/administratie">Administratie</a> |
             <a href="/disclaimer">Disclaimer</a> |
             <a href="/privacy">Privacy</a> |
             <a href="/top-eters">Top eters</a> |
-            <a href="/administratie">Administratie</a>
         </nav>
     </footer>
 

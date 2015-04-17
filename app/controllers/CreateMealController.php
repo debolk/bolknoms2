@@ -1,6 +1,6 @@
 <?php
 
-class MealController extends ApplicationController
+class CreateMealController extends ApplicationController
 {
     /**
      * Shows the page for creating a new meal
@@ -13,19 +13,6 @@ class MealController extends ApplicationController
     }
 
     /**
-     * Shows the details page of a meal
-     */
-    public function show($id)
-    {
-        $meal = Meal::find($id);
-        if (!$meal) {
-            App::abort(404, "Maaltijd niet gevonden");
-        }
-
-        $this->layout->content = View::make('meal/show', ['meal' => $meal]);
-    }
-
-    /**
      * Processes the new meal form to create a new meal
      * @return Redirect
      */
@@ -35,6 +22,7 @@ class MealController extends ApplicationController
         $meal_data = [
             'date'   => Input::get('date', date('d-m-Y')),
             'locked' => Input::get('locked', '15:00'),
+            'event' => Input::get('event', null),
         ];
         if (empty($meal_data['date'])) {
             $meal_data['date'] = date('d-m-Y');
@@ -65,8 +53,9 @@ class MealController extends ApplicationController
             $meal = new Meal;
             $meal->date = $meal_data['date'];
             $meal->locked = $meal_data['locked'];
+            $meal->event = $meal_data['event'];
             if ($meal->save()) {
-                Log::info("Nieuwe maaltijd: $meal->id|$meal->date");
+                Log::info("Nieuwe maaltijd: $meal->id|$meal->date|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op '.$meal);
                 return Redirect::to('/administratie');
             }
@@ -80,55 +69,5 @@ class MealController extends ApplicationController
             Input::flash();
         }
         return Redirect::to('/administratie/nieuwe_maaltijd');
-    }
-
-    /**
-     * Creates a registration
-     * @return View or a string "error" upon failure
-     */
-    public function aanmelden()
-    {
-        $meal = Meal::find((int)Input::get('meal_id'));
-        if (!$meal) {
-            App::abort(404, 'Maaltijd niet gevonden');
-        }
-
-        // Create a new registration
-        $registration = new Registration([
-            'name' => e(Input::get('name')),
-            'handicap' => (Input::get('handicap') != '') ? e(Input::get('handicap')) : null,
-        ]);
-        $registration->meal_id = $meal->id;
-
-        if ($registration->save()) {
-            Log::info("Aangemeld: administratie|$registration->id|$registration->name");
-            return View::make('meal/_registration', ['registration' => $registration]);
-        }
-        else {
-            return 'error';
-        }
-    }
-
-    /**
-     * Removes a registration from a meal
-     * @param int $id the id of the registration to remove
-     * @return string "success" if succesfull
-     */
-    public function afmelden($id)
-    {
-        // Find registration
-        $registration = Registration::find((int)$id);
-        if (!$registration) {
-            App::abort(404, 'Registratie bestaat niet');
-        }
-
-        // Store data for later usage
-        $id = $registration->id;
-        $name = $registration->name;
-        $meal = $registration->meal;
-
-        $registration->delete();
-        Log::info("Afgemeld: administratie|$id|$name|$meal");
-        return 'success';
     }
 }

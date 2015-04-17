@@ -13,6 +13,7 @@ header, footer {
     clear: both;
     color: white;
     background-color: #800000;
+    z-index: 999;
 }
 
 header {
@@ -141,6 +142,10 @@ table .meal:nth-child(2n) {
     font-style: italic;
 }
 
+#chef {
+    display: none;
+}
+
 /*
  * Form errors
  */
@@ -189,4 +194,9 @@ table .meal:nth-child(2n) {
 
 #print_instructions {
     display: none;
+}
+
+/* Fix for top eters list on mobile */
+ol {
+    list-style-position: inside;
 }

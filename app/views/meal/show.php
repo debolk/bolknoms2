@@ -2,6 +2,7 @@
 <p class="subtitle">
     <span id="count"><?= $meal->registrations()->count(); ?></span>
     eters &mdash; sluitingstijd <?= $meal->deadline(); ?>
+    &mdash; <a href="/administratie/<?=$meal->id;?>/edit">maaltijd bewerken</a>
 </p>
 
 <h2>
