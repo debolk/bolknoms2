@@ -194,3 +194,8 @@ table .meal:nth-child(2n) {
 #print_instructions {
     display: none;
 }
+
+/* Fix for top eters list on mobile */
+ol {
+    list-style-position: inside;
+}
