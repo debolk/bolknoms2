@@ -141,6 +141,10 @@ table .meal:nth-child(2n) {
     font-style: italic;
 }
 
+#chef {
+    display: none;
+}
+
 /*
  * Form errors
  */

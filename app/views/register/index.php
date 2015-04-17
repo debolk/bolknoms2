@@ -14,6 +14,8 @@
     <p>
         <label for="meals">Dagen om mee te eten:</label>
     </p>
+
+
     <?php if (count($meals) == 0): ?>
         <p class="empty">Er zijn geen maaltijden open waarvoor je je kunt aanmelden.</p>
     <?php endif; ?>
@@ -29,6 +31,11 @@
         <?php endforeach; ?>
     </div>
 </form>
+
+<div id=chef class="notification success">
+    <p>Wat leuk dat je mee-eet. Een klein voorproefje van het menu:</p>
+    <iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+</div>
 
 <h3>Spelregels</h3>
 <ol>
