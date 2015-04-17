@@ -35,6 +35,7 @@ class MealController extends ApplicationController
         $meal_data = [
             'date'   => Input::get('date', date('d-m-Y')),
             'locked' => Input::get('locked', '15:00'),
+            'event' => Input::get('event', null),
         ];
         if (empty($meal_data['date'])) {
             $meal_data['date'] = date('d-m-Y');
@@ -65,8 +66,9 @@ class MealController extends ApplicationController
             $meal = new Meal;
             $meal->date = $meal_data['date'];
             $meal->locked = $meal_data['locked'];
+            $meal->event = $meal_data['event'];
             if ($meal->save()) {
-                Log::info("Nieuwe maaltijd: $meal->id|$meal->date");
+                Log::info("Nieuwe maaltijd: $meal->id|$meal->date|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op '.$meal);
                 return Redirect::to('/administratie');
             }

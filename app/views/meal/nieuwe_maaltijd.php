@@ -12,6 +12,10 @@
         <input type="text" placeholder="15:00" name="locked">
     </p>
     <p>
+        <label class="label" for="event">Omschrijving</label><br>
+        <input type="text" placeholder="" name="event">
+    </p>
+    <p>
         <input type="submit" value="Maaltijd toevoegen" />
         of <a href="/administratie">niet toevoegen</a>
     </p>

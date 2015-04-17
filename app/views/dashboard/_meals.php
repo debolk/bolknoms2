@@ -2,6 +2,7 @@
     <table border-spacing=0>
         <thead><tr>
             <th>Datum</th>
+            <th>Omschrijving</th>
             <th>Eters</th>
             <th>Sluitingstijd</th>
             <th>&nbsp;</th>

@@ -4,6 +4,7 @@
             <?php echo $meal; ?>
         </a>
     </td>
+    <td><?=$meal->event;?></td>
 	<td class="number"><?php echo $meal->registrations->count(); ?></td>
     <td class="date"><?php echo $meal->deadline(); ?></td>
 	<td>
