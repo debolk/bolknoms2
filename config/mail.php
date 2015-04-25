@@ -2,12 +2,12 @@
 
 return array(
   'driver' => env('MAIL_DRIVER'),
-  'host' => env('MAIL_HOST'),
-  'port' => env('MAIL_PORT'),
+  'host' => env('MAIL_HOST', null),
+  'port' => env('MAIL_PORT', null),
   'from' => 'noreply@noms.debolk.nl',
   'encryption' => 'tls',
-  'username' => env('MAIL_USERNAME'),
-  'password' => env('MAIL_PASSWORD'),
+  'username' => env('SENDGRID_USERNAME'),
+  'password' => env('SENDGRID_PASSWORD'),
   'sendmail' => '/usr/sbin/sendmail -bs',
   'pretend' => env('MAIL_PRETEND', false),
 );
