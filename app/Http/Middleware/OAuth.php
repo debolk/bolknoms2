@@ -15,9 +15,6 @@ class OAuth {
 	 */
 	public function handle($request, Closure $next)
 	{
-        // Store the URL we attempt to visit
-        Session::put('oauth_goal', $request->route()->getActionName());
-
         // Determine if we have a token
         if (Session::has('oauth_access_token')) {
             $valid = $this->validateToken();
@@ -32,9 +29,15 @@ class OAuth {
             }
         }
         else {
+            // Store the URL we attempt to visit
+            Session::put('oauth_goal', $request->route()->getUri());
+
             // Generate a random six digit number as state to defend against CSRF-attacks
             $state = rand(pow(10, 5), pow(10, 6)-1);
             Session::put('oauth_state', $state);
+
+            // For some reason, an explicit save is needed in middleware
+            Session::save();
 
             // Redirect to the oauth endpoint for authentication
             $query_string = http_build_query([
