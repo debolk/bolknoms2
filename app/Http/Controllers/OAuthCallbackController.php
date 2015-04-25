@@ -43,6 +43,6 @@ class OAuthCallbackController extends ApplicationController
         Session::put('oauth_access_token', $result->access_token);
 
         // Redirect to the original URL
-        return redirect(Session::get('oauth_goal'));
+        return redirect()->action(Session::get('oauth_goal'));
     }
 }
