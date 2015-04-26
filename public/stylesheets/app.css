@@ -5,21 +5,25 @@ body {
     padding: 0;
 }
 
-header {
+header, nav {
     width: 100%;
     box-sizing: border-box;
     margin: 0;
     clear: both;
-    color: white;
-    background-color: #800000;
-    z-index: 999;
-    padding: 0 0 0 1em;
     position: fixed;
     top: 0;
+}
+
+header {
+    z-index: 999;
+    color: white;
+    background-color: #800000;
+    padding: 0 0 0 1em;
     box-shadow: 0px 1px 5px rgba(0,0,0, 0.5);
 }
 
 nav {
+    z-index: 100;
     display: block;
     margin-top: 66px;
     background-color: #ddd;
@@ -38,7 +42,7 @@ header h1 {
 }
 
 section {
-    margin-top: 10px;
+    margin-top: 120px;
     padding: 1em;
     background-color: white;
 }
@@ -56,6 +60,9 @@ input[type=checkbox] {
 }
 h3 {
     margin-bottom: 0;
+}
+h1:first-child {
+    margin-top: 0;
 }
 
 .meal {
