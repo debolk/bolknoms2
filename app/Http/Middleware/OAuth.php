@@ -47,7 +47,7 @@ class OAuth {
                 'redirect_uri' => env('OAUTH_CALLBACK'),
                 'state'=> $state,
             ]);
-            return redirect(env('OAUTH_ENDPOINT').'authorize/?'.$query_string);
+            return redirect(env('OAUTH_ENDPOINT').'authenticate/?'.$query_string);
         }
 
 
