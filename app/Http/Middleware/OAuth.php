@@ -61,7 +61,7 @@ class OAuth {
     {
         $request = curl_init();
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'bestuur/?access_token='.Session::get('oauth_access_token'));
+        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth_access_token'));
         $result = curl_exec($request);
         $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);
