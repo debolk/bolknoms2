@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="utf-8"/>
-    <title>bolknoms</title>
+    <title>Bolknoms</title>
 
     <?php if (isset($javascript)): ?>
         <script type="text/javascript" src="/javascripts/<?=$javascript?>.js"></script>
@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <h1>bolknoms</h1>
+        <h1>Bolknoms</h1>
     </header>
     <nav>
         <a href="/">Aanmelden</a> |

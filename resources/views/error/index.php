@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="utf-8"/>
-    <title>bolknoms</title>
+    <title>Bolknoms</title>
 
     <link rel="stylesheet" href="/stylesheets/app.css" type="text/css"/>
     <link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <h1>bolknoms</h1>
+        <h1>Bolknoms</h1>
     </header>
 
     <section>
