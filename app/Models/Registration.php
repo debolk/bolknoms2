@@ -73,7 +73,7 @@ class Registration extends ApplicationModel
         $query->whereRaw('registrations.deleted_at IS NULL');
         $query->groupBy('name');
         $query->orderBy('count', 'desc');
-        $query->havingRaw('count > 1');
+        $query->take(100);
         return $query;
     }
 }
