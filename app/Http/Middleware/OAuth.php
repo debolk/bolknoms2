@@ -30,11 +30,11 @@ class OAuth {
         }
         else {
             // Store the URL we attempt to visit
-            Session::put('oauth_goal', $request->route()->getUri());
+            Session::put('oauth.goal', $request->route()->getUri());
 
             // Generate a random six digit number as state to defend against CSRF-attacks
             $state = rand(pow(10, 5), pow(10, 6)-1);
-            Session::put('oauth_state', $state);
+            Session::put('oauth.state', $state);
 
             // For some reason, an explicit save is needed in middleware
             Session::save();
@@ -61,7 +61,7 @@ class OAuth {
     {
         $request = curl_init();
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth_access_token'));
+        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth.token.access_token'));
         $result = curl_exec($request);
         $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);

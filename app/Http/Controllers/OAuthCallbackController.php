@@ -15,7 +15,7 @@ class OAuthCallbackController extends ApplicationController
     public function callback()
     {
         // Check state to prevent CSRF
-        if ((string)Request::get('state') !== (string)Session::get('oauth_state')) {
+        if ((string)Request::get('state') !== (string)Session::get('oauth.state')) {
             App::abort(400, 'OAuth state mismatch');
         }
 
@@ -24,7 +24,7 @@ class OAuthCallbackController extends ApplicationController
         if ($error !== null) {
             // Show a helpful page if the user denied permission
             if ($error === 'access_denied') {
-                return $this->setPageContent(view('oauth/denied', ['url' => Session::get('oauth_goal')]));
+                return $this->setPageContent(view('oauth/denied', ['url' => Session::get('oauth.goal')]));
             }
             else {
                 App::abort(500, Request::get('error_description'));
@@ -44,17 +44,20 @@ class OAuthCallbackController extends ApplicationController
         curl_setopt($request,CURLOPT_POST, count($fields));
         curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        $result = json_decode(curl_exec($request));
+        $token = json_decode(curl_exec($request));
 
         // Do not proceed if we encounter an error
-        if (isset($result->error)) {
-            App::abort(500, $result->error_description);
+        if (isset($token->error)) {
+            App::abort(500, $token->error_description);
         }
 
-        // Store access code
-        Session::put('oauth_access_token', $result->access_token);
+        // Determine expiry time (-100 seconds to be sure)
+        $token->expires_at = strtotime('+' . (((int)$token->expires_in) - 100) . ' seconds');
+
+        // Store the token
+        Session::put('oauth.token', $token);
 
         // Redirect to the original URL
-        return redirect(Session::get('oauth_goal'));
+        return redirect(Session::get('oauth.goal'));
     }
 }
