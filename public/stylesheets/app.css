@@ -203,3 +203,18 @@ table .meal:nth-child(2n) {
 ol {
     list-style-position: inside;
 }
+
+.error_message {
+background: none repeat scroll 0 0 #57a957;
+    border: none;
+    border-radius: 0.5em;
+    color: white;
+    cursor: pointer;
+    padding: 1em;
+    font-family: monospace;
+    background: none repeat scroll 0 0 #c43c35;
+    border-color: #c43c35;
+    color: white;
+}
+
+

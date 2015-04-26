@@ -23,20 +23,12 @@
 
     <section>
         <div class="content">
-            <h1>Foutmelding</h1>
-            <p>
-                Er is iets fout gegaan. Onze excuses voor het ongemak. Je kunt het nog een keer proberen.
-            </p>
-            <p>
-                <?php if ($reported_automatically): ?>
-                    Het probleem is automatisch gemeld bij de ICTcom. Als je dat wilt, kun je zelf contact opnemen via <a href="mailto:ictcom@nieuwedelft.nl">ictcom@nieuwedelft.nl</a>.
-                <?php else: ?>
-                    Omdat dit soort problemen meestal aan een fout van de gebruiker liggen (en zo'n 10x per dag gebeuren) is het probleem <strong>niet</strong> automatisch gemeld bij de ICTcom.
-                    Ligt het echt niet aan jou? Neem dan zelf contact opnemen via <a href="mailto:ictcom@nieuwedelft.nl">ictcom@nieuwedelft.nl</a>, dan helpen we je graag.
-                <?php endif; ?>
-            </p>
             <p class="error_message">
+                <strong>Foutmelding:</strong>
                 <?php echo $code; ?>
+            </p>
+            <p>
+                Vragen? <a href="mailto:<?=env('MAIL_ADMIN_MAIL');?>">Mail de admin</a>.
             </p>
         </div>
     </section>
