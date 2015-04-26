@@ -4,9 +4,8 @@
     <meta charset="utf-8"/>
     <title>Bolknoms</title>
 
-    <link rel="stylesheet" href="/stylesheets/app.css" type="text/css"/>
     <link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
 
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 </head>
@@ -14,6 +13,13 @@
     <header>
         <h1>Bolknoms</h1>
     </header>
+    <nav>
+        <a href="/">Aanmelden</a> |
+        <a href="/top-eters">Top eters</a> |
+        <a href="/disclaimer">Disclaimer</a> |
+        <a href="/privacy">Privacy</a> |
+        <a href="/administratie">Administratie</a>
+    </nav>
 
     <section>
         <div class="content">
@@ -34,16 +40,6 @@
             </p>
         </div>
     </section>
-
-    <footer>
-        <nav>
-            <a href="/">Aanmelden</a> |
-            <a href="/administratie">Administratie</a> |
-            <a href="/disclaimer">Disclaimer</a> |
-            <a href="/privacy">Privacy</a> |
-            <a href="/top-eters">Top eters</a> |
-        </nav>
-    </footer>
 
     <?php echo View::make('application/_google_analytics'); ?>
 </body>
