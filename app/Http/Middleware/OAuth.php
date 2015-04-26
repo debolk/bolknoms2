@@ -16,16 +16,19 @@ class OAuth {
 	public function handle($request, Closure $next)
 	{
         // Determine if we have a token
-        if (Session::has('oauth_access_token')) {
-            $valid = $this->validateToken();
+        if (Session::has('oauth.token')) {
 
-            // Continue if the resource is acceptable
-            if ($valid) {
+            // Refresh if needed
+            $this->refreshExpiredToken();
+
+            // Validate token
+            if ($this->validateToken()) {
                 // Proceed with request
                 return $next($request);
             }
             else {
                 App::abort(403, 'Access denied: you\'re not authorized to access this');
+                Session::flush();
             }
         }
         else {
@@ -49,8 +52,6 @@ class OAuth {
             ]);
             return redirect(env('OAUTH_ENDPOINT').'authenticate/?'.$query_string);
         }
-
-
 	}
 
     /**
@@ -66,6 +67,44 @@ class OAuth {
         $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);
         return ($status === 200);
+    }
+
+    /**
+     * Refresh an access token if it is expired
+     * @return void
+     */
+    private function refreshExpiredToken()
+    {
+        // Do not refresh a still fresh token
+        if (Session::get('oauth.token.expires_at') > time()) {
+            return;
+        }
+
+        // Send refresh request
+        $request = curl_init();
+        $fields = [
+            'grant_type' => 'refresh_token',
+            'refresh_token' => Session::get('oauth.token.refresh_token'),
+            'client_id' => env('OAUTH_CLIENT_ID'),
+            'client_secret' => env('OAUTH_CLIENT_SECRET'),
+        ];
+        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'token/');
+        curl_setopt($request,CURLOPT_POST, count($fields));
+        curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        $token = json_decode(curl_exec($request));
+
+        // Do not proceed if we encounter an error
+        if (isset($token->error)) {
+            App::abort(500, $token->error_description);
+            Session::flush();
+        }
+
+        // Determine expiry time (-100 seconds to be sure)
+        $token->expires_at = strtotime('+' . (((int)$token->expires_in) - 100) . ' seconds');
+
+        // Overwrite the token with the new token
+        Session::put('oauth.token', $token);
     }
 
 }

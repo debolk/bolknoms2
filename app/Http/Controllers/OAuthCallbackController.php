@@ -28,6 +28,7 @@ class OAuthCallbackController extends ApplicationController
             }
             else {
                 App::abort(500, Request::get('error_description'));
+                Session::flush();
             }
         }
 
@@ -49,6 +50,7 @@ class OAuthCallbackController extends ApplicationController
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
             App::abort(500, $token->error_description);
+            Session::flush();
         }
 
         // Determine expiry time (-100 seconds to be sure)

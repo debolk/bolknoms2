@@ -15,7 +15,7 @@ class Board {
 	 */
 	public function handle($request, Closure $next)
 	{
-        if (! Session::has('oauth_access_token')) {
+        if (! Session::has('oauth.token')) {
             App::abort(500, 'Attempted board authorization without a valid session');
         }
 
