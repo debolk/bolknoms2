@@ -17,20 +17,17 @@
     <header>
         <h1>bolknoms</h1>
     </header>
+    <nav>
+        <a href="/">Aanmelden</a> |
+        <a href="/top-eters">Top eters</a> |
+        <a href="/disclaimer">Disclaimer</a> |
+        <a href="/privacy">Privacy</a> |
+        <a href="/administratie">Administratie</a>
+    </nav>
 
     <section>
         <?php echo $content; ?>
     </section>
-
-    <footer>
-        <nav>
-            <a href="/">Aanmelden</a> |
-            <a href="/administratie">Administratie</a> |
-            <a href="/disclaimer">Disclaimer</a> |
-            <a href="/privacy">Privacy</a> |
-            <a href="/top-eters">Top eters</a> |
-        </nav>
-    </footer>
 
     <?php echo View::make('application/_google_analytics'); ?>
 </body>
