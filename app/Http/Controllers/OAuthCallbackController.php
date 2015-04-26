@@ -19,6 +19,18 @@ class OAuthCallbackController extends ApplicationController
             App::abort(400, 'OAuth state mismatch');
         }
 
+        // Check for errors
+        $error = Request::get('error', null);
+        if ($error !== null) {
+            // Show a helpful page if the user denied permission
+            if ($error === 'access_denied') {
+                return $this->setPageContent(view('oauth/denied', ['url' => Session::get('oauth_goal')]));
+            }
+            else {
+                App::abort(500, Request::get('error_description'));
+            }
+        }
+
         // Retrieve access code
         $request = curl_init();
         $fields = [
