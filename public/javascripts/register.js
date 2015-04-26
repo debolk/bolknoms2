@@ -13,19 +13,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
         if (name != null || name == '') {
             name_input.value = name;
-            name_input.blur();
-        }
-        else {
-            name_input.focus();
         }
 
         // On keyup in field, store name in localstorage
         name_input.addEventListener('keyup', function(){
             window.localStorage.setItem('bolknoms_name', name_input.value.trim());
         });
-    }
-    else {
-        name_input.focus();
     }
 
     /*
