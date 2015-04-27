@@ -17,9 +17,9 @@ class Navigation
         'Aanmelden'       => '/',
         'Mijn maaltijden' => '/mijnmaaltijden',
         'Top eters'       => '/top-eters',
+        'Administratie'   => '/administratie',
         'Disclaimer'      => '/disclaimer',
         'Privacy'         => '/privacy',
-        'Administratie'   => '/administratie',
     ];
 
     /**
