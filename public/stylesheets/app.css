@@ -27,12 +27,23 @@ nav {
     display: block;
     margin-top: 66px;
     background-color: #ddd;
-    padding: 0.25em 0 0.25em 1em;
     box-shadow: 0px 1px 5px rgba(0,0,0, 0.5);
 }
 
 nav a {
+    display: inline-block;
     color: black;
+    text-decoration: none;
+    padding: 0.25em 1em;
+}
+
+nav a:hover, nav a.current:hover {
+    background-color: #666;
+    color: white;
+}
+
+nav a.current {
+    background-color: #aaa;
 }
 
 header h1 {

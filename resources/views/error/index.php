@@ -14,11 +14,7 @@
         <h1>Bolknoms</h1>
     </header>
     <nav>
-        <a href="/">Aanmelden</a> |
-        <a href="/top-eters">Top eters</a> |
-        <a href="/disclaimer">Disclaimer</a> |
-        <a href="/privacy">Privacy</a> |
-        <a href="/administratie">Administratie</a>
+        <?= \App\Http\Helpers\Navigation::show(); ?>
     </nav>
 
     <section>
