@@ -14,8 +14,8 @@ Route::get('/oauth', 'OAuthCallbackController@callback');
 // Pages which require a Bolk-account
 Route::group(['middleware' => 'oauth'], function(){
 
-    // Top eaters list
     Route::get('/top-eters', 'TopController@index');
+    Route::get('/mijnmaaltijden', 'MyMealsController@index');
 });
 
 // Pages which require board-level authorization

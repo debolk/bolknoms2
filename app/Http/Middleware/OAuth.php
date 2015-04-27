@@ -63,10 +63,16 @@ class OAuth {
         $request = curl_init();
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth.token')->access_token);
-        $result = curl_exec($request);
+        $answer = curl_exec($request);
         $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
         curl_close($request);
-        return ($status === 200);
+        $result = json_decode($answer);
+
+        if ($status === 200) {
+            Session::put('oauth.user_id', $result->user_id);
+            return true;
+        }
+        return false;
     }
 
     /**

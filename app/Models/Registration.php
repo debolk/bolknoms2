@@ -76,4 +76,12 @@ class Registration extends ApplicationModel
         $query->take(100);
         return $query;
     }
+
+    /**
+     * Scope: all meals created by a specific user
+     */
+    public function scopeForUser($query, $username)
+    {
+        return $query->where('username', '=', $username);
+    }
 }

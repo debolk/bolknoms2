@@ -14,11 +14,12 @@ class Navigation
      * @var array
      */
     private static $entries = [
-        'Aanmelden'     => '/',
-        'Top eters'     => '/top-eters',
-        'Disclaimer'    => '/disclaimer',
-        'Privacy'       => '/privacy',
-        'Administratie' => '/administratie',
+        'Aanmelden'       => '/',
+        'Mijn maaltijden' => '/mijnmaaltijden',
+        'Top eters'       => '/top-eters',
+        'Disclaimer'      => '/disclaimer',
+        'Privacy'         => '/privacy',
+        'Administratie'   => '/administratie',
     ];
 
     /**
