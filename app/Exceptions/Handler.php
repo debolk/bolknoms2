@@ -36,6 +36,11 @@ class Handler extends ExceptionHandler {
      */
     public function render($request, Exception $e)
     {
-        return response()->view('error/index', ['code' => $e->getMessage()]);
+        if (env('APP_DEBUG')) {
+            return parent::render($request, $e);
+        }
+        else {
+            return response()->view('error/index', ['code' => $e->getMessage()]);
+        }
     }
 }
