@@ -1,8 +1,12 @@
 <h1>Aftekenlijst <?= $meal ?></h1>
 <p class="subtitle">
-    <span id="count"><?= $meal->registrations()->count(); ?></span>
-    eters &mdash; sluitingstijd <?= $meal->deadline(); ?>
-    &mdash; <a href="/administratie/<?=$meal->id;?>/edit">maaltijd bewerken</a>
+    <span id="count"><?= $meal->registrations()->count(); ?></span> eters
+    <span class="non_print">
+        &mdash;
+        sluitingstijd <?= $meal->deadline(); ?>
+        &mdash;
+        <a href="/administratie/<?=$meal->id;?>/edit">maaltijd bewerken</a>
+    </span>
 </p>
 
 <h2>

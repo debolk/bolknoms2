@@ -1,7 +1,7 @@
 body {
     font-size: x-large;
 }
-header, footer, h2, form, .remove_registration {
+header, nav, h2, form, .remove_registration, .non_print {
     display: none;
 }
 
@@ -23,4 +23,8 @@ header, footer, h2, form, .remove_registration {
 .subtitle {
     margin-top: -1em;
     font-style: italic;
+}
+
+section {
+    margin-top: 0;
 }
