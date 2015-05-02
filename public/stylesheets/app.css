@@ -91,7 +91,7 @@ h1:first-child {
 }
 
 /* Button */
-button {
+.meal button {
     width: 112px;
     border: 0;
     background-color: #fff;
@@ -103,25 +103,25 @@ button {
     cursor: pointer;
 }
 
-button::-moz-focus-inner {
+.meal button::-moz-focus-inner {
   border: 0;
 }
 
-button:active {
+.meal button:active {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     transition: 0.1s all;
     cursor: inherit;
 }
 
-button.selected, button.busy {
+.meal button.selected, button.busy {
     color: white;
     box-shadow: none;
     cursor: inherit;
 }
-button.selected {
+.meal button.selected {
     background-color: #0f9d58;
 }
-button.busy {
+.meal button.busy {
     background-color: #f1c40f;
 }
 
@@ -228,4 +228,28 @@ background: none repeat scroll 0 0 #57a957;
     color: white;
 }
 
+/*
+ * Registration form customizations
+ */
+#register_form input[name="name"] {
+    width: 8em;
+}
 
+#login_button {
+    background-color: #ccc;
+    border: none;
+    padding: 1em;
+    color: white;
+}
+
+/*
+ * Loading indicators
+ */
+.spinner {
+    vertical-align: middle;
+}
+
+/* Hide registrations form until user is logged-in */
+#register_form {
+    display: none;
+}

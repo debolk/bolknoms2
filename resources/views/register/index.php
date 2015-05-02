@@ -1,20 +1,13 @@
-<form action="#" id="form_name">
-    <p>
-        <label for="name">Je naam:</label><br>
-        <input type="text" name="name" id="name"><br>
-        <span class="error_explanation">Je naam is nodig om je aan te melden</span>
-    </p>
+<h1>Aanmelden voor de maaltijd</h1>
+<div class="notification warning" id="login_status">
+    Controleren Bolkaccount
+    <?= App\Http\Helpers\Loading::dark(); ?>
+</div>
 
-    <p>
-        <input type="checkbox" name="handicap_checkbox" id="handicap_checkbox">
-        <label for="handicap_text">Ik volg een speciaal dieet</label><br>
-        <input type="text" name="handicap_text" id="handicap_text">
-    </p>
-
+<form action="#" id="register_form">
     <p>
         <label for="meals">Dagen om mee te eten:</label>
     </p>
-
 
     <?php if (count($meals) == 0): ?>
         <p class="empty">Er zijn geen maaltijden open waarvoor je je kunt aanmelden.</p>

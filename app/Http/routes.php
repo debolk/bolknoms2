@@ -11,12 +11,17 @@ Route::get('/privacy', 'PageController@privacy');
 // OAuth authorization callback
 Route::get('/oauth', 'OAuthCallbackController@callback');
 
+Route::get('/logout', 'OAuthCallbackController@logout');
+
 // Pages which require a Bolk-account
 Route::group(['middleware' => 'oauth'], function(){
 
+    Route::get('/login', 'OAuthCallbackController@login');
     Route::get('/top-eters', 'TopController@index');
     Route::get('/mijnmaaltijden', 'MyMealsController@index');
 });
+
+Route::get('/currentuser', 'OAuthCallbackController@currentUser');
 
 // Pages which require board-level authorization
 Route::group(['middleware' => ['oauth','board']], function(){
