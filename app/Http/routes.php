@@ -17,8 +17,9 @@ Route::get('/logout', 'OAuthCallbackController@logout');
 Route::group(['middleware' => 'oauth'], function(){
 
     Route::get('/login', 'OAuthCallbackController@login');
+
+    // Top eaters list
     Route::get('/top-eters', 'TopController@index');
-    Route::get('/mijnmaaltijden', 'MyMealsController@index');
 });
 
 Route::get('/currentuser', 'OAuthCallbackController@currentUser');
