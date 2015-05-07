@@ -1,28 +1,32 @@
 <?php
 
+// Splashscreen for unregistered clients
+Route::get('/', 'SplashController@index');
+Route::get('/loggedin', 'SplashController@isLoggedIn');
+Route::get('/geenaccount', 'SplashController@noAccount');
+
 // Registering for meals
-Route::get('/', 'RegisterController@index');
-Route::post('/aanmelden', 'RegisterController@aanmelden');
+// Route::get('/', 'RegisterController@index');
 
 // Information pages
 Route::get('/disclaimer', 'PageController@disclaimer');
 Route::get('/privacy', 'PageController@privacy');
 
 // OAuth authorization callback
-Route::get('/oauth', 'OAuthCallbackController@callback');
+Route::get('/oauth', 'OAuthController@callback');
 
-Route::get('/logout', 'OAuthCallbackController@logout');
+Route::get('/logout', 'OAuthController@logout');
 
 // Pages which require a Bolk-account
 Route::group(['middleware' => 'oauth'], function(){
 
-    Route::get('/login', 'OAuthCallbackController@login');
+    Route::post('/aanmelden', 'RegisterController@aanmelden');
 
     // Top eaters list
     Route::get('/top-eters', 'TopController@index');
 });
 
-Route::get('/currentuser', 'OAuthCallbackController@currentUser');
+Route::get('/currentuser', 'OAuthController@currentUser');
 
 // Pages which require board-level authorization
 Route::group(['middleware' => ['oauth','board']], function(){

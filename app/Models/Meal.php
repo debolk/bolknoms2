@@ -48,6 +48,14 @@ class Meal extends ApplicationModel
     }
 
     /**
+     * Scope: the meal for today, if any
+     */
+    public function scopeToday($query)
+    {
+        return $query->where('date', '=', date('Y-m-d'))->first();
+    }
+
+    /**
      * Controls output when an object of the class is printed
      * @return string
      */
@@ -75,7 +83,7 @@ class Meal extends ApplicationModel
      * Returns whether a meal is today
      * @return boolean
      */
-    public function today()
+    public function isToday()
     {
         return ($this->date === strftime('%Y-%m-%d'));
     }

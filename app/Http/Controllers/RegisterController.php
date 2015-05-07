@@ -50,6 +50,14 @@ class RegisterController extends ApplicationController
             'between' => 'Je naam moet minimaal twee en maximaal 30 tekens bevatten',
         ]);
 
+        // Validate the user account matches our session
+        if (Session::get('oauth.user_id') !== Input::get('user')) {
+            return response()->json([
+                'error' => 'session_user_not_matched',
+                'error_details' => 'Je logingegevens voor de server zijn anders dan die van de client. Logout en probeer opnieuw.'
+            ], 409);
+        }
+
         if ($validator->passes()) {
             // Escape data
             $name = e(Request::input('name'));

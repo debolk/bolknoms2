@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 window.currentUser = this.response;
 
                 // Show login status
-
                 status.classList.remove('warning');
                 status.classList.add('success');
                 status.innerHTML = 'Welkom terug ' + this.response + '. ';
@@ -65,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
             // Grab variables
             var data = {
-                name: name_input.value,
+                user: window.currentUser,
                 handicap: document.getElementById('handicap_text').value,
                 meal_id: button.dataset.id
             };

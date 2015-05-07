@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App;
 use Request;
 use Session;
+use App\Http\Helpers\OAuth;
 
-class OAuthCallbackController extends ApplicationController
+class OAuthController extends ApplicationController
 {
     /**
      * Store the callback
@@ -61,30 +62,6 @@ class OAuthCallbackController extends ApplicationController
 
         // Redirect to the original URL
         return redirect(Session::get('oauth.goal'));
-    }
-
-    /**
-     * Print the current username logged in, or NULL if none is found
-     * @return string the current username
-     */
-    public function currentUser()
-    {
-        $user = Session::get('oauth.user_id');
-        if ($user) {
-            return response($user, 200);
-        }
-        else {
-            return response(null, 204);
-        }
-    }
-
-    /**
-     * Forces a OAuth user login (through route middleware), than redirects to registration
-     * @return Redirect /
-     */
-    public function login()
-    {
-        return redirect('/');
     }
 
     /**
