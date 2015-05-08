@@ -87,10 +87,6 @@ h1:first-child {
     color: #ff0033;
 }
 
-#handicap_text {
-    display: none;
-}
-
 /* Button */
 .meal button {
     width: 112px;
@@ -248,9 +244,4 @@ background: none repeat scroll 0 0 #57a957;
  */
 .spinner {
     vertical-align: middle;
-}
-
-/* Hide registrations form until user is logged-in */
-#register_form {
-    display: none;
 }

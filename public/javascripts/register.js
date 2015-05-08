@@ -12,20 +12,6 @@ document.addEventListener('DOMContentLoaded', function(){
             // Set button to working state
             set_button_state(button, 'busy');
 
-            // Grab variables
-            var data = {
-                user: window.currentUser,
-                handicap: document.getElementById('handicap_text').value,
-                meal_id: button.dataset.id
-            };
-
-            // Validate presence of name
-            if (data.name == '') {
-                toggle_name_error(true);
-                set_button_state(button, 'normal');
-                return;
-            }
-
             // Send AJAX-call to register for meal
             var request = new XMLHttpRequest();
             request.open('POST', '/aanmelden', true);
@@ -42,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 }
             };
             request.onerror = show_fatal_error;
-            request.send(JSON.stringify(data));
+            request.send(JSON.stringify({meal_id: button.dataset.id}));
         });
     });
 });
