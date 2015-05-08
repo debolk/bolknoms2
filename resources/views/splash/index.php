@@ -17,10 +17,15 @@
         <section>
             <img src="images/logo.png" class="logo  " alt="Logo Bolknoms">
             <h1>Bolknoms</h1>
-            <button><?= \App\Http\Helpers\Loading::light();?> Bezig met inloggen</button>
+            <a class="login" href="/aanmelden">Login met je Bolk-account</a>
             <p>
                 <a href="geenaccount">Ik heb geen Bolk-account</a>
             </p>
         </section>
+        <footer>
+            <abbr title="Uhurs de thrudn de duse böne unde y' e för bösing dusi fördibe">Tom</abbr>
+            &hearts;
+            <a href="https://www.facebook.com/debolkvissenkom">Bob de Vis</a>
+        </footer>
     </body>
 </html>

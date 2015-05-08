@@ -17,6 +17,11 @@ class OAuthController extends ApplicationController
         return OAuth::processCallback(Request::all());
     }
 
+    public function login()
+    {
+        return OAuth::toAuthorisationServer('/aanmelden');
+    }
+
     /**
      * Logs out the current user
      * @return Redirect to previous page
@@ -25,5 +30,10 @@ class OAuthController extends ApplicationController
     {
         OAuth::logout();
         redirect()->back();
+    }
+
+    public function currentUser()
+    {
+        return response(null, OAuth::valid() ? 200 : 204);
     }
 }

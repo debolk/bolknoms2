@@ -14,7 +14,7 @@
         <h1>Bolknoms</h1>
     </header>
     <nav>
-    <ul>&nbsp;</ul>
+    <?php echo \App\Http\Helpers\Navigation::show(); ?>
     </nav>
 
     <section>
@@ -44,7 +44,7 @@
 
         <h3>Maar ik ben wel lid!</h3>
         <p>
-            Dan heb je een Bolkaccount; het is technisch onmogelijk om in de ledenadministratie te staan zonder een Bolk-account. <a href="https://www.thuisbezorgd.nl">Eigenlijk heb ik wel een Bolkaccount maar ik ben te schraal om te willen inloggen</a>.
+            Dan heb je een Bolkaccount; het is technisch onmogelijk om in de ledenadministratie te staan zonder een Bolkaccount. <br> <a href="https://www.thuisbezorgd.nl">Eigenlijk heb ik wel een Bolkaccount maar ik ben te schraal even in te loggen</a>.
         </p>
 
     </section>

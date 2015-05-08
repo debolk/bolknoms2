@@ -29,6 +29,20 @@ class OAuth
     }
 
     /**
+     * Returns the current user or null if none
+     * @return string nullable
+     */
+    public static function currentUsername()
+    {
+        if (self::valid()) {
+            return Session::get('oauth.token.user_id');
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
      * Returns whether the token is not expired
      * @access private
      * @static

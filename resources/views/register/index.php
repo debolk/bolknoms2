@@ -1,8 +1,4 @@
 <h1>Aanmelden voor de maaltijd</h1>
-<div class="notification warning" id="login_status">
-    Controleren Bolkaccount
-    <?= App\Http\Helpers\Loading::dark(); ?>
-</div>
 
 <form action="#" id="register_form">
     <p>

@@ -5,9 +5,6 @@ Route::get('/', 'SplashController@index');
 Route::get('/loggedin', 'SplashController@isLoggedIn');
 Route::get('/geenaccount', 'SplashController@noAccount');
 
-// Registering for meals
-// Route::get('/', 'RegisterController@index');
-
 // Information pages
 Route::get('/disclaimer', 'PageController@disclaimer');
 Route::get('/privacy', 'PageController@privacy');
@@ -15,11 +12,14 @@ Route::get('/privacy', 'PageController@privacy');
 // OAuth authorization callback
 Route::get('/oauth', 'OAuthController@callback');
 
+Route::get('/login', 'OAuthController@login');
 Route::get('/logout', 'OAuthController@logout');
 
 // Pages which require a Bolk-account
 Route::group(['middleware' => 'oauth'], function(){
 
+    // Register for meals
+    Route::get('/aanmelden', 'RegisterController@index');
     Route::post('/aanmelden', 'RegisterController@aanmelden');
 
     // Top eaters list

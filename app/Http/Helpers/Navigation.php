@@ -10,13 +10,23 @@ use Request;
 class Navigation
 {
     /**
-     * The list of all menu entries
+     * Logged-in menu entries
      * @var array
      */
-    private static $entries = [
-        'Aanmelden'     => '/',
+    private static $loggedInMenu = [
+        'Aanmelden'     => '/aanmelden',
         'Top eters'     => '/top-eters',
         'Administratie' => '/administratie',
+        'Disclaimer'    => '/disclaimer',
+        'Privacy'       => '/privacy',
+    ];
+
+    /**
+     * Not signed in entries
+     * @var array
+     */
+    private static $loggedOutMenu = [
+        'Geen account'  => '/geenaccount',
         'Disclaimer'    => '/disclaimer',
         'Privacy'       => '/privacy',
     ];
@@ -28,8 +38,9 @@ class Navigation
     public static function show()
     {
         $output = '';
+        $entries = OAuth::valid() ? self::$loggedInMenu : self::$loggedOutMenu;
 
-        foreach (self::$entries as $text => $link) {
+        foreach ($entries as $text => $link) {
             $current = (self::isCurrent($link) ? 'class=current' : '');
             $output .= "<a href=\"$link\" $current>$text</a>";
         }
@@ -42,15 +53,8 @@ class Navigation
      * @param  string  $link partial URL
      * @return boolean       true if this is the current link
      */
-    public static function isCurrent($link)
+    private static function isCurrent($link)
     {
-        $path = Request::path();
-
-        if ($link === '/') {
-            return $path === $link;
-        }
-        else {
-            return (strpos(Request::path(), substr($link, 1)) !== false);
-        }
+        return (strpos(Request::path(), substr($link, 1)) !== false);
     }
 }
