@@ -32,6 +32,6 @@ class SplashController extends ApplicationController
      */
     public function noAccount()
     {
-        return view('splash/geenaccount', ['meal' => Meal::today()]);
+        return $this->setPageContent(view('splash/geenaccount', ['meal' => Meal::today()]));
     }
 }
