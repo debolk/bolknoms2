@@ -32,14 +32,37 @@ class OAuth
      * Returns the current user or null if none
      * @return string nullable
      */
-    public static function currentUsername()
+    public static function user()
     {
-        if (self::valid()) {
-            return Session::get('oauth.token.user_id');
-        }
-        else {
+        if (! OAuth::valid()) {
             return null;
         }
+
+        // Refresh details if needed
+        if (Session::get('oauth.user_info', null) === null) {
+            self::retrieveDetails();
+        }
+
+        return Session::get('oauth.user_info', null)->user_id;
+    }
+
+    /**
+     * Get the details of this user
+     * @return boolean
+     */
+    private static function retrieveDetails()
+    {
+        $request = curl_init();
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth.token')->access_token);
+        $result = curl_exec($request);
+        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
+        curl_close($request);
+
+        if ($status !== 200) {
+            throw new \Exception('OAuth server reachable and unreachable at the same time');
+        }
+        Session::set('oauth.user_info', json_decode($result));
     }
 
     /**
@@ -165,7 +188,7 @@ class OAuth
      * @static
      * @access public
      * @param  array $input Input::get() is the only acceptable input here
-     * @return Response or Redirect
+     * @return string a URL to redirect to, or "access_denied" if the user denied access
      */
     public static function processCallback($input)
     {
@@ -178,11 +201,11 @@ class OAuth
         if (isset($input['error'])) {
             // Show a helpful page if the user denied permission
             if ($input['error'] === 'access_denied') {
-                return $this->setPageContent(view('oauth/denied', ['url' => Session::get('oauth.goal')]));
+                return 'access_denied';
             }
             else {
-                App::abort(500, $input['error_description']);
                 Session::remove('oauth');
+                App::abort(500, $input['error_description']);
             }
         }
 
@@ -203,8 +226,8 @@ class OAuth
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            App::abort(500, $token->error_description);
             Session::remove('oauth');
+            App::abort(500, $token->error_description);
         }
 
         // Determine expiry time (-100 seconds to be sure)
@@ -214,6 +237,7 @@ class OAuth
         Session::put('oauth.token', $token);
 
         // Redirect to the original URL
-        return redirect(Session::get('oauth.goal'));
+        return Session::get('oauth.goal');
+
     }
 }

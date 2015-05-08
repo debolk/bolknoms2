@@ -1,5 +1,10 @@
 <h1>Aanmelden voor de maaltijd</h1>
 
+<div class="notification success">
+    Hoi <?= $user; ?>, leuk dat je weer mee-eet. <br>
+    <small>Niet <?= $user; ?>? <a href="/logout">Uitloggen</a></small>
+</div>
+
 <form action="#" id="register_form">
     <p>
         <label for="meals">Dagen om mee te eten:</label>

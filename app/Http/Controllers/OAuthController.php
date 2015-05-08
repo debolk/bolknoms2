@@ -14,7 +14,14 @@ class OAuthController extends ApplicationController
      */
     public function callback()
     {
-        return OAuth::processCallback(Request::all());
+        $result = OAuth::processCallback(Request::all());
+
+        if ($result === 'access_denied') {
+            return $this->setPageContent(view('oauth/denied'));
+        }
+        else {
+            return redirect($result);
+        }
     }
 
     public function login()
@@ -29,7 +36,7 @@ class OAuthController extends ApplicationController
     public function logout()
     {
         OAuth::logout();
-        redirect()->back();
+        return redirect('/');
     }
 
     public function currentUser()
