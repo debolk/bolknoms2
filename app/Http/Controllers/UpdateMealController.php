@@ -62,7 +62,7 @@ class UpdateMealController extends ApplicationController
             }
         }
         else {
-            Session::flash('validation_errors', $validator->messages());
+            \Session::flash('validation_errors', $validator->messages());
             return redirect('/administratie/' . $meal->id . '/edit')->withInput();
         }
     }
