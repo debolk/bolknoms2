@@ -18,7 +18,7 @@
 
 <h2>Spelregels</h2>
 <p>
-    De eettafel is open voor iedereen. Als niet-lid kun je je aanmelden door te bellen met het bestuur: <a href="tel:+31152126012">015 212 60 12</a>. Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). Als de maaltijd van vandaag nog open is, dan staat dat hieronder vermeld. Je kunt je ook weer afmelden tot de sluitingstijd door nog een keer te bellen. Als je je niet op tijd afmeldt en niet komt opdagen, betaal je toch de kosten van de maaltijd (meestal &euro; 3,50). De maaltijd begint om 18:30 uur, kom op tijd!
+    De eettafel is open voor iedereen. Als niet-lid kun je je aanmelden door te bellen met het bestuur: <a href="tel:+31152126012">015 212 60 12</a>. Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). Of de maaltijd van vandaag nog open is, kun je dat hierboven zien. Je kunt je ook weer afmelden tot de sluitingstijd (gewoon nog een keer bellen). Als je je niet op tijd afmeldt en niet komt opdagen, betaal je toch de kosten van de maaltijd (meestal &euro; 3,50). De maaltijd begint om 18:30 uur, kom op tijd!
 </ol>
 
 <h2>Maar ik ben wel lid!</h2>
