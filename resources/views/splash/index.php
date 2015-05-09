@@ -9,7 +9,6 @@
 
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 
-        <script src="javascripts/splash.js"></script>
         <?php echo View::make('application/_google_analytics'); ?>
     </head>
 
@@ -23,9 +22,7 @@
             </p>
         </section>
         <footer>
-            <abbr title="Uhurs de thrudn de duse böne unde y' e för bösing dusi fördibe">Tom</abbr>
-            &hearts;
-            <a href="https://www.facebook.com/debolkvissenkom">Bob de Vis</a>
+            Tom &hearts; Bob
         </footer>
     </body>
 </html>
