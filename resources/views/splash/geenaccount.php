@@ -1,10 +1,4 @@
 <h1>Aanmelden voor de maaltijd zonder Bolkaccount</h1>
-<ol>
-    <li>De eettafel is open voor iedereen. Leden kunnen zich online aanmelden met hun Bolkaccount, niet-leden moeten even bellen met het bestuur.</li>
-    <li>Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). Je kunt je ook weer afmelden tot de sluitingstijd.</li>
-    <li>Als je je niet op tijd afmeldt en niet komt opdagen, betaal je toch de kosten van de maaltijd (meestal &euro; 3,50).</li>
-    <li>De maaltijd begint om 18:30 uur, kom op tijd!</li>
-</ol>
 
 <?php if ($meal->count() > 0 && $meal->isToday()): ?>
     <?php if ($meal->open_for_registrations()): ?>
@@ -13,16 +7,21 @@
         </p>
     <?php else: ?>
         <p class="notification error">
-            De sluitingstijd voor vandaag was <?= $meal->locked; ?> uur. Je kunt je helaas niet meer aanmelden.
+            De sluitingstijd voor vandaag was <?= $meal->locked; ?> uur. Je kunt je wel aanmelden voor andere dagen door te bellen met het bestuur op <a href="tel:+31152126012">015 212 60 12</a>.
         </p>
     <?php endif; ?>
 <?php else: ?>
     <p class="notification warning">
-        Vandaag is er geen maaltijd.
+        Vandaag is er geen maaltijd. Je kunt je wel aanmelden voor andere dagen door te bellen met het bestuur op <a href="tel:+31152126012">015 212 60 12</a>.
     </p>
 <?php endif; ?>
 
-<h3>Maar ik ben wel lid!</h3>
+<h2>Spelregels</h2>
+<p>
+    De eettafel is open voor iedereen. Als niet-lid kun je je aanmelden door te bellen met het bestuur: <a href="tel:+31152126012">015 212 60 12</a>. Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). Als de maaltijd van vandaag nog open is, dan staat dat hieronder vermeld. Je kunt je ook weer afmelden tot de sluitingstijd door nog een keer te bellen. Als je je niet op tijd afmeldt en niet komt opdagen, betaal je toch de kosten van de maaltijd (meestal &euro; 3,50). De maaltijd begint om 18:30 uur, kom op tijd!
+</ol>
+
+<h2>Maar ik ben wel lid!</h2>
 <p>
     Dan heb je een Bolkaccount; het is technisch onmogelijk om in de ledenadministratie te staan zonder een Bolkaccount. <br> <a href="https://www.thuisbezorgd.nl">Eigenlijk heb ik wel een Bolkaccount maar ik ben te schraal even in te loggen</a>.
 </p>
