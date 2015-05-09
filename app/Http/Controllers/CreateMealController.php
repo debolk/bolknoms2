@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\Flash;
 use App\Models\Meal;
-use Request;
-use Validator;
 
 class CreateMealController extends ApplicationController
 {
@@ -25,9 +23,9 @@ class CreateMealController extends ApplicationController
     {
         // Build candidate object, using today's data as defaults
         $meal_data = [
-            'date'   => Request::input('date', date('d-m-Y')),
-            'locked' => Request::input('locked', '15:00'),
-            'event' => Request::input('event', null),
+            'date'   => \Request::input('date', date('d-m-Y')),
+            'locked' => \Request::input('locked', '15:00'),
+            'event' => \Request::input('event', null),
         ];
         if (empty($meal_data['date'])) {
             $meal_data['date'] = date('d-m-Y');
@@ -37,11 +35,11 @@ class CreateMealController extends ApplicationController
         }
 
         // Format Dutch date to DB date (dd-mm-yyyy -> yyyy-mm-dd)
-        $date = DateTime::createFromFormat('d-m-Y', $meal_data['date']);
+        $date = \DateTime::createFromFormat('d-m-Y', $meal_data['date']);
         $meal_data['date'] = ($date) ? ($date->format('Y-m-d')) : (null);
 
         // Validate the resulting input
-        $validator = Validator::make($meal_data, [
+        $validator = \Validator::make($meal_data, [
             'date' => ['date', 'required', 'unique:meals', 'after:yesterday'],
             'locked' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
         ],[
@@ -60,7 +58,7 @@ class CreateMealController extends ApplicationController
             $meal->locked = $meal_data['locked'];
             $meal->event = $meal_data['event'];
             if ($meal->save()) {
-                Log::info("Nieuwe maaltijd: $meal->id|$meal->date|$meal->event");
+                \Log::info("Nieuwe maaltijd: $meal->id|$meal->date|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op '.$meal);
                 return Redirect::to('/administratie');
             }
@@ -69,10 +67,10 @@ class CreateMealController extends ApplicationController
             }
         }
         else {
-            Session::flash('validation_errors', $validator->messages());
+            \Session::flash('validation_errors', $validator->messages());
             // Repopulate the form
-            Input::flash();
+            \Input::flash();
         }
-        return Redirect::to('/administratie/nieuwe_maaltijd');
+        return \Redirect::to('/administratie/nieuwe_maaltijd');
     }
 }
