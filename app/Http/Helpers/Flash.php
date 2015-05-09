@@ -2,8 +2,6 @@
 
 namespace App\Http\Helpers;
 
-use Session;
-
 /**
  * Allows you to easily set and display flash messages
  */
@@ -33,12 +31,12 @@ class Flash
             throw new InvalidArgumentException('Type of flash message should be a defined constant');
         }
 
-        $messages = Session::get(self::$index);
+        $messages = \Session::get(self::$index);
         if ($messages === null) {
             $messages = [];
         }
         $messages[] = ['type' => $type, 'message' => $message];
-        Session::flash(self::$index, $messages);
+        \Session::flash(self::$index, $messages);
     }
 
     /**
@@ -47,9 +45,9 @@ class Flash
      */
     public static function display_messages()
     {
-        $messages = Session::get(self::$index);
+        $messages = \Session::get(self::$index);
         if (sizeof($messages) > 0) {
-            return View::make('flash/messages', ['messages' => $messages]);
+            return \View::make('flash/messages', ['messages' => $messages]);
         }
         else {
             return '';

@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Flash;
-use App\Models\Meal;
-use Request;
-use Validator;
-use DateTime;
-use Log;
-use App;
+use \App\Http\Helpers\Flash;
+use \App\Models\Meal;
 
 class UpdateMealController extends ApplicationController
 {
@@ -19,7 +14,7 @@ class UpdateMealController extends ApplicationController
     {
         $meal = Meal::find($id);
         if (!$meal) {
-            App::abort(404, "Maaltijd niet gevonden");
+            \App::abort(404, "Maaltijd niet gevonden");
         }
 
         return $this->setPageContent(view('meal/edit', ['meal' => $meal]));
@@ -34,16 +29,16 @@ class UpdateMealController extends ApplicationController
         // Only update existing meals
         $meal = Meal::find($id);
         if (!$meal) {
-            App::abort(404, "Maaltijd niet gevonden");
+            \App::abort(404, "Maaltijd niet gevonden");
         }
 
         // Format Dutch date to DB date (dd-mm-yyyy -> yyyy-mm-dd)
-        $meal_data = Request::all();
-        $date = DateTime::createFromFormat('d-m-Y', $meal_data['date']);
+        $meal_data = \Request::all();
+        $date = \DateTime::createFromFormat('d-m-Y', $meal_data['date']);
         $meal_data['date'] = ($date) ? ($date->format('Y-m-d')) : (null);
 
         // Validate the resulting input
-        $validator = Validator::make($meal_data, [
+        $validator = \Validator::make($meal_data, [
             'date' => ['date', 'required', 'unique:meals,date,'.$meal->id],
             'locked' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
         ],[
@@ -58,7 +53,7 @@ class UpdateMealController extends ApplicationController
             // Save new meal
             $meal->update($meal_data);
             if ($meal->save()) {
-                Log::info("Maaltijd geupdate: $meal->id|$meal->date|$meal->event");
+                \Log::info("Maaltijd geupdate: $meal->id|$meal->date|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd geupdate'.$meal);
                 return redirect('/administratie/' . $meal->id);
             }

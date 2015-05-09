@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Meal;
 use App\Http\Helpers\Flash;
-use Request;
-use Log;
-use App;
 
 class AdminDashboardController extends ApplicationController
 {
@@ -15,9 +12,9 @@ class AdminDashboardController extends ApplicationController
      */
     public function index()
     {
-        $count = Request::input('count', 5);
+        $count = \Request::input('count', 5);
         if (!is_numeric($count)) {
-            App::abort(400, "Count parameter not an integer");
+            \App::abort(400, "Count parameter not an integer");
         }
         $upcoming_meals = Meal::upcoming();
         $previous_meals = Meal::previous();
@@ -42,7 +39,7 @@ class AdminDashboardController extends ApplicationController
         // Find the meal
         $meal = Meal::find($id);
         if (!$meal) {
-            App::abort(404, "Maaltijd niet gevonden");
+            \App::abort(404, "Maaltijd niet gevonden");
         }
 
         // Store the name of the meal for usage in the flash message
@@ -58,7 +55,7 @@ class AdminDashboardController extends ApplicationController
 
         // Update user
         Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd");
-        Log::info("Maaltijd verwijderd: $date");
-        return Redirect::to('/administratie');
+        \Log::info("Maaltijd verwijderd: $date");
+        return \Redirect::to('/administratie');
     }
 }
