@@ -1,9 +1,8 @@
 <?php
 
-// Splashscreen for unregistered clients
-Route::get('/', 'SplashController@index');
-Route::get('/loggedin', 'SplashController@isLoggedIn');
-Route::get('/geenaccount', 'SplashController@noAccount');
+// Register for meals
+Route::get('/aanmelden', 'RegisterController@index');
+Route::post('/aanmelden', 'RegisterController@aanmelden');
 
 // Information pages
 Route::get('/disclaimer', 'PageController@disclaimer');
@@ -17,10 +16,6 @@ Route::get('/logout', 'OAuthController@logout');
 
 // Pages which require a Bolk-account
 Route::group(['middleware' => 'oauth'], function(){
-
-    // Register for meals
-    Route::get('/aanmelden', 'RegisterController@index');
-    Route::post('/aanmelden', 'RegisterController@aanmelden');
 
     // Top eaters list
     Route::get('/top-eters', 'TopController@index');
