@@ -1,6 +1,7 @@
 <?php
 
 // Register for meals
+Route::get('/', 'RegisterController@index');
 Route::get('/aanmelden', 'RegisterController@index');
 Route::post('/aanmelden', 'RegisterController@aanmelden');
 
@@ -8,20 +9,14 @@ Route::post('/aanmelden', 'RegisterController@aanmelden');
 Route::get('/disclaimer', 'PageController@disclaimer');
 Route::get('/privacy', 'PageController@privacy');
 
-// OAuth authorization callback
+// OAuth routes
 Route::get('/oauth', 'OAuthController@callback');
-
 Route::get('/login', 'OAuthController@login');
 Route::get('/logout', 'OAuthController@logout');
-
-// Pages which require a Bolk-account
-Route::group(['middleware' => 'oauth'], function(){
-
-    // Top eaters list
-    Route::get('/top-eters', 'TopController@index');
-});
-
 Route::get('/currentuser', 'OAuthController@currentUser');
+
+// Top eaters list
+Route::get('/top-eters', ['middleware' => 'oauth', 'uses' => 'TopController@index']);
 
 // Pages which require board-level authorization
 Route::group(['middleware' => ['oauth','board']], function(){
