@@ -32,8 +32,6 @@ function register(button)
         }),
         success: function() {
             set_button_state(button, 'registered');
-            var count = parseInt($('.count', button).html());
-            $('.count', button).html(count++);
         },
         error: fatal_error,
     });
@@ -54,8 +52,6 @@ function deregister(button)
         }),
         success: function() {
             set_button_state(button, 'unregistered');
-            var count = parseInt($('.count', button).html());
-            $('.count', button).html(count--);
         },
         error: fatal_error,
     });

@@ -57,10 +57,11 @@ class CreateMealController extends ApplicationController
             $meal->date = $meal_data['date'];
             $meal->locked = $meal_data['locked'];
             $meal->event = $meal_data['event'];
+            $meal->cost = $meal_data['cost'];
             if ($meal->save()) {
                 \Log::info("Nieuwe maaltijd: $meal->id|$meal->date|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op '.$meal);
-                return Redirect::to('/administratie');
+                return redirect('/administratie');
             }
             else {
                 Flash::set(Flash::ERROR, 'Maaltijd kon niet worden toegevoegd');
@@ -71,6 +72,6 @@ class CreateMealController extends ApplicationController
             // Repopulate the form
             \Input::flash();
         }
-        return \Redirect::to('/administratie/nieuwe_maaltijd');
+        return redirect('/administratie/nieuwe_maaltijd');
     }
 }

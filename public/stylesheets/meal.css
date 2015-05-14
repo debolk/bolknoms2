@@ -29,6 +29,11 @@
 
 .meal .details {
     float: left;
+    color: #666;
+}
+
+.meal .attention {
+    color: red;
 }
 
 .meal h3 {
@@ -56,9 +61,3 @@
 .meal button.busy {
     background-color: #f1c40f;
 }
-
-
-#chef {
-    display: none;
-}
-

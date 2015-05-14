@@ -16,9 +16,6 @@ header {
     clear: both;
     position: fixed;
     top: 0;
-}
-
-header {
     z-index: 999;
     color: white;
     background-color: #80090c;
