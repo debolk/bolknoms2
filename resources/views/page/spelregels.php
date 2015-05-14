@@ -8,6 +8,7 @@
     <li>Je kunt niet mee-eten zonder je aan te melden.</li>
     <li>Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). De sluitingstijd wordt bepaald door het bestuur en staat vermeld bij de maaltijd.</li>
     <li>Je kunt je weer afmelden tot aan de sluitingstijd. Als je met je Bolkaccount aangemeld bent, doe je dat via de website. Als je geen Bolkaccount hebt, meld je je af door het bestuur te bellen op <a href="tel:+31152126012">015 212 60 12</a>.</li>
+    <li>Het kan zijn dat de maaltijd verandert (sluitingstijd, etenstijd, kosten, etc.) als je al bent aangemeld. Je krijgt daarover per e-mail bericht.</li>
 </ol>
 
 <h2>Mee-eten</h2>
