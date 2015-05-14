@@ -8,8 +8,6 @@
     <h3><?= $meal; ?></h3>
 
     <div class="details">
-        <span class="count"><?= $meal->registrations->count(); ?></span> eters <br>
-
         <span class="<?= $meal->locked !== '15:00:00' ? 'attention' : '' ; ?>">
             Aanmelden tot <?= strftime("%H:%M", strtotime($meal->locked)); ?> uur
         </span>
