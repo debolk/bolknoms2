@@ -15,7 +15,7 @@ th, td {
 .number {
     text-align: center;
 }
-table .meal:nth-child(2n) {
+tr:nth-child(2n) {
     background-color: #ddd;
 }
 

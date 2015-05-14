@@ -1,4 +1,4 @@
-<tr class="meal" data-id="<?php echo $meal->id; ?>">
+<tr data-id="<?php echo $meal->id; ?>">
 	<td class="date">
         <a href="/administratie/<?php echo $meal->id; ?>">
             <?php echo $meal; ?>

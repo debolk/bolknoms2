@@ -11,7 +11,7 @@
     <li>Bolkers kunnen ook extra personen (+1, +2, &hellip;) inschrijven voor de maaltijd. Je moet dan wel zelf ook mee-eten.</li>
     <li>Je kunt je weer afmelden tot aan de sluitingstijd. Als je met je Bolkaccount aangemeld bent, doe je
     dat via de website. Als je geen Bolkaccount hebt, meld je je af door het bestuur te bellen op <a href="tel:+31152126012">015 212 60 12</a>.</li>
-    <li>Het kan zijn dat de maaltijd verandert (sluitingstijd, etenstijd, kosten, etc.) als je al bent aangemeld. Als dat gebeurt, sturen we je een e-mail.</li>
+    <li>Het kan zijn dat de maaltijd verandert (sluitingstijd, etenstijd, etc.) als je al bent aangemeld. Als dat gebeurt, sturen we je een e-mail.</li>
 </ol>
 
 <h2>Mee-eten</h2>
