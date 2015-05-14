@@ -8,7 +8,7 @@
     margin-bottom: 1em;
     background-color: #BFB;
     border-color: #9E9;
-    width: 30em;
+    width: 35em;
 }
 
 .user.noone {
@@ -28,6 +28,7 @@
     display: block;
     margin-top: 0;
     font-size: xx-large;
+    float: left;
 }
 
 .user a.button {

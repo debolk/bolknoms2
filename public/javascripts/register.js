@@ -8,12 +8,26 @@ $(document).ready(function(){
         // Set button to working state
         var button = $(this);
 
-        if (button.hasClass('unregistered')) {
-            register(button);
+        // Choose appropriate submission process
+        var userPresent = !($('.user')[0].hasClass('noone'));
+
+        if (userPresent) {
+            if (button.hasClass('unregistered')) {
+                register(button);
+            }
+            else {
+                deregister(button);
+            }
         }
         else {
-            deregister(button);
+            if (button.hasClass('unregistered')) {
+                registerNonUser(button);
+            }
+            else {
+                deregisterNonUser(button);
+            }
         }
+
     });
 });
 
@@ -56,6 +70,52 @@ function deregister(button)
         error: fatal_error,
     });
 }
+
+function registerNonUser(button)
+{
+    set_button_state(button, 'busy');
+
+    // Send AJAX-call to register for meal
+    $.ajax({
+        type: 'POST',
+        url: '/aanmelden',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            name: $('#name').val(),
+            email: $('#email').val(),
+            handicap: $('#handicap').val(),
+            meal_id: button.data('id')
+        }),
+        success: function(response) {
+            button.data('salt', JSON.parse(response).salt);
+            set_button_state(button, 'registered');
+        },
+        error: fatal_error,
+    });
+}
+
+function deregisterNonUser(button)
+{
+    set_button_state(button, 'busy');
+
+    // Send AJAX-call to register for meal
+    $.ajax({
+        type: 'POST',
+        url: '/afmelden',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+            salt: button.data('salt'),
+            meal_id: button.data('id')
+        }),
+        success: function() {
+            set_button_state(button, 'unregistered');
+        },
+        error: fatal_error,
+    });
+}
+
 
 function fatal_error(error)
 {
