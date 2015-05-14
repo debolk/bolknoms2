@@ -6,12 +6,7 @@
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
     padding: 1em;
     margin-bottom: 1em;
-    background-color: #BFB;
-    border-color: #9E9;
     width: 35em;
-}
-
-.user.noone {
     background-color: #FFB;
     border-color: #EE9;
 }
@@ -25,10 +20,11 @@
 }
 
 .user .name {
+    float: left;
     display: block;
     margin-top: 0;
     font-size: xx-large;
-    float: left;
+    width: 11em;
 }
 
 .user a.button {
@@ -39,7 +35,7 @@
     float: right;
     cursor: pointer;
     display: inline-block;
-    margin-left: 3em;
+    margin-left: 1em;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
     text-decoration: none;
 }
