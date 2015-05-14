@@ -26,7 +26,7 @@ class OAuthController extends ApplicationController
 
     public function login()
     {
-        return OAuth::toAuthorisationServer('/aanmelden');
+        return OAuth::toAuthorisationServer('/');
     }
 
     /**
