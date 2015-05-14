@@ -60,16 +60,3 @@
     <p>Wat leuk dat je mee-eet. Een klein voorproefje van het menu:</p>
     <iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
 </div>
-
-<h3>Spelregels</h3>
-<ol>
-    <li>Je kunt niet mee-eten zonder je aan te melden.</li>
-    <li>Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). De sluitingstijd wordt bepaald door het bestuur.</li>
-    <li>Je kunt je weer afmelden tot aan de sluitingstijd. Hiervoor moet je zijn aangemeld met je Bolkaccount.</li>
-    <li>Als je niet op tijd afmeldt en niet komt opdagen, betaal je de kosten van de maaltijd (meestal &euro; 3,50) per Bolkrekening.</li>
-</ol>
-
-<h3>Overige vragen of informatie</h3>
-<p>
-    Kom je er niet uit, heb je nog vragen of wil er iets niet lukken? Neem dan contact op met het bestuur via 015 212 60 12 of <a href="mailto:bestuur@nieuwedelft.nl">bestuur@nieuwedelft.nl</a>.
-</p>

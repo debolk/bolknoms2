@@ -30,4 +30,13 @@ class PageController extends ApplicationController
     {
         return $this->setPageContent(view('page/voordeelaccount'));
     }
+
+    /**
+     * Display the rules and regulations
+     * @return View
+     */
+    public function spelregels()
+    {
+        return $this->setPageContent(view('page/spelregels'));
+    }
 }

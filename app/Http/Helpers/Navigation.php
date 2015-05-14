@@ -15,10 +15,11 @@ class Navigation
      */
     private static $loggedInMenu = [
         'Aanmelden'     => '/',
-        'Top eters'     => '/top-eters',
-        'Administratie' => '/administratie',
+        'Spelregels'    => '/spelregels',
         'Disclaimer'    => '/disclaimer',
         'Privacy'       => '/privacy',
+        'Top eters'     => '/top-eters',
+        'Administratie' => '/administratie',
     ];
 
     /**
@@ -27,6 +28,7 @@ class Navigation
      */
     private static $loggedOutMenu = [
         'Aanmelden'     => '/',
+        'Spelregels'    => '/spelregels',
         'Disclaimer'    => '/disclaimer',
         'Privacy'       => '/privacy',
     ];
