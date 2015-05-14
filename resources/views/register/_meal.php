@@ -9,7 +9,9 @@
 
     <div class="details">
         <span class="count"><?= $meal->registrations->count(); ?></span> eters <br>
-        Kosten &euro;3,50
-        Aanmelden tot <?= strftime("%H:%M", strtotime($meal->locked)); ?> uur
+
+        <span class="<?= $meal->locked !== '15:00:00' ? 'attention' : '' ; ?>">
+            Aanmelden tot <?= strftime("%H:%M", strtotime($meal->locked)); ?> uur
+        </span>
     </div>
 </div>

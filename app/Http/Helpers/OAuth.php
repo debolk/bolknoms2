@@ -23,7 +23,7 @@ class OAuth
 
         // Refresh the token if needed
         if (self::tokenIsExpired()) {
-            return self::refreshToken();
+            self::refreshToken();
         }
 
         return self::tokenIsValid();
@@ -41,7 +41,6 @@ class OAuth
 
         // Refresh details if needed
         if (Session::get('oauth.user_info', null) === null) {
-            var_dump('hasrefreshed');
             self::retrieveDetails();
         }
 
@@ -87,7 +86,7 @@ class OAuth
     private static function tokenIsExpired()
     {
         $now = new \DateTime();
-        $expiration = (new \DateTime())->setTimestamp(Session::get('oauth.token')->expires_at);
+        $expiration = Session::get('oauth.token')->expires_at;
 
         return ($expiration <= $now);
     }
@@ -117,14 +116,15 @@ class OAuth
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            App::abort(500, $token->error_description);
             Session::remove('oauth');
+            App::abort(500, $token->error_description);
         }
 
-        $token->expires_at = strtotime('+' . (((int)$token->expires_in) - 100) . ' seconds');
+        // Calculate expiration date of token
+        $token->expires_at = new \DateTime('+' . (((int)$token->expires_in) - 100) . ' seconds');
 
         // Overwrite the token with the new token
-        Session::put('oauth.token', $token);
+        Session::set('oauth.token', $token);
     }
 
     /**
