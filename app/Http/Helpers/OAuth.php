@@ -86,7 +86,7 @@ class OAuth
     private static function tokenIsExpired()
     {
         $now = new \DateTime();
-        $expiration = Session::get('oauth.token')->expires_at;
+        $expiration = (new \DateTime())->setTimestamp(Session::get('oauth.token')->expires_at);
 
         return ($expiration <= $now);
     }
