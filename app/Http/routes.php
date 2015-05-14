@@ -3,6 +3,7 @@
 // Register for meals
 Route::get('/', 'RegisterController@index');
 Route::post('/aanmelden', 'RegisterController@aanmelden');
+Route::post('/afmelden', 'RegisterController@afmelden');
 
 // Information pages
 Route::get('/spelregels', 'PageController@spelregels');
@@ -14,7 +15,6 @@ Route::get('/voordeel-account', 'PageController@voordeelaccount');
 Route::get('/oauth', 'OAuthController@callback');
 Route::get('/login', 'OAuthController@login');
 Route::get('/logout', 'OAuthController@logout');
-Route::get('/currentuser', 'OAuthController@currentUser');
 Route::get('/photo', 'OAuthController@photo');
 
 // Top eaters list

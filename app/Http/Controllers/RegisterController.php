@@ -20,7 +20,7 @@ class RegisterController extends ApplicationController
         $data = [];
 
         // Add more data if we have a current user
-        if (OAUth::valid()) {
+        if (OAuth::valid()) {
             $data['user'] = OAuth::user();
             $data['meals'] = Meal::available()->get();
         }
@@ -33,7 +33,7 @@ class RegisterController extends ApplicationController
 
     /**
      * Subscribe a user to a single meal
-     * @return Redirect
+     * @return json
      */
     public function aanmelden()
     {
@@ -54,10 +54,19 @@ class RegisterController extends ApplicationController
             ], 400);
         }
 
+        // Check if the user is already registered
+        $user = OAuth::user();
+        if ($user->registeredFor($meal)) {
+            return response()->json([
+                'error'         => 'double_registration',
+                'error_details' => 'Je bent al aangemeld voor deze maaltijd',
+            ], 400);
+        }
+
         // Create registration
         $registration = new Registration([
-            'username' => OAuth::user()->id,
-            'name' => OAuth::user()->name,
+            'username' => $user->id,
+            'name' => $user->name,
         ]);
         $registration->meal_id = $meal->id;
 
@@ -72,5 +81,47 @@ class RegisterController extends ApplicationController
                 'error_details' => 'unknown_internal_server_error'
             ], 500);
         }
+    }
+
+    /**
+     * Unsubscribe a user from a meal
+     * @return JSON
+     */
+    public function afmelden()
+    {
+        // Find the meal
+        $meal = Meal::find((int) Request::input('meal_id'));
+        if (!$meal) {
+            return response()->json([
+                'error' => 'meal_not_found',
+                'error_details' => 'De maaltijd bestaat niet'
+            ], 404);
+        }
+
+        // Check if the meal is still open
+        if (!$meal->open_for_registrations()) {
+            return response()->json([
+                'error' => 'meal_deadline_expired',
+                'error_details' => 'De aanmeldingsdeadline is verstreken'
+            ], 400);
+        }
+
+        // Find the registration data
+        $user = OAuth::user();
+        $registration = $user->registrationFor($meal);
+        if (!$registration) {
+            return response()->json([
+                'error' => 'no_registration',
+                'error_details' => 'Je bent niet aangemeld voor deze maaltijd'
+            ], 404);
+        }
+
+        // Destroy the registration
+        $id = $registration->id;
+        $name = $registration->name;
+        $registration->delete();
+
+        \Log::info("Afgemeld $registration->name (ID: $registration->id) voor $meal (ID: $meal->id) door $user->name (ID: $user->id)");
+        return response(null, 200);
     }
 }

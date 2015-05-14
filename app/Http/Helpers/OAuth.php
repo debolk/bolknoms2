@@ -31,7 +31,7 @@ class OAuth
 
     /**
      * Returns the current user details or null if none
-     * @return string nullable
+     * @return App\Models\User
      */
     public static function user()
     {
@@ -41,10 +41,14 @@ class OAuth
 
         // Refresh details if needed
         if (Session::get('oauth.user_info', null) === null) {
+            var_dump('hasrefreshed');
             self::retrieveDetails();
         }
 
-        return Session::get('oauth.user_info', null);
+        $id       = Session::get('oauth.user_info', null)->id;
+        $name     = Session::get('oauth.user_info', null)->name;
+        $photoURL = Session::get('oauth.user_info', null)->photoURL;
+        return new App\Models\User($id, $name, $photoURL);
     }
 
     /**
@@ -82,7 +86,10 @@ class OAuth
      */
     private static function tokenIsExpired()
     {
-        return (Session::get('oauth.token')->expires_at <= time());
+        $now = new \DateTime();
+        $expiration = (new \DateTime())->setTimestamp(Session::get('oauth.token')->expires_at);
+
+        return ($expiration <= $now);
     }
 
     /**
@@ -114,7 +121,6 @@ class OAuth
             Session::remove('oauth');
         }
 
-        // Determine expiry time (-100 seconds to be sure)
         $token->expires_at = strtotime('+' . (((int)$token->expires_in) - 100) . ' seconds');
 
         // Overwrite the token with the new token
@@ -197,7 +203,7 @@ class OAuth
      * @static
      * @access public
      * @param  array $input Input::get() is the only acceptable input here
-     * @return string a URL to redirect to, or "access_denied" if the user denied access
+     * @return string a URL to redirect to
      */
     public static function processCallback($input)
     {
@@ -208,9 +214,9 @@ class OAuth
 
         // Check for errors
         if (isset($input['error'])) {
-            // Show a helpful page if the user denied permission
+            // Denying permission is not actually an error, redirect to frontpage
             if ($input['error'] === 'access_denied') {
-                return 'access_denied';
+                return '/';
             }
             else {
                 Session::remove('oauth');

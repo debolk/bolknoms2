@@ -13,7 +13,11 @@
     <?php endif; ?>
     <div class="meals">
         <?php foreach ($meals as $meal): ?>
-            <?= view('register/_meal', ['meal' => $meal]); ?>
+            <?php if (isset($user)): ?>
+                <?= view('register/_meal', ['meal' => $meal, 'user' => $user]); ?>
+            <?php else: ?>
+                <?= view('register/_meal', ['meal' => $meal]); ?>
+            <?php endif; ?>
         <?php endforeach; ?>
     </div>
 </form>

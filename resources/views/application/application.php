@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <title>Bolknoms</title>
 
+    <script type="text/javascript" src="/javascripts/zepto.js"></script>
     <?php if (isset($javascript)): ?>
         <script type="text/javascript" src="/javascripts/<?=$javascript?>.js"></script>
     <?php endif; ?>

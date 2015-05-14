@@ -1,72 +1,99 @@
-// Start behaviour when DOM is ready
-document.addEventListener('DOMContentLoaded', function(){
+$(document).ready(function(){
 
-    /*
-     * Click handler and submission process for buttons
-     */
-    var buttons = document.querySelectorAll('button');
-    Array.prototype.forEach.call(buttons, function(button, i){
-        button.addEventListener('click', function(event){
-            event.preventDefault();
+    // Click handler and submission process for buttons
+    $('.meal button').on('click', function(event){
 
-            // Set button to working state
-            set_button_state(button, 'busy');
+        event.preventDefault();
 
-            // Send AJAX-call to register for meal
-            var request = new XMLHttpRequest();
-            request.open('POST', '/aanmelden', true);
-            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        // Set button to working state
+        var button = $(this);
 
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    set_button_state(button, 'selected');
-                }
-                else {
-                    show_fatal_error(request.responseText);
-                    window.location.reload();
-                }
-            };
-            request.onerror = show_fatal_error;
-            request.send(JSON.stringify({meal_id: button.dataset.id}));
-        });
+        if (button.hasClass('unregistered')) {
+            register(button);
+        }
+        else {
+            deregister(button);
+        }
     });
 });
+
+function register(button)
+{
+    set_button_state(button, 'busy');
+
+    // Send AJAX-call to register for meal
+    $.ajax({
+        type: 'POST',
+        url: '/aanmelden',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+           meal_id: button.data('id')
+        }),
+        success: function() {
+            set_button_state(button, 'registered');
+            var count = parseInt($('.count', button).html());
+            $('.count', button).html(count++);
+        },
+        error: fatal_error,
+    });
+}
+
+function deregister(button)
+{
+    set_button_state(button, 'busy');
+
+    // Send AJAX-call to register for meal
+    $.ajax({
+        type: 'POST',
+        url: '/afmelden',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({
+           meal_id: button.data('id')
+        }),
+        success: function() {
+            set_button_state(button, 'unregistered');
+            var count = parseInt($('.count', button).html());
+            $('.count', button).html(count--);
+        },
+        error: fatal_error,
+    });
+}
+
+function fatal_error(error)
+{
+    var error = JSON.parse(error.response);
+    alert('Fout: ' + error.error_details + '\n\n Technische details: ' + error.error);
+}
 
 /**
  * Sets the state of a button
  * @param {DOMObject} button the button to change
- * @param {String} state either one of 'normal', 'busy' or 'selected'
+ * @param {String} state either one of 'unregistered', 'busy' or 'registered'
  * @return {undefined}
  */
 function set_button_state(button, state)
 {
+    button.removeClass();
+    button.addClass(state);
+
     switch (state)
     {
-        case 'normal':
+        case 'unregistered':
         {
-            button.className = '';
-            button.innerHTML = 'nom!';
-            button.disabled = false;
+            button.html('nom!');
             break;
         }
         case 'busy':
         {
-            button.className = 'busy';
-            button.innerHTML = 'nom! <img src="images/spinner.gif" height="16" width="16" alt="">';
-            button.disabled = true;
+            button.html('nom! <img src="images/spinner.gif" height="16" width="16" alt="">');
             break;
         }
-        case 'selected':
+        case 'registered':
         {
-            button.className = 'selected';
-            button.innerHTML = 'nom! &#10004;';
-            button.disabled = true;
+            button.html('nom! &#10004;');
             break;
         }
     }
-}
-
-function show_fatal_error(details)
-{
-    alert("Fatale fout. Het is onduidelijk of je correct bent aangemeld voor de maaltijd. Bel of mail het bestuur via de contactgegevens op de pagina.\n\nTechnische details: " + details.toString());
 }
