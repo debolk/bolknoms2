@@ -24,7 +24,7 @@
     display: block;
     margin-top: 0;
     font-size: xx-large;
-    width: 11em;
+    max-width: 11em;
 }
 
 .user a.button {
