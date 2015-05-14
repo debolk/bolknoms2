@@ -1,0 +1,7 @@
+/*
+ * UI fixes specifically for mobile use cases
+ */
+
+ol {
+    list-style-position: inside;
+}

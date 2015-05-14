@@ -1,0 +1,62 @@
+
+.error_explanation {
+    display: none;
+    font-weight: bold;
+    color: #ff0033;
+}
+
+
+
+/* Notifications */
+.empty {
+    padding: 0.5em;
+    margin: 1em 0;
+    background-color: #cff;
+    border: solid 1px #6cc;
+}
+
+/*
+ * Form errors
+ */
+.notification {
+    border: 2px solid black;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.notification ul {
+    margin-bottom: 0;
+}
+
+.notification.success {
+    background-color: #BFB;
+    border-color: #9E9;
+}
+
+.notification.error {
+    background-color: #FBB;
+    border-color: #E99;
+}
+
+.notification.warning {
+    background-color: #FFB;
+    border-color: #EE9;
+}
+
+.subtitle {
+    margin-top: -1em;
+    font-style: italic;
+}
+
+.error_message {
+background: none repeat scroll 0 0 #57a957;
+    border: none;
+    border-radius: 0.5em;
+    color: white;
+    cursor: pointer;
+    padding: 1em;
+    font-family: monospace;
+    background: none repeat scroll 0 0 #c43c35;
+    border-color: #c43c35;
+    color: white;
+}

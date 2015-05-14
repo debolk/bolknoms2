@@ -21,4 +21,13 @@ class PageController extends ApplicationController
     {
         return $this->setPageContent(view('page/privacy'));
     }
+
+    /**
+     * Display the advantages of signing in
+     * @return View
+     */
+    public function voordeelaccount()
+    {
+        return $this->setPageContent(view('page/voordeelaccount'));
+    }
 }

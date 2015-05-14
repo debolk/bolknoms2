@@ -17,10 +17,18 @@ class RegisterController extends ApplicationController
       */
     public function index()
     {
-        return $this->setPageContent(view('register/index', [
-            'meals' => Meal::available()->get(),
-            'user' => \App\Http\Helpers\OAuth::user(),
-        ]));
+        $data = [];
+
+        // Add more data if we have a current user
+        if (OAUth::valid()) {
+            $data['user'] = OAuth::user();
+            $data['meals'] = Meal::available()->get();
+        }
+        else {
+            $data['meals'] = Meal::available()->take(1);
+        }
+
+        return $this->setPageContent(view('register/index', $data));
     }
 
     /**

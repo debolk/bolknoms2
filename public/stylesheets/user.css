@@ -1,0 +1,66 @@
+/*
+ * User block for login status
+ */
+.user {
+    display: inline-block;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: #BFB;
+    border-color: #9E9;
+}
+
+.user.noone {
+    background-color: #FFB;
+    border-color: #EE9;
+}
+
+.user .photo {
+    float: left;
+    width: 5em;
+    height: 5em;
+    border-radius: 5em;
+    margin-right: 1em;
+}
+
+.user .name {
+    display: inline-block;
+    margin-top: 0;
+    font-size: xx-large;
+}
+
+.user a.button {
+    background-color: #80090c;
+    padding: 0.5em;
+    color: white;
+    border: none;
+    float: right;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 3em;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+.user a.button:active {
+    box-shadow: none;
+}
+
+.user .details {
+    display: block;
+    margin-top: 1em;
+    white-space: nowrap;
+}
+
+.user form.data {
+    clear: both;
+}
+
+.user form.button {
+    display: inline;
+}
+
+.user label {
+    display: inline-block;
+    width: 10em;
+}

@@ -17,7 +17,7 @@ class OAuthController extends ApplicationController
         $result = OAuth::processCallback(Request::all());
 
         if ($result === 'access_denied') {
-            return $this->setPageContent(view('oauth/denied'));
+            return redirect('/');
         }
         else {
             return redirect($result);

@@ -2,12 +2,12 @@
 
 // Register for meals
 Route::get('/', 'RegisterController@index');
-Route::get('/aanmelden', 'RegisterController@index');
 Route::post('/aanmelden', 'RegisterController@aanmelden');
 
 // Information pages
 Route::get('/disclaimer', 'PageController@disclaimer');
 Route::get('/privacy', 'PageController@privacy');
+Route::get('/voordeel-account', 'PageController@voordeelaccount');
 
 // OAuth routes
 Route::get('/oauth', 'OAuthController@callback');

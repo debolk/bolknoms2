@@ -1,0 +1,46 @@
+/*
+ * Front-end UI for displaying meals
+ */
+.meal {
+    margin-bottom: 0.5em;
+}
+
+.meal button {
+    width: 112px;
+    border: 0;
+    background-color: #fff;
+    text-transform: uppercase;
+    padding: 0.25em;
+    font-size: 1em;
+    margin-right: 0.5em;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.meal button::-moz-focus-inner {
+  border: 0;
+}
+
+.meal button:active {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    transition: 0.1s all;
+    cursor: inherit;
+}
+
+.meal button.selected, button.busy {
+    color: white;
+    box-shadow: none;
+    cursor: inherit;
+}
+.meal button.selected {
+    background-color: #0f9d58;
+}
+.meal button.busy {
+    background-color: #f1c40f;
+}
+
+
+#chef {
+    display: none;
+}
+

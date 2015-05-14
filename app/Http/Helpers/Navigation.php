@@ -14,7 +14,7 @@ class Navigation
      * @var array
      */
     private static $loggedInMenu = [
-        'Aanmelden'     => '/aanmelden',
+        'Aanmelden'     => '/',
         'Top eters'     => '/top-eters',
         'Administratie' => '/administratie',
         'Disclaimer'    => '/disclaimer',
@@ -26,7 +26,7 @@ class Navigation
      * @var array
      */
     private static $loggedOutMenu = [
-        'Geen account'  => '/geenaccount',
+        'Aanmelden'     => '/',
         'Disclaimer'    => '/disclaimer',
         'Privacy'       => '/privacy',
     ];
@@ -55,6 +55,13 @@ class Navigation
      */
     private static function isCurrent($link)
     {
-        return (strpos(Request::path(), substr($link, 1)) !== false);
+        $path = Request::path();
+
+        if ($link === '/') {
+            return $path === $link;
+        }
+        else {
+            return (strpos(Request::path(), substr($link, 1)) !== false);
+        }
     }
 }

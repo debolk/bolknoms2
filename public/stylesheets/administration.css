@@ -1,0 +1,41 @@
+/*
+ * Table styling for administration interface
+ */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+th, td {
+    text-align: left;
+    padding: 3px 1em 3px 3px;
+}
+.date {
+    text-align: right;
+}
+.number {
+    text-align: center;
+}
+table .meal:nth-child(2n) {
+    background-color: #ddd;
+}
+
+.zero {
+    font-style: italic;
+}
+
+#print, .remove_registration {
+    cursor: pointer;
+}
+
+#registrations .box {
+    display: none;
+}
+
+#registrations {
+    list-style-type: none;
+    padding: 0;
+}
+
+#print_instructions {
+    display: none;
+}

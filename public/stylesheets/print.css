@@ -1,30 +1,32 @@
-body {
-    font-size: x-large;
-}
-header, nav, h2, form, .remove_registration, .non_print {
-    display: none;
-}
+@media print {
+    body {
+        font-size: x-large;
+    }
+    header, nav, h2, form, .remove_registration, .non_print {
+        display: none;
+    }
 
-#registrations .box {
-    display: inline-block;
-}
+    #registrations .box {
+        display: inline-block;
+    }
 
-#registrations {
-    list-style-type: none;
-    list-style-position: outside;
-    padding: 0;
-}
+    #registrations {
+        list-style-type: none;
+        list-style-position: outside;
+        padding: 0;
+    }
 
-#registrations li {
-    float: left;
-    width: 50%;
-}
+    #registrations li {
+        float: left;
+        width: 50%;
+    }
 
-.subtitle {
-    margin-top: -1em;
-    font-style: italic;
-}
+    .subtitle {
+        margin-top: -1em;
+        font-style: italic;
+    }
 
-section {
-    margin-top: 0;
+    section {
+        margin-top: 0;
+    }
 }
