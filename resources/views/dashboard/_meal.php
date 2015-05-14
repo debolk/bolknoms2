@@ -6,7 +6,8 @@
     </td>
     <td><?=$meal->event;?></td>
 	<td class="number"><?php echo $meal->registrations->count(); ?></td>
-    <td class="date"><?php echo $meal->deadline(); ?></td>
+    <td class="date"><?= date('H:i', strtotime($meal->locked));?></td>
+    <td class="date"><?= date('H:i', strtotime($meal->mealtime));?></td>
 	<td>
 		</a>
 		<a href="/administratie/verwijder/<?php echo $meal->id; ?>" class="destroy-meal" title="Verwijderen">

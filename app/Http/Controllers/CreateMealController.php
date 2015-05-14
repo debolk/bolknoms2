@@ -23,15 +23,19 @@ class CreateMealController extends ApplicationController
     {
         // Build candidate object, using today's data as defaults
         $meal_data = [
-            'date'   => \Request::input('date', date('d-m-Y')),
-            'locked' => \Request::input('locked', '15:00'),
-            'event' => \Request::input('event', null),
+            'date'     => \Request::input('date', date('d-m-Y')),
+            'locked'   => \Request::input('locked', '15:00'),
+            'mealtime' => \Request::input('mealtime', '18:30'),
+            'event'    => \Request::input('event', null),
         ];
         if (empty($meal_data['date'])) {
             $meal_data['date'] = date('d-m-Y');
         }
         if (empty($meal_data['locked'])) {
             $meal_data['locked'] = '15:00';
+        }
+        if (empty($meal_data['mealtime'])) {
+            $meal_data['mealtime'] = '18:30';
         }
 
         // Format Dutch date to DB date (dd-mm-yyyy -> yyyy-mm-dd)
@@ -42,12 +46,14 @@ class CreateMealController extends ApplicationController
         $validator = \Validator::make($meal_data, [
             'date' => ['date', 'required', 'unique:meals', 'after:yesterday'],
             'locked' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+            'mealtime' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
         ],[
             'date.required' => 'De ingevulde datum is ongeldig',
             'date.date' => 'De ingevulde datum is ongeldig',
             'date.unique' => 'Op de ingevulde datum is al een maaltijd gepland',
             'date.after' => 'Je kunt geen maaltijden aanmaken in het verleden',
             'locked.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
+            'mealtime.regex' => 'De etenstijd moet als HH:MM ingevuld zijn',
         ]
         );
 
@@ -56,8 +62,9 @@ class CreateMealController extends ApplicationController
             $meal = new Meal;
             $meal->date = $meal_data['date'];
             $meal->locked = $meal_data['locked'];
+            $meal->mealtime = $meal_data['mealtime'];
             $meal->event = $meal_data['event'];
-            $meal->cost = $meal_data['cost'];
+
             if ($meal->save()) {
                 \Log::info("Nieuwe maaltijd: $meal->id|$meal->date|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op '.$meal);

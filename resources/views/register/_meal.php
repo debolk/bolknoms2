@@ -13,5 +13,9 @@
         <span class="<?= $meal->locked !== '15:00:00' ? 'attention' : '' ; ?>">
             Aanmelden tot <?= strftime("%H:%M", strtotime($meal->locked)); ?> uur
         </span>
+        |
+        <span class="<?= $meal->mealtime !== '18:30:00' ? 'attention' : '' ; ?>">
+            Eten om <?= strftime("%H:%M", strtotime($meal->mealtime)); ?> uur
+        </span>
     </div>
 </div>

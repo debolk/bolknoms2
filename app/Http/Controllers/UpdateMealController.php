@@ -41,11 +41,13 @@ class UpdateMealController extends ApplicationController
         $validator = \Validator::make($meal_data, [
             'date' => ['date', 'required', 'unique:meals,date,'.$meal->id],
             'locked' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+            'mealtime' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
         ],[
             'date.required' => 'De ingevulde datum is ongeldig',
             'date.date' => 'De ingevulde datum is ongeldig',
             'date.unique' => 'Op de ingevulde datum is al een maaltijd gepland',
             'locked.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
+            'mealtime.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
         ]
         );
 

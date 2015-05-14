@@ -1,9 +1,11 @@
 <h1>Aftekenlijst <?= $meal ?></h1>
 <p class="subtitle">
     <span id="count"><?= $meal->registrations()->count(); ?></span> eters
+    &mdash;
+    sluitingstijd <?= date('H:i', strtotime($meal->locked)); ?> uur
+    &mdash;
+    etenstijd <?= date('H:i', strtotime($meal->mealtime)); ?> uur
     <span class="non_print">
-        &mdash;
-        sluitingstijd <?= $meal->deadline(); ?>
         &mdash;
         <a href="/administratie/<?=$meal->id;?>/edit">maaltijd bewerken</a>
     </span>
@@ -15,7 +17,7 @@
 </h2>
 
 <p id="print_instructions">
-    Bonnetjes opgehaald door: ____________________________________
+    Bonnetjes opgehaald door: _____________________________
 </p>
 
 <ul id="registrations">

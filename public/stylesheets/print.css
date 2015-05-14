@@ -29,4 +29,8 @@
     section {
         margin-top: 0;
     }
+
+    #print_instructions {
+        display: block !important;
+    }
 }

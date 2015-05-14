@@ -8,6 +8,10 @@
         <input type="text" name="date" value="<?=date('d-m-Y', strtotime($meal->date));?>">
     </p>
     <p>
+        <label class="label" for="mealtime">Etenstijd</label><br>
+        <input type="text" value="<?=date('H:i', strtotime($meal->mealtime));?>" name="mealtime">
+    </p>
+    <p>
         <label class="label" for="locked">Inschrijving sluit</label><br>
         <input type="text" value="<?=date('H:i', strtotime($meal->locked));?>" name="locked">
     </p>

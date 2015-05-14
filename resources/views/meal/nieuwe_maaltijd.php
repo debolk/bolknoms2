@@ -8,6 +8,10 @@
         <input type="text" placeholder="<?= date('d-m-Y'); ?>" autofocus name="date">
     </p>
     <p>
+        <label class="label" for="mealtime">Etenstijd</label><br>
+        <input type="text" placeholder="18:30" name="mealtime">
+    </p>
+    <p>
         <label class="label" for="locked">Inschrijving sluit</label><br>
         <input type="text" placeholder="15:00" name="locked">
     </p>

@@ -7,7 +7,7 @@ class Meal extends ApplicationModel
     /**
      * All attributes that can be mass-assigned
      */
-    protected $fillable = ['date', 'locked', 'event'];
+    protected $fillable = ['date', 'locked', 'event', 'mealtime'];
 
     /**
      * Relationship: one meal has many registrations

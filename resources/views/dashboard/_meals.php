@@ -5,6 +5,7 @@
             <th>Omschrijving</th>
             <th>Eters</th>
             <th>Sluitingstijd</th>
+            <th>Etenstijd</th>
             <th>&nbsp;</th>
         </tr></thead>
         <tbody>
