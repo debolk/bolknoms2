@@ -9,7 +9,7 @@ class Registration extends ApplicationModel
     /**
      * All properties that can be mass-assigned
      */
-    protected $fillable = ['name', 'email', 'handicap'];
+    protected $fillable = ['name', 'email', 'handicap', 'username'];
 
     /**
      * Relationship: a registration belongs to a meal

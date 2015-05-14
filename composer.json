@@ -13,7 +13,7 @@
     ],
     "require": {
         "laravel/framework": "~5.0",
-        "rmccue/requests": "~1.6",
+        "guzzlehttp/guzzle": "~5.2",
         "ext-memcached": "*",
         "illuminate/html": "~5.0"
     },

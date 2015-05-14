@@ -13,24 +13,11 @@ class Navigation
      * Logged-in menu entries
      * @var array
      */
-    private static $loggedInMenu = [
-        'Aanmelden'     => '/',
-        'Spelregels'    => '/spelregels',
-        'Disclaimer'    => '/disclaimer',
-        'Privacy'       => '/privacy',
-        'Top eters'     => '/top-eters',
-        'Administratie' => '/administratie',
-    ];
-
-    /**
-     * Not signed in entries
-     * @var array
-     */
-    private static $loggedOutMenu = [
-        'Aanmelden'     => '/',
-        'Spelregels'    => '/spelregels',
-        'Disclaimer'    => '/disclaimer',
-        'Privacy'       => '/privacy',
+    private static $menu = [
+        ['text' => 'Aanmelden'    , 'url' => '/',              'level' => '0'],
+        ['text' => 'Spelregels'   , 'url' => '/spelregels',    'level' => '0'],
+        ['text' => 'Top eters'    , 'url' => '/top-eters',     'level' => '1'],
+        ['text' => 'Administratie', 'url' => '/administratie', 'level' => '2'],
     ];
 
     /**
@@ -40,11 +27,21 @@ class Navigation
     public static function show()
     {
         $output = '';
-        $entries = OAuth::valid() ? self::$loggedInMenu : self::$loggedOutMenu;
 
-        foreach ($entries as $text => $link) {
-            $current = (self::isCurrent($link) ? 'class=current' : '');
-            $output .= "<a href=\"$link\" $current>$text</a>";
+        // Determine which elements to show
+        $level = 0;
+        if (OAuth::valid()) {
+            $level = 1;
+            if (OAuth::isBoardMember()) {
+                $level = 2;
+            }
+        }
+
+        foreach (self::$menu as $entry) {
+            if ($level >= $entry['level']) {
+                $current = (self::isCurrent($entry['url']) ? 'class=current' : '');
+                $output .= '<a href="'.$entry['url'].'" '.$current.'>'.$entry['text'].'</a>';
+            }
         }
 
         return $output;

@@ -25,7 +25,7 @@ class RegisterController extends ApplicationController
             $data['meals'] = Meal::available()->get();
         }
         else {
-            $data['meals'] = Meal::available()->take(1);
+            $data['meals'] = Meal::available()->take(1)->get();
         }
 
         return $this->setPageContent(view('register/index', $data));
@@ -46,6 +46,7 @@ class RegisterController extends ApplicationController
             ], 404);
         }
 
+        // Check if the meal is still open
         if (!$meal->open_for_registrations()) {
             return response()->json([
                 'error' => 'meal_deadline_expired',
@@ -53,9 +54,10 @@ class RegisterController extends ApplicationController
             ], 400);
         }
 
+        // Create registration
         $registration = new Registration([
-            'username' => OAuth::user(),
-            'name' => null,
+            'username' => OAuth::user()->id,
+            'name' => OAuth::user()->name,
         ]);
         $registration->meal_id = $meal->id;
 

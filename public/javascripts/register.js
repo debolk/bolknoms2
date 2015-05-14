@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function(){
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     set_button_state(button, 'selected');
-                    show_chef();
                 }
                 else {
                     show_fatal_error(request.responseText);
@@ -70,35 +69,4 @@ function set_button_state(button, state)
 function show_fatal_error(details)
 {
     alert("Fatale fout. Het is onduidelijk of je correct bent aangemeld voor de maaltijd. Bel of mail het bestuur via de contactgegevens op de pagina.\n\nTechnische details: " + details.toString());
-}
-
-/**
- * Show a complimentary video of the Swedish Chef as a thank you for subscribing
- */
-function show_chef()
-{
-    // No need for two chefs at the same time
-    if (chef_is_visible()) {
-        return;
-    }
-
-    // Choose random Swedish Chef movie
-    var codes = ['j1KSaUEu_T4', 'AvDvTnTGjgQ', 'mbs64GvGgPU', 'mXfHyDCcTGQ',
-                 '2Qj8PhxSnhg', 'CAsYwW7pt7o', 'qT_n__vsguk', 'IwGdHAHg0ig'];
-    var random_code = codes[Math.floor(Math.random()*codes.length)];
-
-    // Show iframe with that movie
-    var chef = document.getElementById('chef');
-    var video = chef.getElementsByTagName('iframe')[0];
-    chef.style.display = 'block';
-    video.setAttribute('src', 'http://www.youtube.com/embed/' + random_code + '?autoplay=0&controls=1');
-}
-
-/**
- * Checks if chef is already shown
- * @return {Boolean} [description]
- */
-function chef_is_visible()
-{
-    return (document.getElementById('chef').style.display != '');
 }

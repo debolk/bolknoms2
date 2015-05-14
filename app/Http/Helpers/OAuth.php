@@ -4,6 +4,7 @@ namespace App\Http\Helpers;
 
 use Session;
 use App;
+use GuzzleHttp\Client;
 
 class OAuth
 {
@@ -29,7 +30,7 @@ class OAuth
     }
 
     /**
-     * Returns the current user or null if none
+     * Returns the current user details or null if none
      * @return string nullable
      */
     public static function user()
@@ -43,26 +44,34 @@ class OAuth
             self::retrieveDetails();
         }
 
-        return Session::get('oauth.user_info', null)->user_id;
+        return Session::get('oauth.user_info', null);
     }
 
     /**
      * Get the details of this user
-     * @return boolean
      */
     private static function retrieveDetails()
     {
-        $request = curl_init();
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth.token')->access_token);
-        $result = curl_exec($request);
-        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
-        curl_close($request);
+        $user = new \stdClass();
+        $client = new Client();
+        $token = Session::get('oauth.token')->access_token;
 
-        if ($status !== 200) {
-            throw new \Exception('OAuth server reachable and unreachable at the same time');
-        }
-        Session::set('oauth.user_info', json_decode($result));
+        // Get the user ID
+        $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
+        $response = $client->get($url);
+        $user->id = $response->json()['user_id'];
+
+        // Get full name
+        $url = 'https://people.debolk.nl/persons/'.$user->id.'/name?access_token='.$token;
+        $response = $client->get($url);
+        $user->name = $response->json()['name'];
+
+        // Get picture
+        $user->photoURL = 'https://people.debolk.nl/persons/'.$user->id.'/photo/128/128?access_token='.$token;
+
+        // Store data
+        Session::set('oauth.user_info', $user);
+        Session::save();
     }
 
     /**

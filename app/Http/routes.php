@@ -15,6 +15,7 @@ Route::get('/oauth', 'OAuthController@callback');
 Route::get('/login', 'OAuthController@login');
 Route::get('/logout', 'OAuthController@logout');
 Route::get('/currentuser', 'OAuthController@currentUser');
+Route::get('/photo', 'OAuthController@photo');
 
 // Top eaters list
 Route::get('/top-eters', ['middleware' => 'oauth', 'uses' => 'TopController@index']);

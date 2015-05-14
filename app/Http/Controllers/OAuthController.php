@@ -43,4 +43,13 @@ class OAuthController extends ApplicationController
     {
         return response(null, OAuth::valid() ? 200 : 204);
     }
+
+    /**
+     * Redirects to a photo of the user
+     * @return Redirect
+     */
+    public function photo()
+    {
+        return redirect(OAuth::user()->photoURL);
+    }
 }

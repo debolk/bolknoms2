@@ -8,6 +8,7 @@
     margin-bottom: 1em;
     background-color: #BFB;
     border-color: #9E9;
+    width: 30em;
 }
 
 .user.noone {
@@ -24,7 +25,7 @@
 }
 
 .user .name {
-    display: inline-block;
+    display: block;
     margin-top: 0;
     font-size: xx-large;
 }
@@ -48,7 +49,8 @@
 
 .user .details {
     display: block;
-    margin-top: 1em;
+    float: left;
+    margin-top: 0.25em;
     white-space: nowrap;
 }
 
