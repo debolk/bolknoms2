@@ -63,3 +63,7 @@
     display: inline-block;
     width: 10em;
 }
+
+.someone .photo {
+    cursor: pointer;
+}

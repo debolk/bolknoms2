@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    // Temporary feature explanation
+    $('.someone .photo').on('click', function(){
+        alert('Je foto komt direct uit de ledenadministratie, cool hè? Je kunt je foto veranderen op gosa.i.bolkhuis.nl. Je moet daarvoor wel op het interne netwerk zitten (Bolknet, kabel of VPN).');
+    });
+
     // Click handler and submission process for buttons
     $('.meal button').on('click', function(event){
 

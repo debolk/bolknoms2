@@ -1,4 +1,4 @@
-<div class="user">
+<div class="user someone">
     <img src="/photo" alt="Foto van Jakob Buis" class="photo">
         <h3 class="name"><?= $user->name; ?></h3>
 
