@@ -14,7 +14,7 @@ $(document).ready(function(){
         var button = $(this);
 
         // Choose appropriate submission process
-        if ($('.user.noone').size == 1) {
+        if ($('.user.someone').size() == 1) {
             if (button.hasClass('unregistered')) {
                 register(button);
             }
