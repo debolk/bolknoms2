@@ -1,6 +1,6 @@
 <div class="meal">
     <?php if (isset($user) && $user->registeredFor($meal)): ?>
-        <button class="registered" data-id="<?= $meal->id ;?>">nom! &#10004;</button>
+        <button class="registered" data-id="<?= $meal->id ;?>">&#10004;</button>
     <?php else: ?>
         <button class="unregistered" data-id="<?= $meal->id ;?>">nom!</button>
     <?php endif; ?>

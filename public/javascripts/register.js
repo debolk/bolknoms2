@@ -9,9 +9,7 @@ $(document).ready(function(){
         var button = $(this);
 
         // Choose appropriate submission process
-        var userPresent = !($('.user')[0].hasClass('noone'));
-
-        if (userPresent) {
+        if ($('.user.noone').size == 1) {
             if (button.hasClass('unregistered')) {
                 register(button);
             }
