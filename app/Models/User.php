@@ -122,7 +122,7 @@ class User
             return $result[0]->handicap;
         }
         else {
-            return 'Geen dieetwensen';
+            return null;
         }
     }
 
