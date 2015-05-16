@@ -121,6 +121,7 @@ class OAuth
         }
 
         // Calculate expiration date of token
+        $token->created_at = new \DateTime();
         $token->expires_at = new \DateTime('+' . (((int)$token->expires_in) - 100) . ' seconds');
 
         // Overwrite the token with the new token
@@ -246,6 +247,7 @@ class OAuth
         }
 
         // Determine expiry time (-100 seconds to be sure)
+        $token->created_at = new \DateTime();
         $token->expires_at = new \DateTime('+' . (((int)$token->expires_in) - 100) . ' seconds');
 
         // Store the token
