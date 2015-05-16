@@ -1,5 +1,5 @@
 <div class="user someone">
-    <img src="/photo" alt="Foto van Jakob Buis" class="photo">
+    <img src="/photo" alt="Foto van <?= $user->name; ?>" class="photo">
         <h3 class="name"><?= $user->name; ?></h3>
 
         <a class="button" href="/logout">Uitloggen</a>
