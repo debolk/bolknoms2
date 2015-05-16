@@ -41,4 +41,13 @@ class OAuthController extends ApplicationController
     {
         return redirect(OAuth::user()->photoURL);
     }
+
+    /**
+     * Overwrite the handicap of a user
+     */
+    public function setHandicap()
+    {
+        OAuth::user()->updateHandicap(Request::get('handicap'));
+        return response(null, 200);
+    }
 }

@@ -100,4 +100,40 @@ class User
 
         return null;
     }
+
+    /**
+     * Sets the handicap of a user
+     * @param string $handicap
+     */
+    public function updateHandicap($handicap)
+    {
+        $this->ensureDbUserexists();
+        DB::table('users')->where('username', $this->id)->update(['handicap' => $handicap]);
+    }
+
+    /**
+     * Get the handicap of a user
+     * @return string
+     */
+    public function getHandicap()
+    {
+        $result = DB::table('users')->where('username', '=', $this->id)->select('handicap')->take(1)->get();
+        if ($result) {
+            return $result[0]->handicap;
+        }
+        else {
+            return 'Geen dieetwensen';
+        }
+    }
+
+    /**
+     * Create the User database entry if needed
+     */
+    private function ensureDbUserexists()
+    {
+        if (DB::table('users')->where('username', '=', $this->id)->count() > 0) {
+            return;
+        }
+        DB::table('users')->insert(['username' => $this->id]);
+    }
 }

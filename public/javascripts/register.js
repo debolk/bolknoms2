@@ -5,6 +5,9 @@ $(document).ready(function(){
         alert('Je foto komt direct uit de ledenadministratie, cool hè? Je kunt je foto veranderen op gosa.i.bolkhuis.nl. Je moet daarvoor wel op het interne netwerk zitten (Bolknet, kabel of VPN).');
     });
 
+    // Set the profile handicap
+    $('#set_profile_handicap').on('click', update_handicap);
+
     // Click handler and submission process for buttons
     $('.meal button').on('click', function(event){
 
@@ -33,6 +36,31 @@ $(document).ready(function(){
 
     });
 });
+
+function update_handicap(event)
+{
+    event.preventDefault();
+
+    var handicap = prompt('Specificeer je dieetwensen zo exact en duidelijk mogelijk:');
+    $.ajax({
+        type: 'POST',
+        url: '/handicap',
+        contentType: 'application/json',
+        dataType: 'application/json',
+        data: JSON.stringify({handicap: handicap}),
+        success: function() {
+            var text;
+            if (handicap == '') {
+                text = 'Geen dieetwensen';
+            }
+            else {
+                text = 'Dieet: ' + handicap;
+            }
+            $('#handicap_text').html(text);
+        },
+        error: fatal_error,
+    });
+}
 
 function register(button)
 {

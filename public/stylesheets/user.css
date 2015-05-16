@@ -49,6 +49,7 @@
     float: left;
     margin-top: 0.25em;
     white-space: nowrap;
+    width: 29em;
 }
 
 .user form.data {
