@@ -34,3 +34,7 @@
         display: block !important;
     }
 }
+
+section {
+    margin-top: 0;
+}

@@ -6,7 +6,6 @@
     &mdash;
     etenstijd <?= date('H:i', strtotime($meal->mealtime)); ?> uur
     <span class="non_print">
-        &mdash;
         <a href="/administratie/<?=$meal->id;?>/edit">maaltijd bewerken</a>
     </span>
 </p>
