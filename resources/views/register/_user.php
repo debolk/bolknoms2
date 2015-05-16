@@ -5,7 +5,10 @@
         <a class="button" href="/logout">Uitloggen</a>
         <div class="details">
             Geen dieetwensen |
-            <span class="count">37</span>x meegegeten (<a href="/top-eters">#1</a>) |
-            <a href="/profiel">Mijn profiel</a>
+            <span class="count"><?= $user->numberOfRegistrationsThisYear(); ?></span>x meegegeten
+            <?php if ($rank = $user->topEatersPositionThisYear() !== null): ?>
+                (<a href="/top-eters">#<?= $rank; ?></a>)
+            <?php endif; ?>
+            | <a href="/profiel">Mijn profiel</a>
         </div>
 </div>

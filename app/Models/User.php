@@ -6,7 +6,9 @@ use DB;
 
 /**
  * The User-class is the local extension of the OAuth2 user.
- * It holds all custom user behaviour and data for Bolknoms
+ * It holds all custom user behaviour and data for Bolknoms.
+ * Note that as users are primarily identified by only their
+ * username, they cannot be persisted in the database.
  */
 class User
 {
@@ -57,5 +59,45 @@ class User
                             ->where('username', '=', $this->id)
                             ->take(1)
                             ->first();
+    }
+
+    /**
+     * The number of registrations of this user for the current year
+     * @return integer
+     */
+    public function numberOfRegistrationsThisYear()
+    {
+        // Calculate the last 1 september
+        $timestamp = mktime(0, 0, 0, 9, 1, date('Y'));
+        if ($timestamp > time()) {
+            $timestamp = mktime(0, 0, 0, 9, 1, date('Y') - 1);
+        }
+
+        return DB::table('registrations')
+                ->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id')
+                ->where('username', '=', $this->id)
+                ->where('meals.date', '>=', date('Y-m-d', $timestamp))
+                ->whereNull('registrations.deleted_at')
+                ->whereNull('meals.deleted_at')
+                ->count();
+    }
+
+    /**
+     * Return the position (#1, #2, etc) of this user in the top-eaters list for this year
+     * @return integer or null when not in the list
+     */
+    public function topEatersPositionThisYear()
+    {
+        $registrations = Registration::top_ytd();
+
+        $rank = 0;
+        foreach ($registrations as $registration) {
+            $rank++;
+            if ($registration->username === $this->id) {
+                return $rank;
+            }
+        }
+
+        return null;
     }
 }
