@@ -29,9 +29,6 @@ $(document).ready(function(){
             if (button.hasClass('unregistered')) {
                 registerNonUser(button);
             }
-            else {
-                deregisterNonUser(button);
-            }
         }
 
     });
@@ -114,6 +111,13 @@ function registerNonUser(button)
 {
     set_button_state(button, 'busy');
 
+    // Check form fields
+    if ($('#name').val() == '' || $('#email').val() == '') {
+        alert('Je moet je naam en e-mailadres invullen');
+        set_button_state(button, 'unregistered');
+        return;
+    }
+
     // Send AJAX-call to register for meal
     $.ajax({
         type: 'POST',
@@ -126,35 +130,15 @@ function registerNonUser(button)
             handicap: $('#handicap').val(),
             meal_id: button.data('id')
         }),
-        success: function(response) {
-            button.data('salt', JSON.parse(response).salt);
+        success: function() {
             set_button_state(button, 'registered');
         },
-        error: fatal_error,
-    });
-}
-
-function deregisterNonUser(button)
-{
-    set_button_state(button, 'busy');
-
-    // Send AJAX-call to register for meal
-    $.ajax({
-        type: 'POST',
-        url: '/afmelden',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({
-            salt: button.data('salt'),
-            meal_id: button.data('id')
-        }),
-        success: function() {
+        error: function(error){
+            fatal_error(error);
             set_button_state(button, 'unregistered');
         },
-        error: fatal_error,
     });
 }
-
 
 function fatal_error(error)
 {
