@@ -41,7 +41,9 @@ function update_handicap(event)
 {
     event.preventDefault();
 
-    var handicap = prompt('Specificeer je dieetwensen zo exact en duidelijk mogelijk:');
+    var handicap = $('#handicap_text').data('handicap');
+    var handicap = prompt('Specificeer je dieetwensen zo exact en duidelijk mogelijk:', handicap);
+
     $.ajax({
         type: 'POST',
         url: '/handicap',
@@ -57,6 +59,7 @@ function update_handicap(event)
                 text = 'Dieet: ' + handicap;
             }
             $('#handicap_text').html(text);
+            $('#handicap_text').data('handicap', handicap);
         },
         error: fatal_error,
     });
