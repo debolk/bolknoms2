@@ -171,7 +171,7 @@ function set_button_state(button, state)
         }
         case 'registered':
         {
-            button.html('nom! &#10004;');
+            button.html('&#10004;');
             break;
         }
     }
