@@ -81,6 +81,7 @@ class RegisterController extends ApplicationController
         // Create registration
         $registration = new Registration([
             'name' => Request::get('name'),
+            'email' => Request::get('email'),
             'handicap' => Request::get('handicap', null),
         ]);
         $registration->meal_id = $meal->id;
