@@ -22,6 +22,4 @@
 <ol>
     <li>Je betaalt de maaltijd met een bonnetje. Die kun je kopen in de soci&euml;teit.</li>
     <li>Als je niet op tijd afmeldt en niet komt opdagen, moet je wel voor de maaltijd betalen (meestal &euro;3,50). Er is immers wel voor je gekookt. Voor leden gaat dat op Bolkrekening, externen krijgen een factuur gemaild.</li>
-    <li>Bolkers zijn verantwoordelijk voor de betaling van de +1's die ze aanmelden.</li>
-    <li>Als je de kosten van de gemiste maaltijd niet betaalt, kun je niet meer mee-eten aan de eettafel.</li>
 </ol>
