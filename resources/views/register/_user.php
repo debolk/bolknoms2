@@ -12,7 +12,8 @@
             (<a href="#" id="set_profile_handicap">instellen</a>)
             |
             <span class="count"><?= $user->numberOfRegistrationsThisYear(); ?></span>x meegegeten
-            <?php if ($rank = $user->topEatersPositionThisYear() !== null): ?>
+            <?php $rank = $user->topEatersPositionThisYear(); ?>
+            <?php if ($rank !== null): ?>
                 (<a href="/top-eters">#<?= $rank; ?></a>)
             <?php endif; ?>
         </div>
