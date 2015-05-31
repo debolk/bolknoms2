@@ -231,42 +231,37 @@ class OAuth
             }
             else {
                 Session::remove('oauth');
-                App::abort(500, $input['error_description']);
+                App::abort(500, 'Unknown error while processing OAuth authorisation callback');
             }
         }
 
         // Retrieve access code
-        $request = curl_init();
-        $fields = [
-            'grant_type' => 'authorization_code',
-            'code' => $input['code'],
-            'redirect_uri' => env('OAUTH_CALLBACK'),
-            'client_id' => env('OAUTH_CLIENT_ID'),
-            'client_secret' => env('OAUTH_CLIENT_SECRET'),
-        ];
-        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'token/');
-        curl_setopt($request,CURLOPT_POST, count($fields));
-        curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($request);
-        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
-
-        // Handle failures
-        if ($status !== 200) {
+        try {
+            $client = new Client();
+            $result = $client->post(env('OAUTH_ENDPOINT').'token/', [
+                'json' => [
+                    'grant_type' => 'authorization_code',
+                    'code' => $input['code'],
+                    'redirect_uri' => env('OAUTH_CALLBACK'),
+                    'client_id' => env('OAUTH_CLIENT_ID'),
+                    'client_secret' => env('OAUTH_CLIENT_SECRET'),
+                ],
+            ]);
+        }
+        catch (\Exception $e) {
             Session::remove('oauth');
-            App::abort(500, 'Unknown OAuth error');
+            App::abort(500, 'Fatal error while trading authorisation code for a token');
         }
 
-        // Decode the answer
-        $token = json_decode($result);
+        $token = $result->json();
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
             Session::remove('oauth');
-            App::abort(500, $token->error_description);
+            App::abort(500, 'Fatal error in authentication token');
         }
 
-        // Determine expiry time (-100 seconds to be sure)
+        // Determine expiry time
         $token->created_at = new \DateTime();
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
