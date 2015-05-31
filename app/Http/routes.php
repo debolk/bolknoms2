@@ -15,7 +15,7 @@ Route::get('/voordeel-account', 'PageController@voordeelaccount');
 Route::get('/oauth', 'OAuthController@callback');
 Route::get('/login', 'OAuthController@login');
 Route::get('/logout', 'OAuthController@logout');
-Route::get('/photo', 'OAuthController@photo');
+Route::get('/photo', ['middleware' => 'oauth', 'uses' => 'OAuthController@photo']);
 Route::post('/handicap', ['middleware' => 'oauth', 'uses' => 'OAuthController@setHandicap']);
 
 // Top eaters list
