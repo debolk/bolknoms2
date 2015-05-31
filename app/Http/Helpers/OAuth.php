@@ -124,8 +124,11 @@ class OAuth
         $token->created_at = new \DateTime();
         $token->expires_at = new \DateTime('+' . (((int)$token->expires_in) - 100) . ' seconds');
 
+        // Must refresh photoURL too
+        self::retrieveDetails();
+
         // Overwrite the token with the new token
-        Session::set('oauth.token', $token);
+        Session::put('oauth.token', $token);
     }
 
     /**
