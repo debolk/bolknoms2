@@ -241,7 +241,17 @@ class OAuth
         curl_setopt($request,CURLOPT_POST, count($fields));
         curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        $token = json_decode(curl_exec($request));
+        $result = curl_exec($request);
+        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
+
+        // Handle failures
+        if ($status !== 200) {
+            Session::remove('oauth');
+            App::abort(500, 'Unknown OAuth error');
+        }
+
+        // Decode the answer
+        $token = json_decode($result);
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
