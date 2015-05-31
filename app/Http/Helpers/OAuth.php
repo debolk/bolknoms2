@@ -86,9 +86,12 @@ class OAuth
     private static function tokenIsExpired()
     {
         $now = new \DateTime();
-        $expiration = Session::get('oauth.token')->expires_at;
+        $expiry = Session::get('oauth.token')->expires_at;
 
-        return ($expiration <= $now);
+        // Subtract one minute to allow for clock drift
+        $expiry = $expiry->sub(new \DateInterval('PT1M'));
+
+        return ($expiry <= $now);
     }
 
     /**
@@ -122,7 +125,7 @@ class OAuth
 
         // Calculate expiration date of token
         $token->created_at = new \DateTime();
-        $token->expires_at = new \DateTime('+' . (((int)$token->expires_in) - 100) . ' seconds');
+        $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Must refresh photoURL too
         self::retrieveDetails();
@@ -261,7 +264,7 @@ class OAuth
 
         // Determine expiry time (-100 seconds to be sure)
         $token->created_at = new \DateTime();
-        $token->expires_at = new \DateTime('+' . (((int)$token->expires_in) - 100) . ' seconds');
+        $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Store the token
         Session::put('oauth.token', $token);
