@@ -44,9 +44,9 @@ class OAuth
             self::retrieveDetails();
         }
 
-        $id       = Session::get('oauth.user_info', null)->id;
-        $name     = Session::get('oauth.user_info', null)->name;
-        $photoURL = Session::get('oauth.user_info', null)->photoURL;
+        $id       = Session::get('oauth.user_info')->id;
+        $name     = Session::get('oauth.user_info')->name;
+        $photoURL = Session::get('oauth.user_info')->photoURL;
         return new App\Models\User($id, $name, $photoURL);
     }
 
