@@ -169,10 +169,15 @@ class OAuth
      */
     private static function tokenIsValid()
     {
-        $client = new Client();
-        $url = env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth.token')->access_token;
-        $request = $client->get($url);
-        return ($request->getStatusCode() === 200);
+        try {
+            $client = new Client();
+            $url = env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth.token')->access_token;
+            $request = $client->get($url);
+            return ($request->getStatusCode() === 200);
+        }
+        catch(\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -183,13 +188,15 @@ class OAuth
      */
     public static function isBoardMember()
     {
-        $request = curl_init();
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'bestuur/?access_token='.Session::get('oauth.token')->access_token);
-        $result = curl_exec($request);
-        $status = curl_getinfo($request, CURLINFO_HTTP_CODE);
-        curl_close($request);
-        return ($status === 200);
+        try {
+            $client = new Client();
+            $url = env('OAUTH_ENDPOINT').'bestuur/?access_token='.Session::get('oauth.token')->access_token;
+            $request = $client->get($url);
+            return ($request->getStatusCode() === 200);
+        }
+        catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
