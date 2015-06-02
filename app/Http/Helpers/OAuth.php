@@ -103,19 +103,21 @@ class OAuth
      */
     private static function refreshToken()
     {
-        // Send refresh request
-        $request = curl_init();
-        $fields = [
-            'grant_type' => 'refresh_token',
-            'refresh_token' => Session::get('oauth.token')->refresh_token,
-            'client_id' => env('OAUTH_CLIENT_ID'),
-            'client_secret' => env('OAUTH_CLIENT_SECRET'),
-        ];
-        curl_setopt($request,CURLOPT_URL, env('OAUTH_ENDPOINT').'token/');
-        curl_setopt($request,CURLOPT_POST, count($fields));
-        curl_setopt($request,CURLOPT_POSTFIELDS, http_build_query($fields));
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        $token = json_decode(curl_exec($request));
+        try {
+            $client = new Client();
+            $response = $client->post(env('OAUTH_ENDPOINT').'token/', ['json' => [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => Session::get('oauth.token')->refresh_token,
+                'client_id' => env('OAUTH_CLIENT_ID'),
+                'client_secret' => env('OAUTH_CLIENT_SECRET'),
+            ]]);
+        }
+        catch (\Exception $e) {
+            Session::remove('oauth');
+            App::abort(500, 'Fatal error while refreshing OAuth2 token');
+        }
+
+        $token = json_decode($response->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
