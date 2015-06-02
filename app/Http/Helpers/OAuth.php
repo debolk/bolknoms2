@@ -112,14 +112,14 @@ class OAuth
             ]]);
         }
         catch (\Exception $e) {
-            self::fatalError('Cannot refresh token');
+            self::fatalError('Cannot refresh token', $e->getMessage());
         }
 
         $token = json_decode($response->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            self::fatalError('Refreshed token not valid');
+            self::fatalError('Refreshed token not valid', $token->error_description);
         }
 
         // Calculate expiration date of token
@@ -228,7 +228,7 @@ class OAuth
                 return '/';
             }
             else {
-                self::fatalError('fatal error while processing callback');
+                self::fatalError('fatal error while processing callback', $input['error_description']);
             }
         }
 
@@ -246,14 +246,14 @@ class OAuth
             ]);
         }
         catch (\Exception $e) {
-            self::fatalError('Cannot trade authorisation token for access token');
+            self::fatalError('Cannot trade authorisation token for access token', $e->getMessage());
         }
 
         $token = json_decode($result->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            self::fatalError('Access token invalid');
+            self::fatalError('Access token invalid', $token->error_description);
         }
 
         // Determine expiry time
@@ -271,11 +271,15 @@ class OAuth
     /**
      * End the session and provide an explanation to the user
      * THIS FUNCTION WILL APP::ABORT
-     * @param  string $technical message to show
+     * @param  string $technical    message to show
+     * @param  string $logged_error optional string to write to log files
      * @return void
      */
-    private static function fatalError($technical)
+    private static function fatalError($technical, $logged_error = null)
     {
+        if ($logged_error !== null) {
+            \Log::error($logged_error);
+        }
         Session::remove('oauth');
         App::abort(500, 'Er ging iets fout met het ophalen van informatie van je gebruikersaccount. Om veiligheidsredenen ben je automatisch uitgelogd. Je kunt opnieuw inloggen en het nogmaals proberen. Technische details: ' . $technical);
     }
