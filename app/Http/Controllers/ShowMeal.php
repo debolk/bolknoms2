@@ -8,7 +8,7 @@ use Log;
 use App;
 use Request;
 
-class ShowMealController extends ApplicationController
+class ShowMeal extends Application
 {
     /**
      * Shows the details page of a meal

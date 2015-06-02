@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App;
 use Request;
-use App\Http\Helpers\OAuth;
+use App\Http\Helpers\OAuth as OAuthHelper;
 
-class OAuthController extends ApplicationController
+class OAuth extends Application
 {
     /**
      * Store the callback
@@ -14,13 +14,13 @@ class OAuthController extends ApplicationController
      */
     public function callback()
     {
-        $result = OAuth::processCallback(Request::all());
+        $result = OAuthHelper::processCallback(Request::all());
         return redirect($result);
     }
 
     public function login()
     {
-        return OAuth::toAuthorisationServer('/');
+        return OAuthHelper::toAuthorisationServer('/');
     }
 
     /**
@@ -29,7 +29,7 @@ class OAuthController extends ApplicationController
      */
     public function logout()
     {
-        OAuth::logout();
+        OAuthHelper::logout();
         return redirect('/');
     }
 
@@ -39,7 +39,7 @@ class OAuthController extends ApplicationController
      */
     public function photo()
     {
-        return redirect(OAuth::user()->photoURL);
+        return redirect(OAuthHelper::user()->photoURL);
     }
 
     /**
@@ -47,7 +47,7 @@ class OAuthController extends ApplicationController
      */
     public function setHandicap()
     {
-        OAuth::user()->updateHandicap(Request::get('handicap'));
+        OAuthHelper::user()->updateHandicap(Request::get('handicap'));
         return response(null, 200);
     }
 }

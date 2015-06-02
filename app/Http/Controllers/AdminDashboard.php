@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Meal;
 use App\Http\Helpers\Flash;
 
-class AdminDashboardController extends ApplicationController
+class AdminDashboard extends Application
 {
     /**
      * List all past and current meals

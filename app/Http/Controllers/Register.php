@@ -9,7 +9,7 @@ use Validator;
 use Log;
 use App\Http\Helpers\OAuth;
 
-class RegisterController extends ApplicationController
+class Register extends Application
 {
     /**
       * Show the index that allows users to quickly register for the upcoming meal

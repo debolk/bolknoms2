@@ -6,7 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-class ApplicationController extends Controller
+class Application extends Controller
 {
     use DispatchesCommands, ValidatesRequests;
 
@@ -44,7 +44,7 @@ class ApplicationController extends Controller
      */
     private function loadControllerJavascript()
     {
-        preg_match('/([a-zA-Z]+)Controller/', \Route::currentRouteAction(), $controller);
+        preg_match('/([a-zA-Z]+)/', \Route::currentRouteAction(), $controller);
         $file = strtolower($controller[1]);
         if (file_exists(dirname(__FILE__) . "/../../../public/javascripts/$file.js")) {
             return $file;

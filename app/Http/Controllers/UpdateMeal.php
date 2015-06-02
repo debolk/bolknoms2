@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use \App\Http\Helpers\Flash;
 use \App\Models\Meal;
 
-class UpdateMealController extends ApplicationController
+class UpdateMeal extends Application
 {
     /**
      * Shows the page for editing a new meal

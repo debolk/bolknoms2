@@ -1,43 +1,43 @@
 <?php
 
 // Register for meals
-Route::get('/', 'RegisterController@index');
-Route::post('/aanmelden', 'RegisterController@aanmelden');
-Route::post('/afmelden', 'RegisterController@afmelden');
+Route::get('/', 'Register@index');
+Route::post('/aanmelden', 'Register@aanmelden');
+Route::post('/afmelden', 'Register@afmelden');
 
 // Information pages
-Route::get('/spelregels', 'PageController@spelregels');
-Route::get('/disclaimer', 'PageController@disclaimer');
-Route::get('/privacy', 'PageController@privacy');
-Route::get('/voordeel-account', 'PageController@voordeelaccount');
+Route::get('/spelregels', 'Page@spelregels');
+Route::get('/disclaimer', 'Page@disclaimer');
+Route::get('/privacy', 'Page@privacy');
+Route::get('/voordeel-account', 'Page@voordeelaccount');
 
 // OAuth routes
-Route::get('/oauth', 'OAuthController@callback');
-Route::get('/login', 'OAuthController@login');
-Route::get('/logout', 'OAuthController@logout');
-Route::get('/photo', ['middleware' => 'oauth', 'uses' => 'OAuthController@photo']);
-Route::post('/handicap', ['middleware' => 'oauth', 'uses' => 'OAuthController@setHandicap']);
+Route::get('/oauth', 'OAuth@callback');
+Route::get('/login', 'OAuth@login');
+Route::get('/logout', 'OAuth@logout');
+Route::get('/photo', ['middleware' => 'oauth', 'uses' => 'OAuth@photo']);
+Route::post('/handicap', ['middleware' => 'oauth', 'uses' => 'OAuth@setHandicap']);
 
 // Top eaters list
-Route::get('/top-eters', ['middleware' => 'oauth', 'uses' => 'TopController@index']);
+Route::get('/top-eters', ['middleware' => 'oauth', 'uses' => 'Top@index']);
 
 // Pages which require board-level authorization
 Route::group(['middleware' => ['oauth','board']], function(){
 
     // Administration dashboard
-    Route::get('/administratie', 'AdminDashboardController@index');
-    Route::get('/administratie/verwijder/{id}', 'AdminDashboardController@verwijder');
+    Route::get('/administratie', 'AdminDashboard@index');
+    Route::get('/administratie/verwijder/{id}', 'AdminDashboard@verwijder');
 
     // Show meals in the backend
-    Route::get('/administratie/{id}', 'ShowMealController@show');
-    Route::post('/administratie/afmelden/{id}', 'ShowMealController@afmelden');
-    Route::post('/administratie/aanmelden', 'ShowMealController@aanmelden');
+    Route::get('/administratie/{id}', 'ShowMeal@show');
+    Route::post('/administratie/afmelden/{id}', 'ShowMeal@afmelden');
+    Route::post('/administratie/aanmelden', 'ShowMeal@aanmelden');
 
     // Create new meals
-    Route::get('/administratie/nieuwe_maaltijd', 'CreateMealController@new_meal');
-    Route::post('/administratie/nieuwe_maaltijd_maken', 'CreateMealController@create');
+    Route::get('/administratie/nieuwe_maaltijd', 'CreateMeal@new_meal');
+    Route::post('/administratie/nieuwe_maaltijd_maken', 'CreateMeal@create');
 
     // Update existing meals
-    Route::get('/administratie/{id}/edit', 'UpdateMealController@edit');
-    Route::post('/administratie/{id}', 'UpdateMealController@update');
+    Route::get('/administratie/{id}/edit', 'UpdateMeal@edit');
+    Route::post('/administratie/{id}', 'UpdateMeal@update');
 });
