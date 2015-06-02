@@ -65,12 +65,21 @@ class OAuth
         $user->id = json_decode($response->getBody())->user_id;
 
         // Get full name
-        $url = 'https://people.debolk.nl/persons/'.$user->id.'/name?access_token='.$token;
-        $response = $client->get($url);
-        $user->name = json_decode($response->getBody())->name;
+        try {
+            $url = 'https://people.debolk.nl/persons/'.$user->id.'/name?access_token='.$token;
+            $response = $client->get($url);
+            $user->name = json_decode($response->getBody())->name;
 
-        // Get picture
-        $user->photoURL = 'https://people.debolk.nl/persons/'.$user->id.'/photo/128/128?access_token='.$token;
+            // Get picture
+            $user->photoURL = 'https://people.debolk.nl/persons/'.$user->id.'/photo/128/128?access_token='.$token;
+        }
+        catch (\Exception $e) {
+            \Log::error($e->getMessage());
+
+            // Fallback to the userID as the name and the swedish chef picture
+            $user->name = $user->id;
+            $user->photoURL = '/images/swedishchef.jpg';
+        }
 
         // Store data
         Session::set('oauth.user_info', $user);
