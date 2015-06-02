@@ -96,7 +96,6 @@ class OAuth
 
     /**
      * Refreshes the token
-     * THIS FUNCTION MAY APP::ABORT()
      * @access private
      * @static
      * @return void
@@ -113,16 +112,14 @@ class OAuth
             ]]);
         }
         catch (\Exception $e) {
-            Session::remove('oauth');
-            App::abort(500, 'Fatal error while refreshing OAuth2 token');
+            self::fatalError('Cannot refresh token');
         }
 
         $token = json_decode($response->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            Session::remove('oauth');
-            App::abort(500, $token->error_description);
+            self::fatalError('Refreshed token not valid');
         }
 
         // Calculate expiration date of token
@@ -212,7 +209,6 @@ class OAuth
 
     /**
      * Process the OAuth authorisation callback, storing the session
-     * THIS FUNCTION MAY APP::ABORT()
      * @static
      * @access public
      * @param  array $input Input::get() is the only acceptable input here
@@ -222,7 +218,7 @@ class OAuth
     {
         // Check state to prevent CSRF
         if ((string)$input['state'] !== (string)Session::get('oauth.state')) {
-            App::abort(400, 'OAuth state mismatch');
+            self::fatalError('State mismatch');
         }
 
         // Check for errors
@@ -232,8 +228,7 @@ class OAuth
                 return '/';
             }
             else {
-                Session::remove('oauth');
-                App::abort(500, 'Unknown error while processing OAuth authorisation callback');
+                self::fatalError('fatal error while processing callback');
             }
         }
 
@@ -251,16 +246,14 @@ class OAuth
             ]);
         }
         catch (\Exception $e) {
-            Session::remove('oauth');
-            App::abort(500, 'Fatal error while trading authorisation code for a token');
+            self::fatalError('Cannot trade authorisation token for access token');
         }
 
         $token = json_decode($result->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            Session::remove('oauth');
-            App::abort(500, 'Fatal error in authentication token');
+            self::fatalError('Access token invalid');
         }
 
         // Determine expiry time
@@ -273,5 +266,17 @@ class OAuth
         // Redirect to the original URL
         return Session::get('oauth.goal');
 
+    }
+
+    /**
+     * End the session and provide an explanation to the user
+     * THIS FUNCTION WILL APP::ABORT
+     * @param  string $technical message to show
+     * @return void
+     */
+    private static function fatalError($technical)
+    {
+        Session::remove('oauth');
+        App::abort(500, 'Er ging iets fout met het ophalen van informatie van je gebruikersaccount. Om veiligheidsredenen ben je automatisch uitgelogd. Je kunt opnieuw inloggen en het nogmaals proberen. Technische details: ' . $technical);
     }
 }
