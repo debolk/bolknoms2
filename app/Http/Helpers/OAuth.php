@@ -62,12 +62,12 @@ class OAuth
         // Get the user ID
         $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
         $response = $client->get($url);
-        $user->id = $response->json()['user_id'];
+        $user->id = json_decode($response->getBody())->user_id;
 
         // Get full name
         $url = 'https://people.debolk.nl/persons/'.$user->id.'/name?access_token='.$token;
         $response = $client->get($url);
-        $user->name = $response->json()['name'];
+        $user->name = json_decode($response->getBody())->name;
 
         // Get picture
         $user->photoURL = 'https://people.debolk.nl/persons/'.$user->id.'/photo/128/128?access_token='.$token;
@@ -253,7 +253,7 @@ class OAuth
             App::abort(500, 'Fatal error while trading authorisation code for a token');
         }
 
-        $token = $result->json();
+        $token = json_decode($result->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
