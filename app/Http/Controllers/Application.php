@@ -44,8 +44,9 @@ class Application extends Controller
      */
     private function loadControllerJavascript()
     {
-        preg_match('/([a-zA-Z]+)/', \Route::currentRouteAction(), $controller);
+        preg_match('/([a-zA-Z]+)@/iU', \Route::currentRouteAction(), $controller);
         $file = strtolower($controller[1]);
+
         if (file_exists(dirname(__FILE__) . "/../../../public/javascripts/$file.js")) {
             return $file;
         }
