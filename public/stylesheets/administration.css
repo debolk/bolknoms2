@@ -39,3 +39,8 @@ tr:nth-child(2n) {
 #print_instructions {
     display: none;
 }
+
+table .attention {
+    color: red;
+    font-weight: bold;
+}
