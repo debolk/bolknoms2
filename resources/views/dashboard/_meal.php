@@ -1,7 +1,7 @@
 <tr data-id="<?php echo $meal->id; ?>">
 	<td class="date">
         <a href="/administratie/<?php echo $meal->id; ?>">
-            <?php echo $meal; ?>
+            <?php echo $meal->longDate(); ?>
         </a>
     </td>
     <td><?=$meal->event;?></td>

@@ -56,12 +56,21 @@ class Meal extends ApplicationModel
     }
 
     /**
+     * Return the date of this meal in long, Dutch format
+     * @return string example "dinsdag 19 mei 2015"
+     */
+    public function longDate()
+    {
+        return strftime('%A %d %B %Y', strtotime($this->date));
+    }
+
+    /**
      * Controls output when an object of the class is printed
      * @return string
      */
     public function __toString()
     {
-        $output = strftime('%A %d %B %Y', strtotime($this->date));
+        $output = $this->longDate();
 
         if (! empty($this->event)) {
             $output .= ' ('.$this->event.')';
