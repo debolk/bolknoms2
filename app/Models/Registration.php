@@ -9,7 +9,7 @@ class Registration extends ApplicationModel
     /**
      * All properties that can be mass-assigned
      */
-    protected $fillable = ['name', 'email', 'handicap', 'username'];
+    protected $fillable = ['name', 'email', 'handicap', 'username', 'confirmed'];
 
     /**
      * Relationship: a registration belongs to a meal
@@ -27,6 +27,54 @@ class Registration extends ApplicationModel
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the fully Dutch-formatted date of this registration
+     * @return string e.g. "maandag 19 mei 2016"
+     */
+    public function longDate()
+    {
+        return $this->meal->longDate();
+    }
+
+    /**
+     * Scope: all confirmed registrations
+     */
+    public function scopeConfirmed($query)
+    {
+        return $query->where('confirmed', '=', true);
+    }
+
+    /**
+     * Scope: all unconfirmed registrations
+     */
+    public function scopeUnconfirmed($query)
+    {
+        return $query->where('confirmed', '=', false);
+    }
+
+    /**
+     * Set the salt and save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = array())
+    {
+        // Set the salt
+        $this->salt = self::generateSalt();
+
+        return parent::save($options);
+    }
+
+    /**
+     * Generates a random string to use as a salt
+     * @return string
+     */
+    private static function generateSalt()
+    {
+        return substr(str_shuffle(MD5(microtime())), 0, 10);
     }
 
     /**

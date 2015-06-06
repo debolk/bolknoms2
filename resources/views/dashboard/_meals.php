@@ -3,7 +3,8 @@
         <thead><tr>
             <th>Datum</th>
             <th>Omschrijving</th>
-            <th>Eters</th>
+            <th>Aanmeldingen</th>
+            <th>Onbevestigde <br> aanmeldingen</th>
             <th>Sluitingstijd</th>
             <th>Etenstijd</th>
             <th>&nbsp;</th>

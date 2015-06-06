@@ -5,6 +5,9 @@ Route::get('/', 'Register@index');
 Route::post('/aanmelden', 'Register@aanmelden');
 Route::post('/afmelden', 'Register@afmelden');
 
+// Confirm registration
+Route::get('/bevestigen/{id}/{salt}', 'Confirm@confirm');
+
 // Information pages
 Route::get('/spelregels', 'Page@spelregels');
 Route::get('/disclaimer', 'Page@disclaimer');

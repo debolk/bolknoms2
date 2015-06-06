@@ -83,11 +83,16 @@ class Register extends Application
             'name' => Request::get('name'),
             'email' => Request::get('email'),
             'handicap' => Request::get('handicap', null),
+            'confirmed' => false,
         ]);
         $registration->meal_id = $meal->id;
 
         if ($registration->save()) {
             \Log::info("Aangemeld: $registration->id|$registration->name");
+
+            // Send email for confirmation
+            \App\Http\Helpers\Mailer::confirmationEmail($registration);
+
             return response(null, 200);
         }
         else {
@@ -136,6 +141,7 @@ class Register extends Application
             'username' => $user->id,
             'name' => $user->name,
             'handicap' => $user->getHandicap(),
+            'confirmed' => true,
         ]);
         $registration->meal_id = $meal->id;
 

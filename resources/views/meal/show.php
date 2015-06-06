@@ -1,6 +1,6 @@
 <h1>Aftekenlijst <?= $meal ?></h1>
 <p class="subtitle">
-    <span id="count"><?= $meal->registrations()->count(); ?></span> eters
+    <span id="count"><?= $meal->registrations()->confirmed()->count(); ?></span> eters
     &mdash;
     sluitingstijd <?= date('H:i', strtotime($meal->locked)); ?> uur
     &mdash;
@@ -20,7 +20,7 @@
 </p>
 
 <ul id="registrations">
-    <?php foreach ($meal->registrations()->get() as $r): ?>
+    <?php foreach ($meal->registrations()->confirmed()->get() as $r): ?>
         <?= View::make('meal/_registration', ['registration' => $r]); ?>
     <?php endforeach; ?>
 </ul>

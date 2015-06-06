@@ -132,6 +132,10 @@ function registerNonUser(button)
         }),
         success: function() {
             set_button_state(button, 'registered');
+
+            // Show warning that email confirmation is needed
+            var warning = $('<div>').addClass('notification warning').html('<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.');
+            warning.insertAfter(button.parents('.meal'));
         },
         error: function(error){
             fatal_error(error);

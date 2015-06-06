@@ -5,7 +5,8 @@
         </a>
     </td>
     <td><?=$meal->event;?></td>
-	<td class="number"><?php echo $meal->registrations->count(); ?></td>
+    <td class="number"><?php echo $meal->registrations->where('confirmed', '=', true )->count(); ?></td>
+	<td class="number"><?php echo $meal->registrations->where('confirmed', '=', false)->count(); ?></td>
     <td class="date <?= (date('H:i', strtotime($meal->locked)) !== '15:00') ? 'attention' : ''; ?>">
         <?= date('H:i', strtotime($meal->locked));?>
     </td>
