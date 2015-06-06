@@ -162,7 +162,6 @@ class OAuth
         $query_string = http_build_query([
             'response_type' => 'code',
             'client_id' => env('OAUTH_CLIENT_ID'),
-            'client_pass' => env('OAUTH_CLIENT_SECRET'),
             'redirect_uri' => env('OAUTH_CALLBACK'),
             'state'=> $state,
         ]);
