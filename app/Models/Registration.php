@@ -63,7 +63,9 @@ class Registration extends ApplicationModel
     public function save(array $options = array())
     {
         // Set the salt
-        $this->salt = self::generateSalt();
+        if ($this->salt === null) {
+            $this->salt = self::generateSalt();
+        }
 
         return parent::save($options);
     }
