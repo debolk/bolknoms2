@@ -109,7 +109,7 @@ class OAuth
 
         // Get the full name of the user
         try {
-            $url = 'https://people.debolk.nl/persons/'.$user->id.'/name?access_token='.$access_token;
+            $url = 'https://people.debolk.nl/persons/'.$user->username.'/name?access_token='.$access_token;
             $response = $client->get($url);
             $user->name = json_decode($response->getBody())->name;
         }
