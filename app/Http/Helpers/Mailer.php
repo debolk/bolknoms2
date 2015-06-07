@@ -14,9 +14,11 @@ class Mailer
      */
     public static function confirmationEmail($registration)
     {
-        \Mail::send('mails/confirmRegistration', ['registration' => $registration], function($message) use ($registration) {
+        \Mail::send(['mails/confirmRegistration/html', 'mails/confirmRegistration/text'], [
+            'registration' => $registration
+        ], function($message) use ($registration) {
             $message->to($registration->email, $registration->name);
-            $message->subject("Bevestigen aanmelding maaltijd". $registration->longDate());
+            $message->subject("Bevestigen aanmelding maaltijd ". $registration->longDate());
         });
     }
 }
