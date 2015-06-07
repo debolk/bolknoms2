@@ -60,9 +60,14 @@ class OAuth
         $token = Session::get('oauth.token')->access_token;
 
         // Get the user ID
-        $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
-        $response = $client->get($url);
-        $user->id = json_decode($response->getBody())->user_id;
+        try {
+            $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
+            $response = $client->get($url);
+            $user->id = json_decode($response->getBody())->user_id;
+        }
+        catch (\Exception $e) {
+            self::fatalError($e->getMessage(), "Could not retrieve username", 502);
+        }
 
         // Get full name
         try {
