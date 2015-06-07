@@ -138,12 +138,13 @@ class Register extends Application
 
         // Create registration
         $registration = new Registration([
-            'username' => $user->id,
             'name' => $user->name,
             'handicap' => $user->handicap,
-            'confirmed' => true,
         ]);
+        $registration->user_id = $user->id;
         $registration->meal_id = $meal->id;
+        $registration->username = $user->username;
+        $registration->confirmed = true;
 
         if ($registration->save()) {
             \Log::info("Aangemeld: $registration->id|$registration->name");
