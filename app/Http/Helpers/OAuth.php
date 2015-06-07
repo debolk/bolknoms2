@@ -60,9 +60,14 @@ class OAuth
         $token = Session::get('oauth.token')->access_token;
 
         // Get the user ID
-        $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
-        $response = $client->get($url);
-        $user->id = json_decode($response->getBody())->user_id;
+        try {
+            $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
+            $response = $client->get($url);
+            $user->id = json_decode($response->getBody())->user_id;
+        }
+        catch (\Exception $e) {
+            self::fatalError($e->getMessage(), "Could not retrieve username", 502);
+        }
 
         // Get full name
         try {
@@ -281,14 +286,15 @@ class OAuth
      * THIS FUNCTION WILL APP::ABORT
      * @param  string $technical    message to show
      * @param  string $logged_error optional string to write to log files
+     * @param  int    $status_code  optional the HTTP status code to send, defaults to 500
      * @return void
      */
-    private static function fatalError($technical, $logged_error = null)
+    private static function fatalError($technical, $logged_error = null, $status_code = 500)
     {
         if ($logged_error !== null) {
             \Log::error($logged_error);
         }
         Session::remove('oauth');
-        App::abort(500, 'Er ging iets fout met het ophalen van informatie van je gebruikersaccount. Om veiligheidsredenen ben je automatisch uitgelogd. Je kunt opnieuw inloggen en het nogmaals proberen. Technische details: ' . $technical);
+        App::abort($status_code, 'Er ging iets fout met het ophalen van informatie van je gebruikersaccount. Om veiligheidsredenen ben je automatisch uitgelogd. Je kunt opnieuw inloggen en het nogmaals proberen. Technische details: ' . $technical);
     }
 }
