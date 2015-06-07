@@ -10,28 +10,16 @@ use DB;
  * Note that as users are primarily identified by only their
  * username, they cannot be persisted in the database.
  */
-class User
+class User extends ApplicationModel
 {
-    /**
-     * Properties of the User
-     * @var string
-     * @access public
-     */
-    public $id;
-    public $name;
-    public $photoURL;
-
-    /**
-     * Construct the user
-     * @param string $id       the OAuth2 user id
-     * @param string $name     the full name of the user
-     * @param string $photoURL the full url to the photo of the user
-     */
-    public function __construct($id, $name, $photoURL)
+    public function registrations()
     {
-        $this->id       = $id;
-        $this->name     = $name;
-        $this->photoURL = $photoURL;
+        return $this->hasMany('App\Models\Registration')->orderBy('name');
+    }
+
+    public function meals()
+    {
+        return $this->hasManyThrough('App\Models\Registration', 'App\Models\Meal');
     }
 
     /**
@@ -41,11 +29,7 @@ class User
      */
     public function registeredFor($meal)
     {
-        $query = DB::table('registrations');
-        $query->whereNull('deleted_at');
-        $query->where('meal_id', '=', $meal->id);
-        $query->where('username', '=', $this->id);
-        return $query->count();
+        return $this->registrations()->where(['meal_id' => $meal->id])->count() > 0;
     }
 
     /**
@@ -55,10 +39,7 @@ class User
      */
     public function registrationFor($meal)
     {
-        return Registration::where('meal_id', '=', $meal->id)
-                            ->where('username', '=', $this->id)
-                            ->take(1)
-                            ->first();
+        return $this->registrations()->where(['meal_id' => $meal->id])->first();
     }
 
     /**
@@ -99,41 +80,5 @@ class User
         }
 
         return null;
-    }
-
-    /**
-     * Sets the handicap of a user
-     * @param string $handicap
-     */
-    public function updateHandicap($handicap)
-    {
-        $this->ensureDbUserexists();
-        DB::table('users')->where('username', $this->id)->update(['handicap' => $handicap]);
-    }
-
-    /**
-     * Get the handicap of a user
-     * @return string
-     */
-    public function getHandicap()
-    {
-        $result = DB::table('users')->where('username', '=', $this->id)->select('handicap')->take(1)->get();
-        if ($result) {
-            return $result[0]->handicap;
-        }
-        else {
-            return null;
-        }
-    }
-
-    /**
-     * Create the User database entry if needed
-     */
-    private function ensureDbUserexists()
-    {
-        if (DB::table('users')->where('username', '=', $this->id)->count() > 0) {
-            return;
-        }
-        DB::table('users')->insert(['username' => $this->id]);
     }
 }

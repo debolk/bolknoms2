@@ -21,6 +21,15 @@ class Registration extends ApplicationModel
     }
 
     /**
+     * Relationship: a registration belongs to a user
+     * @return Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    /**
      * Controls output when an object of the class is printed
      * @return string
      */

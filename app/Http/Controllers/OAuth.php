@@ -39,7 +39,7 @@ class OAuth extends Application
      */
     public function photo()
     {
-        return redirect(OAuthHelper::user()->photoURL);
+        return redirect(OAuthHelper::photoURL());
     }
 
     /**

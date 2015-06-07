@@ -5,6 +5,7 @@ namespace App\Http\Helpers;
 use Session;
 use App;
 use GuzzleHttp\Client;
+use App\Models\User;
 
 class OAuth
 {
@@ -35,60 +36,109 @@ class OAuth
      */
     public static function user()
     {
+        // Must have a valid session
         if (! OAuth::valid()) {
             return null;
         }
 
-        // Refresh details if needed
-        if (Session::get('oauth.user_info', null) === null) {
-            self::retrieveDetails();
+        // Find the current user
+        if (Session::has('oauth.current_user')) {
+            return Session::get('oauth.current_user');
         }
 
-        $id       = Session::get('oauth.user_info')->id;
-        $name     = Session::get('oauth.user_info')->name;
-        $photoURL = Session::get('oauth.user_info')->photoURL;
-        return new App\Models\User($id, $name, $photoURL);
+        // Find if the current user already exists in the system
+        $user = self::findUser();
+        if ($user) {
+            return $user;
+        }
+
+        // Create a new user for this session
+        return self::createNewUser();
     }
 
     /**
-     * Get the details of this user
+     * Find the user of the current session in the database or null if none found
+     * @return App\Models\User the current user or null
      */
-    private static function retrieveDetails()
+    private static function findUser()
     {
-        $user = new \stdClass();
         $client = new Client();
         $token = Session::get('oauth.token')->access_token;
 
-        // Get the user ID
+        // Get the username of the current session
         try {
             $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
             $response = $client->get($url);
-            $user->id = json_decode($response->getBody())->user_id;
+            $username = json_decode($response->getBody())->user_id;
         }
         catch (\Exception $e) {
             self::fatalError($e->getMessage(), "Could not retrieve username", 502);
         }
 
-        // Get full name
+        // Find the user in the database
+        $user = User::where(['username' => $username])->first();
+
+        // Store the actual user in session
+        if ($user) {
+            Session::set('oauth.current_user', $user);
+            Session::save();
+        }
+
+        return $user;
+    }
+
+    /**
+     * Retrieve the details of a user and create a local instance
+     * @return void
+     */
+    private static function createNewUser()
+    {
+        $user = new App\Models\User();
+        $client = new Client();
+        $access_token = Session::get('oauth.token')->access_token;
+
+        // Get the username
         try {
-            $url = 'https://people.debolk.nl/persons/'.$user->id.'/name?access_token='.$token;
+            $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$access_token;
+            $response = $client->get($url);
+            $user->username = json_decode($response->getBody())->user_id;
+        }
+        catch (\Exception $e) {
+            self::fatalError($e->getMessage(), "Could not retrieve username", 502);
+        }
+
+        // Get the full name of the user
+        try {
+            $url = 'https://people.debolk.nl/persons/'.$user->id.'/name?access_token='.$access_token;
             $response = $client->get($url);
             $user->name = json_decode($response->getBody())->name;
-
-            // Get picture
-            $user->photoURL = 'https://people.debolk.nl/persons/'.$user->id.'/photo/128/128?access_token='.$token;
         }
         catch (\Exception $e) {
             \Log::error($e->getMessage());
 
-            // Fallback to the userID as the name and the swedish chef picture
-            $user->name = $user->id;
-            $user->photoURL = '/images/swedishchef.jpg';
+            // Fallback to the user ID as the name
+            $user->name = $user->username;
         }
 
-        // Store data
-        Session::set('oauth.user_info', $user);
+        $user->save();
+
+        // Store the user in session
+        Session::set('oauth.current_user', $user);
         Session::save();
+
+        return $user;
+    }
+
+    public static function photoURL()
+    {
+        // Must have a valid session
+        if (! OAuth::valid()) {
+            return null;
+        }
+
+        $user = self::user();
+        $access_token = Session::get('oauth.token')->access_token;
+        return 'https://people.debolk.nl/persons/'.$user->username.'/photo/128/128?access_token='.$access_token;
     }
 
     /**
@@ -139,9 +189,6 @@ class OAuth
         // Calculate expiration date of token
         $token->created_at = new \DateTime();
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
-
-        // Must refresh photoURL too
-        self::retrieveDetails();
 
         // Overwrite the token with the new token
         Session::put('oauth.token', $token);

@@ -101,7 +101,7 @@ return array(
     | Available Settings: "single", "daily", "syslog", "errorlog"
     |
     */
-    'log' => 'daily',
+    'log' => 'single',
 
     /*
     |--------------------------------------------------------------------------

@@ -4,8 +4,8 @@
 
         <a class="button" href="/logout">Uitloggen</a>
         <div class="details">
-            <?php if ($user->getHandicap()): ?>
-                <span id="handicap_text" data-handicap="<?= $user->getHandicap(); ?>">Dieet: <?= $user->getHandicap(); ?></span>
+            <?php if ($user->handicap): ?>
+                <span id="handicap_text" data-handicap="<?= $user->handicap; ?>">Dieet: <?= $user->handicap; ?></span>
             <?php else: ?>
                 <span id="handicap_text" data-handicap="">Geen dieetwensen</span>
             <?php endif; ?>

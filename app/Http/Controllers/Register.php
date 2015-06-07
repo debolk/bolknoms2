@@ -140,7 +140,7 @@ class Register extends Application
         $registration = new Registration([
             'username' => $user->id,
             'name' => $user->name,
-            'handicap' => $user->getHandicap(),
+            'handicap' => $user->handicap,
             'confirmed' => true,
         ]);
         $registration->meal_id = $meal->id;
