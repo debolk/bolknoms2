@@ -25,7 +25,7 @@ Bolknoms runs on the Laravel-framework and a SQL-compatible database. Bolknoms h
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
 
 ## Architecture
-Bolknoms is built using [laravel 4](http://laravel.com/).
+Bolknoms is built using [laravel 5](http://laravel.com/).
 
 ## Project organisation
 The project follows the [git-flow](http://nvie.com/posts/a-successful-git-branching-model/). Please adhere to the (very basic) standards set. Any new work must be branched of in a feature branch. These branches are prefixed with "feature-", for example "feature-moreswedishchef". Preferrably no underscores.
