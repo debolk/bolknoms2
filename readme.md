@@ -30,11 +30,8 @@ Bolknoms is a MVC-application built on [Laravel](http://laravel.com/), using [ze
 ## Contributing
 This project is open for pull requests. Fork the repository and add your own contributions. For significant, non-bugfix contributions, you will be added to the contributors list. Please mind the following conditions:
 
-1. Please branch of your work in a separate branch
+1. The project follows the [git-flow](http://nvie.com/posts/a-successful-git-branching-model/). Please adhere to the (very basic) standards set. Any new work must be branched of in a feature branch. These branches are prefixed with "feature-", for example "feature-moreswedishchef". Preferrably no underscores.
 1. Bolknoms is production software that supports actual business operations at [De Bolk](http://www.debolk.nl). Your changes will be reviewed and tested on a private staging environment, before being deployed to production. Even if your change is perfect, it might not be acceptable for the product. If you want to be sure your change will be accepted, ask in advance. While you are free to argue your case, the decision belongs ultimately to the lead developer (Jakob) and the board of De Bolk.
-
-## Project organisation
-The project follows the [git-flow](http://nvie.com/posts/a-successful-git-branching-model/). Please adhere to the (very basic) standards set. Any new work must be branched of in a feature branch. These branches are prefixed with "feature-", for example "feature-moreswedishchef". Preferrably no underscores.
 
 ## License
 Copyright 2011-2015 [Jakob Buis](http://www.jakobbuis.com). This version of Bolknoms is distributed under the GNU GPL v3 license, the full text of which is included in the LICENSE file.
