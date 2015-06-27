@@ -29,6 +29,7 @@ nav {
     width: 10em;
     height: 100%;
     background-color: #ddd;
+    z-index: 999;
 }
 
 section {

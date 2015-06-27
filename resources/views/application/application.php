@@ -7,9 +7,12 @@
     <script type="text/javascript" src="/javascripts/zepto.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx_methods.js"></script>
+    <script type="text/javascript" src="/javascripts/menu.js"></script>
     <?php if (isset($javascript)): ?>
         <script type="text/javascript" src="/javascripts/<?=$javascript?>.js"></script>
     <?php endif; ?>
+
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
 
     <link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
@@ -41,6 +44,8 @@
     </header>
 
     <nav>
+        <img class="hamburger" src="/images/hamburger.svg" alt="">
+
         <?php if (isset($user)): ?>
             <?= view('user/_user', ['user' => $user]); ?>
         <?php else: ?>
