@@ -1,0 +1,32 @@
+/*
+ * UI for anonymous meal registrations (name, email, etc.)
+ */
+.anonymous {
+    display: inline-block;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    padding: 1em;
+    margin-bottom: 1em;
+    width: 35em;
+    background-color: #FFB;
+    border-color: #EE9;
+}
+
+.anonymous a.button {
+    background-color: #80090c;
+    padding: 0.5em;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+.anonymous form {
+    display: none;
+}
+
+.anonymous label {
+    display: inline-block;
+    width: 10em;
+}
