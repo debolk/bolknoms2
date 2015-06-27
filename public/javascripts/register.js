@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     // If we are currently anonymous, hide the meals
     if ($('.user.noone').length > 0) {
-        $('.meal').hide(200);
+        $('.meal').hide();
     }
 
     // Click handler for anonymous subscription
