@@ -1,11 +1,17 @@
 $(document).ready(function(){
 
+    // If we are currently anonymous, hide the meals
+    if ($('.user.noone').length > 0) {
+        $('.meal').hide();
+    }
+
     // Click handler for anonymous subscription
     $('.proceed_anonymous').on('click', function(event){
         event.preventDefault();
 
         $('.anonymous .method').hide();
         $('.anonymous form').show();
+        $('.meal').show();
     });
 
     // Click handler and submission process for buttons
@@ -80,13 +86,7 @@ function registerNonUser(button)
 
     // Check form fields
     if ($('#name').val() == '' || $('#email').val() == '') {
-        // Show a different error depending on whether the form is visible
-        if ($('.anonymous form').css('display') !== 'none') {
-            show_notification('error', '<strong>Fout:</strong> Je moet je naam en e-mailadres invullen');
-        }
-        else {
-            show_notification('error', '<strong>Fout:</strong> Je moet kiezen voor inloggen of aanmelden zonder Bolkaccount');
-        }
+        show_notification('error', '<strong>Fout:</strong> Je moet je naam en e-mailadres invullen');
         set_button_state(button, 'unregistered');
         return;
     }
