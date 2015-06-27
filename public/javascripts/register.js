@@ -2,16 +2,16 @@ $(document).ready(function(){
 
     // If we are currently anonymous, hide the meals
     if ($('.user.noone').length > 0) {
-        $('.meal').hide();
+        $('.meal').hide(200);
     }
 
     // Click handler for anonymous subscription
     $('.proceed_anonymous').on('click', function(event){
         event.preventDefault();
 
-        $('.anonymous .method').hide();
-        $('.anonymous form').show();
-        $('.meal').show();
+        $('.anonymous .method').hide(200);
+        $('.anonymous form').show(200);
+        $('.meal').show(200);
     });
 
     // Click handler and submission process for buttons
