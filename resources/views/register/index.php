@@ -10,7 +10,7 @@
         </p>
         <p class="method">
             <a href="/login" class="button" title="Login met je Bolkaccount">Login met je Bolkaccount</a>
-            of <a href="#" class="proceed_anonymous" title="aanmelden zonder Bolkaccount">aanmelden zonder Bolkaccount</a>
+            of <a href="#" class="proceed_anonymous" title="aanmelden zonder Bolkaccount">doorgaan zonder Bolkaccount</a>
         </p>
         <form action="#">
             <p>
