@@ -5,6 +5,13 @@ nav {
     background-color: #ddd;
 }
 
+nav svg {
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    fill: currentColor;
+}
+
 nav a {
     display: block;
     color: black;

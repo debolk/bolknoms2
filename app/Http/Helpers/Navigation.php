@@ -14,10 +14,10 @@ class Navigation
      * @var array
      */
     private static $menu = [
-        ['text' => 'Aanmelden'    , 'url' => '/',              'level' => '0'],
-        ['text' => 'Spelregels'   , 'url' => '/spelregels',    'level' => '0'],
-        ['text' => 'Top eters'    , 'url' => '/top-eters',     'level' => '1'],
-        ['text' => 'Administratie', 'url' => '/administratie', 'level' => '2'],
+        ['text' => 'Aanmelden'    , 'url' => '/',              'icon' => 'aanmelden',     'level' => '0'],
+        ['text' => 'Spelregels'   , 'url' => '/spelregels',    'icon' => 'spelregels',    'level' => '0'],
+        ['text' => 'Top eters'    , 'url' => '/top-eters',     'icon' => 'topeters',      'level' => '1'],
+        ['text' => 'Administratie', 'url' => '/administratie', 'icon' => 'administratie', 'level' => '2'],
     ];
 
     /**
@@ -39,8 +39,8 @@ class Navigation
 
         foreach (self::$menu as $entry) {
             if ($level >= $entry['level']) {
-                $current = (self::isCurrent($entry['url']) ? 'class=current' : '');
-                $output .= '<a href="'.$entry['url'].'" '.$current.'>'.$entry['text'].'</a>';
+                $entry['current'] = self::isCurrent($entry['url']);
+                $output .= view('navigation/item')->with($entry);
             }
         }
 
