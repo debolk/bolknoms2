@@ -6,7 +6,7 @@
             <strong>Hallo! Welkom bij bolknoms.</strong>
         </p>
         <p>
-            Hier kun je je aanmelden voor de eettafel van <a href="http://www.debolk.nl" title="De Bolk">De Bolk</a>. Voordat je kunt mee-eten hebben we wel wat gegevens van je nodig. Je kunt die hieronder invullen. Als je lid bent van De Bolk, kun je inloggen om je sneller aan te melden en nog veel meer voordelen!
+            Hier kun je je aanmelden voor de eettafel van <a href="http://www.debolk.nl" title="De Bolk">De Bolk</a>. Voordat je kunt mee-eten hebben we wel wat gegevens van je nodig.
         </p>
         <p class="method">
             <a href="/login" class="button" title="Login met je Bolkaccount">Login met je Bolkaccount</a>

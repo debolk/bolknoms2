@@ -10,23 +10,6 @@
     width: 35em;
 }
 
-.meal button {
-    display: block;
-    float: left;
-    width: 10em;
-    height: 4.5em;
-    background-color: #80090c;
-
-    border: 1px solid #aaa;
-    text-transform: uppercase;
-    color: white;
-    padding: 0.25em;
-    font-size: 1em;
-    margin-right: 1em;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-}
-
 .meal .details {
     float: left;
     color: #666;
@@ -40,23 +23,34 @@
     margin-top: 0;
 }
 
-.meal button::-moz-focus-inner {
-  border: 0;
+/*
+ * Customer behaviour for meal button lifecycle
+ * generic button styling in ./form.css
+ */
+.meal button {
+    display: block;
+    float: left;
+    width: 10em;
+    height: 4.5em;
+    text-transform: uppercase;
+    padding: 0.25em;
+    font-size: 1em;
+    margin-right: 1em;
 }
 
-.meal button:active {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    transition: 0.1s all;
-    background-color: #ccc;
-    color: black;
-}
-
-.meal button.registered, button.busy {
-    color: white;
-}
-.meal button.registered {
-    background-color: #0f9d58;
-}
 .meal button.busy {
-    background-color: #f1c40f;
+    /* orange colouring */
+    background-color: #f9a41a;
+    text-shadow: -1px 1px #ae7212;
+    /* not a useable button */
+    box-shadow: none;
+    position: relative;
+    top: 5px;
+}
+
+.meal button.registered {
+    /* green colouring */
+    background-color: #1bb058;
+    box-shadow: 0 1px #5fc78a inset, 0 5px #127b3d, 0 3px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: -1px 1px #127b3d;
 }

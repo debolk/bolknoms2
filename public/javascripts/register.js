@@ -80,7 +80,13 @@ function registerNonUser(button)
 
     // Check form fields
     if ($('#name').val() == '' || $('#email').val() == '') {
-        alert('Je moet je naam en e-mailadres invullen');
+        // Show a different error depending on whether the form is visible
+        if ($('.anonymous form').css('display') !== 'none') {
+            show_notification('error', '<strong>Fout:</strong> Je moet je naam en e-mailadres invullen');
+        }
+        else {
+            show_notification('error', '<strong>Fout:</strong> Je moet kiezen voor inloggen of aanmelden zonder Bolkaccount');
+        }
         set_button_state(button, 'unregistered');
         return;
     }
@@ -101,8 +107,7 @@ function registerNonUser(button)
             set_button_state(button, 'registered');
 
             // Show warning that email confirmation is needed
-            var warning = $('<div>').addClass('notification warning').html('<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.');
-            warning.insertAfter(button.parents('.meal'));
+            show_notification('warning', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.');
         },
         error: function(error){
             fatal_error(error);
@@ -114,7 +119,7 @@ function registerNonUser(button)
 function fatal_error(error)
 {
     var error = JSON.parse(error.response);
-    alert('Fout: ' + error.error_details + '\n\n Technische details: ' + error.error);
+    show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error);
 }
 
 /**
@@ -146,4 +151,13 @@ function set_button_state(button, state)
             break;
         }
     }
+}
+
+function show_notification(type, message)
+{
+    $('.notification').remove();
+    var warning = $('<div>');
+    warning.addClass('notification ' + type);
+    warning.html(message);
+    warning.insertBefore('.meal');
 }

@@ -11,17 +11,6 @@
     border-color: #EE9;
 }
 
-.anonymous a.button {
-    background-color: #80090c;
-    padding: 0.5em;
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-}
-
 .anonymous form {
     display: none;
 }
