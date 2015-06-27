@@ -11,7 +11,7 @@ input[type=checkbox] {
 }
 
 .error_message {
-background: none repeat scroll 0 0 #57a957;
+    background: none repeat scroll 0 0 #57a957;
     border: none;
     border-radius: 0.5em;
     color: white;
