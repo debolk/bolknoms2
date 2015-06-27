@@ -1,6 +1,23 @@
-/*
- * User block for login status
- */
+.user {
+    margin-bottom: 2em;
+}
+
+.user img {
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 1em 2.5em 0 2.5em;
+}
+
+.user .name {
+    text-align: center;
+    margin: 0;
+}
+
+/* * User block for login status
+
+
 .user {
     display: inline-block;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
@@ -69,3 +86,4 @@
 .someone .photo {
     cursor: pointer;
 }
+ */

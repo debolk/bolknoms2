@@ -21,7 +21,6 @@ class Register extends Application
 
         // Add more data if we have a current user
         if (OAuth::valid()) {
-            $data['user'] = OAuth::user();
             $data['meals'] = Meal::available()->get();
         }
         else {

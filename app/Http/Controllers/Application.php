@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Http\Helpers\OAuth;
 
 class Application extends Controller
 {
@@ -34,7 +35,8 @@ class Application extends Controller
     {
         return view($this->layout, [
             'content' => $view,
-            'javascript' => $this->loadControllerJavascript()
+            'javascript' => $this->loadControllerJavascript(),
+            'user' => OAuth::user()
         ]);
     }
 

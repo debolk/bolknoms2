@@ -37,7 +37,14 @@
     <header>
         <h1>Bolknoms</h1>
     </header>
+
     <nav>
+        <?php if (isset($user)): ?>
+            <?= view('user/_user', ['user' => $user]); ?>
+        <?php else: ?>
+            <?= view('user/_no_user'); ?>
+        <?php endif; ?>
+
         <?= \App\Http\Helpers\Navigation::show(); ?>
     </nav>
 

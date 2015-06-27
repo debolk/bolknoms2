@@ -17,6 +17,7 @@ class Navigation
         ['text' => 'Aanmelden'    , 'url' => '/',              'icon' => 'aanmelden',     'level' => '0'],
         ['text' => 'Spelregels'   , 'url' => '/spelregels',    'icon' => 'spelregels',    'level' => '0'],
         ['text' => 'Top eters'    , 'url' => '/top-eters',     'icon' => 'topeters',      'level' => '1'],
+        ['text' => 'Mijn profiel' , 'url' => '/profiel',       'icon' => 'profile',       'level' => '1'],
         ['text' => 'Administratie', 'url' => '/administratie', 'icon' => 'administratie', 'level' => '2'],
     ];
 

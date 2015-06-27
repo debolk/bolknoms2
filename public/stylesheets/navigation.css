@@ -1,10 +1,6 @@
 /*
  * Main navigation bar
  */
-nav {
-    background-color: #ddd;
-}
-
 nav svg {
     width: 1.5em;
     height: 1.5em;
