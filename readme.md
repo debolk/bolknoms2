@@ -1,6 +1,7 @@
 # Bolknoms
 
-[![Dependency Status](https://www.versioneye.com/user/projects/5502b68b4a10640f8c000184/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5502b68b4a10640f8c000184)
+Master: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d5316338001a000432/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d5316338001a000432)
+Develop: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d031633800240002fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d031633800240002fa)
 
 The very best application in the world for feeding your members in an organized and predictable way.
 
