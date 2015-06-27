@@ -10,12 +10,6 @@ input[type=checkbox] {
   -webkit-transform: scale(1.5);
 }
 
-.error_explanation {
-    display: none;
-    font-weight: bold;
-    color: #ff0033;
-}
-
 .error_message {
 background: none repeat scroll 0 0 #57a957;
     border: none;
