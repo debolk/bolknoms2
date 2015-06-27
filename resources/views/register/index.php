@@ -9,7 +9,7 @@
 
 <form action="#" id="register_form">
     <?php if (count($meals) == 0): ?>
-        <p class="empty">Er zijn geen maaltijden open waarvoor je je kunt aanmelden.</p>
+        <p class="zero_case">Er zijn geen maaltijden open waarvoor je je kunt aanmelden.</p>
     <?php endif; ?>
     <div class="meals">
         <?php foreach ($meals as $meal): ?>

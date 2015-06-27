@@ -16,5 +16,5 @@
         </tbody>
     </table>
 <?php else: ?>
-    <p class="zero">Geen maaltijden gevonden</p>
+    <p class="zero_case">Geen maaltijden gevonden</p>
 <?php endif; ?>
