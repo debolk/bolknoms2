@@ -125,15 +125,20 @@ class Registration extends ApplicationModel
      */
     private static function statistics()
     {
-        $query = DB::table('registrations');
-        $query->select(DB::raw('name, username, COUNT(username) as count'));
+        $query = DB::table('users');
+
+        $query->select(DB::raw('users.id, users.name, COUNT(registrations.id) as count'));
+
+        $query->leftJoin('registrations', 'users.id', '=', 'registrations.user_id');
         $query->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id');
+
         $query->where('meals.date', '<=', DB::raw('NOW()'));
         $query->whereNull('meals.deleted_at');
         $query->whereNull('registrations.deleted_at');
-        $query->whereNotNull('username');
-        $query->groupBy('username');
+
+        $query->groupBy('users.username');
         $query->orderBy('count', 'desc');
+
         return $query;
     }
 }

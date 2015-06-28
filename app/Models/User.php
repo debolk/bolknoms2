@@ -56,7 +56,7 @@ class User extends ApplicationModel
 
         return DB::table('registrations')
                 ->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id')
-                ->where('username', '=', $this->id)
+                ->where('user_id', '=', $this->id)
                 ->where('meals.date', '>=', date('Y-m-d', $timestamp))
                 ->whereNull('registrations.deleted_at')
                 ->whereNull('meals.deleted_at')
@@ -69,12 +69,12 @@ class User extends ApplicationModel
      */
     public function topEatersPositionThisYear()
     {
-        $registrations = Registration::top_ytd();
+        $entries = Registration::top_ytd();
 
         $rank = 0;
-        foreach ($registrations as $registration) {
+        foreach ($entries as $entry) {
             $rank++;
-            if ($registration->username === $this->id) {
+            if ($entry->id === $this->id) {
                 return $rank;
             }
         }

@@ -15,11 +15,11 @@
 </div>
 
 <div class="profile">
-    <h2>Positie</h2>
+    <h2>Ranking dit collegejaar</h2>
     <img src="images/topeters.svg" alt="">
-    <h3>136x meegegeten <br> #16 op de ranglijst</h3>
-    <div class="details">
-        Ranking dit collegejaar.
-        <a href="/top-eters" title="Bekijk de hele lijst">Bekijk de hele lijst</a>
-    </div>
+    <h3>
+        <span class="rank"><?= $user->topEatersPositionThisYear(); ?></span>e plaats
+        <br>
+        <span class="count"><?= $user->numberOfRegistrationsThisYear(); ?></span>x meegegeten
+    </h3>
 </div>
