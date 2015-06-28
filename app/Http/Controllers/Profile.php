@@ -22,7 +22,16 @@ class Profile extends Application
     {
         $user = OAuth::user();
         $user->handicap = Request::get('handicap');
-        $user->save();
-        return response(null, 200);
+
+        if ($user->save()) {
+            return response()->json(null, 200);
+        }
+        else {
+            return response()->json([
+                'error' => 'handicap_update_failed',
+                'error_details' => 'Je dieetwensen konden niet worden opgeslagen'
+            ], 500);
+        }
+
     }
 }

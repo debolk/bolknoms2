@@ -86,7 +86,7 @@ function registerNonUser(button)
 
     // Check form fields
     if ($('#name').val() == '' || $('#email').val() == '') {
-        show_notification('error', '<strong>Fout:</strong> Je moet je naam en e-mailadres invullen');
+        show_notification('error', '<strong>Fout:</strong> Je moet je naam en e-mailadres invullen', $('#register_form'));
         set_button_state(button, 'unregistered');
         return;
     }
@@ -107,7 +107,7 @@ function registerNonUser(button)
             set_button_state(button, 'registered');
 
             // Show warning that email confirmation is needed
-            show_notification('warning', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.');
+            show_notification('warning', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.', $('#register_form'));
         },
         error: function(error){
             fatal_error(error);
@@ -119,7 +119,7 @@ function registerNonUser(button)
 function fatal_error(error)
 {
     var error = JSON.parse(error.response);
-    show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error);
+    show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error, $('#register_form'));
 }
 
 /**
@@ -151,13 +151,4 @@ function set_button_state(button, state)
             break;
         }
     }
-}
-
-function show_notification(type, message)
-{
-    $('.notification').remove();
-    var warning = $('<div>');
-    warning.addClass('notification ' + type);
-    warning.html(message);
-    warning.insertBefore('.meal');
 }

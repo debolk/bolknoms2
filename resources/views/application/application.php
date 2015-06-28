@@ -7,6 +7,7 @@
     <script type="text/javascript" src="/javascripts/zepto.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx_methods.js"></script>
+    <script type="text/javascript" src="/javascripts/app.js"></script>
     <script type="text/javascript" src="/javascripts/menu.js"></script>
     <?php if (isset($javascript)): ?>
         <script type="text/javascript" src="/javascripts/<?=$javascript?>.js"></script>

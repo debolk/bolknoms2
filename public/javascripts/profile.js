@@ -34,7 +34,10 @@ function update_handicap(event)
             else {
                 $('#handicap').html('&ldquo;' + handicap + '&rdquo;').removeClass('no_diet');
             }
-
+        },
+        error: function(error){
+            var error = JSON.parse(error.response);
+            show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error, $('#handicap').parents('.profile'));
         },
     });
 }
