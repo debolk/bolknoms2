@@ -16,10 +16,34 @@
 
 <div class="profile">
     <h2>Ranking dit collegejaar</h2>
-    <img src="images/topeters.svg" alt="">
-    <h3>
-        <span class="rank"><?= $user->topEatersPositionThisYear(); ?></span>e plaats
-        <br>
-        <span class="count"><?= $user->numberOfRegistrationsThisYear(); ?></span>x meegegeten
-    </h3>
+
+    <?php
+        // Calculate colour of prize
+        $rank = $user->topEatersPositionThisYear();
+        $medal = '';
+        if ($rank === null) {
+            $medal = 'gray';
+        }
+        elseif ($rank <= 10) {
+            $medal = 'gold';
+        }
+        elseif ($rank <= 20) {
+            $medal = 'silver';
+        }
+    ?>
+    <div class="medal <?= $medal; ?>">
+        <?= file_get_contents(public_path() . "/images/topeters.svg"); ?>
+    </div>
+
+    <?php if ($rank !== null): ?>
+        <h3>
+            <?= $rank; ?>e plaats
+            <br>
+            <?= $user->numberOfRegistrationsThisYear(); ?>x meegegeten
+        </h3>
+    <?php else: ?>
+        <h3>
+            0x meegegeten
+        </h3>
+    <?php endif; ?>
 </div>

@@ -16,10 +16,22 @@
     margin: 0 0 0.5em 0;
 }
 
-.profile img {
+.profile .medal.gold {
+    fill: #ffd700;
+}
+.profile .medal.silver {
+    fill: #c0c0c0;
+}
+
+.profile .medal.gray {
+    fill: #eee;
+}
+
+.profile svg {
     display: block;
     margin: 0 auto;
     width: 256px;
+    height: 256px;
 }
 
 .profile .no_diet {
