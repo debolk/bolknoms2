@@ -24,10 +24,13 @@ Route::group(['middleware' => ['oauth']], function(){
 
     // Personal details of the user
     Route::get('/photo', 'OAuth@photo');
-    Route::post('/handicap', 'OAuth@setHandicap');
 
     // Top eaters list
     Route::get('/top-eters', 'Top@index');
+
+    // My Profile page
+    Route::get('/profiel', 'Profile@index');
+    Route::post('/handicap', 'Profile@setHandicap');
 });
 
 // Pages which require board-level authorization

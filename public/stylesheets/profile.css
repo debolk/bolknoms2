@@ -1,0 +1,28 @@
+.profile {
+    width: 20em;
+    padding: 1em;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 1em;
+}
+
+.profile h2 {
+    margin: 0 0 0.5em 0;
+    color: #666;
+}
+
+.profile h3 {
+    text-align: center;
+    font-size: 150%;
+    margin: 0 0 0.5em 0;
+}
+
+.profile img {
+    display: block;
+    margin: 0 auto;
+    width: 256px;
+}
+
+.profile .no_diet {
+    font-weight: normal;
+    font-size: 1em;
+}

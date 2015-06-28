@@ -41,13 +41,4 @@ class OAuth extends Application
     {
         return redirect(OAuthHelper::photoURL());
     }
-
-    /**
-     * Overwrite the handicap of a user
-     */
-    public function setHandicap()
-    {
-        OAuthHelper::user()->updateHandicap(Request::get('handicap'));
-        return response(null, 200);
-    }
 }
