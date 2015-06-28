@@ -18,11 +18,17 @@ Route::get('/voordeel-account', 'Page@voordeelaccount');
 Route::get('/oauth', 'OAuth@callback');
 Route::get('/login', 'OAuth@login');
 Route::get('/logout', 'OAuth@logout');
-Route::get('/photo', ['middleware' => 'oauth', 'uses' => 'OAuth@photo']);
-Route::post('/handicap', ['middleware' => 'oauth', 'uses' => 'OAuth@setHandicap']);
 
-// Top eaters list
-Route::get('/top-eters', ['middleware' => 'oauth', 'uses' => 'Top@index']);
+// Pages which require member-level authorisation
+Route::group(['middleware' => ['oauth']], function(){
+
+    // Personal details of the user
+    Route::get('/photo', 'OAuth@photo');
+    Route::post('/handicap', 'OAuth@setHandicap');
+
+    // Top eaters list
+    Route::get('/top-eters', 'Top@index');
+});
 
 // Pages which require board-level authorization
 Route::group(['middleware' => ['oauth','board']], function(){
