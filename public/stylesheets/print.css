@@ -28,6 +28,8 @@
 
     section {
         margin-top: 0;
+        position: relative;
+        left: 0;
     }
 
     #print_instructions {
