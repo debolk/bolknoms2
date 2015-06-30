@@ -25,6 +25,7 @@
         <tr>
             <th>&nbsp;</th>
             <th>Naam</th>
+            <th>Bolkaccount</th>
             <th>Dieet</th>
             <th><span class="non_print">Verwijderen </span></th>
         </tr>

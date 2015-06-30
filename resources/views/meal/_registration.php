@@ -5,6 +5,11 @@
     <td class="name">
         <?= $registration->name; ?>
     </td>
+    <td>
+        <?php if ($registration->user_id): ?>
+            <img src="/images/tick.png" alt="Ja" title="Ja">
+        <?php endif; ?>
+    </td>
     <td class="handicap">
         <?= $registration->handicap; ?>
     </td>
