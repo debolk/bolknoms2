@@ -116,12 +116,6 @@ function registerNonUser(button)
     });
 }
 
-function fatal_error(error)
-{
-    var error = JSON.parse(error.response);
-    show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error, $('#register_form'));
-}
-
 /**
  * Sets the state of a button
  * @param {DOMObject} button the button to change

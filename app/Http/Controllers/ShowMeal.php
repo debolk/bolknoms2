@@ -39,6 +39,7 @@ class ShowMeal extends Application
             'name' => e(Request::input('name')),
             'handicap' => (Request::input('handicap') != '') ? e(Request::input('handicap')) : null,
         ]);
+        $registration->confirmed = true;
         $registration->meal_id = $meal->id;
 
         if ($registration->save()) {
@@ -46,7 +47,10 @@ class ShowMeal extends Application
             return view('meal/_registration', ['registration' => $registration]);
         }
         else {
-            return 'error';
+            return response()->json([
+                'error' => 'create_registration_admin_unknown_error',
+                'error_details' => 'Deze registratie kon niet opgeslagen worden, reden onbekend.'
+            ], 500);
         }
     }
 
@@ -60,7 +64,10 @@ class ShowMeal extends Application
         // Find registration
         $registration = Registration::find((int)$id);
         if (!$registration) {
-            App::abort(404, 'Registratie bestaat niet');
+            return response()->json([
+                'error' => 'registration_not_existent',
+                'error_details' => 'Deze registratie bestaat niet'
+            ], 500);
         }
 
         // Store data for later usage
@@ -68,8 +75,15 @@ class ShowMeal extends Application
         $name = $registration->name;
         $meal = $registration->meal;
 
-        $registration->delete();
-        Log::info("Afgemeld: administratie|$id|$name|$meal");
-        return response(null, 200);
+        if ($registration->delete()) {
+            Log::info("Afgemeld: administratie|$id|$name|$meal");
+            return response(null, 200);
+        }
+        else {
+            return response()->json([
+                'error' => 'destroy_registration_admin_unknown_error',
+                'error_details' => 'Deze registratie kon niet verwijderd worden, reden onbekend.'
+            ], 500);
+        }
     }
 }
