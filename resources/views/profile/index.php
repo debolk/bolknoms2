@@ -47,3 +47,12 @@
         </h3>
     <?php endif; ?>
 </div>
+
+<div class="profile">
+    <h2>Maaltijden waar je hebt gegeten</h2>
+    <ul>
+        <?php foreach ($user->registrations as $registration): ?>
+            <li><?= $registration->longDate(); ?></li>
+        <?php endforeach; ?>
+    </ul>
+</div>
