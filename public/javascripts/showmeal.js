@@ -27,6 +27,8 @@ function add_registration(event)
 {
     event.preventDefault();
 
+    var form = this;
+
     // Send AJAX-call to register for meal
     $.ajax({
         type: 'POST',
@@ -41,6 +43,7 @@ function add_registration(event)
         success: function(response) {
             $('#registrations').append(response);
             update_counter(+1);
+            form.reset();
         },
         error: fatal_error
     });
