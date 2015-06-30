@@ -12,7 +12,7 @@
 </p>
 
 <h2>
-    Eters
+    Bevestigde aanmeldingen
     <img id="print" src="/images/printer.png" alt="Print eterslijst" title="Print eterslijst" width="32" height="32">
 </h2>
 
