@@ -1,6 +1,6 @@
 @media print {
     body {
-        font-size: x-large;
+        font-size: large;
     }
     header, nav, h2, form, .remove_registration, .non_print {
         display: none;
@@ -16,11 +16,6 @@
         padding: 0;
     }
 
-    #registrations li {
-        float: left;
-        width: 50%;
-    }
-
     .subtitle {
         margin-top: -1em;
         font-style: italic;
@@ -30,6 +25,7 @@
         margin-top: 0;
         position: relative;
         left: 0;
+        top: 0;
     }
 
     #print_instructions {

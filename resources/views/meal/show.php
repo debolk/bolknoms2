@@ -20,11 +20,21 @@
     Bonnetjes opgehaald door: _____________________________
 </p>
 
-<ul id="registrations">
-    <?php foreach ($meal->registrations()->confirmed()->get() as $r): ?>
-        <?= View::make('meal/_registration', ['registration' => $r]); ?>
-    <?php endforeach; ?>
-</ul>
+<table id="registrations">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Naam</th>
+            <th>Dieet</th>
+            <th><span class="non_print">Verwijderen </span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($meal->registrations()->confirmed()->get() as $registration): ?>
+            <?= View::make('meal/_registration', ['registration' => $registration]); ?>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
 <h2>Nieuwe eter toevoegen</h2>
 <form action="#new_registration" id="new_registration" data-meal_id="<?= $meal->id; ?>">
