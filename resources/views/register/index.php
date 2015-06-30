@@ -1,6 +1,11 @@
 <h1>Aanmelden voor maaltijden</h1>
 
-<?php if (! App\Http\Helpers\OAuth::user()): ?>
+<?php $user = App\Http\Helpers\OAuth::user(); ?>
+<?php if ($user): ?>
+    <p>
+        Jouw dieetwensen: <?= $user->handicap; ?>. <a href="/profiel" title="Wijzigen">Wijzigen</a>
+    </p>
+<?php else: ?>
     <div class="anonymous">
         <p>
             <strong>Hallo! Welkom bij bolknoms.</strong>
@@ -27,7 +32,7 @@
             </p>
         </form>
     </div>
-<?php endif ?>
+<?php endif; ?>
 
 <form action="#" id="register_form">
     <?php if (count($meals) == 0): ?>
