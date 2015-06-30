@@ -3,7 +3,12 @@
 <?php $user = App\Http\Helpers\OAuth::user(); ?>
 <?php if ($user): ?>
     <p>
-        Jouw dieetwensen: <?= $user->handicap; ?>. <a href="/profiel" title="Wijzigen">Wijzigen</a>
+        <?php if ($user->handicap): ?>
+            Jouw dieetwensen: <?= $user->handicap; ?>.
+        <?php else: ?>
+            Je hebt geen dieet ingesteld.
+        <?php endif; ?>
+        <a href="/profiel" title="Wijzigen">Wijzigen</a>
     </p>
 <?php else: ?>
     <div class="anonymous">
