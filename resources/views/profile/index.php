@@ -51,7 +51,7 @@
 <div class="profile">
     <h2>Maaltijden waar je hebt gegeten</h2>
     <ul>
-        <?php foreach ($user->registrations as $registration): ?>
+        <?php foreach ($user->registrations()->join('meals', 'registrations.meal_id', '=', 'meals.id')->orderBy('date', 'desc')->get() as $registration): ?>
             <li><?= $registration->longDate(); ?></li>
         <?php endforeach; ?>
     </ul>
