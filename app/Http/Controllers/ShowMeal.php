@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Meal;
 use App\Models\Registration;
+use App\Models\User;
 use Log;
 use App;
 use Request;
@@ -20,7 +21,7 @@ class ShowMeal extends Application
             App::abort(404, "Maaltijd niet gevonden");
         }
 
-        return $this->setPageContent(view('meal/show', ['meal' => $meal]));
+        return $this->setPageContent(view('meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]));
     }
 
     /**
@@ -29,9 +30,69 @@ class ShowMeal extends Application
      */
     public function aanmelden()
     {
+        if (Request::has('user_id')) {
+            return $this->aanmelden_bolker();
+        }
+        else {
+            return $this->aanmelden_anonmiem();
+        }
+    }
+
+    public function aanmelden_bolker()
+    {
         $meal = Meal::find((int)Request::input('meal_id'));
         if (!$meal) {
-            App::abort(404, 'Maaltijd niet gevonden');
+            return response()->json([
+                'error' => 'meal_not_found',
+                'error_details' => 'Maaltijd bestaat niet'
+            ], 404);
+        }
+
+        $user = User::find(Request::input('user_id'));
+        if (!$user) {
+            return response()->json([
+                'error' => 'user_not_found',
+                'error_details' => 'Gebruiker bestaat niet'
+            ], 404);
+        }
+
+        if ($user->blocked) {
+            return response()->json([
+                'error' => 'user_blocked',
+                'error_details' => 'Deze gebruiker is geblokkeerd. Je kunt hem/haar niet aanmelden'
+            ], 403);
+        }
+
+        // Create a new registration
+        $registration = new Registration([
+            'name' => $user->name,
+            'handicap' => $user->handicap
+        ]);
+        $registration->confirmed = true;
+        $registration->username = $user->username;
+        $registration->meal_id = $meal->id;
+        $registration->user_id = $user->id;
+
+        if ($registration->save()) {
+            Log::info("Aangemeld: administratie|$registration->id|$registration->name");
+            return view('meal/_registration', ['registration' => $registration]);
+        }
+        else {
+            return response()->json([
+                'error' => 'create_registration_admin_unknown_error',
+                'error_details' => 'Deze registratie kon niet opgeslagen worden, reden onbekend.'
+            ], 500);
+        }
+    }
+
+    public function aanmelden_anonmiem()
+    {
+        $meal = Meal::find((int)Request::input('meal_id'));
+        if (!$meal) {
+            return response()->json([
+                'error' => 'meal_not_found',
+                'error_details' => 'Maaltijd bestaat niet'
+            ], 404);
         }
 
         // Create a new registration

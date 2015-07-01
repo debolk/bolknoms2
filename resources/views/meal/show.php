@@ -40,16 +40,19 @@
 <h2>Nieuwe eter toevoegen</h2>
 <form action="#new_registration" id="new_registration" data-meal_id="<?= $meal->id; ?>">
     <p>
-        <label for="name">Naam</label><br>
-        <input type="text" id="name" name="name">
-    </p>
-    <p>
-        <label for="handicap">Handicap</label><br>
-        <input type="text" id="handicap" name="handicap">
+        <label for="user_id">Bolker</label><br>
+        <select name="user_id" id="user_id">
+            <?php foreach ($users as $user): ?>
+                <option value="<?= $user->id; ?>"><?= $user->name; ?></option>
+            <?php endforeach; ?>
+        </select>
     </p>
     <p>
         <input type="submit" value="Toevoegen">
     </p>
 </form>
+<p>
+    <a href="#" id="subscribe_anonymous" data-meal_id="<?= $meal->id; ?>">Externe aanmelden</a>
+</p>
 
 <link rel="stylesheet" href="/stylesheets/print.css" media="print" />

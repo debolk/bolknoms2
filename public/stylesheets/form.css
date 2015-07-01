@@ -1,7 +1,7 @@
 /*
  * Sensible default styling for forms
  */
-input {
+input, select {
     font-size: 1.5em;
 }
 

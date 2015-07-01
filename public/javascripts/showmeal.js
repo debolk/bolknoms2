@@ -7,6 +7,9 @@ $(document).on('ready', function(){
 
     // Remove registration
     $('#registrations').on('click', '.remove_registration', remove_registration);
+
+    // Anonymous subscription
+    $('#subscribe_anonymous').on('click', subscribe_anonymous);
 });
 
 function print_list()
@@ -37,13 +40,42 @@ function add_registration(event)
         dataType: 'html',
         data: JSON.stringify({
             meal_id:  $(this).attr('data-meal_id'),
-            name:     $('#name').val(),
-            handicap: $('#handicap').val()
+            user_id: $('#user_id').val()
         }),
         success: function(response) {
             $('#registrations').append(response);
             update_counter(+1);
             form.reset();
+        },
+        error: fatal_error
+    });
+}
+
+function subscribe_anonymous(event)
+{
+    event.preventDefault();
+
+    var name = prompt('Naam');
+    if (!name) {
+        return;
+    }
+
+    var handicap = prompt('Evt. voedselhandicaps');
+
+    // Send AJAX-call to register for meal
+    $.ajax({
+        type: 'POST',
+        url: '/administratie/aanmelden',
+        contentType: 'application/json',
+        dataType: 'html',
+        data: JSON.stringify({
+            meal_id:  $(this).attr('data-meal_id'),
+            name:     name,
+            handicap: handicap
+        }),
+        success: function(response) {
+            $('#registrations').append(response);
+            update_counter(+1);
         },
         error: fatal_error
     });

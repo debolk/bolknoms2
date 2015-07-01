@@ -15,5 +15,5 @@ function show_notification(type, message, element)
 function fatal_error(error)
 {
     var error = JSON.parse(error.response);
-    show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error, $('#register_form'));
+    show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error, $('form')[0]);
 }
