@@ -127,8 +127,16 @@ class Register extends Application
             ], 400);
         }
 
-        // Check if the user is already registered
         $user = OAuth::user();
+        // Check if the user is blocked from registering
+        if ($user->blocked) {
+            return response()->json([
+                'error'         => 'user_blocked',
+                'error_details' => 'Je bent geblokkeerd op bolknoms. Je kunt je meer aanmelden voor maaltijden.',
+            ], 403);
+        }
+
+        // Check if the user is already registered
         if ($user->registeredFor($meal)) {
             return response()->json([
                 'error'         => 'double_registration',
