@@ -10,6 +10,15 @@
         <?php endif; ?>
         <a href="/profiel" title="Wijzigen">Wijzigen</a>
     </p>
+
+    <?php
+        $meal = App\Models\Meal::today();
+        if (! $meal->open_for_registrations() && $user->registeredFor($meal)): ?>
+        <div class="notification success">
+            <img src="/images/tick.png" alt="">
+            Ja, je bent aangemeld voor vandaag.
+        </div>
+    <?php endif; ?>
 <?php else: ?>
     <div class="anonymous">
         <p>
