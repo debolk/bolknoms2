@@ -17,11 +17,6 @@ class User extends ApplicationModel
         return $this->hasMany('App\Models\Registration')->orderBy('name');
     }
 
-    public function meals()
-    {
-        return $this->hasManyThrough('App\Models\Registration', 'App\Models\Meal');
-    }
-
     /**
      * Return whether the user is registered to the meal
      * @param  Meal $meal
