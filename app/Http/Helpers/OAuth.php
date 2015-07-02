@@ -191,7 +191,7 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Overwrite the token with the new token
-        Session::put('oauth.token', $token);
+        Session::set('oauth.token', $token);
     }
 
     /**
@@ -201,11 +201,11 @@ class OAuth
     public static function toAuthorisationServer($original_route)
     {
         // Store the URL we attempt to visit
-        Session::put('oauth.goal', $original_route);
+        Session::set('oauth.goal', $original_route);
 
         // Generate a random six digit number as state to defend against CSRF-attacks
         $state = rand(pow(10, 5), pow(10, 6)-1);
-        Session::put('oauth.state', $state);
+        Session::set('oauth.state', $state);
 
         // For some reason, an explicit save is needed in middleware
         Session::save();
@@ -321,7 +321,7 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Store the token
-        Session::put('oauth.token', $token);
+        Session::set('oauth.token', $token);
 
         // Redirect to the original URL
         return Session::get('oauth.goal');
