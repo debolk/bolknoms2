@@ -104,20 +104,20 @@ class OAuth
             $user->username = json_decode($response->getBody())->user_id;
         }
         catch (\Exception $e) {
-            self::fatalError($e->getMessage(), "Could not retrieve username", 502);
+            self::fatalError($e->getMessage(), "OAuth authorisation server not okay", 502);
         }
 
         // Get the full name of the user
         try {
             $url = 'https://people.debolk.nl/persons/'.$user->username.'/name?access_token='.$access_token;
             $response = $client->get($url);
-            $user->name = json_decode($response->getBody())->name;
+
+            $user_data = json_decode($response->getBody());
+            $user->name = $user_data->name;
+            $user->email = $user_data->email;
         }
         catch (\Exception $e) {
-            \Log::error($e->getMessage());
-
-            // Fallback to the user ID as the name
-            $user->name = $user->username;
+            self::fatalError($e->getMessage(), "People not okay", 502);
         }
 
         $user->save();
