@@ -14,7 +14,7 @@ class Mailer
      * @param  \App\Models\Registration $registration
      * @return void
      */
-    public static function confirmationEmail(App\Models\Registration $registration)
+    public static function confirmationEmail(\App\Models\Registration $registration)
     {
         Mail::send(['mails/confirmRegistration/html', 'mails/confirmRegistration/text'], [
             'registration' => $registration
@@ -29,12 +29,12 @@ class Mailer
      * @param  App\Models\Meal $meal
      * @return void
      */
-    public static function mealIsDestroyedEmail(App\Models\Meal $meal)
+    public static function mealIsDestroyedEmail(\App\Models\Meal $meal)
     {
-        foreach ($meals->registrations as $registration) {
+        foreach ($meal->registrations as $registration) {
             Mail::send(['mails/mealIsDestroyed/html', 'mails/mealIsDestroyed/text'], [
                 'meal'         => $meal,
-                'registration' => $meal->registration,
+                'registration' => $registration,
             ], function($message) use ($meal, $registration) {
                 $message->to($registration->email, $registration->name);
                 $message->subject("Maaltijd ". $meal->longDate() . 'gaat niet door');
