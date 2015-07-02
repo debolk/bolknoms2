@@ -46,54 +46,16 @@ class OAuth
             return User::find(Session::get('oauth.current_user'));
         }
 
-        // Find if the current user already exists in the system
-        $user = self::findUser();
-        if ($user) {
-            return $user;
-        }
-
-        // Create a new user for this session
-        return self::createNewUser();
+        // Upsert the user
+        return self::upsertUser();
     }
 
     /**
-     * Find the user of the current session in the database or null if none found
-     * @return App\Models\User the current user or null
+     * Create or update the current user in the database and return it
+     * @return \App\Models\User
      */
-    private static function findUser()
+    private static function upsertUser()
     {
-        $client = new Client();
-        $token = Session::get('oauth.token')->access_token;
-
-        // Get the username of the current session
-        try {
-            $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$token;
-            $response = $client->get($url);
-            $username = json_decode($response->getBody())->user_id;
-        }
-        catch (\Exception $e) {
-            self::fatalError($e->getMessage(), "Could not retrieve username", 502);
-        }
-
-        // Find the user in the database
-        $user = User::where(['username' => $username])->first();
-
-        // Store the actual user in session
-        if ($user) {
-            Session::set('oauth.current_user', $user->id);
-            Session::save();
-        }
-
-        return $user;
-    }
-
-    /**
-     * Retrieve the details of a user and create a local instance
-     * @return void
-     */
-    private static function createNewUser()
-    {
-        $user = new App\Models\User();
         $client = new Client();
         $access_token = Session::get('oauth.token')->access_token;
 
@@ -101,18 +63,21 @@ class OAuth
         try {
             $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$access_token;
             $response = $client->get($url);
-            $user->username = json_decode($response->getBody())->user_id;
+            $username = json_decode($response->getBody())->user_id;
         }
         catch (\Exception $e) {
             self::fatalError($e->getMessage(), "OAuth authorisation server not okay", 502);
         }
 
+        // We are upserting the current db entry
+        $user = User::findOrNew(['username' => $username]);
+
         // Get the full name of the user
         try {
             $url = 'https://people.debolk.nl/persons/'.$user->username.'/name?access_token='.$access_token;
             $response = $client->get($url);
-
             $user_data = json_decode($response->getBody());
+
             $user->name = $user_data->name;
             $user->email = $user_data->email;
         }
@@ -120,7 +85,10 @@ class OAuth
             self::fatalError($e->getMessage(), "People not okay", 502);
         }
 
-        $user->save();
+        // Save to database
+        if (! $user->save()) {
+            self::fatalError('cannot persist user', 'cannot persist user', 500);
+        }
 
         // Store the user in session
         Session::set('oauth.current_user', $user->id);
