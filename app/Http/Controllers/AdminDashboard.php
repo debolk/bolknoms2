@@ -45,6 +45,9 @@ class AdminDashboard extends Application
         // Store the name of the meal for usage in the flash message
         $date = (string)$meal;
 
+        // Send an e-mail to the registrations for confirmation
+        \App\Http\Helpers\Mailer::mealIsDestroyedEmail($meal);
+
         // Remove all guests
         foreach ($meal->registrations()->get() as $registration) {
             $registration->delete();
