@@ -43,7 +43,7 @@ class OAuth
 
         // Find the current user
         if (Session::has('oauth.current_user')) {
-            return Session::get('oauth.current_user');
+            return User::find(Session::get('oauth.current_user'));
         }
 
         // Find if the current user already exists in the system
@@ -80,7 +80,7 @@ class OAuth
 
         // Store the actual user in session
         if ($user) {
-            Session::set('oauth.current_user', $user);
+            Session::set('oauth.current_user', $user->id);
             Session::save();
         }
 
@@ -123,7 +123,7 @@ class OAuth
         $user->save();
 
         // Store the user in session
-        Session::set('oauth.current_user', $user);
+        Session::set('oauth.current_user', $user->id);
         Session::save();
 
         return $user;
