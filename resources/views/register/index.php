@@ -12,8 +12,8 @@
     </p>
 
     <?php
-        $meal = App\Models\Meal::today();
-        if (! $meal->open_for_registrations() && $user->registeredFor($meal)): ?>
+        $meal = App\Models\Meal::today()->first();
+        if ($meal && !$meal->open_for_registrations() && $user->registeredFor($meal)): ?>
         <div class="notification success">
             <img src="/images/tick.png" alt="">
             Ja, je bent aangemeld voor vandaag.
