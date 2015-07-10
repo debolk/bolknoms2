@@ -72,9 +72,9 @@ class OAuth
         // We are upserting the current db entry
         $user = User::findOrNew(['username' => $username]);
 
-        // Get the full name of the user
+        // Get the details of the user
         try {
-            $url = 'https://people.debolk.nl/persons/'.$user->username.'/name?access_token='.$access_token;
+            $url = 'https://people.debolk.nl/persons/'.$user->username.'/basic?access_token='.$access_token;
             $response = $client->get($url);
             $user_data = json_decode($response->getBody());
 
@@ -82,12 +82,17 @@ class OAuth
             $user->email = $user_data->email;
         }
         catch (\Exception $e) {
-            self::fatalError($e->getMessage(), "People not okay", 502);
+            // Ignore, we process missing information below
+        }
+
+        // Validate the user object for necessary properties
+        if ($user->email == null || $user->username == null || $user->name == null) {
+            self::fatalError('user object misses required values', 'Could not retrieve crucial details of your user account', 502);
         }
 
         // Save to database
         if (! $user->save()) {
-            self::fatalError('cannot persist user', 'cannot persist user', 500);
+            self::fatalError('cannot persist user', 'Could not persist your account details', 500);
         }
 
         // Store the user in session
