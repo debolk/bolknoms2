@@ -52,7 +52,7 @@ class Meal extends ApplicationModel
      */
     public function scopeToday($query)
     {
-        return $query->where('date', '=', date('Y-m-d'))->first();
+        return $query->where('date', '=', date('Y-m-d'));
     }
 
     /**
