@@ -37,7 +37,7 @@ class Mailer
                 'registration' => $registration,
             ], function($message) use ($meal, $registration) {
                 $message->to($registration->email, $registration->name);
-                $message->subject("Maaltijd ". $meal->longDate() . 'gaat niet door');
+                $message->subject("Maaltijd ". $meal->longDate() . ' gaat niet door');
             });
         }
     }
