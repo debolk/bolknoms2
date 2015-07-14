@@ -50,7 +50,9 @@ class AdminDashboard extends Application
 
         // Remove all guests
         foreach ($meal->registrations()->get() as $registration) {
-            $registration->delete();
+            if ($registration->email !== null) {
+                $registration->delete();
+            }
         }
 
         // Remove the meal
