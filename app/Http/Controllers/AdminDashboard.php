@@ -57,7 +57,7 @@ class AdminDashboard extends Application
         $meal->delete();
 
         // Update user
-        Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd");
+        Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.");
         \Log::info("Maaltijd verwijderd: $date");
         return \Redirect::to('/administratie');
     }
