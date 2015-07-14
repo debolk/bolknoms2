@@ -100,7 +100,7 @@ class OAuth
 
         // Store the user in session
         Session::set('oauth.current_user', $user->id);
-        Session::save();
+        Session::save(); // An explicit save is required in middleware
 
         return $user;
     }
