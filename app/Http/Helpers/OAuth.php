@@ -70,7 +70,10 @@ class OAuth
         }
 
         // We are upserting the current db entry
-        $user = User::findOrNew(['username' => $username]);
+        $user = User::where(['username' => $username])->first();
+        if (! $user) {
+            $user = new User();
+        }
 
         // Get the details of the user
         try {
