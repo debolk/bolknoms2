@@ -70,6 +70,7 @@ class ShowMeal extends Application
         ]);
         $registration->confirmed = true;
         $registration->username = $user->username;
+        $registration->email = $user->email;
         $registration->meal_id = $meal->id;
         $registration->user_id = $user->id;
 

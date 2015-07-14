@@ -152,6 +152,7 @@ class Register extends Application
         $registration->user_id = $user->id;
         $registration->meal_id = $meal->id;
         $registration->username = $user->username;
+        $registration->email = $user->email;
         $registration->confirmed = true;
 
         if ($registration->save()) {
