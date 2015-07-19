@@ -168,6 +168,7 @@ class OAuth
 
         // Overwrite the token with the new token
         Session::set('oauth.token', $token);
+        Session::save();
     }
 
     /**
