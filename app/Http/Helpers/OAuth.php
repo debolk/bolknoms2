@@ -73,6 +73,7 @@ class OAuth
         $user = User::where(['username' => $username])->first();
         if (! $user) {
             $user = new User();
+            $user->username = $username;
         }
 
         // Get the details of the user
@@ -85,6 +86,7 @@ class OAuth
             $user->email = $user_data->email;
         }
         catch (\Exception $e) {
+
             // Ignore, we process missing information below
         }
 
