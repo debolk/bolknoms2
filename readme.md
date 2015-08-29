@@ -1,32 +1,31 @@
 # Bolknoms
-
-Master: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d5316338001a000432/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d5316338001a000432)
-Develop: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d031633800240002fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d031633800240002fa)
-
 The very best application in the world for feeding your members in an organized and predictable way.
 
-## Requirements
-Bolknoms runs on the Laravel-framework and a SQL-compatible database. Bolknoms has been developed and tested using nginx and MySQl, and currently runs on Heroku, but you're free to make your own choices. The minimum requirements are:
-
-* PHP >= 5.3.7
-* PHP mcrypt extension
-* SQL-compatible database
-* Something to send e-mails with using the standard PHP `mail()` function
-
 ## Local installation
-1. Clone the repository using git.
-1. Install nginx and php5-fpm and configure as needed for Laravel-based applications. An excellent tutorial Linux-based systems is located at [Digital Ocean](https://www.digitalocean.com/community/articles/how-to-install-laravel-with-nginx-on-an-ubuntu-12-04-lts-vps).
-1. Install two extensions needed for bolknoms: php5-curl and php5-memcached.
-1. Copy `.env.development.php.example` to `.env.development.php` and adapt as needed.
-1. The app/storage directory must be writeable by the server, usually `chown -R :www-data app/storage` followed by `chmod -R g+w app/storage`.
-1. Install the dependencies using composer by executing `composer install`.
-1. Create a database and execute all migrations (`php artisan migrate`).
+This project is locally installed using [vagrant](https://www.vagrantup.com/) and [laravel homestead](http://laravel.com/docs/5.1/homestead). Vagrant provides an super easy way to setup a local virtual machine with the perfect environment for running bolknoms.
+
+1. Install [vagrant](https://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/) if not installed already.
+1. Point http://bolknoms.app to your local machine. On Linux, you usually add this to the `/etc/hosts` file.
+1. Clone this repository `git clone git@github.com:debolk/bolknoms2.git`
+1. Run `vagrant up` in the directory in which you've cloned bolknoms.
+1. In the project folder, copy `.env.example` to `.env` and fill in the details you require. Specifically, you must change APP_KEY, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET. The other values should be fine.
+1. Connect to the VM using `vagrant ssh`. Open the project folder (`cd /home/vagrant/bolknoms2`) and run all migrations `php artisan migrate`.
+1. Open [http://bolknoms.app/](http://bolknoms.app/) in your browser.
+
+### Next steps that are probably useful
+1. The configuration files has been set up with useful defaults that should work, though you may want to read through `Homestead.yaml` to adapt as needed to your local environment.
+1. Opening the administration panel of bolknoms requires board-level permissions. Using Gosa, you can add yourself temporarily(!) to the group "oauth-test". This requires that you have ICTcom-level access or above. Adding your account to this group will grant you access to all OAuth-protected resources regardless of the permission level. Use it for testing on your local machine and remove yourself from the group when done.
+1. Meals for the next week can be automatically generated using the command line: `php artisan meals:generate`.
 
 ## Usage
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
 
 ## Architecture
 Bolknoms is a MVC-application built on [Laravel](http://laravel.com/), using [zepto.js](http://zeptojs.com/) (a jQuery-light equivalent) for some front-end functionality. It is dependent on some other projects such as [bolklogin](https://auth.debolk.nl/) for authenticating members and [people/blip](https://people.debolk.nl/) for retrieving details of members, etc. [Guzzle](guzzlephp.org) is used for communication with these upstream services.
+
+### Dependencies
+Master: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d5316338001a000432/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d5316338001a000432)
+Develop: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d031633800240002fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d031633800240002fa)
 
 ## Contributing
 This project is open for pull requests. Fork the repository and add your own contributions. For significant, non-bugfix contributions, you will be added to the contributors list. Please mind the following conditions:
