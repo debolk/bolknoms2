@@ -12,7 +12,11 @@
         <input type="text" placeholder="18:30" name="mealtime">
     </p>
     <p>
-        <label class="label" for="locked">Inschrijving sluit</label><br>
+        <label class="label" for="locked_date">Inschrijving sluit op</label><br>
+        <input type="text" placeholder="<?= date('d-m-Y'); ?>" name="locked_date">
+    </p>
+    <p>
+        <label class="label" for="locked">Inschrijving sluit om</label><br>
         <input type="text" placeholder="15:00" name="locked">
     </p>
     <p>

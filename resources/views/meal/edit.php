@@ -12,7 +12,11 @@
         <input type="text" value="<?=date('H:i', strtotime($meal->mealtime));?>" name="mealtime">
     </p>
     <p>
-        <label class="label" for="locked">Inschrijving sluit</label><br>
+        <label class="label" for="locked_date">Inschrijving sluit op</label><br>
+        <input type="text" value="<?=date('d-m-Y', strtotime($meal->locked_date));?>" name="locked_date">
+    </p>
+    <p>
+        <label class="label" for="locked">Inschrijving sluit om</label><br>
         <input type="text" value="<?=date('H:i', strtotime($meal->locked));?>" name="locked">
     </p>
     <p>
