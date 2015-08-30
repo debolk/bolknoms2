@@ -5,7 +5,7 @@
             <th>Omschrijving</th>
             <th>Aanmeldingen</th>
             <th>Onbevestigde <br> aanmeldingen</th>
-            <th>Sluitingstijd</th>
+            <th>Aanmelden tot</th>
             <th>Etenstijd</th>
             <th>&nbsp;</th>
         </tr></thead>

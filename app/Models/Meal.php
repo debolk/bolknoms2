@@ -103,7 +103,31 @@ class Meal extends ApplicationModel
      */
     public function deadline()
     {
-        return strftime('%H:%M',strtotime($this->locked)).' uur';
+        $output = '';
+        if ($this->date !== $this->locked_date) {
+            $output = strftime('%A %e %B ', strtotime($this->locked_date));
+        }
+        return $output.strftime('%H:%M',strtotime($this->locked)).' uur';
+    }
+
+    /**
+     * Return whether the deadline for this meal could be considered 'normal'
+     * that is, on the day of the meal and on 15:00.
+     * @return boolean true if normal
+     */
+    public function normalDeadline()
+    {
+        return ($this->date === $this->locked_date && $this->locked == '15:00:00');
+    }
+
+    /**
+     * Return whether the mealtime for this meal could be considered 'normal'
+     * that is, 18:30
+     * @return boolean true if normal
+     */
+    public function normalMealTime()
+    {
+        return ($this->mealtime == '18:30:00');
     }
 
     /**

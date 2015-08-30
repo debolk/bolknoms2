@@ -7,11 +7,11 @@
     <td><?=$meal->event;?></td>
     <td class="number"><?php echo $meal->registrations()->confirmed()->count(); ?></td>
 	<td class="number"><?php echo $meal->registrations()->unconfirmed()->count(); ?></td>
-    <td class="date <?= (date('H:i', strtotime($meal->locked)) !== '15:00') ? 'attention' : ''; ?>">
-        <?= date('H:i', strtotime($meal->locked));?>
+    <td class="date <?= !$meal->normalDeadline() ? 'attention' : ''; ?>">
+        <?= $meal->deadline(); ?>
     </td>
-    <td class="date <?= (date('H:i', strtotime($meal->mealtime)) !== '18:30') ? 'attention' : ''; ?>">
-        <?= date('H:i', strtotime($meal->mealtime));?>
+    <td class="date <?= !$meal->normalMealTime() ? 'attention' : ''; ?>">
+        <?= strftime("%H:%M", strtotime($meal->mealtime)); ?>
     </td>
 	<td>
 		</a>
