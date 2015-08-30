@@ -51,7 +51,7 @@
         <input type="submit" value="Toevoegen">
     </p>
 </form>
-<p>
+<p class="non_print">
     <a href="#" id="subscribe_anonymous" data-meal_id="<?= $meal->id; ?>">Externe aanmelden</a>
 </p>
 
