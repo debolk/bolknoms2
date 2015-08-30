@@ -132,7 +132,7 @@ class Register extends Application
         if ($user->blocked) {
             return response()->json([
                 'error'         => 'user_blocked',
-                'error_details' => 'Je bent geblokkeerd op bolknoms. Je kunt je meer aanmelden voor maaltijden.',
+                'error_details' => 'Je bent geblokkeerd op bolknoms. Je kunt je niet aanmelden voor maaltijden.',
             ], 403);
         }
 
