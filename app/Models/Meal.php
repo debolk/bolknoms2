@@ -84,7 +84,7 @@ class Meal extends ApplicationModel
      */
     public function open_for_registrations()
     {
-      $closing_moment = strtotime($this->date.' '.$this->locked);
+      $closing_moment = strtotime($this->locked_date.' '.$this->locked);
       return ($closing_moment > time());
     }
 
