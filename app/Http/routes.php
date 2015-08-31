@@ -55,7 +55,9 @@ Route::group(['middleware' => ['oauth','board']], function(){
 });
 
 // API routing
+$actions = ['index', 'store', 'show', 'update', 'destroy'];
 Route::group(['prefix' => '/api/', 'namespace' => 'API', 'middleware' => ['oauth']], function(){
-    Route::resource('meals', 'MealsController');
-    Route::resource('registrations', 'RegistrationsController');
+    Route::resource('meals', 'MealsController', ['only' => $actions]);
+    Route::resource('registrations', 'RegistrationsController', ['only' => $actions]);
+    Route::resource('meals.registrations', 'RegistrationsController', ['only' => $actions]);
 });
