@@ -2,7 +2,7 @@
 <p class="subtitle">
     <span id="count"><?= $meal->registrations()->confirmed()->count(); ?></span> eters
     &mdash;
-    aanmelden tot <?= $meal->deadline(); ?>y
+    aanmelden tot <?= $meal->deadline(); ?>
     &mdash;
     etenstijd <?= date('H:i', strtotime($meal->mealtime)); ?> uur
     <span class="non_print">
