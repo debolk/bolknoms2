@@ -2,8 +2,8 @@
 
 use App\Http\Requests;
 use Illuminate\Routing\Controller;
-
 use Illuminate\Http\Request;
+use App\Models\Meal;
 
 class MealsController extends Controller {
 
@@ -14,7 +14,7 @@ class MealsController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return response()->json(Meal::all());
 	}
 
 	/**
