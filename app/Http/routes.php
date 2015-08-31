@@ -53,3 +53,9 @@ Route::group(['middleware' => ['oauth','board']], function(){
     Route::get('/administratie/{id}/edit', 'UpdateMeal@edit');
     Route::post('/administratie/{id}', 'UpdateMeal@update');
 });
+
+// API routing
+Route::group(['prefix' => '/api/', 'namespace' => 'API', 'middleware' => ['oauth']], function(){
+    Route::resource('meals', 'MealsController');
+    Route::resource('registrations', 'RegistrationsController');
+});
