@@ -1,4 +1,4 @@
-<h1>Top eters dit collegejaar</h1>
+<h1>Top eters dit verenigingsjaar</h1>
 <ol>
     <?php foreach ($statistics_ytd as $registration): ?>
         <li><?php echo $registration->name; ?> (<?php echo $registration->count;?>)</li>
