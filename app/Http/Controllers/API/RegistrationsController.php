@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers\API;
 
 use App\Http\Requests;
-use Illuminate\Routing\Controller;
-
 use Illuminate\Http\Request;
 
-class RegistrationsController extends Controller {
+class RegistrationsController extends ApiController {
 
 	/**
 	 * Display a listing of the resource.
