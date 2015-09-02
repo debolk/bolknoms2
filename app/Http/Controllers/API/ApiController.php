@@ -15,10 +15,30 @@ class ApiController extends Controller
      */
     public function fatalError($http_code, $code, $message)
     {
-        return response()->json([
+        $errors = [[
             'code' => $code,
             'message' => $message,
             'href' => env('APPLICATION_URL').'/api#error_'.$code
-        ], $http_code);
+        ]];
+
+        return response()->json(['errors' => $errors], $http_code);
+    }
+
+    /**
+     * Return request validation errors to the client
+     * @param  array $messages array of strings of messages
+     * @return Response
+     */
+    public function validationErrors($messages)
+    {
+        $errors = array_map(function($message){
+            return [
+                'code'    => 'parameter_unacceptable',
+                'message' => $message,
+                'href'    => env('APPLICATION_URL').'/api#error_parameter_unacceptable'
+            ];
+        }, $messages->all());
+
+        return response()->json(['errors' => $errors], 400);
     }
 }

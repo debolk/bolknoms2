@@ -25,7 +25,7 @@ class MealsController extends ApiController
             'to.date' => 'to parameter must be in a valid date'
         ]);
         if (!$validator->passes()) {
-            return $this->fatalError(400, 'parameters_unacceptable', $validator->messages());
+            return $this->validationErrors($validator->messages());
         }
 
         $meals = Meal::query();
