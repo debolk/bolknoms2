@@ -60,11 +60,20 @@ Route::group(['prefix' => '/api/', 'namespace' => 'API', 'middleware' => ['oauth
     // API documentation
     Route::get('/', 'DocsController@index');
 
-    // Define only the rest actions we'll support
-    $actions = ['index', 'store', 'show', 'update', 'destroy'];
+    // Meals API
+    Route::get('/meals', 'MealsController@index');
+    Route::post('/meals', 'MealsController@create');
+    Route::get('/meals/{id}', 'MealsController@show');
+    Route::put('/meals/{id}', 'MealsController@update');
+    Route::delete('/meals/{id}', 'MealsController@delete');
 
-    // Resources
-    Route::resource('meals', 'MealsController', ['only' => $actions]);
-    Route::resource('registrations', 'RegistrationsController', ['only' => $actions]);
-    Route::resource('meals.registrations', 'RegistrationsController', ['only' => $actions]);
+    // Registrations API
+    Route::get('/registrations', 'RegistrationsController@index');
+    Route::get('/registrations/{id}', 'RegistrationsController@show');
+    Route::put('/registrations/{id}', 'RegistrationsController@update');
+    Route::delete('/registrations/{id}', 'RegistrationsController@delete');
+
+    // Registrations nested api
+    Route::get('/meals/{meal_id}/registrations', 'MealRegistrationsController@index');
+    Route::post('/meals/{meal_id}/registrations', 'MealRegistrationsController@create');
 });

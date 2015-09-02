@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 class RegistrationsController extends ApiController {
 
 	/**
-	 * Display a listing of the resource.
-	 *
+	 * Display a list of registrations of the current user only
 	 * @return Response
 	 */
 	public function index()
@@ -16,28 +15,7 @@ class RegistrationsController extends ApiController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
+	 * Display a registration
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -47,19 +25,7 @@ class RegistrationsController extends ApiController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
+	 * Update a registration
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -69,12 +35,11 @@ class RegistrationsController extends ApiController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
-	 *
+	 * Remove a registration
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function delete($id)
 	{
 		//
 	}

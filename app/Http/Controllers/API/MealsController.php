@@ -8,8 +8,7 @@ class MealsController extends ApiController
 {
 
 	/**
-	 * Display a listing of the resource.
-	 *
+	 * Display a list of Meals
 	 * @return Response
 	 */
 	public function index(Request $request)
@@ -45,8 +44,7 @@ class MealsController extends ApiController
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
+	 * Create a new Meal
 	 * @return Response
 	 */
 	public function create()
@@ -55,18 +53,7 @@ class MealsController extends ApiController
 	}
 
 	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
+	 * Display a meal
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -76,19 +63,7 @@ class MealsController extends ApiController
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
+	 * Update a meal
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -98,14 +73,12 @@ class MealsController extends ApiController
 	}
 
 	/**
-	 * Remove the specified resource from storage.
-	 *
+	 * Destroy a meal
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function delete($id)
 	{
 		//
 	}
-
 }
