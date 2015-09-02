@@ -2,6 +2,8 @@
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Models\Meal;
+use App\Models\Registration;
 
 class MealRegistrationsController extends ApiController {
 
@@ -12,7 +14,16 @@ class MealRegistrationsController extends ApiController {
 	 */
 	public function index($meal_id)
 	{
-		//
+        // Find the meal
+		$meal = Meal::withTrashed()->find($meal_id);
+        if (!$meal) {
+            return $this->fatalError(404, 'meal_not_found', 'This meal does not exist');
+        }
+        if ($meal->deleted_at !== null) {
+            return $this->fatalError(410, 'meal_deleted', 'This meal has been removed');
+        }
+
+        return response()->json($meal->registrations()->get());
 	}
 
 	/**
