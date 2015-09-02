@@ -59,7 +59,16 @@ class MealsController extends ApiController
 	 */
 	public function show($id)
 	{
-		//
+		// Find the meal
+        $meal = Meal::withTrashed()->find($id);
+        if (!$meal) {
+            return $this->fatalError(404, 'meal_not_found', 'This meal does not exist');
+        }
+        if ($meal->deleted_at !== null) {
+            return $this->fatalError(410, 'meal_deleted', 'This meal has been removed');
+        }
+
+        return response()->json($meal);
 	}
 
 	/**
