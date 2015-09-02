@@ -57,6 +57,9 @@ Route::group(['middleware' => ['oauth','board']], function(){
 // API routing
 Route::group(['prefix' => '/api/', 'namespace' => 'API', 'middleware' => ['oauth']], function(){
 
+    // API documentation
+    Route::get('/', 'DocsController@index');
+
     // Define only the rest actions we'll support
     $actions = ['index', 'store', 'show', 'update', 'destroy'];
 
