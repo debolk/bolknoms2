@@ -4,20 +4,12 @@
 
 <form action="/administratie/nieuwe_maaltijd_maken" method="post" accept-charset="utf-8">
     <p>
-        <label class="label" for="date">Datum</label><br>
-        <input type="text" placeholder="<?= date('d-m-Y'); ?>" autofocus name="date">
+        <label class="label" for="meal_timestamp">Datum en tijd</label><br>
+        <input type="text" placeholder="<?= date('d-m-Y 18:30'); ?>" autofocus name="meal_timestamp">
     </p>
     <p>
-        <label class="label" for="mealtime">Etenstijd</label><br>
-        <input type="text" placeholder="18:30" name="mealtime">
-    </p>
-    <p>
-        <label class="label" for="locked_date">Inschrijving sluit op</label><br>
-        <input type="text" placeholder="<?= date('d-m-Y'); ?>" name="locked_date">
-    </p>
-    <p>
-        <label class="label" for="locked">Inschrijving sluit om</label><br>
-        <input type="text" placeholder="15:00" name="locked">
+        <label class="label" for="locked_timestamp">Inschrijving sluit op</label><br>
+        <input type="text" placeholder="<?= date('d-m-Y 15:00'); ?>" name="locked_timestamp">
     </p>
     <p>
         <label class="label" for="event">Omschrijving</label><br>

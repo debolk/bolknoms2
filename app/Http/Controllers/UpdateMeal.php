@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use \App\Http\Helpers\Flash;
 use \App\Models\Meal;
+use App;
+use Illuminate\Http\Request;
+use DateTime;
+use Session;
+use Log;
+use Validator;
 
 class UpdateMeal extends Application
 {
@@ -24,44 +30,41 @@ class UpdateMeal extends Application
      * Processes the edit meal form to update a meal
      * @return Redirect
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
         // Only update existing meals
         $meal = Meal::find($id);
         if (!$meal) {
-            \App::abort(404, "Maaltijd niet gevonden");
+            App::abort(404, "Maaltijd niet gevonden");
         }
 
-        // Format Dutch date to DB date (dd-mm-yyyy -> yyyy-mm-dd)
-        $meal_data = \Request::all();
-        $date = \DateTime::createFromFormat('d-m-Y', $meal_data['date']);
-        $meal_data['date'] = ($date) ? ($date->format('Y-m-d')) : (null);
-        $locked_date = \DateTime::createFromFormat('d-m-Y', $meal_data['locked_date']);
-        $meal_data['locked_date'] = ($locked_date) ? ($locked_date->format('Y-m-d')) : (null);
+        // Construct candidate object
+        $meal_data = $request->all();
 
         // Validate the resulting input
-        $validator = \Validator::make($meal_data, [
-            'date' => ['date', 'required', 'unique:meals,date,'.$meal->id],
-            'locked_date' => ['date', 'required'],
-            'locked' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
-            'mealtime' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+        $validator = Validator::make($meal_data, [
+            'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'unique:meals,meal_timestamp,'.$meal->id],
+            'locked_timestamp' => ['date_format:d-m-Y G:i', 'required']
         ],[
-            'date.required' => 'De ingevulde datum is ongeldig',
-            'date.date' => 'De ingevulde datum is ongeldig',
-            'locked_date.required' => 'De ingevulde sluitingsdatum is ongeldig',
-            'locked_date.date' => 'De ingevulde sluitingsdatum is ongeldig',
-            'date.unique' => 'Op de ingevulde datum is al een maaltijd gepland',
-            'locked.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
-            'mealtime.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
+            'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+            'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+            'meal_timestamp.unique'        => 'Er is al een maaltijd op deze datum en tijd',
+            'locked_timestamp.date_format' => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+            'locked_timestamp.required'    => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
         ]
         );
 
         if ($validator->passes()) {
-            // Save new meal
+
+            // Format dates to database compatible values
+            $meal_data['meal_timestamp']   = DateTime::createFromFormat('d-m-Y G:i', $meal_data['meal_timestamp']);
+            $meal_data['locked_timestamp'] = DateTime::createFromFormat('d-m-Y G:i', $meal_data['locked_timestamp']);
+
+            // Update meal in database
             $meal->update($meal_data);
             if ($meal->save()) {
-                \Log::info("Maaltijd geupdate: $meal->id|$meal->date|$meal->event");
-                Flash::set(Flash::SUCCESS, 'Maaltijd geupdate'.$meal);
+                Log::info("Maaltijd geupdate: $meal->id|$meal->meal_timestamp|$meal->event");
+                Flash::set(Flash::SUCCESS, 'Maaltijd geupdate');
                 return redirect('/administratie/' . $meal->id);
             }
             else {
@@ -69,7 +72,7 @@ class UpdateMeal extends Application
             }
         }
         else {
-            \Session::flash('validation_errors', $validator->messages());
+            Session::flash('validation_errors', $validator->messages());
             return redirect('/administratie/' . $meal->id . '/edit')->withInput();
         }
     }

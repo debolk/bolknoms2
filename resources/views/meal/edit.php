@@ -4,24 +4,17 @@
 
 <form action="/administratie/<?=$meal->id;?>" method="post" accept-charset="utf-8">
     <p>
-        <label class="label" for="date">Datum</label><br>
-        <input type="text" name="date" value="<?=date('d-m-Y', strtotime($meal->date));?>">
+        <label class="label" for="meal_timestamp">Datum en tijd</label><br>
+        <input type="text" value="<?= date('d-m-Y G:i', strtotime($meal->meal_timestamp)); ?>" name="meal_timestamp">
     </p>
+
     <p>
-        <label class="label" for="mealtime">Etenstijd</label><br>
-        <input type="text" value="<?=date('H:i', strtotime($meal->mealtime));?>" name="mealtime">
-    </p>
-    <p>
-        <label class="label" for="locked_date">Inschrijving sluit op</label><br>
-        <input type="text" value="<?=date('d-m-Y', strtotime($meal->locked_date));?>" name="locked_date">
-    </p>
-    <p>
-        <label class="label" for="locked">Inschrijving sluit om</label><br>
-        <input type="text" value="<?=date('H:i', strtotime($meal->locked));?>" name="locked">
+        <label class="label" for="locked_timestamp">Inschrijving sluit op</label><br>
+        <input type="text" value="<?= date('d-m-Y G:i', strtotime($meal->locked_timestamp)); ?>" name="locked_timestamp">
     </p>
     <p>
         <label class="label" for="event">Omschrijving</label><br>
-        <input type="text" name="event" value="<?=$meal->event;?>">
+        <input type="text" value="<?= $meal->event; ?>" name="event">
     </p>
     <p>
         <input type="submit" value="Wijzigingen opslaan" />

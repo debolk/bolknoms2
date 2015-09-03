@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Models;
+use DateTime;
 
 class Meal extends ApplicationModel
 {
     /**
      * All attributes that can be mass-assigned
      */
-    protected $fillable = ['date', 'locked', 'event', 'mealtime', 'locked_date'];
+    protected $fillable = ['event', 'promoted', 'meal_timestamp', 'locked_timestamp'];
 
     /**
      * Relationship: one meal has many registrations
@@ -24,11 +25,8 @@ class Meal extends ApplicationModel
     public function scopeAvailable($query)
     {
         return $query->where(function($q){
-            $q->where('date', '>', date('Y-m-d'));
-            $q->orWhere(function($q){
-                $q->where('date', '=', date('Y-m-d'))->where('locked', '>=', strftime('%H:%I'));
-            });
-        })->orderBy('date');
+            $q->whereRaw('locked_timestamp > NOW()');
+        })->orderBy('meal_timestamp');
     }
 
     /**
@@ -36,7 +34,7 @@ class Meal extends ApplicationModel
      */
     public function scopeUpcoming($query)
     {
-        return $query->where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc');
+        return $query->where('meal_timestamp', '>=', date('Y-m-d'))->orderBy('meal_timestamp', 'asc');
     }
 
     /**
@@ -44,7 +42,7 @@ class Meal extends ApplicationModel
      */
     public function scopePrevious($query)
     {
-        return $query->where('date', '<', date('Y-m-d'))->orderBy('date', 'desc');
+        return $query->where('meal_timestamp', '<', date('Y-m-d'))->orderBy('meal_timestamp', 'desc');
     }
 
     /**
@@ -52,7 +50,7 @@ class Meal extends ApplicationModel
      */
     public function scopeToday($query)
     {
-        return $query->where('date', '=', date('Y-m-d'));
+        return $query->where('meal_timestamp', '=', date('Y-m-d'));
     }
 
     /**
@@ -61,7 +59,8 @@ class Meal extends ApplicationModel
      */
     public function longDate()
     {
-        return strftime('%A %d %B %Y', strtotime($this->date));
+        $meal = new DateTime($this->meal_timestamp);
+        return $meal->format('l j F Y');
     }
 
     /**
@@ -84,7 +83,7 @@ class Meal extends ApplicationModel
      */
     public function open_for_registrations()
     {
-      $closing_moment = strtotime($this->locked_date.' '.$this->locked);
+      $closing_moment = strtotime($this->locked_timestamp);
       return ($closing_moment > time());
     }
 
@@ -94,7 +93,8 @@ class Meal extends ApplicationModel
      */
     public function isToday()
     {
-        return ($this->date === strftime('%Y-%m-%d'));
+        $date = new DateTime($this->meal_timestamp);
+        return ($date->format('Y-m-d') === date('Y-m-d'));
     }
 
     /**
@@ -103,11 +103,15 @@ class Meal extends ApplicationModel
      */
     public function deadline()
     {
-        $output = '';
-        if ($this->date !== $this->locked_date) {
-            $output = strftime('%A %e %B ', strtotime($this->locked_date));
+        $meal = (new DateTime($this->meal_timestamp))->format('Y-m-d');
+        $lock = (new DateTime($this->locked_timestamp))->format('Y-m-d');
+
+        if ($meal === $lock) {
+            return strftime('%H:%M uur', strtotime($this->locked_timestamp));
         }
-        return $output.strftime('%H:%M',strtotime($this->locked)).' uur';
+        else {
+            return strftime('%A %e %B %H:%M uur', strtotime($this->locked_timestamp));
+        }
     }
 
     /**
@@ -117,7 +121,10 @@ class Meal extends ApplicationModel
      */
     public function normalDeadline()
     {
-        return ($this->date === $this->locked_date && $this->locked == '15:00:00');
+        $lock = new DateTime($this->locked_timestamp);
+        $meal = new DateTime($this->meal_timestamp);
+
+        return $lock->format('Y-m-d G:i') === $meal->format('Y-m-d 15:00');
     }
 
     /**
@@ -127,15 +134,7 @@ class Meal extends ApplicationModel
      */
     public function normalMealTime()
     {
-        return ($this->mealtime == '18:30:00');
-    }
-
-    /**
-     * Returns whether a meal is being promoted
-     * @return boolean
-     */
-    public function promoted()
-    {
-        return ($this->promoted === '1');
+        $meal = new DateTime($this->meal_timestamp);
+        return $meal->format('G:i') === '18:30';
     }
 }

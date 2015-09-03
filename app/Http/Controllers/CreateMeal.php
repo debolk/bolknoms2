@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\Flash;
 use App\Models\Meal;
+use Illuminate\Http\Request;
+use DateTime;
+use Validator;
+use Session;
+use Input;
+use Log;
 
 class CreateMeal extends Application
 {
@@ -19,65 +25,44 @@ class CreateMeal extends Application
      * Processes the new meal form to create a new meal
      * @return Redirect
      */
-    public function create()
+    public function create(Request $request)
     {
-        // Build candidate object, using today's data as defaults
-        $meal_data = [
-            'date'        => \Request::input('date', date('d-m-Y')),
-            'locked_date' => \Request::input('locked_date', date('d-m-Y')),
-            'locked'      => \Request::input('locked', '15:00'),
-            'mealtime'    => \Request::input('mealtime', '18:30'),
-            'event'       => \Request::input('event', null),
-        ];
-        if (empty($meal_data['date'])) {
-            $meal_data['date'] = date('d-m-Y');
-        }
-        if (empty($meal_data['locked_date'])) {
-            $meal_data['locked_date'] = date('d-m-Y');
-        }
-        if (empty($meal_data['locked'])) {
-            $meal_data['locked'] = '15:00';
-        }
-        if (empty($meal_data['mealtime'])) {
-            $meal_data['mealtime'] = '18:30';
-        }
+        // Construct candidate object
+        $meal_data = $request->all();
 
-        // Format Dutch date to DB date (dd-mm-yyyy -> yyyy-mm-dd)
-        $date = \DateTime::createFromFormat('d-m-Y', $meal_data['date']);
-        $meal_data['date'] = ($date) ? ($date->format('Y-m-d')) : (null);
-        $locked_date = \DateTime::createFromFormat('d-m-Y', $meal_data['locked_date']);
-        $meal_data['locked_date'] = ($locked_date) ? ($locked_date->format('Y-m-d')) : (null);
+        // Use todays date as defaults if none are given
+        if (empty($meal_data['meal_timestamp'])) {
+            $meal_data['meal_timestamp'] = date('d-m-Y').' 18:30';
+        }
+        if (empty($meal_data['locked_timestamp'])) {
+            $meal_data['locked_timestamp'] = date('d-m-Y').' 15:00';
+        }
 
         // Validate the resulting input
-        $validator = \Validator::make($meal_data, [
-            'date' => ['date', 'required', 'unique:meals', 'after:yesterday'],
-            'locked_date' => ['date', 'required', 'after:yesterday'],
-            'locked' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
-            'mealtime' => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+        $validator = Validator::make($meal_data, [
+            'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'after:now', 'unique:meals'],
+            'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'after:now']
         ],[
-            'date.required' => 'De ingevulde datum is ongeldig',
-            'date.date' => 'De ingevulde datum is ongeldig',
-            'date.unique' => 'Op de ingevulde datum is al een maaltijd gepland',
-            'date.after' => 'Je kunt geen maaltijden aanmaken in het verleden',
-            'locked_date.required' => 'De ingevulde sluitingsdatum is ongeldig',
-            'locked_date.date' => 'De ingevulde sluitingsdatum is ongeldig',
-            'locked_date.after' => 'Je kunt geen maaltijden aanmaken met een sluitingsdatum die al verstreken is',
-            'locked.regex' => 'De sluitingstijd moet als HH:MM ingevuld zijn',
-            'mealtime.regex' => 'De etenstijd moet als HH:MM ingevuld zijn',
+             'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+             'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+             'meal_timestamp.after'         => 'Je kunt geen maaltijden aanmaken in het verleden',
+             'meal_timestamp.unique'        => 'Er is al een maaltijd op deze datum en tijd',
+             'locked_timestamp.date_format' => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+             'locked_timestamp.required'    => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+             'locked_timestamp.after'       => 'De deadline voor aanmelding mag niet al geweest zijn'
         ]
         );
 
         if ($validator->passes()) {
-            // Save new meal
-            $meal = new Meal;
-            $meal->date = $meal_data['date'];
-            $meal->locked_date = $meal_data['locked_date'];
-            $meal->locked = $meal_data['locked'];
-            $meal->mealtime = $meal_data['mealtime'];
-            $meal->event = $meal_data['event'];
 
+            // Format dates to database compatible values
+            $meal_data['meal_timestamp']   = DateTime::createFromFormat('d-m-Y G:i', $meal_data['meal_timestamp']);
+            $meal_data['locked_timestamp'] = DateTime::createFromFormat('d-m-Y G:i', $meal_data['locked_timestamp']);
+
+            // Save new meal
+            $meal = new Meal($meal_data);
             if ($meal->save()) {
-                \Log::info("Nieuwe maaltijd: $meal->id|$meal->date|$meal->event");
+                Log::info("Nieuwe maaltijd: $meal->id|$meal->meal_timestamp|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op '.$meal);
                 return redirect('/administratie');
             }
@@ -86,9 +71,9 @@ class CreateMeal extends Application
             }
         }
         else {
-            \Session::flash('validation_errors', $validator->messages());
+            Session::flash('validation_errors', $validator->messages());
             // Repopulate the form
-            \Input::flash();
+            Input::flash();
         }
         return redirect('/administratie/nieuwe_maaltijd');
     }
