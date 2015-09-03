@@ -99,10 +99,10 @@ class Registration extends ApplicationModel
 
         // Determine last 1-sep
         if (time() > strtotime('01 September')) {
-            $query->where('meals.date', '>=', date('Y-m-d', strtotime('01 September')));
+            $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September')));
         }
         else {
-            $query->where('meals.date', '>=', date('Y-m-d', strtotime('01 September last year')));
+            $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September last year')));
         }
 
         return $query->get();
@@ -132,7 +132,7 @@ class Registration extends ApplicationModel
         $query->leftJoin('registrations', 'users.id', '=', 'registrations.user_id');
         $query->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id');
 
-        $query->where('meals.date', '<=', DB::raw('NOW()'));
+        $query->whereRaw('meals.meal_timestamp <= NOW()');
         $query->whereNull('meals.deleted_at');
         $query->whereNull('registrations.deleted_at');
 
