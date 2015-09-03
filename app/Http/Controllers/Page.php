@@ -23,15 +23,6 @@ class Page extends Application
     }
 
     /**
-     * Display the advantages of signing in
-     * @return View
-     */
-    public function voordeelaccount()
-    {
-        return $this->setPageContent(view('page/voordeelaccount'));
-    }
-
-    /**
      * Display the rules and regulations
      * @return View
      */
