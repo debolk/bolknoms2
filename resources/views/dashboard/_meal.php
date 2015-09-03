@@ -11,7 +11,7 @@
         <?= $meal->deadline(); ?>
     </td>
     <td class="date <?= !$meal->normalMealTime() ? 'attention' : ''; ?>">
-        <?= strftime("%H:%M", strtotime($meal->mealtime)); ?>
+        <?= strftime("%H:%M", strtotime($meal->mealtime)); ?> uur
     </td>
 	<td>
 		</a>
