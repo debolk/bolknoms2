@@ -47,9 +47,39 @@ class MealsController extends ApiController
 	 * Create a new Meal
 	 * @return Response
 	 */
-	public function create()
+	public function create(Request $request)
 	{
-		//
+        // Validate the input
+        $validator = \Validator::make($request->all(), [
+            'date'        => ['date', 'required', 'unique:meals', 'after:yesterday'],
+            'locked_date' => ['date', 'required', 'after:yesterday'],
+            'locked'      => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+            'mealtime'    => ['regex:/^[0-2][0-9]:[0-5][0-9]$/'],
+        ],[
+            'date.required'        => 'date is required',
+            'date.date'            => 'date is not a valid date',
+            'date.unique'          => 'date is not unique',
+            'date.after'           => 'date cannot be in the past',
+            'locked_date.required' => 'locked_date is required',
+            'locked_date.date'     => 'locked_date is not a valid date',
+            'locked_date.after'    => 'locked_date cannot be in the past',
+            'locked.regex'         => 'locked must be formatted as HH:MM',
+            'mealtime.regex'       => 'mealtime must be formatted as HH:MM',
+        ]
+        );
+
+        if (! $validator->passes()) {
+            return $this->validationErrors($validator->messages());
+        }
+
+        // Save new meal
+        $meal = new Meal($request->all());
+        if ($meal->save()) {
+            return response()->json($meal);
+        }
+        else {
+            return $this->fatalError(500, 'unknown_error', 'Unknown error while saving a meal');
+        }
 	}
 
 	/**
@@ -59,7 +89,7 @@ class MealsController extends ApiController
 	 */
 	public function show($id)
 	{
-		// Find the meal
+        // Find the meal
         $meal = Meal::withTrashed()->find($id);
         if (!$meal) {
             return $this->fatalError(404, 'meal_not_found', 'This meal does not exist');

@@ -24,8 +24,10 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-        'oauth' => 'App\Http\Middleware\OAuth',
-		'board' => 'App\Http\Middleware\Board',
+        'oauth'      => \App\Http\Middleware\OAuth::class,
+        'board'      => \App\Http\Middleware\Board::class,
+        'api_member' => \App\Http\Middleware\Api\OAuthMember::class,
+		'api_board'  => \App\Http\Middleware\Api\OAuthBoard::class
 	];
 
 }
