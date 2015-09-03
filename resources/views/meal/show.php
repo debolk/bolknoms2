@@ -4,7 +4,7 @@
     &mdash;
     aanmelden tot <?= $meal->deadline(); ?>
     &mdash;
-    etenstijd <?= date('H:i', strtotime($meal->mealtime)); ?> uur
+    etenstijd <?= date('H:i', strtotime($meal->meal_timestamp)); ?> uur
     <span class="non_print">
         &mdash;
         <a href="/administratie/<?=$meal->id;?>/edit">maaltijd bewerken</a>

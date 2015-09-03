@@ -13,7 +13,7 @@
         </span>
         <br>
         <span class="<?= !$meal->normalMealTime() ? 'attention' : ''; ?>">
-            Eten om <?= strftime("%H:%M", strtotime($meal->mealtime)); ?> uur
+            Eten om <?= strftime("%H:%M", strtotime($meal->meal_timestamp)); ?> uur
         </span>
     </div>
 </div>
