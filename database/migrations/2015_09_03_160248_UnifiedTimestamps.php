@@ -17,8 +17,8 @@ class UnifiedTimestamps extends Migration
             $table->datetime('locked_timestamp');
             $table->date('date')->nullable()->change();
             $table->time('mealtime')->nullable()->default(null)->change();
-            $table->date('locked')->nullable()->change();
-            $table->time('locked_date')->nullable()->change();
+            $table->date('locked_date')->nullable()->change();
+            $table->time('locked')->nullable()->change();
         });
 
         \DB::unprepared("UPDATE meals SET meal_timestamp = CONCAT_WS(' ', date, mealtime);");
