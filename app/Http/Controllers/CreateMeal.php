@@ -27,7 +27,7 @@ class CreateMeal extends Application
      */
     public function create(Request $request)
     {
-        // Construct candidate objecy
+        // Construct candidate object
         $meal_data = $request->all();
 
         // Use todays date as defaults if none are given

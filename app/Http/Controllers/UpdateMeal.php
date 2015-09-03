@@ -63,7 +63,7 @@ class UpdateMeal extends Application
             // Update meal in database
             $meal->update($meal_data);
             if ($meal->save()) {
-                Log::info("Maaltijd geupdate: $meal->id|$meal->date|$meal->event");
+                Log::info("Maaltijd geupdate: $meal->id|$meal->meal_timestamp|$meal->event");
                 Flash::set(Flash::SUCCESS, 'Maaltijd geupdate');
                 return redirect('/administratie/' . $meal->id);
             }
