@@ -107,7 +107,7 @@ function registerNonUser(button)
             set_button_state(button, 'registered');
 
             // Show warning that email confirmation is needed
-            show_notification('warning', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.', $('#register_form'));
+            show_notification('error', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.', $('#register_form'));
         },
         error: function(error){
             fatal_error(error);
