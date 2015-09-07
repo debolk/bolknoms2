@@ -151,6 +151,8 @@ return array(
         'App\Providers\RouteServiceProvider',
         // Form and HTML libraries
         'Illuminate\Html\HtmlServiceProvider',
+        // Bugsnag error and exception reporting
+        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
     ],
 
     /*
@@ -200,5 +202,7 @@ return array(
         // Form and HTML libraries
         'Form'      => 'Illuminate\Html\FormFacade',
         'Html'      => 'Illuminate\Html\HtmlFacade',
+        // Bugsnag error and exception reporting
+        'Bugsnag'   => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
     ],
 );
