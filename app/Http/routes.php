@@ -34,22 +34,22 @@ Route::group(['middleware' => ['oauth']], function(){
 });
 
 // Pages which require board-level authorization
-Route::group(['middleware' => ['oauth','board']], function(){
+Route::group(['prefix' => '/administratie/', 'middleware' => ['oauth','board']], function(){
 
     // Administration dashboard
-    Route::get('/administratie', 'AdminDashboard@index');
-    Route::get('/administratie/verwijder/{id}', 'AdminDashboard@verwijder');
+    Route::get('', 'AdminDashboard@index');
+    Route::get('verwijder/{id}', 'AdminDashboard@verwijder');
 
     // Show meals in the backend
-    Route::get('/administratie/{id}', 'ShowMeal@show');
-    Route::post('/administratie/afmelden/{id}', 'ShowMeal@afmelden');
-    Route::post('/administratie/aanmelden', 'ShowMeal@aanmelden');
+    Route::get('{id}', 'ShowMeal@show');
+    Route::post('afmelden/{id}', 'ShowMeal@afmelden');
+    Route::post('aanmelden', 'ShowMeal@aanmelden');
 
     // Create new meals
-    Route::get('/administratie/nieuwe_maaltijd', 'CreateMeal@index');
-    Route::post('/administratie/nieuwe_maaltijd', 'CreateMeal@create');
+    Route::get('nieuwe_maaltijd', 'CreateMeal@index');
+    Route::post('nieuwe_maaltijd', 'CreateMeal@create');
 
     // Update existing meals
-    Route::get('/administratie/{id}/edit', 'UpdateMeal@edit');
-    Route::post('/administratie/{id}', 'UpdateMeal@update');
+    Route::get('{id}/edit', 'UpdateMeal@edit');
+    Route::post('{id}', 'UpdateMeal@update');
 });
