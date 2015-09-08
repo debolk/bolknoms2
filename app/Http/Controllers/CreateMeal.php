@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\Flash;
 use App\Models\Meal;
 use Illuminate\Http\Request;
-use Input;
-use Session;
 use App\Services\CreateMealService;
 use App\Services\ValidationException;
 
@@ -42,9 +40,7 @@ class CreateMeal extends Application
             $meal = with(new CreateMealService($data))->execute();
         }
         catch (ValidationException $e) {
-            Input::flash();
-            Session::flash('validation_errors', $e->messages());
-            return redirect('/administratie/nieuwe_maaltijd');
+            return redirect('/administratie/nieuwe_maaltijd')->withErrors($e->messages())->withInput();
         }
 
         if ($meal) {
