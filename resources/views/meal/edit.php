@@ -1,6 +1,6 @@
 <h1>Maaltijd bewerken</h1>
 
-<?php echo App\Http\Helpers\Flash::error_messages_for(Session::get('validation_errors')); ?>
+<?php echo view('form/_error', ['errors' => $errors]) ?>
 
 <form action="/administratie/<?=$meal->id;?>" method="post" accept-charset="utf-8">
     <p>
