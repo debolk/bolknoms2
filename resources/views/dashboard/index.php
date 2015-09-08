@@ -3,7 +3,7 @@
 <?php echo App\Http\Helpers\Flash::display_messages(); ?>
 
 <p>
-  <a href="administratie/nieuwe_maaltijd">
+  <a href="<?= action('CreateMeal@new_meal'); ?>">
     <img src="/images/add.png" alt="" />
     Nieuwe maaltijd toevoegen
   </a>
