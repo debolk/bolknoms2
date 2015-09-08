@@ -4,7 +4,7 @@
         Beste <?= $registration->name; ?>,
     </p>
     <p>
-        Je hebt je aangemeld op <a href="http://noms.debolk.nl">Bolknoms</a> voor de maaltijd van <?= $meal->longDate(); ?>. Helaas kan de maaltijd niet doorgaan. Je aanmelding is automatisch verwijderd.
+        Je hebt je aangemeld op <a href="<?= url('/'); ?>">Bolknoms</a> voor de maaltijd van <?= $meal->longDate(); ?>. Helaas kan de maaltijd niet doorgaan. Je aanmelding is automatisch verwijderd.
     <p>
         <small>
             Met vriendelijke groet,<br>
