@@ -41,6 +41,20 @@ class Application extends Controller
     }
 
     /**
+     * Show a user-friendly error page
+     * @param  integer  $status  http status code
+     * @param  string   $message error message to display
+     * @return Response
+     */
+    protected function userFriendlyError($status, $message)
+    {
+        return response(view($this->layout, [
+            'content' => view('error/http', ['status' => $status, 'message' => $message]),
+            'user' => OAuth::user()
+        ]), $status);
+    }
+
+    /**
      * Find the associated Javascript for this controller, if it exists
      * @return string javascript filename to load
      */
