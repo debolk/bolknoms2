@@ -46,8 +46,8 @@ Route::group(['middleware' => ['oauth','board']], function(){
     Route::post('/administratie/aanmelden', 'ShowMeal@aanmelden');
 
     // Create new meals
-    Route::get('/administratie/nieuwe_maaltijd', 'CreateMeal@new_meal');
-    Route::post('/administratie/nieuwe_maaltijd_maken', 'CreateMeal@create');
+    Route::get('/administratie/nieuwe_maaltijd', 'CreateMeal@index');
+    Route::post('/administratie/nieuwe_maaltijd', 'CreateMeal@create');
 
     // Update existing meals
     Route::get('/administratie/{id}/edit', 'UpdateMeal@edit');

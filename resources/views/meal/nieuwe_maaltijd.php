@@ -2,7 +2,7 @@
 
 <?php echo App\Http\Helpers\Flash::error_messages_for(Session::get('validation_errors')); ?>
 
-<form action="/administratie/nieuwe_maaltijd_maken" method="post" accept-charset="utf-8">
+<form action="<?= action('CreateMeal@create'); ?>" method="post" accept-charset="utf-8">
     <p>
         <label class="label" for="meal_timestamp">Datum en tijd</label><br>
         <input type="text" placeholder="<?= date('d-m-Y 18:30'); ?>" autofocus name="meal_timestamp">

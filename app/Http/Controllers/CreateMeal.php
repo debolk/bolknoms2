@@ -15,7 +15,7 @@ class CreateMeal extends Application
     /**
      * Shows the page for creating a new meal
      */
-    public function new_meal()
+    public function index()
     {
         return $this->setPageContent(view('meal/nieuwe_maaltijd', ['meal' => new Meal]));
     }
