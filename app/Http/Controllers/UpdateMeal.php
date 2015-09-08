@@ -7,6 +7,7 @@ use App\Models\Meal;
 use App;
 use Illuminate\Http\Request;
 use App\Services\UpdateMealService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateMeal extends Application
 {
