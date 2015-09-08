@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Meal;
 use App\Http\Helpers\Flash;
+use App\Services\DestroyMealService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AdminDashboard extends Application
 {
@@ -36,31 +38,22 @@ class AdminDashboard extends Application
      */
     public function verwijder($id)
     {
-        // Find the meal
-        $meal = Meal::find($id);
-        if (!$meal) {
-            \App::abort(404, "Maaltijd niet gevonden");
+        try {
+            $meal = Meal::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e) {
+            return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
-        // Store the name of the meal for usage in the flash message
         $date = (string)$meal;
+        $destroy = with(new DestroyMealService($meal))->execute();
 
-        // Send an e-mail to the registrations for confirmation
-        \App\Http\Helpers\Mailer::mealIsDestroyedEmail($meal);
-
-        // Remove all guests
-        foreach ($meal->registrations()->get() as $registration) {
-            if ($registration->email !== null) {
-                $registration->delete();
-            }
+        if (! $destroy) {
+            return $this->userFriendlyError(500, 'Maaltijd kon niet worden verwijderd; onbekende fout.');
         }
-
-        // Remove the meal
-        $meal->delete();
 
         // Update user
         Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.");
-        \Log::info("Maaltijd verwijderd: $date");
-        return \Redirect::to('/administratie');
+        return redirect('/administratie');
     }
 }
