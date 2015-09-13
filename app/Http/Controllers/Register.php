@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\OAuth;
 use App\Models\Meal;
 use App\Models\Registration;
+use App\Services\DeregisterService;
+use App\Services\MealDeadlinePassedException;
+use Log;
 use Request;
 use Validator;
-use Log;
-use App\Http\Helpers\OAuth;
 
 class Register extends Application
 {
@@ -183,14 +185,6 @@ class Register extends Application
             ], 404);
         }
 
-        // Check if the meal is still open
-        if (!$meal->open_for_registrations()) {
-            return response()->json([
-                'error' => 'meal_deadline_expired',
-                'error_details' => 'De aanmeldingsdeadline is verstreken'
-            ], 400);
-        }
-
         // Find the registration data
         $user = OAuth::user();
         $registration = $user->registrationFor($meal);
@@ -201,12 +195,16 @@ class Register extends Application
             ], 404);
         }
 
-        // Destroy the registration
-        $id = $registration->id;
-        $name = $registration->name;
-        $registration->delete();
-
-        \Log::info("Afgemeld $registration->name (ID: $registration->id) voor $meal (ID: $meal->id) door $user->name (ID: $user->id)");
-        return response(null, 200);
+        // Deregister from the meal
+        try {
+            with(new DeregisterService($registration, false))->execute();
+        }
+        catch(MealDeadlinePassedException $e) {
+            return response()->json([
+                'error' => 'meal_deadline_expired',
+                'error_details' => 'De aanmeldingsdeadline is verstreken'
+            ], 400);
+        }
+        return response(null, 204);
     }
 }

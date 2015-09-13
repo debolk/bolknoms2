@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
+use App\Services\DeregisterService;
 use Log;
-use App;
 use Request;
 
 class ShowMeal extends Application
@@ -132,20 +133,8 @@ class ShowMeal extends Application
             ], 500);
         }
 
-        // Store data for later usage
-        $id = $registration->id;
-        $name = $registration->name;
-        $meal = $registration->meal;
-
-        if ($registration->delete()) {
-            Log::info("Afgemeld: administratie|$id|$name|$meal");
-            return response(null, 200);
-        }
-        else {
-            return response()->json([
-                'error' => 'destroy_registration_admin_unknown_error',
-                'error_details' => 'Deze registratie kon niet verwijderd worden, reden onbekend.'
-            ], 500);
-        }
+        // Deregister from the meal
+        with(new DeregisterService($registration, true))->execute();
+        return response(null, 204);
     }
 }

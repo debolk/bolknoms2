@@ -51,4 +51,3 @@ class ConfirmRegistrationService extends Service
 }
 
 class SaltMismatchException extends Exception {}
-class MealDeadlinePassedException extends Exception {}
