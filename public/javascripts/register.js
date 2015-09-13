@@ -56,7 +56,10 @@ function register(button)
         success: function() {
             set_button_state(button, 'registered');
         },
-        error: fatal_error,
+        error: function(error) {
+            set_button_state(button, 'unregistered');
+            fatal_error(error);
+        },
     });
 }
 
