@@ -93,7 +93,7 @@ class Register extends Application
             // Send email for confirmation
             \App\Http\Helpers\Mailer::confirmationEmail($registration);
 
-            return response(null, 200);
+            return response(null, 204);
         }
         else {
             \Log::error("Aanmelding mislukt, onbekend");
@@ -157,7 +157,7 @@ class Register extends Application
 
         if ($registration->save()) {
             \Log::info("Aangemeld: $registration->id|$registration->name");
-            return response(null, 200);
+            return response(null, 204);
         }
         else {
             \Log::error("Aanmelding mislukt, onbekend");
