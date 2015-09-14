@@ -1,6 +1,8 @@
 # Bolknoms
 The very best application in the world for feeding your members in an organized and predictable way.
 
+[![Dependency Status](https://www.versioneye.com/user/projects/558f07d031633800240002fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d031633800240002fa) [![Code Climate](https://codeclimate.com/github/debolk/bolknoms2/badges/gpa.svg)](https://codeclimate.com/github/debolk/bolknoms2)
+
 ## Local installation
 This project is locally installed using [vagrant](https://www.vagrantup.com/) and [laravel homestead](http://laravel.com/docs/5.1/homestead). Vagrant provides an super easy way to setup a local virtual machine with the perfect environment for running bolknoms.
 
@@ -22,10 +24,6 @@ Create a meal using the administration panel. Anyone can use the front-end inter
 
 ## Architecture
 Bolknoms is a MVC-application built on [Laravel](http://laravel.com/), using [zepto.js](http://zeptojs.com/) (a jQuery-light equivalent) for some front-end functionality. It is dependent on some other projects such as [bolklogin](https://auth.debolk.nl/) for authenticating members and [people/blip](https://people.debolk.nl/) for retrieving details of members, etc. [Guzzle](guzzlephp.org) is used for communication with these upstream services.
-
-### Dependencies
-Master: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d5316338001a000432/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d5316338001a000432)
-Develop: [![Dependency Status](https://www.versioneye.com/user/projects/558f07d031633800240002fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d031633800240002fa)
 
 ## Contributing
 This project is open for pull requests. Fork the repository and add your own contributions. For significant, non-bugfix contributions, you will be added to the contributors list. Please mind the following conditions:
