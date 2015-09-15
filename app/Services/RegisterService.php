@@ -43,11 +43,15 @@ class RegisterService extends Service
         }
 
         // Submitted data must be complete and valid
-        $validator = Validator::make($this->data, [
-            'email'   => ['required', 'email'],
+        $rules = [
             'name'    => ['required'],
             'user_id' => ['exists:users,id']
-        ],[
+        ];
+        if (! $this->is_admin) {
+            $rules['email'] = ['required', 'email'];
+        }
+
+        $validator = Validator::make($this->data, $rules,[
             'name.required'  => 'Je moet je naam invullen',
             'email.required' => 'Je moet je e-mailadres invullen',
             'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
@@ -90,7 +94,9 @@ class RegisterService extends Service
         }
         else {
             // Send e-mail to ask for confirmation
-            Mailer::confirmationEmail($registration);
+            if ($registration->email) {
+                Mailer::confirmationEmail($registration);
+            }
         }
 
         // Log action
