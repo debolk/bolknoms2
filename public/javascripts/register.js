@@ -56,7 +56,10 @@ function register(button)
         success: function() {
             set_button_state(button, 'registered');
         },
-        error: fatal_error,
+        error: function(error) {
+            set_button_state(button, 'unregistered');
+            fatal_error(error);
+        },
     });
 }
 
@@ -76,7 +79,10 @@ function deregister(button)
         success: function() {
             set_button_state(button, 'unregistered');
         },
-        error: fatal_error,
+        error: function(error) {
+            set_button_state(button, 'registered');
+            fatal_error(error);
+        },
     });
 }
 
@@ -107,7 +113,7 @@ function registerNonUser(button)
             set_button_state(button, 'registered');
 
             // Show warning that email confirmation is needed
-            show_notification('warning', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.', $('#register_form'));
+            show_notification('error', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.', $('#register_form'));
         },
         error: function(error){
             fatal_error(error);

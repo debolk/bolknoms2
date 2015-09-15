@@ -43,7 +43,7 @@ function add_registration(event)
             user_id: $('#user_id').val()
         }),
         success: function(response) {
-            $('#registrations').append(response);
+            $('#registrations tbody').append(response);
             update_counter(+1);
             form.reset();
         },
@@ -74,7 +74,7 @@ function subscribe_anonymous(event)
             handicap: handicap
         }),
         success: function(response) {
-            $('#registrations').append(response);
+            $('#registrations tbody').append(response);
             update_counter(+1);
         },
         error: fatal_error

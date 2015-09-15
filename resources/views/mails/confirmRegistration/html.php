@@ -4,10 +4,10 @@
         Beste <?= $registration->name; ?>,
     </p>
     <p>
-        Je hebt je aangemeld op <a href="http://noms.debolk.nl">Bolknoms</a> voor de maaltijd van <?= $registration->longDate(); ?>. Omdat je geen lid bent (of niet was ingelogd) moet je deze aanmelding bevestigen per e-mail. Gebruik hiervoor onderstaande link:
+        Je hebt je aangemeld op <a href="<?= url('/'); ?>">Bolknoms</a> voor de maaltijd van <?= $registration->longDate(); ?>. Omdat je geen lid bent (of niet was ingelogd) moet je deze aanmelding bevestigen per e-mail. Gebruik hiervoor onderstaande link:
     </p>
     <p>
-        <a href="http://noms.debolk.nl/bevestigen/<?= $registration->id; ?>/<?= $registration->salt; ?>">Aanmelding bevestigen</a>
+        <a href="<?= url('bevestigen', [$registration->id, $registration->salt]); ?>">Aanmelding bevestigen</a>
     </p>
     <p>
         <small>

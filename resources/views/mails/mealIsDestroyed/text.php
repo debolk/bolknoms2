@@ -1,6 +1,6 @@
 Beste <?= $registration->name; ?>,
 
-Je hebt je aangemeld op Bolknoms (http://noms.debolk.nl) voor de maaltijd van <?= $meal->longDate(); ?>. Helaas kan de maaltijd niet doorgaan. Je aanmelding is automatisch verwijderd.
+Je hebt je aangemeld op Bolknoms (<?= url('/'); ?>) voor de maaltijd van <?= $meal->longDate(); ?>. Helaas kan de maaltijd niet doorgaan. Je aanmelding is automatisch verwijderd.
 
 Met vriendelijke groet,
 Commissaris Maaltijden

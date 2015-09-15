@@ -5,33 +5,33 @@ namespace App\Http\Controllers;
 use App\Models\Registration;
 use Request;
 use Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\ConfirmRegistrationService;
+use App\Services\SaltMismatchException;
+use App\Services\MealDeadlinePassedException;
 
 class Confirm extends Application
 {
     public function confirm($id, $salt)
     {
-        $registration = Registration::find((int) $id);
-        if (! $registration) {
-            return response('Registratie niet gevonden', 404);
+        try {
+            $registration = Registration::findOrFail($id);
         }
-
-        // Salt must match
-        if ($registration->salt !== $salt) {
-            return response('Beveiligingscode is incorrect', 409);
-        }
-
-        // Deadline must not have passed
-        if (! $registration->meal->open_for_registrations()) {
-            return response('Aanmelddeadline is al verstreken', 410);
+        catch (ModelNotFoundException $e) {
+            return $this->userFriendlyError(404, 'Aanmelding bestaat niet');
         }
 
         // Confirm registration
-        $registration->confirmed = true;
-        $registration->save();
+        try {
+            $confirm = with(new ConfirmRegistrationService($registration, $salt))->execute();
+        }
+        catch (SaltMismatchException $e) {
+            return $this->userFriendlyError(400, 'Beveiligingscode klopt niet');
+        }
+        catch (MealDeadlinePassedException $e) {
+            return $this->userFriendlyError(410, 'De deadline voor aanmelding voor deze maaltijd is al verstreken');
+        }
 
-        Log::debug("Registration {$registration->id} bevestigd");
-
-        // Show confirmation page
         return $this->setPageContent(view('confirm/confirm', ['registration' => $registration]));
     }
 }
