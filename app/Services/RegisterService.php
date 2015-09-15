@@ -28,7 +28,7 @@ class RegisterService extends Service
     }
 
     /**
-     * Create a new Meal
+     * Register for a meal
      * @return boolean
      * @throws ValidationException
      */
