@@ -14,17 +14,17 @@ use Exception;
 class RegisterService extends Service
 {
     private $data;
-    private $ignore_closing;
+    private $is_admin;
 
     /**
      * Set the Service
      * @param $data
-     * @param boolean $ignore_closing ignores the closing time limitation
+     * @param boolean $is_admin ignores the closing time limitation
      */
-    public function __construct($data, $ignore_closing = false)
+    public function __construct($data, $is_admin = false)
     {
         $this->data = $data;
-        $this->ignore_closing = $ignore_closing;
+        $this->is_admin = $is_admin;
     }
 
     /**
@@ -38,7 +38,7 @@ class RegisterService extends Service
         $meal = Meal::findOrFail($this->data['meal_id']);
 
         // Meal must be open for registrations, unless we allow ignoring this requirement
-        if (!$this->ignore_closing && !$meal->open_for_registrations()) {
+        if (!$this->is_admin && !$meal->open_for_registrations()) {
             throw new MealDeadlinePassedException;
         }
 
