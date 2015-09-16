@@ -1,5 +1,6 @@
 .profile {
     width: 20em;
+    margin: 0 1em 1em 0;
     padding: 1em;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
     margin-bottom: 1em;
@@ -37,4 +38,13 @@
 .profile .no_diet {
     font-weight: normal;
     font-size: 1em;
+}
+
+.profile img {
+    display: block;
+    margin: 0 auto;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
 }
