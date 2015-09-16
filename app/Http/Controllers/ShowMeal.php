@@ -41,7 +41,12 @@ class ShowMeal extends Application
 
         // Populate request from data
         if ($request->has('user_id')) {
-            $user = User::findOrFail($request->get('user_id'));
+            try {
+                $user = User::findOrFail($request->get('user_id'));
+            }
+            catch(ModelNotFoundException $e) {
+                return response()->json(['error' => 'user_not_found', 'error_details' => 'Gebruiker bestaat niet'], 400);
+            }
             $data['user_id'] = $user->id;
             $data['name'] = $user->name;
             $data['email'] = $user->email;

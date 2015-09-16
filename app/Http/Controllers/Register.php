@@ -6,6 +6,7 @@ use App\Http\Helpers\OAuth;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Services\DeregisterService;
+use App\Services\DoubleRegistrationException;
 use App\Services\MealDeadlinePassedException;
 use App\Services\RegisterService;
 use App\Services\UserBlockedException;
@@ -44,6 +45,12 @@ class Register extends Application
         // Populate the data from the session if not passed
         if (! $request->has('name')) {
             $user = OAuth::user();
+            if (!$user) {
+                return response()->json([
+                    'error' => 'user_not_found',
+                    'error_details' => 'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.'
+                ], 500);
+            }
             $data['user_id'] = $user->id;
             $data['name'] = $user->name;
             $data['email'] = $user->email;
