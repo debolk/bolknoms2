@@ -6,10 +6,9 @@ use App;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
-use App\Services\DeregisterService;
+use App\Services\AdminDeregisterService;
+use App\Services\AdminRegisterService;
 use App\Services\DoubleRegistrationException;
-use App\Services\MealDeadlinePassedException;
-use App\Services\RegisterService;
 use App\Services\UserBlockedException;
 use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -55,7 +54,7 @@ class ShowMeal extends Application
 
         try {
             // Create registration
-            $registration = with(new RegisterService($data, true))->execute();
+            $registration = with(new AdminRegisterService($data))->execute();
 
             // Return view of the new registration
             return view('meal/_registration', ['registration' => $registration]);
@@ -70,12 +69,6 @@ class ShowMeal extends Application
             return response()->json([
                 'error' => 'input_invalid',
                 'error_details' => $e->messages(),
-            ], 400);
-        }
-        catch (MealDeadlinePassedException $e) {
-            return response()->json([
-                'error' => 'meal_deadline_expired',
-                'error_details' => 'De aanmeldingsdeadline is verstreken'
             ], 400);
         }
         catch (UserBlockedException $e) {
@@ -109,7 +102,7 @@ class ShowMeal extends Application
         }
 
         // Deregister from the meal
-        with(new DeregisterService($registration, true))->execute();
+        with(new AdminDeregisterService($registration))->execute();
         return response(null, 204);
     }
 }

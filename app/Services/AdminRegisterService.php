@@ -12,11 +12,14 @@ use Log;
 use Exception;
 
 /**
- * RegisterService adds a new Registration to a Meal
- * for normal usage. If a user with administrative powers
- * adds a registration, AdminRegisterService should be used instead.
+ * AdminRegisterService adds a new Registration to a Meal
+ * for administrators. If a user without administrative powers
+ * adds a registration, RegisterService should be used instead.
+ *
+ * Note that it is not the admin itself that is registered to the
+ * meal, but another user.
  */
-class RegisterService extends Service
+class AdminRegisterService extends Service
 {
     private $data;
 
@@ -31,11 +34,10 @@ class RegisterService extends Service
 
     /**
      * Register for a meal
-     * @return boolean true if successful
-     * @throws MealDeadlinePassedException
+     * @return boolean
      * @throws ValidationException
-     * @throws ModelNotFoundException
      * @throws UserBlockedException
+     * @throws ModelNotFoundException
      * @throws DoubleRegistrationException
      */
     public function execute()
@@ -43,14 +45,8 @@ class RegisterService extends Service
         // Meal must exist
         $meal = Meal::findOrFail($this->data['meal_id']);
 
-        // Meal must be open for registrations, unless we allow ignoring this requirement
-        if (!$meal->open_for_registrations()) {
-            throw new MealDeadlinePassedException;
-        }
-
         // Submitted data must be complete and valid
         $validator = Validator::make($this->data, [
-            'email'   => ['required', 'email'],
             'name'    => ['required'],
             'user_id' => ['exists:users,id']
         ],[
@@ -84,19 +80,14 @@ class RegisterService extends Service
         // Create the registration
         $registration = new Registration($this->data);
         $registration->meal_id = $this->data['meal_id'];
-        $registration->confirmed = false;
+        $registration->confirmed = true;
         $registration->save();
 
-        // Auto-confirm registration if appropriate
+        // Add the user if appropriate
         if ($user) {
             $registration->user_id = $user->id;
             $registration->username = $user->username;
-            $registration->confirmed = true;
             $registration->save();
-        }
-        else {
-            // Send e-mail to ask for confirmation
-            Mailer::confirmationEmail($registration);
         }
 
         // Log action

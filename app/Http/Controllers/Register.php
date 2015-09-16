@@ -59,7 +59,7 @@ class Register extends Application
 
         // Create registration
         try {
-            $registration = with(new RegisterService($data, false))->execute();
+            $registration = with(new RegisterService($data))->execute();
         }
         catch (ModelNotFoundException $e) {
             return response()->json([
@@ -123,7 +123,7 @@ class Register extends Application
 
         // Deregister from the meal
         try {
-            with(new DeregisterService($registration, false))->execute();
+            with(new DeregisterService($registration))->execute();
         }
         catch(MealDeadlinePassedException $e) {
             return response()->json([

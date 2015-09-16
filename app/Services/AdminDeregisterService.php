@@ -9,9 +9,9 @@ use Log;
 
 /**
  * Removes a registration from a meal
- * for normal usage
+ * for administrator users
  */
-class DeregisterService extends Service
+class AdminDeregisterService extends Service
 {
     private $registration;
 
@@ -27,17 +27,11 @@ class DeregisterService extends Service
     /**
      * Remove a registration from a meal
      * @return boolean
-     * @throws MealDeadlinePassedException
      */
     public function execute()
     {
         // Find the meal
         $meal = $this->registration->meal;
-
-        // Check if the meal is still open
-        if (! $meal->open_for_registrations()) {
-            throw new MealDeadlinePassedException();
-        }
 
         // Store data for logging purposes
         $id = $this->registration->id;
