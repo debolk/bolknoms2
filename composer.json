@@ -22,7 +22,9 @@
         "heroku/heroku-buildpack-php": "dev-master",
         "phpunit/phpunit": "~4.0",
         "phpspec/phpspec": "~2.1",
-        "laravel/homestead": "^2.1"
+        "laravel/homestead": "^2.1",
+        "behat/behat": "~3.0.0",
+        "behat/gherkin": "~4.3.0"
     },
     "autoload": {
         "classmap": [
