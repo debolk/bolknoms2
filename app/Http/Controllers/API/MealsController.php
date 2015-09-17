@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Models\Meal;
+use Validator;
 
 class MealsController extends ApiController
 {
@@ -13,8 +14,10 @@ class MealsController extends ApiController
 	 */
 	public function index(Request $request)
 	{
+        return response(null, 204);
+
         // Validate input parameters
-        $validator = \Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'from' => ['regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', 'date'],
             'to' => ['regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', 'date']
         ],[
