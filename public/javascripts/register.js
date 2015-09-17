@@ -92,7 +92,7 @@ function registerNonUser(button)
 
     // Check form fields
     if ($('#name').val() == '' || $('#email').val() == '') {
-        show_notification('error', '<strong>Fout:</strong> Je moet je naam en e-mailadres invullen', $('#register_form'));
+        show_notification('Je moet je naam en e-mailadres invullen');
         set_button_state(button, 'unregistered');
         return;
     }
@@ -113,7 +113,7 @@ function registerNonUser(button)
             set_button_state(button, 'registered');
 
             // Show warning that email confirmation is needed
-            show_notification('error', '<strong>Let op:</strong> Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd.', $('#register_form'));
+            show_notification('Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd. Volg de link in de e-mail om je aanmelding definitief te maken.', 'Bevestiging nodig', 'warning');
         },
         error: function(error){
             fatal_error(error);

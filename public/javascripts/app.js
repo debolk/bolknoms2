@@ -1,19 +1,25 @@
 /*
  * Common functionality for every page
  */
-function show_notification(type, message, element)
+function show_notification(message, title, type)
 {
-    $('.notification').remove();
-    var warning = $('<div>');
-    warning.addClass('notification ' + type);
-    warning.html(message);
-    warning.insertBefore(element);
-    warning.hide();
-    warning.show(500);
+    if (type == undefined) {
+        type = 'error';
+    }
+
+    if (title == undefined) {
+        title = 'Foutmelding'
+    }
+
+    swal({
+        title: title,
+        text: message,
+        type: type
+    });
 }
 
 function fatal_error(error)
 {
     var error = JSON.parse(error.response);
-    show_notification('error', '<strong>Fout:</strong> ' + error.error_details + '<br><br> Technische details: ' + error.error, $('form')[0]);
+    show_notification(error.error_details);
 }

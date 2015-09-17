@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <title>Bolknoms</title>
 
+    <script type="text/javascript" src="/javascripts/sweetalert.min.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx_methods.js"></script>
@@ -16,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=yes" />
 
     <link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/sweetalert.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
 
     <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png?v=wA2NloRwlG">
