@@ -37,6 +37,8 @@
     </tbody>
 </table>
 
+<?= view('meal/_unconfirmed_list', ['meal' => $meal]); ?>
+
 <h2>Nieuwe eter toevoegen</h2>
 <form action="#new_registration" id="new_registration" data-meal_id="<?= $meal->id; ?>">
     <p>
