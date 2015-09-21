@@ -1,7 +1,6 @@
 <h1>Aanmelden voor maaltijden</h1>
 
 <?= view('register/_user_details'); ?>
-<?= view('register/_registration_status_today'); ?>
 
 <form action="#" id="register_form">
     <?php if (count($meals) == 0): ?>

@@ -1,4 +1,4 @@
-<div class="meal">
+<div class="meal <?= $meal->open_for_registrations() ? '' : 'deadline_passed'; ?>">
     <?php if (isset($user) && $user->registeredFor($meal)): ?>
         <button class="registered" data-id="<?= $meal->id ;?>">&#10004;</button>
     <?php else: ?>

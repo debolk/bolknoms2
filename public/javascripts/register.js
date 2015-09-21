@@ -36,7 +36,15 @@ $(document).ready(function(){
                 registerNonUser(button);
             }
         }
+    });
 
+    // If a deadline has passed, remove the normal click handler
+    $('.meal.deadline_passed button').off('click');
+    $('.meal.deadline_passed button.unregistered').on('click', function(event){
+        show_notification('Je kunt je niet meer aanmelden voor deze maaltijd', 'Deadline verstreken', 'error');
+    });
+    $('.meal.deadline_passed button.registered').on('click', function(event){
+        show_notification('Je kunt je niet meer afmelden voor deze maaltijd', 'Deadline verstreken', 'error');
     });
 });
 
