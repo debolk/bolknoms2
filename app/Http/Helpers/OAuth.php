@@ -86,7 +86,6 @@ class OAuth
             $user->email = $user_data->email;
         }
         catch (\Exception $e) {
-
             // Ignore, we process missing information below
         }
 
@@ -153,8 +152,14 @@ class OAuth
                 'client_secret' => env('OAUTH_CLIENT_SECRET'),
             ]]);
         }
-        catch (\Exception $e) {
-            self::fatalError('Cannot refresh token', $e->getMessage());
+        catch (GuzzleHttp\Exception\ClientException $e) {
+            self::fatalError('Cannot refresh token: guzzle client exception ('.$e->getMessage().')', $e->getMessage());
+        }
+        catch (GuzzleHttp\Exception\ServerException $e) {
+            self::fatalError('Cannot refresh token: guzzle server exception ('.$e->getMessage().')', $e->getMessage());
+        }
+        catch (GuzzleHttp\Exception\TransferException $e) {
+            self::fatalError('Cannot refresh token: guzzle transfer exception ('.$e->getMessage().')', $e->getMessage());
         }
 
         $token = json_decode($response->getBody());
