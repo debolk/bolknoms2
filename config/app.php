@@ -2,23 +2,6 @@
 
 return array(
 
-    /*
-    |--------------------------------------------------------------------------
-    | E-mail address
-    |--------------------------------------------------------------------------
-    |
-    | These settings are used for all emails sent through Bolknoms.
-    |
-    */
-    'email' => [
-        'reply_to' => [
-            'name' => env('EMAIL_REPLYTO_NAME'),
-            'email' => env('EMAIL_REPLYTO_EMAIL'),
-        ],
-        'footer' => env('EMAIL_FOOTER'),
-        'admin' => env('EMAIL_ADMIN'),
-    ],
-
 	/*
 	|--------------------------------------------------------------------------
 	| Encryption Key

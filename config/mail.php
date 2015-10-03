@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'maaltijdcom@nieuwedelft.nl', 'name' => 'Commisaris Maaltijden De Bolk'],
+    'from' => ['address' => 'noreply@noms.debolk.nl', 'name' => 'Bolknoms'],
 
     /*
     |--------------------------------------------------------------------------

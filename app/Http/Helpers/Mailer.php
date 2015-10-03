@@ -20,6 +20,7 @@ class Mailer
             'registration' => $registration
         ], function($message) use ($registration) {
             $message->to($registration->email, $registration->name);
+            $message->replyTo(env('MAIL_REPLY_TO_MAIL'), env('MAIL_REPLY_TO_NAME'));
             $message->subject("Bevestigen aanmelding maaltijd ". $registration->longDate());
         });
     }
@@ -37,6 +38,7 @@ class Mailer
                 'registration' => $registration,
             ], function($message) use ($meal, $registration) {
                 $message->to($registration->email, $registration->name);
+                $message->replyTo(env('MAIL_REPLY_TO_MAIL'), env('MAIL_REPLY_TO_NAME'));
                 $message->subject("Maaltijd ". $meal->longDate() . ' gaat niet door');
             });
         }
