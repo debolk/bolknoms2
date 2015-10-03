@@ -30,7 +30,7 @@ return array(
 	|
 	*/
 
-	'key' => env('APP_KEY', 'jtgn234notio32bnto'),
+	'key' => env('APP_KEY'),
     'cipher' => 'AES-256-CBC',
 
     /*
