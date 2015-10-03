@@ -31,7 +31,7 @@ return array(
 	*/
 
 	'key' => env('APP_KEY', 'jtgn234notio32bnto'),
-    'cipher' => MCRYPT_RIJNDAEL_256,
+    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
