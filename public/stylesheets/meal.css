@@ -47,10 +47,6 @@
     /* orange colouring */
     background-color: #f9a41a;
     text-shadow: -1px 1px #ae7212;
-    /* not a useable button */
-    box-shadow: none;
-    position: relative;
-    top: 5px;
 }
 
 .meal button.registered {
@@ -60,16 +56,16 @@
     text-shadow: -1px 1px #127b3d;
 }
 
+/* slightly grayed out buttons */
 .meal.deadline_passed button {
-    /* not a useable button */
+    background-color: #912127;
+}
+.meal.deadline_passed button.registered {
+    background-color: #137c3f;
+}
+
+.meal button.unusable {
     box-shadow: none;
     position: relative;
     top: 5px;
-    /* slightly grayed out red buttons */
-    background-color: #912127;
-}
-
-.meal.deadline_passed button.registered {
-    /* slightly grayed out green buttons */
-    background-color: #137c3f;
 }
