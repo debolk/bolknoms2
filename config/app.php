@@ -134,6 +134,8 @@ return array(
         'App\Providers\RouteServiceProvider',
         // Form and HTML libraries
         'Illuminate\Html\HtmlServiceProvider',
+        // Laravel Debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -183,5 +185,7 @@ return array(
         // Form and HTML libraries
         'Form'      => 'Illuminate\Html\FormFacade',
         'Html'      => 'Illuminate\Html\HtmlFacade',
+        // Laravel Debugbar
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 );
