@@ -15,16 +15,12 @@
         "laravel/framework": "~5.1.0",
         "guzzlehttp/guzzle": "~6.0.0",
         "illuminate/html": "~5.0.0",
-        "doctrine/dbal": "~2.5.1",
-        "bugsnag/bugsnag-laravel": "~1.6.1"
+        "doctrine/dbal": "~2.5.1"
     },
     "require-dev": {
-        "heroku/heroku-buildpack-php": "dev-master",
         "phpunit/phpunit": "~4.0",
         "phpspec/phpspec": "~2.1",
         "laravel/homestead": "^2.1",
-        "behat/behat": "~3.0.0",
-        "behat/gherkin": "~4.3.0",
         "fzaninotto/faker": "~1.5.0"
     },
     "autoload": {
