@@ -13,7 +13,7 @@
 
 <h2>
     Bevestigde aanmeldingen
-    <img id="print" src="/images/printer.png" alt="Print eterslijst" title="Print eterslijst" width="32" height="32">
+    <i id="print" class="fa fa-fw fa-2x fa-print"></i>
 </h2>
 
 <p id="print_instructions">

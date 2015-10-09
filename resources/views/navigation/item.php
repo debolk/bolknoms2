@@ -1,4 +1,4 @@
 <a href="<?= $url; ?>" <?= $current ? 'class=current' : ''; ?>>
-    <?= file_get_contents(public_path() . "/images/$icon.svg"); ?>
+    <i class="fa fa-fw fa-<?= $icon;?>"></i>
     <?= $text; ?>
 </a>

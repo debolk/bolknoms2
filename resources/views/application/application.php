@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=yes" />
 
     <link href='//fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/sweetalert.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
 
@@ -47,7 +48,7 @@
     </header>
 
     <nav>
-        <img class="hamburger" src="/images/hamburger.svg" alt="">
+    <i class="fa fa-fw fa-2x fa-bars hamburger"></i>
 
         <?php if (isset($user)): ?>
             <?= view('user/_user', ['user' => $user]); ?>

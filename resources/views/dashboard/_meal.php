@@ -16,7 +16,7 @@
 	<td>
 		</a>
 		<a href="/administratie/verwijder/<?php echo $meal->id; ?>" class="destroy-meal" title="Verwijderen">
-			<img src="/images/cross.png" alt="Verwijderen"/>
+            <i class="fa fa-fw fa-times"></i>
 		</a>
 	</td>
 </tr>

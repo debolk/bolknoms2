@@ -4,7 +4,7 @@
 
 <p>
   <a href="<?= action('CreateMeal@index'); ?>">
-    <img src="/images/add.png" alt="" />
+  <i class="fa fa-fw fa-plus"></i>
     Nieuwe maaltijd toevoegen
   </a>
 </p>

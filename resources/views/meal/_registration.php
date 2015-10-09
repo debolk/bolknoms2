@@ -7,17 +7,13 @@
     </td>
     <td>
         <?php if ($registration->user_id): ?>
-            <img src="/images/tick.png" alt="Ja" title="Ja">
+            <i class="fa fa-fw fa-check"></i>
         <?php endif; ?>
     </td>
     <td class="handicap">
         <?= $registration->handicap; ?>
     </td>
     <td>
-        <img class="remove_registration"
-             data-name="<?= $registration->name; ?>"
-             data-id="<?=$registration->id;?>"
-             src="/images/cross.png"
-             alt="Eter uitschrijven" title="Eter uitschrijven">
+        <i class="fa fa-fw fa-times remove_registration" data-name="<?= $registration->name; ?>" data-id="<?=$registration->id;?>"></i>
     </td>
 </tr>

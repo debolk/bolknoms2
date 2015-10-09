@@ -14,11 +14,11 @@ class Navigation
      * @var array
      */
     private static $menu = [
-        ['text' => 'Aanmelden'    , 'url' => '/',              'icon' => 'aanmelden',     'level' => '0'],
-        ['text' => 'Spelregels'   , 'url' => '/spelregels',    'icon' => 'spelregels',    'level' => '0'],
-        ['text' => 'Top eters'    , 'url' => '/top-eters',     'icon' => 'topeters',      'level' => '1'],
-        ['text' => 'Mijn profiel' , 'url' => '/profiel',       'icon' => 'profile',       'level' => '1'],
-        ['text' => 'Administratie', 'url' => '/administratie', 'icon' => 'administratie', 'level' => '2'],
+        ['text' => 'Aanmelden'    , 'url' => '/',              'icon' => 'calendar',    'level' => '0'],
+        ['text' => 'Spelregels'   , 'url' => '/spelregels',    'icon' => 'file-text-o', 'level' => '0'],
+        ['text' => 'Top eters'    , 'url' => '/top-eters',     'icon' => 'trophy',      'level' => '1'],
+        ['text' => 'Mijn profiel' , 'url' => '/profiel',       'icon' => 'user',        'level' => '1'],
+        ['text' => 'Administratie', 'url' => '/administratie', 'icon' => 'wrench',      'level' => '2'],
     ];
 
     /**
