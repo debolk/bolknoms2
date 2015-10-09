@@ -42,7 +42,7 @@
         }
     ?>
     <div class="medal <?= $medal; ?>">
-        <?= file_get_contents(public_path() . "/images/topeters.svg"); ?>
+        <i class="fa fa-fw fa-5x fa-trophy"></i>
     </div>
 
     <?php if ($rank !== null): ?>
