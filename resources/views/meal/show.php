@@ -1,12 +1,10 @@
 <h1>Aftekenlijst <?= $meal ?></h1>
 <p class="subtitle">
-    <span id="count"><?= $meal->registrations()->confirmed()->count(); ?></span> eters
-    &mdash;
-    aanmelden tot <?= $meal->deadline(); ?>
-    &mdash;
-    etenstijd <?= date('H:i', strtotime($meal->meal_timestamp)); ?> uur
+    <i class="fa fa-fw fa-user"></i>
+    <span id="count"><?= $meal->registrations()->confirmed()->count(); ?></span>
+    <i class="fa fa-fw fa-clock-o"></i> <?= $meal->deadline(); ?>
+    <i class="fa fa-fw fa-cutlery"></i> <?= date('H:i', strtotime($meal->meal_timestamp)); ?> uur
     <span class="non_print">
-        &mdash;
         <a href="/administratie/<?=$meal->id;?>/edit">maaltijd bewerken</a>
     </span>
 </p>
