@@ -9,7 +9,7 @@ This project is locally installed using [vagrant](https://www.vagrantup.com/) an
 1. Install [vagrant](https://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/) if not installed already.
 1. Point http://bolknoms.app to your local machine. On Linux, you usually add this to the `/etc/hosts` file.
 1. Clone this repository `git clone git@github.com:debolk/bolknoms2.git`.
-1. Install the server-side dependencies using [Composer](https://getcomposer.org/): `composer install`.
+1. Install the server-side dependencies using [Composer](https://getcomposer.org/): `php composer.phar install`.
 1. Run `vagrant up` in the directory in which you've cloned bolknoms.
 1. In the project folder, copy `.env.example` to `.env` and fill in the details you require. Specifically, you must change APP_KEY, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET. The other values should be fine.
 1. Connect to the VM using `vagrant ssh`. Open the project folder (`cd /home/vagrant/bolknoms2`) and run all migrations `php artisan migrate`.
