@@ -52,7 +52,7 @@ class User extends ApplicationModel
         return DB::table('registrations')
                 ->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id')
                 ->where('user_id', '=', $this->id)
-                ->where('meals.date', '>=', date('Y-m-d', $timestamp))
+                ->where('meals.meal_timestamp', '>=', date('Y-m-d', $timestamp))
                 ->whereNull('registrations.deleted_at')
                 ->whereNull('meals.deleted_at')
                 ->count();
