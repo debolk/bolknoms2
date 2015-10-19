@@ -29,7 +29,9 @@ class OAuth
             self::refreshToken();
         }
 
-        return self::tokenIsValid();
+        // We assume a token is valid for its lifetime
+        // as checking it takes too long (800+ ms)
+        return true;
     }
 
     /**
@@ -198,25 +200,6 @@ class OAuth
             'state'=> $state,
         ]);
         return redirect(env('OAUTH_ENDPOINT').'authenticate/?'.$query_string);
-    }
-
-    /**
-     * Returns whether the token is valid
-     * @access private
-     * @static
-     * @return boolean
-     */
-    private static function tokenIsValid()
-    {
-        try {
-            $client = new Client();
-            $url = env('OAUTH_ENDPOINT').'resource/?access_token='.Session::get('oauth.token')->access_token;
-            $request = $client->get($url);
-            return ($request->getStatusCode() === 200);
-        }
-        catch(Exception $e) {
-            return false;
-        }
     }
 
     /**
