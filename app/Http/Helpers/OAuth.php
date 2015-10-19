@@ -4,8 +4,10 @@ namespace App\Http\Helpers;
 
 use Session;
 use App;
+use Exception;
 use GuzzleHttp\Client;
 use App\Models\User;
+use Log;
 
 class OAuth
 {
@@ -65,8 +67,8 @@ class OAuth
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
         }
-        catch (\Exception $e) {
-            self::fatalError($e->getMessage(), "OAuth authorisation server not okay", 502);
+        catch (Exception $e) {
+            self::fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
         }
 
         // We are upserting the current db entry
@@ -85,18 +87,18 @@ class OAuth
             $user->name = $user_data->name;
             $user->email = $user_data->email;
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             // Ignore, we process missing information below
         }
 
         // Validate the user object for necessary properties
         if ($user->email == null || $user->username == null || $user->name == null) {
-            self::fatalError('user object misses required values', 'Could not retrieve crucial details of your user account', 502);
+            self::fatalError('Could not retrieve crucial details of your user account', 'user object misses required values', 502);
         }
 
         // Save to database
         if (! $user->save()) {
-            self::fatalError('cannot persist user', 'Could not persist your account details', 500);
+            self::fatalError('Could not persist your account details', 'cannot persist user', 500);
         }
 
         // Store the user in session
@@ -152,21 +154,15 @@ class OAuth
                 'client_secret' => env('OAUTH_CLIENT_SECRET'),
             ]]);
         }
-        catch (GuzzleHttp\Exception\ClientException $e) {
-            self::fatalError('Cannot refresh token: guzzle client exception ('.$e->getMessage().')', $e->getMessage());
-        }
-        catch (GuzzleHttp\Exception\ServerException $e) {
-            self::fatalError('Cannot refresh token: guzzle server exception ('.$e->getMessage().')', $e->getMessage());
-        }
-        catch (GuzzleHttp\Exception\TransferException $e) {
-            self::fatalError('Cannot refresh token: guzzle transfer exception ('.$e->getMessage().')', $e->getMessage());
+        catch (Exception $e) {
+            self::fatalError('cannot refresh token', $e->getMessage(), 502);
         }
 
         $token = json_decode($response->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            self::fatalError('Refreshed token not valid', $token->error_description);
+            self::fatalError('refreshed token not valid', $token->error_description, 502);
         }
 
         // Calculate expiration date of token
@@ -218,7 +214,7 @@ class OAuth
             $request = $client->get($url);
             return ($request->getStatusCode() === 200);
         }
-        catch(\Exception $e) {
+        catch(Exception $e) {
             return false;
         }
     }
@@ -237,7 +233,7 @@ class OAuth
             $request = $client->get($url);
             return ($request->getStatusCode() === 200);
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             return false;
         }
     }
@@ -262,7 +258,7 @@ class OAuth
     {
         // Check state to prevent CSRF
         if ((string)$input['state'] !== (string)Session::get('oauth.state')) {
-            self::fatalError('State mismatch');
+            self::fatalError('state mismatch', 'state mismatch', 500);
         }
 
         // Check for errors
@@ -272,7 +268,7 @@ class OAuth
                 return '/';
             }
             else {
-                self::fatalError('fatal error while processing callback', $input['error_description']);
+                self::fatalError('fatal error while processing callback', $input['error_description'], 500);
             }
         }
 
@@ -289,15 +285,15 @@ class OAuth
                 ],
             ]);
         }
-        catch (\Exception $e) {
-            self::fatalError('Cannot trade authorisation token for access token', $e->getMessage());
+        catch (Exception $e) {
+            self::fatalError('Cannot trade authorisation token for access token', $e->getMessage(), 500);
         }
 
         $token = json_decode($result->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            self::fatalError('Access token invalid', $token->error_description);
+            self::fatalError('Access token invalid', $token->error_description, 502);
         }
 
         // Determine expiry time
@@ -323,7 +319,7 @@ class OAuth
     private static function fatalError($technical, $logged_error = null, $status_code = 500)
     {
         if ($logged_error !== null) {
-            \Log::error($logged_error);
+            Log::error($logged_error);
         }
         Session::remove('oauth');
         App::abort($status_code, 'Er ging iets fout met het ophalen van informatie van je gebruikersaccount. Om veiligheidsredenen ben je automatisch uitgelogd. Je kunt opnieuw inloggen en het nogmaals proberen. Technische details: ' . $technical);
