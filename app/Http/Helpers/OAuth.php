@@ -301,10 +301,15 @@ class OAuth
      */
     private static function fatalError($technical, $logged_error = null, $status_code = 500)
     {
+        // Log the appropriate error message
         if ($logged_error !== null) {
             Log::error($logged_error);
         }
+
+        // Log out the current user
         Session::remove('oauth');
-        App::abort($status_code, 'Er ging iets fout met het ophalen van informatie van je gebruikersaccount. Om veiligheidsredenen ben je automatisch uitgelogd. Je kunt opnieuw inloggen en het nogmaals proberen. Technische details: ' . $technical);
+
+        // Send a nice error page with explanation
+        abort($status_code, $technical);
     }
 }
