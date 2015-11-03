@@ -157,6 +157,12 @@ class OAuth
             ]]);
         }
         catch (Exception $e) {
+            // Log the request and response, if available
+            Log::error((string) $e->getRequest());
+            if ($e->hasResponse()) {
+                Log::error((string) $e->getResponse());
+            }
+
             self::fatalError('cannot refresh token', $e->getMessage(), 502);
         }
 
