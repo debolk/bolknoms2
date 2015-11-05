@@ -23,7 +23,7 @@
 
     section {
         margin-top: 0;
-        position: relative;
+        position: static;
         left: 0;
         top: 0;
     }
