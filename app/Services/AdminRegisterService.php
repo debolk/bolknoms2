@@ -22,14 +22,16 @@ use Exception;
 class AdminRegisterService extends Service
 {
     private $data;
+    private $current_user;
 
     /**
      * Set the Service
      * @param $data
      */
-    public function __construct($data)
+    public function __construct($data, $current_user)
     {
         $this->data = $data;
+        $this->current_user = $current_user;
     }
 
     /**
@@ -87,6 +89,12 @@ class AdminRegisterService extends Service
         if ($user) {
             $registration->user_id = $user->id;
             $registration->username = $user->username;
+            $registration->save();
+        }
+
+        // Add the creating user logging if known
+        if ($this->current_user) {
+            $registration->created_by = $this->current_user->id;
             $registration->save();
         }
 

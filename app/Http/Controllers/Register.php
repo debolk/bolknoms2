@@ -59,7 +59,7 @@ class Register extends Application
 
         // Create registration
         try {
-            $registration = with(new RegisterService($data))->execute();
+            $registration = with(new RegisterService($data, OAuth::user()))->execute();
         }
         catch (ModelNotFoundException $e) {
             return response()->json([

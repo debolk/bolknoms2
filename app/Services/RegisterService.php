@@ -19,14 +19,16 @@ use Exception;
 class RegisterService extends Service
 {
     private $data;
+    private $current_user;
 
     /**
      * Set the Service
      * @param $data
      */
-    public function __construct($data)
+    public function __construct($data, $current_user)
     {
         $this->data = $data;
+        $this->current_user = $current_user;
     }
 
     /**
@@ -86,6 +88,12 @@ class RegisterService extends Service
         $registration->meal_id = $this->data['meal_id'];
         $registration->confirmed = false;
         $registration->save();
+
+        // Add the creating user logging if known
+        if ($this->current_user) {
+            $registration->created_by = $this->current_user->id;
+            $registration->save();
+        }
 
         // Auto-confirm registration if appropriate
         if ($user) {
