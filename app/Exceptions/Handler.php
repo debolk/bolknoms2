@@ -2,6 +2,7 @@
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler {
 
@@ -36,6 +37,11 @@ class Handler extends ExceptionHandler {
      */
     public function render($request, Exception $e)
     {
+        // Handle application down status differently
+        if ($e instanceof HttpException && $e->getStatusCode() === 503) {
+            return response()->view('errors/503');
+        }
+
         if (env('APP_DEBUG')) {
             return parent::render($request, $e);
         }
