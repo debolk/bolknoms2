@@ -10,7 +10,7 @@
 
     <link href='//fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
 
     <link rel=icon href="/images/favicon.png" sizes="196x196" type="image/png">
 </head>
