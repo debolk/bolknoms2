@@ -4,7 +4,10 @@
     <meta charset="utf-8"/>
     <title>Bolknoms</title>
 
-    <script type="text/javascript" src="/js/all.js"></script>
+    <script type="text/javascript" src="/js/libs.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/frontend.js"></script>
+    <script type="text/javascript" src="/js/administration.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=yes" />
 
