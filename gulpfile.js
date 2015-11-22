@@ -12,5 +12,34 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+    mix.sass([
+        'libs/sweetalert.css',
+
+        'administration.scss',
+        'anonymous.scss',
+        'form.scss',
+        'meal.scss',
+        'mobile.scss',
+        'navigation.scss',
+        'notifications.scss',
+        'print.scss',
+        'profile.scss',
+        'structure.scss',
+        'table.scss',
+        'typography.scss',
+        'user.scss',
+    ]);
+
+    mix.scripts([
+        'libs/zepto.js',
+        'libs/zepto.fx.js',
+        'libs/zepto.fx_methods.js',
+        'libs/sweetalert.min.js',
+
+        'bolknoms.js',
+        'menu.js',
+        'profile.js',
+        'register.js',
+        'showmeal.js',
+    ]);
 });
