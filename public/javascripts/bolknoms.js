@@ -29,6 +29,39 @@ App = {
             event.preventDefault();
         }
     },
+
+    /**
+     * Show a notification
+     * @param  {String} message the body of the message to show
+     * @param  {String} title   title of the popup, default "Foutmelding"
+     * @param  {String} type    type of message to show
+     * @return {[type]}         [description]
+     */
+    showNotification: function(message, title, type) {
+        if (type === undefined) {
+            type = 'error';
+        }
+
+        if (title === undefined) {
+            title = 'Foutmelding';
+        }
+
+        swal({
+            title: title,
+            text: message,
+            type: type
+        });
+    },
+
+    /**
+     * Show a fatal error upon AJAX-errors
+     * @param  {Event} error
+     * @return {undefined}
+     */
+    fatalError: function (error) {
+        error = JSON.parse(error.response);
+        showNotification(error.error_details);
+    }
 };
 
 // Start the application

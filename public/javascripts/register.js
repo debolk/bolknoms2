@@ -42,11 +42,11 @@ $(document).ready(function(){
     $('.meal.deadline_passed button').off('click');
     $('.meal.deadline_passed button.unregistered').on('click', function(event){
         event.preventDefault();
-        show_notification('Je kunt je niet meer aanmelden voor deze maaltijd', 'Deadline verstreken', 'error');
+        App.showNotification('Je kunt je niet meer aanmelden voor deze maaltijd', 'Deadline verstreken', 'error');
     });
     $('.meal.deadline_passed button.registered').on('click', function(event){
         event.preventDefault();
-        show_notification('Je kunt je niet meer afmelden voor deze maaltijd', 'Deadline verstreken', 'error');
+        App.showNotification('Je kunt je niet meer afmelden voor deze maaltijd', 'Deadline verstreken', 'error');
     });
 });
 
@@ -68,7 +68,7 @@ function register(button)
         },
         error: function(error) {
             set_button_state(button, 'unregistered', true);
-            fatal_error(error);
+            App.fatalError(error);
         },
     });
 }
@@ -91,7 +91,7 @@ function deregister(button)
         },
         error: function(error) {
             set_button_state(button, 'registered', true);
-            fatal_error(error);
+            App.fatalError(error);
         },
     });
 }
@@ -102,7 +102,7 @@ function registerNonUser(button)
 
     // Check form fields
     if ($('#name').val() == '' || $('#email').val() == '') {
-        show_notification('Je moet je naam en e-mailadres invullen');
+        App.showNotification('Je moet je naam en e-mailadres invullen');
         set_button_state(button, 'unregistered', true);
         return;
     }
@@ -123,10 +123,10 @@ function registerNonUser(button)
             set_button_state(button, 'registered', false);
 
             // Show warning that email confirmation is needed
-            show_notification('Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd. Volg de link in de e-mail om je aanmelding definitief te maken.', 'Bevestiging nodig', 'warning');
+            App.showNotification('Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd. Volg de link in de e-mail om je aanmelding definitief te maken.', 'Bevestiging nodig', 'warning');
         },
         error: function(error){
-            fatal_error(error);
+            App.fatalError(error);
             set_button_state(button, 'unregistered', true);
         },
     });

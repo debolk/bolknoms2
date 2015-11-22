@@ -35,6 +35,6 @@ function update_handicap(event)
                 $('#handicap').html('&ldquo;' + handicap + '&rdquo;').removeClass('no_diet');
             }
         },
-        error: fatal_error,
+        error: App.fatalError,
     });
 }

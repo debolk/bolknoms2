@@ -47,7 +47,7 @@ function add_registration(event)
             update_counter(+1);
             form.reset();
         },
-        error: fatal_error
+        error: App.fatalError
     });
 }
 
@@ -77,7 +77,7 @@ function subscribe_anonymous(event)
             $('#registrations tbody').append(response);
             update_counter(+1);
         },
-        error: fatal_error
+        error: App.fatalError
     });
 }
 
@@ -102,7 +102,7 @@ function remove_registration(event)
                 registration.remove();
                 update_counter(-1);
             },
-            error: fatal_error
+            error: App.fatalError
         });
     }
 }
