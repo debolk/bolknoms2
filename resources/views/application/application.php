@@ -8,11 +8,14 @@
     <script type="text/javascript" src="/javascripts/zepto.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx.js"></script>
     <script type="text/javascript" src="/javascripts/zepto.fx_methods.js"></script>
+
+    <script type="text/javascript" src="/javascripts/bolknoms.js"></script>
+
     <script type="text/javascript" src="/javascripts/app.js"></script>
     <script type="text/javascript" src="/javascripts/menu.js"></script>
     <?php if (isset($javascript)): ?>
-        <script type="text/javascript" src="/javascripts/<?=$javascript?>.js"></script>
-    <?php endif; ?>
+        <script type="text/javascript" src="/javascripts/<?=$javascript;?>.js"></script>
+    <?php endif;?>
 
     <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=yes" />
 
@@ -32,12 +35,12 @@
     <i class="fa fa-fw fa-2x fa-bars hamburger"></i>
 
         <?php if (isset($user)): ?>
-            <?= view('user/_user', ['user' => $user]); ?>
+            <?=view('user/_user', ['user' => $user]);?>
         <?php else: ?>
-            <?= view('user/_no_user'); ?>
-        <?php endif; ?>
+            <?=view('user/_no_user');?>
+        <?php endif;?>
 
-        <?= \App\Http\Helpers\Navigation::show(); ?>
+        <?=\App\Http\Helpers\Navigation::show();?>
     </nav>
 
     <section>
