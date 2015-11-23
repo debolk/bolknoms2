@@ -10,7 +10,7 @@ class Page extends Application
      */
     public function disclaimer()
     {
-        return $this->setPageContent(view('page/disclaimer'));
+        return view('page/disclaimer');
     }
 
     /**
@@ -19,7 +19,7 @@ class Page extends Application
      */
     public function privacy()
     {
-        return $this->setPageContent(view('page/privacy'));
+        return view('page/privacy');
     }
 
     /**
@@ -28,6 +28,6 @@ class Page extends Application
      */
     public function spelregels()
     {
-        return $this->setPageContent(view('page/spelregels'));
+        return view('page/spelregels');
     }
 }

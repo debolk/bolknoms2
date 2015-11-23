@@ -11,9 +11,9 @@ class Top extends Application
      */
     public function index()
     {
-        return $this->setPageContent(view('top/index', [
+        return view('top/index', [
             'statistics_ytd' => Registration::top_ytd(),
             'statistics_alltime' => Registration::top_alltime(),
-        ]));
+        ]);
     }
 }

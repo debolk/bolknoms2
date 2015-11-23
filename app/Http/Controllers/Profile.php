@@ -12,7 +12,7 @@ class Profile extends Application
      */
     public function index()
     {
-        return $this->setPageContent(view('profile/index', ['user' => OAuth::user()]));
+        return view('profile/index', ['user' => OAuth::user()]);
     }
 
     /**

@@ -21,7 +21,7 @@ class UpdateMeal extends Application
             \App::abort(404, "Maaltijd niet gevonden");
         }
 
-        return $this->setPageContent(view('meal/edit', ['meal' => $meal]));
+        return view('meal/edit', ['meal' => $meal]);
     }
 
     /**
