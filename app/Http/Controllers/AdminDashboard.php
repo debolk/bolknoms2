@@ -25,10 +25,10 @@ class AdminDashboard extends Application
           $previous_meals->take($count);
         }
 
-        return $this->setPageContent(view('dashboard/index', [
+        return view('dashboard/index', [
             'upcoming_meals' => $upcoming_meals->get(),
             'previous_meals' => $previous_meals->get(),
-        ]));
+        ]);
     }
 
     /**

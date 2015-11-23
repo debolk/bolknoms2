@@ -1,5 +1,5 @@
 <?php $user = App\Http\Helpers\OAuth::user(); ?>
-<?php if ($user): ?>
+@if ($user)
     <p>
         <?php if ($user->handicap): ?>
             Jouw dieetwensen: <?= $user->handicap; ?>.
@@ -8,7 +8,7 @@
         <?php endif; ?>
         <a href="/profiel" title="Wijzigen">Wijzigen</a>
     </p>
-<?php else: ?>
+@else
     <div class="anonymous">
         <p>
             <strong>Hallo! Welkom bij bolknoms.</strong>
@@ -35,4 +35,4 @@
             </p>
         </form>
     </div>
-<?php endif; ?>
+@endif

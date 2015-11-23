@@ -1,10 +1,10 @@
-Beste <?= $registration->name; ?>,
+Beste {{ $registration->name }},
 
-Je hebt je aangemeld op Bolknoms (<?= url('/'); ?>) voor de maaltijd van <?= $registration->longDate(); ?>.
+Je hebt je aangemeld op Bolknoms ({{ url('/') }}) voor de maaltijd van {{ $registration->longDate() }}.
 Omdat je geen lid bent (of niet was ingelogd) moet je deze aanmelding bevestigen per e-mail.
 Bezoek hiervoor onderstaand adres in je browser:
 
-<?= url('bevestigen', [$registration->id, $registration->salt]); ?>
+{{ url('bevestigen', [$registration->id, $registration->salt]) }}
 
 Met vriendelijke groet,
 Commissaris Maaltijden
