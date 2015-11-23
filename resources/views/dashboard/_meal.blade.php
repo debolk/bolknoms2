@@ -15,7 +15,7 @@
     </td>
 	<td>
 		</a>
-		<a href="/administratie/verwijder/{{ $meal->id; }}" class="confirm-intent" title="Verwijderen">
+		<a href="/administratie/verwijder/{{ $meal->id }}" class="confirm-intent" title="Verwijderen">
             <i class="fa fa-fw fa-times"></i>
 		</a>
 	</td>
