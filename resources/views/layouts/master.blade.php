@@ -19,11 +19,11 @@
 
     <nav>
         <i class="fa fa-fw fa-2x fa-bars hamburger"></i>
-        <?php if (isset($user)): ?>
-            <?=view('user/_user', ['user' => $user]);?>
-        <?php else: ?>
-            <?=view('user/_no_user');?>
-        <?php endif;?>
+        @if (isset($user))
+            @include('user/_user', ['user' => $user])
+        @else
+            @include('user/_no_user')
+        @endif
 
         <?=\App\Http\Helpers\Navigation::show();?>
     </nav>

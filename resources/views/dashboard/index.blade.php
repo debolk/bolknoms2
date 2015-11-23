@@ -23,8 +23,8 @@
     </form>
 
     <h2>Komende maaltijden</h2>
-    <?php echo View::make('dashboard/_meals', array('meals' => $upcoming_meals)); ?>
+    @include('dashboard/_meals', ['meals' => $upcoming_meals])
 
     <h2>Afgelopen maaltijden</h2>
-    <?php echo View::make('dashboard/_meals', array('meals' => $previous_meals)); ?>
+    @include('dashboard/_meals', ['meals' => $previous_meals])
 @endsection

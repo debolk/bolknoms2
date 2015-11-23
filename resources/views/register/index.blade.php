@@ -15,9 +15,9 @@
             <div class="meals">
                 @foreach ($meals as $meal)
                     @if (isset($user))
-                        {{ view('register/_meal', ['meal' => $meal, 'user' => $user]) }}
+                        @include('register/_meal', ['meal' => $meal, 'user' => $user])
                     @else
-                        {{ view('register/_meal', ['meal' => $meal]) }}
+                        @include('register/_meal', ['meal' => $meal])
                     @endif
                 @endforeach
             </div>

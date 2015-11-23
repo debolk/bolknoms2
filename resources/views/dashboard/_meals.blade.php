@@ -1,4 +1,4 @@
-<?php if (count($meals) > 0): ?>
+@if (count($meals) > 0)
     <table border-spacing=0>
         <thead><tr>
             <th>Datum</th>
@@ -10,11 +10,9 @@
             <th>&nbsp;</th>
         </tr></thead>
         <tbody>
-            <?php foreach ($meals as $meal): ?>
-                <?php echo View::make('dashboard/_meal',array('meal' => $meal)); ?>
-            <?php endforeach; ?>
+            @each('dashboard/_meal', $meals, 'meal')
         </tbody>
     </table>
-<?php else: ?>
+@else
     <p class="zero_case">Geen maaltijden gevonden</p>
-<?php endif; ?>
+@endif
