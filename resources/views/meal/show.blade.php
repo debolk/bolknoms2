@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            @each ('meal/_registration', $meals->registrations()->confirmed()->get(), 'registration')
+            @each ('meal/_registration', $meal->registrations()->confirmed()->get(), 'registration')
         </tbody>
     </table>
 
