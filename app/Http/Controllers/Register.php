@@ -35,7 +35,7 @@ class Register extends Application
             $data['meals'] = Meal::available()->take(1)->get();
         }
 
-        return $this->setPageContent(view('register/index', $data));
+        return view('register/index', $data);
     }
 
     public function aanmelden(Request $request)

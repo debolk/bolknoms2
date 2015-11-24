@@ -35,11 +35,9 @@ elixir(function(mix) {
         'libs/zepto.fx.js',
         'libs/zepto.fx_methods.js',
         'libs/sweetalert.min.js',
+    ], 'public/js/libs.js');
 
-        'bolknoms.js',
-        'menu.js',
-        'profile.js',
-        'register.js',
-        'showmeal.js',
-    ]);
+    mix.scripts(['app.js', 'menu.js'], 'public/js/common.js');
+    mix.scripts(['administration.js'], 'public/js/administration.js');
+    mix.scripts(['frontend.js'], 'public/js/frontend.js');
 });

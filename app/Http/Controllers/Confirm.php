@@ -32,6 +32,6 @@ class Confirm extends Application
             return $this->userFriendlyError(410, 'De deadline voor aanmelding voor deze maaltijd is al verstreken');
         }
 
-        return $this->setPageContent(view('confirm/confirm', ['registration' => $registration]));
+        return view('confirm/confirm', ['registration' => $registration]);
     }
 }

@@ -47,7 +47,7 @@ class Flash
     {
         $messages = \Session::get(self::$index);
         if (sizeof($messages) > 0) {
-            return \View::make('flash/messages', ['messages' => $messages]);
+            return \View::make('layouts/_messages', ['messages' => $messages]);
         }
         else {
             return '';

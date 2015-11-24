@@ -28,7 +28,7 @@ class ShowMeal extends Application
             App::abort(404, "Maaltijd niet gevonden");
         }
 
-        return $this->setPageContent(view('meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]));
+        return view('meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]);
     }
 
     /**

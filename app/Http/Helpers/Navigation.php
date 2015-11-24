@@ -41,7 +41,7 @@ class Navigation
         foreach (self::$menu as $entry) {
             if ($level >= $entry['level']) {
                 $entry['current'] = self::isCurrent($entry['url']);
-                $output .= view('navigation/item')->with($entry);
+                $output .= view('layouts/_nav_item')->with($entry);
             }
         }
 
