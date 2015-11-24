@@ -31,4 +31,30 @@ class Users extends Application
         $user->save();
         return response(null, 204);
     }
+
+    /**
+     * Block a user from the system
+     * @param  integer $id
+     * @return Illuminate\Http\Response
+     */
+    public function block($id)
+    {
+        $user = User::findOrFail($id);
+        $user->blocked = true;
+        $user->save();
+        return response(null, 204);
+    }
+
+    /**
+     * Unblock a user from the system
+     * @param  integer $id
+     * @return Illuminate\Http\Response
+     */
+    public function release($id)
+    {
+        $user = User::findOrFail($id);
+        $user->blocked = false;
+        $user->save();
+        return response(null, 204);
+    }
 }

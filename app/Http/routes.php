@@ -63,5 +63,7 @@ Route::group(['prefix' => '/administratie/', 'middleware' => ['oauth', 'board'],
     Route::group(['prefix' => '/gebruikers/'], function(){
         Route::get('', 'Users@index');
         Route::post('{id}/handicap', 'Users@setHandicap');
+        Route::post('{id}/blokkeren', 'Users@block');
+        Route::post('{id}/vrijgeven', 'Users@release');
     });
 });

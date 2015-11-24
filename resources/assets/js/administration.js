@@ -11,6 +11,8 @@ Administration = {
         $('#registrations').on('click', '.remove_registration', Administration.removeRegistration);
         $('#subscribe_anonymous').on('click', Administration.addAnonymousRegistration);
         $('.edit-handicap').on('click', Administration.editHandicap);
+        $(document).on('click', '.block-user', Administration.blockUser);
+        $(document).on('click', '.release-user', Administration.releaseUser);
     },
 
     /**
@@ -176,6 +178,52 @@ Administration = {
                 else {
                     cell.html('Geen dieet ingesteld');
                 }
+            },
+            error: App.fatalError,
+        });
+    },
+
+    /**
+     * Block a user from the system
+     * @param  {Event} event
+     * @return {undefined}
+     */
+    blockUser: function(event) {
+        event.preventDefault();
+
+        var button = $(this);
+        $.ajax({
+            type: 'POST',
+            url: '/administratie/gebruikers/'+button.attr('data-id')+'/blokkeren',
+            contentType: 'application/json',
+            success: function(){
+                // Change UI to releasing
+                var cell = button.parents('td');
+                $('i', cell).removeClass('fa-times').addClass('fa-check');
+                button.removeClass('block-user').addClass('release-user').html('Vrijgeven');
+            },
+            error: App.fatalError,
+        });
+    },
+
+    /**
+     * Unblock a user from the system
+     * @param  {Event} event
+     * @return {undefined}
+     */
+    releaseUser: function(event) {
+        event.preventDefault();
+
+        var button = $(this);
+        $.ajax({
+            type: 'POST',
+            url: '/administratie/gebruikers/'+button.attr('data-id')+'/vrijgeven',
+            contentType: 'application/json',
+            success: function(){
+                // Change UI to blocking
+                var cell = button.parents('td');
+                $('i', cell).removeClass('fa-check').addClass('fa-times');
+                button.removeClass('release-user').addClass('block-user').html('Blokkeren');
             },
             error: App.fatalError,
         });
