@@ -2,12 +2,13 @@
  * Front-end UI for registering for meals
  */
 .meal {
-    display: inline-block;
+    display: block;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
     padding: 1em;
     margin-bottom: 1em;
     border-color: #9E9;
     width: 35em;
+    height: 5em;
 }
 
 .meal .details {
