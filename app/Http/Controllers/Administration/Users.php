@@ -13,7 +13,7 @@ class Users extends Application
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('name')->get();
         return view('administration/users/index', compact('users'));
     }
 }

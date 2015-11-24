@@ -9,8 +9,7 @@
         <table border-spacing=0>
             <thead><tr>
                 <th>Naam</th>
-                <th>Dieet</th>
-                <th>Dieet aanpassen</th>
+                <th colspan=2>Dieet</th>
                 <th>Geblokkeerd</th>
             </tr></thead>
             <tbody>

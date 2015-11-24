@@ -6,10 +6,10 @@
     </td>
     <td>
         @if ($user->blocked)
-            Ja
+            <i class="fa fa-fw fa-check"></i>
             <button>Vrijgeven</button>
         @else
-            Nee
+            <i class="fa fa-fw fa-times"></i>
             <button>Blokkeren</button>
         @endif
     </td>
