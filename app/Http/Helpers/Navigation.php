@@ -20,6 +20,7 @@ class Navigation
         ['text' => 'Mijn profiel', 'url' => '/profiel', 'icon' => 'user', 'level' => '1'],
         ['text' => 'Administratie', 'url' => '/administratie', 'icon' => 'wrench', 'level' => '2', 'submenu' => [
             ['text' => 'Maaltijden', 'url' => '/maaltijden', 'icon' => 'cutlery'],
+            ['text' => 'Gebruikers', 'url' => '/gebruikers', 'icon' => 'users'],
         ]],
     ];
 

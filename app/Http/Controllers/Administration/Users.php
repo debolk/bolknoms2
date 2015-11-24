@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Http\Controllers\Application;
+use App\Models\User;
 
-class Dashboard extends Application
+class Users extends Application
 {
     /**
      * List all past and current meals
@@ -12,6 +13,7 @@ class Dashboard extends Application
      */
     public function index()
     {
-        return view('administration/dashboard/index');
+        $users = User::all();
+        return view('administration/users/index', compact('users'));
     }
 }

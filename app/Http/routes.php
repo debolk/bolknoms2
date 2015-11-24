@@ -59,4 +59,8 @@ Route::group(['prefix' => '/administratie/', 'middleware' => ['oauth', 'board'],
         Route::post('{id}', 'UpdateMeal@update');
     });
 
+    // Managing users
+    Route::group(['prefix' => '/gebruikers/'], function(){
+        Route::get('', 'Users@index');
+    });
 });
