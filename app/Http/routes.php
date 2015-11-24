@@ -53,37 +53,3 @@ Route::group(['prefix' => '/administratie/', 'middleware' => ['oauth','board']],
     Route::get('{id}/edit', 'UpdateMeal@edit');
     Route::post('{id}', 'UpdateMeal@update');
 });
-
-// API routing
-Route::group(['prefix' => '/api/', 'namespace' => 'API'], function(){
-
-    // API documentation
-    Route::get('/', 'DocsController@index');
-
-    // Member-protected API
-    Route::group(['middleware' => 'api_member'], function(){
-        // Meals API
-        Route::get('/meals', 'MealsController@index');
-        Route::get('/meals/{id}', 'MealsController@show');
-
-        // Registrations API
-        Route::get('/registrations', 'RegistrationsController@index');
-        Route::get('/registrations/{id}', 'RegistrationsController@show');
-        Route::put('/registrations/{id}', 'RegistrationsController@update');
-        Route::delete('/registrations/{id}', 'RegistrationsController@delete');
-
-        // Registrations nested api
-        Route::post('/meals/{meal_id}/registrations', 'MealRegistrationsController@create');
-    });
-
-    // Board-only API
-    Route::group(['middleware' => 'api_board'], function(){
-        // Meals API
-        Route::post('/meals', 'MealsController@create');
-        Route::put('/meals/{id}', 'MealsController@update');
-        Route::delete('/meals/{id}', 'MealsController@delete');
-
-        // Registrations nested api
-        Route::get('/meals/{meal_id}/registrations', 'MealRegistrationsController@index');
-    });
-});
