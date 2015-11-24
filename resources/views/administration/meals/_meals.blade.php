@@ -10,7 +10,7 @@
             <th>&nbsp;</th>
         </tr></thead>
         <tbody>
-            @each('dashboard/_meal', $meals, 'meal')
+            @each('administration/meals/_meal', $meals, 'meal')
         </tbody>
     </table>
 @else

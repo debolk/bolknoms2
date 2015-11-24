@@ -7,7 +7,7 @@
 
     @include('form/_error')
 
-    <form action="{{ action('CreateMeal@create') }}" method="post" accept-charset="utf-8">
+    <form action="{{ action('Administration\CreateMeal@create') }}" method="post" accept-charset="utf-8">
         <p>
             <label class="label" for="meal_timestamp">Datum en tijd</label><br>
             <input type="text" placeholder="{{ date('d-m-Y 18:30') }}" autofocus name="meal_timestamp" value="{{ old('meal_timestamp', null) }}">

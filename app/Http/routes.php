@@ -20,7 +20,7 @@ Route::get('/login', 'OAuth@login');
 Route::get('/logout', 'OAuth@logout');
 
 // Pages which require member-level authorisation
-Route::group(['middleware' => ['oauth']], function(){
+Route::group(['middleware' => ['oauth']], function () {
 
     // Personal details of the user
     Route::get('/photo', 'OAuth@photo');
@@ -33,23 +33,30 @@ Route::group(['middleware' => ['oauth']], function(){
     Route::post('/handicap', 'Profile@setHandicap');
 });
 
-// Pages which require board-level authorization
-Route::group(['prefix' => '/administratie/', 'middleware' => ['oauth','board']], function(){
+// Administration pages
+Route::group(['prefix' => '/administratie/', 'middleware' => ['oauth', 'board'], 'namespace' => 'Administration'], function () {
 
     // Administration dashboard
-    Route::get('', 'AdminDashboard@index');
-    Route::get('verwijder/{id}', 'AdminDashboard@verwijder');
+    Route::get('', 'Dashboard@index');
 
-    // Show meals in the backend
-    Route::get('{id}', 'ShowMeal@show');
-    Route::post('afmelden/{id}', 'ShowMeal@afmelden');
-    Route::post('aanmelden', 'ShowMeal@aanmelden');
+    // Managing meals
+    Route::group(['prefix' => '/maaltijden/'], function () {
+        // List of meals
+        Route::get('', 'Meals@index');
+        Route::get('/verwijder/{id}', 'Meals@verwijder');
 
-    // Create new meals
-    Route::get('nieuwe_maaltijd', 'CreateMeal@index');
-    Route::post('nieuwe_maaltijd', 'CreateMeal@create');
+        // Show meals in the backend
+        Route::get('{id}', 'ShowMeal@show');
+        Route::post('afmelden/{id}', 'ShowMeal@afmelden');
+        Route::post('aanmelden', 'ShowMeal@aanmelden');
 
-    // Update existing meals
-    Route::get('{id}/edit', 'UpdateMeal@edit');
-    Route::post('{id}', 'UpdateMeal@update');
+        // Create new meals
+        Route::get('nieuwe_maaltijd', 'CreateMeal@index');
+        Route::post('nieuwe_maaltijd', 'CreateMeal@create');
+
+        // Update existing meals
+        Route::get('{id}/edit', 'UpdateMeal@edit');
+        Route::post('{id}', 'UpdateMeal@update');
+    });
+
 });

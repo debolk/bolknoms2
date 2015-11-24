@@ -1097,6 +1097,9 @@ nav a {
   text-decoration: none;
   padding: 0.5em 1em; }
 
+nav a.sub {
+  padding-left: 2em; }
+
 nav a:hover, nav a.current:hover {
   background-color: #666;
   color: white; }

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administration;
 
+use App;
+use App\Http\Controllers\Application;
 use App\Http\Helpers\Flash;
 use App\Models\Meal;
-use App;
-use Illuminate\Http\Request;
 use App\Services\UpdateMealService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class UpdateMeal extends Application
 {
@@ -21,7 +22,7 @@ class UpdateMeal extends Application
             \App::abort(404, "Maaltijd niet gevonden");
         }
 
-        return view('meal/edit', ['meal' => $meal]);
+        return view('administration/meal/edit', ['meal' => $meal]);
     }
 
     /**
@@ -33,7 +34,7 @@ class UpdateMeal extends Application
         try {
             $meal = Meal::findOrFail($id);
         }
-        catch(ModelNotFoundException $e) {
+        catch (ModelNotFoundException $e) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
@@ -41,15 +42,15 @@ class UpdateMeal extends Application
             $meal = with(new UpdateMealService($meal, $request->all()))->execute();
         }
         catch (ValidationException $e) {
-            return redirect(action('UpdateMeal@edit', $meal->id))->withErrors($e->messages())->withInput();
+            return redirect(action('Administration\UpdateMeal@edit', $meal->id))->withErrors($e->messages())->withInput();
         }
 
-        if (! $meal) {
+        if (!$meal) {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden geupdate; onbekende fout.');
         }
 
         // Update user
         Flash::set(Flash::SUCCESS, 'Maaltijd geupdate');
-        return redirect(action('ShowMeal@show', $meal->id));
+        return redirect(action('Administration\ShowMeal@show', $meal->id));
     }
 }

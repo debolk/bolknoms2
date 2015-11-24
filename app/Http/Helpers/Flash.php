@@ -46,6 +46,7 @@ class Flash
     public static function display_messages()
     {
         $messages = \Session::get(self::$index);
+
         if (sizeof($messages) > 0) {
             return \View::make('layouts/_messages', ['messages' => $messages]);
         }

@@ -38,7 +38,7 @@ Administration = {
         // Send AJAX-call to register for meal
         $.ajax({
             type: 'POST',
-            url: '/administratie/aanmelden',
+            url: '/administratie/maaltijden/aanmelden',
             contentType: 'application/json',
             dataType: 'html',
             data: JSON.stringify({
@@ -73,7 +73,7 @@ Administration = {
         // Send AJAX-call to register for meal
         $.ajax({
             type: 'POST',
-            url: '/administratie/aanmelden',
+            url: '/administratie/maaltijden/aanmelden',
             contentType: 'application/json',
             dataType: 'html',
             data: JSON.stringify({
@@ -106,7 +106,7 @@ Administration = {
         // Remove registration
         $.ajax({
             type: 'POST',
-            url: '/administratie/afmelden/'+$(this).attr('data-id'),
+            url: '/administratie/maaltijden/afmelden/'+$(this).attr('data-id'),
             contentType: 'application/json',
             dataType: 'html',
             success: function(response) {

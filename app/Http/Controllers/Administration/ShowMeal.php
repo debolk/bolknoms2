@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administration;
 
 use App;
+use App\Http\Controllers\Application;
 use App\Http\Helpers\OAuth;
 use App\Models\Meal;
 use App\Models\Registration;
@@ -14,7 +15,6 @@ use App\Services\UserBlockedException;
 use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Log;
 
 class ShowMeal extends Application
 {
@@ -28,7 +28,7 @@ class ShowMeal extends Application
             App::abort(404, "Maaltijd niet gevonden");
         }
 
-        return view('meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]);
+        return view('administration/meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]);
     }
 
     /**
@@ -43,8 +43,7 @@ class ShowMeal extends Application
         if ($request->has('user_id')) {
             try {
                 $user = User::findOrFail($request->get('user_id'));
-            }
-            catch(ModelNotFoundException $e) {
+            } catch (ModelNotFoundException $e) {
                 return response()->json(['error' => 'user_not_found', 'error_details' => 'Gebruiker bestaat niet'], 400);
             }
             $data['user_id'] = $user->id;
@@ -58,12 +57,12 @@ class ShowMeal extends Application
             $registration = with(new AdminRegisterService($data, OAuth::user()))->execute();
 
             // Return view of the new registration
-            return view('meal/_registration', ['registration' => $registration]);
+            return view('administration/meal/_registration', ['registration' => $registration]);
         }
         catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'meal_not_found',
-                'error_details' => 'Maaltijd bestaat niet'
+                'error_details' => 'Maaltijd bestaat niet',
             ], 404);
         }
         catch (ValidationException $e) {
@@ -74,13 +73,13 @@ class ShowMeal extends Application
         }
         catch (UserBlockedException $e) {
             return response()->json([
-                'error'         => 'user_blocked',
+                'error' => 'user_blocked',
                 'error_details' => 'Deze gebruiker is geblokkeerd. Je kunt hem of haar niet aanmelden voor maaltijden.',
             ], 403);
         }
         catch (DoubleRegistrationException $e) {
             return response()->json([
-                'error'         => 'double_registration',
+                'error' => 'double_registration',
                 'error_details' => 'Deze gebruiker is al aangemeld voor deze maaltijd',
             ], 400);
         }
@@ -94,11 +93,11 @@ class ShowMeal extends Application
     public function afmelden($id)
     {
         // Find registration
-        $registration = Registration::find((int)$id);
+        $registration = Registration::find((int) $id);
         if (!$registration) {
             return response()->json([
                 'error' => 'registration_not_existent',
-                'error_details' => 'Deze registratie bestaat niet'
+                'error_details' => 'Deze registratie bestaat niet',
             ], 500);
         }
 

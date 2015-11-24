@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administration;
 
+use App\Http\Controllers\Application;
 use App\Http\Helpers\Flash;
 use App\Models\Meal;
-use Illuminate\Http\Request;
 use App\Services\CreateMealService;
 use App\Services\ValidationException;
+use Illuminate\Http\Request;
 
 class CreateMeal extends Application
 {
@@ -15,7 +16,7 @@ class CreateMeal extends Application
      */
     public function index()
     {
-        return view('meal/nieuwe_maaltijd', ['meal' => new Meal]);
+        return view('administration/meal/nieuwe_maaltijd', ['meal' => new Meal]);
     }
 
     /**
@@ -29,10 +30,10 @@ class CreateMeal extends Application
 
         // Use todays date as defaults if none are given
         if (empty($data['meal_timestamp'])) {
-            $data['meal_timestamp'] = date('d-m-Y').' 18:30';
+            $data['meal_timestamp'] = date('d-m-Y') . ' 18:30';
         }
         if (empty($data['locked_timestamp'])) {
-            $data['locked_timestamp'] = date('d-m-Y').' 15:00';
+            $data['locked_timestamp'] = date('d-m-Y') . ' 15:00';
         }
 
         // Create the meal
@@ -40,12 +41,12 @@ class CreateMeal extends Application
             $meal = with(new CreateMealService($data))->execute();
         }
         catch (ValidationException $e) {
-            return redirect('/administratie/nieuwe_maaltijd')->withErrors($e->messages())->withInput();
+            return redirect(action('Administration\CreateMeal@index'))->withErrors($e->messages())->withInput();
         }
 
         if ($meal) {
             Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op ' . $meal);
-            return redirect('/administratie');
+            return redirect(action('Administration\Meals@index'));
         }
         else {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden aangemaakt: onbekende fout');

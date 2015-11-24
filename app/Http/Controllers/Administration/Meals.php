@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Models\Meal;
+namespace App\Http\Controllers\Administration;
+
+use App\Http\Controllers\Application;
 use App\Http\Helpers\Flash;
+use App\Models\Meal;
 use App\Services\DestroyMealService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class AdminDashboard extends Application
+class Meals extends Application
 {
     /**
      * List all past and current meals
@@ -21,11 +23,11 @@ class AdminDashboard extends Application
         $upcoming_meals = Meal::upcoming();
         $previous_meals = Meal::previous();
         if ($count > 0) {
-          $upcoming_meals->take($count);
-          $previous_meals->take($count);
+            $upcoming_meals->take($count);
+            $previous_meals->take($count);
         }
 
-        return view('dashboard/index', [
+        return view('administration/meals/index', [
             'upcoming_meals' => $upcoming_meals->get(),
             'previous_meals' => $previous_meals->get(),
         ]);
@@ -41,19 +43,19 @@ class AdminDashboard extends Application
         try {
             $meal = Meal::findOrFail($id);
         }
-        catch(ModelNotFoundException $e) {
+        catch (ModelNotFoundException $e) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
-        $date = (string)$meal;
+        $date = (string) $meal;
         $destroy = with(new DestroyMealService($meal))->execute();
 
-        if (! $destroy) {
+        if (!$destroy) {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden verwijderd; onbekende fout.');
         }
 
         // Update user
-        Flash::set(Flash::SUCCESS,"Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.");
-        return redirect('/administratie');
+        Flash::set(Flash::SUCCESS, "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.");
+        return redirect(action('Administration\Meals@index'));
     }
 }

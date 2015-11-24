@@ -10,7 +10,7 @@
         <i class="fa fa-fw fa-clock-o"></i> {{ $meal->deadline() }}
         <i class="fa fa-fw fa-cutlery"></i> {{ date('H:i', strtotime($meal->meal_timestamp)) }} uur
         <span class="non_print">
-            <a href="/administratie/{{ $meal->id }}/edit">maaltijd bewerken</a>
+            <a href="{{ action('Administration\UpdateMeal@edit', $meal->id) }}">maaltijd bewerken</a>
         </span>
     </p>
 
@@ -34,11 +34,11 @@
             </tr>
         </thead>
         <tbody>
-            @each ('meal/_registration', $meal->registrations()->confirmed()->get(), 'registration')
+            @each('administration/meal/_registration', $meal->registrations()->confirmed()->get(), 'registration')
         </tbody>
     </table>
 
-    @include('meal/_unconfirmed_list')
+    @include('administration/meal/_unconfirmed_list')
 
     <h2>Nieuwe eter toevoegen</h2>
     <form action="#new_registration" id="new_registration" data-meal_id="{{ $meal->id }}">

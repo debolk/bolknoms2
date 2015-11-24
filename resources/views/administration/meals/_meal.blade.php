@@ -1,6 +1,6 @@
 <tr data-id="{{ $meal->id }}">
 	<td class="date">
-        <a href="/administratie/{{ $meal->id }}">
+        <a href="{{ action('Administration\ShowMeal@show', ['id' => $meal->id]) }}">
             {{ $meal->longDate() }}
         </a>
     </td>
@@ -15,7 +15,7 @@
     </td>
 	<td>
 		</a>
-		<a href="/administratie/verwijder/{{ $meal->id }}" class="confirm-intent" title="Verwijderen">
+		<a href="{{ action('Administration\Meals@verwijder', ['id' => $meal->id]) }}" class="confirm-intent" title="Verwijderen">
             <i class="fa fa-fw fa-times"></i>
 		</a>
 	</td>
