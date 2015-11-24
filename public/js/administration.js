@@ -10,6 +10,7 @@ Administration = {
         $('#new_registration').on('submit', Administration.addRegistration);
         $('#registrations').on('click', '.remove_registration', Administration.removeRegistration);
         $('#subscribe_anonymous').on('click', Administration.addAnonymousRegistration);
+        $('.edit-handicap').on('click', Administration.editHandicap);
     },
 
     /**
@@ -126,7 +127,59 @@ Administration = {
         var value = parseInt(counter.html());
         value += increment;
         counter.html(value);
-    }
+    },
+
+    /**
+     * Show a dialog to update the handicap of a user
+     * and save the result to the server
+     * @param  {Event} event
+     * @return {undefined}
+     */
+    editHandicap: function(event) {
+        event.preventDefault();
+
+        var button = $(this);
+        var row = button.parents('tr')[0];
+
+        var user_id = button.attr('data-id');
+        var existing_handicap = button.attr('data-handicap');
+
+        var new_handicap = prompt('Dieet:', existing_handicap);
+
+        // Abort if cancel is clicked
+        if (new_handicap === null) {
+            return;
+        }
+
+        // Abort if handicap is unchanged
+        if (existing_handicap === new_handicap) {
+            return;
+        }
+
+        // Update server
+        $.ajax({
+            type: 'POST',
+            url: '/administratie/gebruikers/'+user_id+'/handicap',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                handicap: new_handicap
+            }),
+            success: function(){
+                // Store handicap on button
+                button.attr('data-handicap', new_handicap);
+
+                // Update UI text
+                var cell = $('.handicap', row);
+                if (new_handicap !== '') {
+                    cell.html(new_handicap);
+                }
+                else {
+                    cell.html('Geen dieet ingesteld');
+                }
+            },
+            error: App.fatalError,
+        });
+    },
 };
 
 $(document).on('ready', Administration.init);
