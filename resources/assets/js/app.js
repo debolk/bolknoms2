@@ -60,7 +60,7 @@ App = {
      */
     fatalError: function (error) {
         error = JSON.parse(error.response);
-        showNotification(error.error_details);
+        App.showNotification(error.error_details);
     }
 };
 
