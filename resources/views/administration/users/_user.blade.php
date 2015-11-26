@@ -6,10 +6,15 @@
     </td>
     <td>
         @if ($user->blocked)
-            <i class="fa fa-fw fa-check"></i>
+            <strong class=negative>Geblokkeerd</strong>
+        @else
+            Nee
+        @endif
+    </td>
+    <td>
+        @if ($user->blocked)
             <button class="release-user" data-id="{{ $user->id }}">Vrijgeven</button>
         @else
-            <i class="fa fa-fw fa-times"></i>
             <button class="block-user" data-id="{{ $user->id }}">Blokkeren</button>
         @endif
     </td>
