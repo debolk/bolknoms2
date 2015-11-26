@@ -15,8 +15,8 @@
     </td>
 	<td>
 		</a>
-		<a href="{{ action('Administration\Meals@verwijder', ['id' => $meal->id]) }}" class="confirm-intent" title="Verwijderen">
-            <i class="fa fa-fw fa-times"></i>
+		<a href="{{ action('Administration\Meals@verwijder', ['id' => $meal->id]) }}" class="button confirm-intent" title="Verwijderen">
+            Verwijderen
 		</a>
 	</td>
 </tr>
