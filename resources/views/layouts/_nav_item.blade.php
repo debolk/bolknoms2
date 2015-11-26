@@ -5,7 +5,7 @@
 
 @if (isset($submenu))
     @foreach ($submenu as $entry)
-        <a href="{{ action($entry['action']) }}" class=sub>
+        <a href="{{ action($entry['action']) }}" class="sub {{ $entry['current'] ? 'current' : '' }}">
             <i class="fa fa-fw fa-{{ $entry['icon'] }}"></i>
             {{ $entry['text'] }}
         </a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Helpers;
 
+use Illuminate\Support\Facades\Route;
 use Request;
 
 /**
@@ -30,6 +31,7 @@ class Navigation
      */
     public static function show()
     {
+        $menu_entries = self::$menu;
         $output = '';
 
         // Determine which elements to show
@@ -41,9 +43,21 @@ class Navigation
             }
         }
 
-        foreach (self::$menu as $entry) {
+        // Set a flag to indicate the current route
+        for ($i=0; $i < sizeof($menu_entries); $i++) {
+            $menu_entries[$i]['current'] = self::isCurrent($menu_entries[$i]['action']);
+
+            // iterate over submenu's
+            if (isset($menu_entries[$i]['submenu'])) {
+                for ($j=0; $j < sizeof($menu_entries[$i]['submenu']); $j++) {
+                    $menu_entries[$i]['submenu'][$j]['current'] = self::isCurrent($menu_entries[$i]['submenu'][$j]['action']);
+                }
+            }
+        }
+
+        // Render all navigation items
+        foreach ($menu_entries as $entry) {
             if ($level >= $entry['level']) {
-                $entry['current'] = self::isCurrent($entry['action']);
                 $output .= view('layouts/_nav_item')->with($entry);
             }
         }
@@ -53,18 +67,11 @@ class Navigation
 
     /**
      * Determine if a given action is currently on screen
-     * @param  string  $link partial action
-     * @return boolean       true if this is the current link
+     * @param  string  $action
+     * @return boolean
      */
-    private static function isCurrent($link)
+    private static function isCurrent($action)
     {
-        $path = Request::path();
-
-        if ($link === '/') {
-            return $path === $link;
-        }
-        else {
-            return (strpos(Request::path(), substr($link, 1)) !== false);
-        }
+        return Route::current()->getActionName() === 'App\Http\Controllers\\' . $action;
     }
 }
