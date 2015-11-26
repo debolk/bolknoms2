@@ -14,13 +14,13 @@ class Navigation
      * @var array
      */
     private static $menu = [
-        ['text' => 'Aanmelden', 'url' => '/', 'icon' => 'calendar', 'level' => '0'],
-        ['text' => 'Spelregels', 'url' => '/spelregels', 'icon' => 'file-text-o', 'level' => '0'],
-        ['text' => 'Top eters', 'url' => '/top-eters', 'icon' => 'trophy', 'level' => '1'],
-        ['text' => 'Mijn profiel', 'url' => '/profiel', 'icon' => 'user', 'level' => '1'],
-        ['text' => 'Administratie', 'url' => '/administratie', 'icon' => 'wrench', 'level' => '2', 'submenu' => [
-            ['text' => 'Maaltijden', 'url' => '/maaltijden', 'icon' => 'cutlery'],
-            ['text' => 'Gebruikers', 'url' => '/gebruikers', 'icon' => 'users'],
+        ['text' => 'Aanmelden', 'action' => 'Register@index', 'icon' => 'calendar', 'level' => '0'],
+        ['text' => 'Spelregels', 'action' => 'Page@spelregels', 'icon' => 'file-text-o', 'level' => '0'],
+        ['text' => 'Top eters', 'action' => 'Top@index', 'icon' => 'trophy', 'level' => '1'],
+        ['text' => 'Mijn profiel', 'action' => 'Profile@index', 'icon' => 'user', 'level' => '1'],
+        ['text' => 'Administratie', 'action' => 'Administration\Dashboard@index', 'icon' => 'wrench', 'level' => '2', 'submenu' => [
+            ['text' => 'Maaltijden', 'action' => 'Administration\Meals@index', 'icon' => 'cutlery'],
+            ['text' => 'Gebruikers', 'action' => 'Administration\Users@index', 'icon' => 'users'],
         ]],
     ];
 
@@ -43,7 +43,7 @@ class Navigation
 
         foreach (self::$menu as $entry) {
             if ($level >= $entry['level']) {
-                $entry['current'] = self::isCurrent($entry['url']);
+                $entry['current'] = self::isCurrent($entry['action']);
                 $output .= view('layouts/_nav_item')->with($entry);
             }
         }
@@ -52,8 +52,8 @@ class Navigation
     }
 
     /**
-     * Determine if a given URL is currently on screen
-     * @param  string  $link partial URL
+     * Determine if a given action is currently on screen
+     * @param  string  $link partial action
      * @return boolean       true if this is the current link
      */
     private static function isCurrent($link)
