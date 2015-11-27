@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Http\Controllers\Application;
-use App\Http\Helpers\Flash;
 use App\Models\Meal;
 use App\Services\DestroyMealService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -55,7 +54,10 @@ class Meals extends Application
         }
 
         // Update user
-        Flash::set(Flash::SUCCESS, "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.");
-        return redirect(action('Administration\Meals@index'));
+        return redirect(action('Administration\Meals@index'))
+                ->with('action_result', [
+                    'status' => 'success',
+                    'message' => "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging."
+                ]);
     }
 }

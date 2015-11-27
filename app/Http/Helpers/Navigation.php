@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Request;
 
 /**
- * Allows you to easily set and display flash messages
+ * Renders the menu
  */
 class Navigation
 {

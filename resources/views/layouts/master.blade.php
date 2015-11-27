@@ -29,6 +29,8 @@
     </nav>
 
     <section>
+        @include('layouts/_result_notification')
+
         @yield('content')
     </section>
 

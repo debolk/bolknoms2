@@ -5,8 +5,6 @@
 @section('content')
     <h1>Maaltijden</h1>
 
-                                                                                                                                                                                                                                                                                                                                                    {!! App\Http\Helpers\Flash::display_messages() !!}
-
     <p>
       <a href="{{ action('Administration\CreateMeal@index') }}">
       <i class="fa fa-fw fa-plus"></i>

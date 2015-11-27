@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Http\Controllers\Application;
-use App\Http\Helpers\Flash;
 use App\Models\Meal;
 use App\Services\CreateMealService;
 use App\Services\ValidationException;
@@ -45,8 +44,8 @@ class CreateMeal extends Application
         }
 
         if ($meal) {
-            Flash::set(Flash::SUCCESS, 'Maaltijd toegevoegd op ' . $meal);
-            return redirect(action('Administration\Meals@index'));
+            return redirect(action('Administration\Meals@index'))
+                    ->with('action_result', ['status' => 'success', 'message' => 'Maaltijd toegevoegd op ' . $meal]);
         }
         else {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden aangemaakt: onbekende fout');

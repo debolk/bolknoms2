@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Administration;
 
 use App;
 use App\Http\Controllers\Application;
-use App\Http\Helpers\Flash;
 use App\Models\Meal;
 use App\Services\UpdateMealService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -50,7 +49,7 @@ class UpdateMeal extends Application
         }
 
         // Update user
-        Flash::set(Flash::SUCCESS, 'Maaltijd geupdate');
-        return redirect(action('Administration\ShowMeal@show', $meal->id));
+        return redirect(action('Administration\ShowMeal@show', $meal->id))
+                ->with('action_result', ['status' => 'success', 'message' => "Maaltijd bijgewerkt"]);
     }
 }
