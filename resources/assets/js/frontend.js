@@ -218,31 +218,47 @@ Frontend = {
     updateHandicap: function(event) {
         event.preventDefault();
 
-        var handicap = $('#handicap').data('handicap');
-        handicap = prompt('Specificeer je dieetwensen zo exact en duidelijk mogelijk:', handicap);
+        var existing_handicap = $('#handicap').attr('data-handicap');
 
-        // No-op on cancel
-        if (handicap === null) {
-            return;
-        }
+        swal({
+            title: 'Dieetwensen instellen',
+            text: 'Specificeer je dieetwensen zo exact en duidelijk mogelijk',
+            type: 'input',
+            showCancelButton: true,
+            closeOnConfirm: true,
+            inputValue: existing_handicap,
+        }, function(new_handicap) {
+            // No-op on cancel
+            if (new_handicap === false) {
+                return;
+            }
 
-        $.ajax({
-            type: 'POST',
-            url: '/handicap',
-            contentType: 'application/json',
-            dataType: 'application/json',
-            data: JSON.stringify({handicap: handicap}),
-            success: function() {
-                $('#handicap').data('handicap', handicap);
+            // No-op when not changed
+            if (new_handicap === existing_handicap) {
+                return;
+            }
 
-                if (handicap === '') {
-                    $('#handicap').html('Geen dieet ingesteld').addClass('no_diet');
-                }
-                else {
-                    $('#handicap').html('&ldquo;' + handicap + '&rdquo;').removeClass('no_diet');
-                }
-            },
-            error: App.fatalError,
+            // Update server
+            $.ajax({
+                type: 'POST',
+                url: '/handicap',
+                contentType: 'application/json',
+                dataType: 'application/json',
+                data: JSON.stringify({handicap: new_handicap}),
+                success: function() {
+                    // Store in data
+                    $('#handicap').data('handicap', new_handicap);
+
+                    // Update UI
+                    if (new_handicap === '') {
+                        $('#handicap').html('Geen dieet ingesteld').addClass('no_diet');
+                    }
+                    else {
+                        $('#handicap').html('&ldquo;' + new_handicap + '&rdquo;').removeClass('no_diet');
+                    }
+                },
+                error: App.fatalError,
+            });
         });
     },
 };
