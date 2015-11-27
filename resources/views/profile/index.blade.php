@@ -38,8 +38,7 @@
 
         <?php if ($rank !== null): ?>
             <h3>
-                {{ $rank }}e plaats
-                <br>
+                {{ $rank }}e plaats <br>
                 {{ $count }}x meegegeten
             </h3>
         <?php else: ?>
