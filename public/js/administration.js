@@ -146,40 +146,47 @@ Administration = {
         var user_id = button.attr('data-id');
         var existing_handicap = button.attr('data-handicap');
 
-        var new_handicap = prompt('Dieet:', existing_handicap);
+        swal({
+            title: 'Dieet instellen',
+            text: 'Specificeer dieetwensen zo exact en duidelijk mogelijk',
+            type: 'input',
+            showCancelButton: true,
+            closeOnConfirm: true,
+            inputValue: existing_handicap,
+        }, function(new_handicap) {
+            // Abort if cancel is clicked
+            if (new_handicap === false) {
+                return;
+            }
 
-        // Abort if cancel is clicked
-        if (new_handicap === null) {
-            return;
-        }
+            // Abort if handicap is unchanged
+            if (existing_handicap === new_handicap) {
+                return;
+            }
 
-        // Abort if handicap is unchanged
-        if (existing_handicap === new_handicap) {
-            return;
-        }
+            // Update server
+            $.ajax({
+                type: 'POST',
+                url: '/administratie/gebruikers/'+user_id+'/handicap',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    handicap: new_handicap
+                }),
+                success: function(){
+                    // Store handicap on button
+                    button.attr('data-handicap', new_handicap);
 
-        // Update server
-        $.ajax({
-            type: 'POST',
-            url: '/administratie/gebruikers/'+user_id+'/handicap',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                handicap: new_handicap
-            }),
-            success: function(){
-                // Store handicap on button
-                button.attr('data-handicap', new_handicap);
-
-                // Update UI text
-                var cell = $('.handicap', row);
-                if (new_handicap !== '') {
-                    cell.html(new_handicap);
-                }
-                else {
-                    cell.html('Geen dieet ingesteld');
-                }
-            },
-            error: App.fatalError,
+                    // Update UI text
+                    var cell = $('.handicap', row);
+                    if (new_handicap !== '') {
+                        cell.html(new_handicap);
+                    }
+                    else {
+                        cell.html('Geen dieet ingesteld');
+                    }
+                },
+                error: App.fatalError,
+            });
         });
     },
 
