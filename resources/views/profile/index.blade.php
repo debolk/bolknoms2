@@ -32,20 +32,6 @@
     <div class="profile">
         <h2>Ranking dit collegejaar</h2>
 
-        <?php
-            // Calculate colour of prize
-            $rank = $user->topEatersPositionThisYear();
-            $medal = '';
-            if ($rank === null) {
-                $medal = 'gray';
-            }
-            elseif ($rank <= 10) {
-                $medal = 'gold';
-            }
-            elseif ($rank <= 20) {
-                $medal = 'silver';
-            }
-        ?>
         <div class="medal {{ $medal }}">
             <i class="fa fa-fw fa-5x fa-trophy"></i>
         </div>
@@ -54,7 +40,7 @@
             <h3>
                 {{ $rank }}e plaats
                 <br>
-                {{ $user->numberOfRegistrationsThisYear() }}x meegegeten
+                {{ $count }}x meegegeten
             </h3>
         <?php else: ?>
             <h3>
