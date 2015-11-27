@@ -10,7 +10,7 @@ Administration = {
         $('#new_registration').on('submit', Administration.addRegistration);
         $('#registrations').on('click', '.remove_registration', Administration.removeRegistration);
         $('#subscribe_anonymous').on('click', Administration.addAnonymousRegistration);
-        $('.edit-handicap').on('click', Administration.editHandicap);
+        $(document).on('click', '.edit-handicap', Administration.editHandicap);
         $(document).on('click', '.block-user', Administration.blockUser);
         $(document).on('click', '.release-user', Administration.releaseUser);
     },
@@ -172,18 +172,9 @@ Administration = {
                 data: JSON.stringify({
                     handicap: new_handicap
                 }),
-                success: function(){
-                    // Store handicap on button
-                    button.attr('data-handicap', new_handicap);
-
-                    // Update UI text
-                    var cell = $('.handicap', row);
-                    if (new_handicap !== '') {
-                        cell.html(new_handicap);
-                    }
-                    else {
-                        cell.html('Geen dieet ingesteld');
-                    }
+                dataType: 'html',
+                success: function(html){
+                    $(button.parents('tr')[0]).replaceWith(html);
                 },
                 error: App.fatalError,
             });
@@ -203,11 +194,9 @@ Administration = {
             type: 'POST',
             url: '/administratie/gebruikers/'+button.attr('data-id')+'/blokkeren',
             contentType: 'application/json',
-            success: function(){
-                // Change UI to releasing
-                var cell = button.parents('td');
-                $('i', cell).removeClass('fa-times').addClass('fa-check');
-                button.removeClass('block-user').addClass('release-user').html('Vrijgeven');
+            dataType: 'html',
+            success: function(html){
+                $(button.parents('tr')[0]).replaceWith(html);
             },
             error: App.fatalError,
         });
@@ -226,11 +215,8 @@ Administration = {
             type: 'POST',
             url: '/administratie/gebruikers/'+button.attr('data-id')+'/vrijgeven',
             contentType: 'application/json',
-            success: function(){
-                // Change UI to blocking
-                var cell = button.parents('td');
-                $('i', cell).removeClass('fa-check').addClass('fa-times');
-                button.removeClass('release-user').addClass('block-user').html('Blokkeren');
+            success: function(html){
+                $(button.parents('tr')[0]).replaceWith(html);
             },
             error: App.fatalError,
         });

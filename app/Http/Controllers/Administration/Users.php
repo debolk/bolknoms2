@@ -29,7 +29,7 @@ class Users extends Application
         $user = User::findOrFail($id);
         $user->handicap = $request->input('handicap');
         $user->save();
-        return response(null, 204);
+        return view('administration/users/_user', compact('user'));
     }
 
     /**
@@ -42,7 +42,7 @@ class Users extends Application
         $user = User::findOrFail($id);
         $user->blocked = true;
         $user->save();
-        return response(null, 204);
+        return view('administration/users/_user', compact('user'));
     }
 
     /**
@@ -55,6 +55,6 @@ class Users extends Application
         $user = User::findOrFail($id);
         $user->blocked = false;
         $user->save();
-        return response(null, 204);
+        return view('administration/users/_user', compact('user'));
     }
 }
