@@ -1,18 +1,23 @@
-<?php namespace App\Exceptions;
+<?php
+
+namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler {
-
+class Handler extends ExceptionHandler
+{
     /**
      * A list of the exception types that should not be reported.
      *
      * @var array
      */
     protected $dontReport = [
-        'Symfony\Component\HttpKernel\Exception\HttpException'
+        HttpException::class,
+        ModelNotFoundException::class,
     ];
 
     /**
@@ -39,14 +44,16 @@ class Handler extends ExceptionHandler {
     {
         // Handle application down status differently
         if ($e instanceof HttpException && $e->getStatusCode() === 503) {
-            return response()->view('errors/503');
+            return response()->view('errors/maintenance');
         }
 
-        if (env('APP_DEBUG')) {
-            return parent::render($request, $e);
+        // Convert not found errors to HTTP 404 errors
+        if ($e instanceof ModelNotFoundException) {
+            $e = new NotFoundHttpException($e->getMessage(), $e);
         }
-        else {
-            return response()->view('error/index', ['code' => $e->getMessage()]);
-        }
+
+        // Render the error
+        return parent::render($request, $e);
     }
 }
+

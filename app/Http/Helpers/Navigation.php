@@ -72,6 +72,11 @@ class Navigation
      */
     private static function isCurrent($action)
     {
+        // Exceptional case for HTTP 404 errors (which have no route)
+        if (Route::current() === null) {
+            return false;
+        }
+
         return Route::current()->getActionName() === 'App\Http\Controllers\\' . $action;
     }
 }

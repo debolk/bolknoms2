@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="nl">
 <head>
-    <title>Bolknoms offline</title>
-
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel=icon href="/images/favicon.png" sizes="196x196" type="image/png">
+
+    <title>Bolknoms offline</title>
 </head>
 <body>
     <h1>Bolknoms offline</h1>

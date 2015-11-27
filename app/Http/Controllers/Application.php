@@ -20,8 +20,8 @@ class Application extends Controller
     protected function userFriendlyError($status, $message)
     {
         return response(view($this->layout, [
-            'content' => view('error/http', compact('status', 'message')),
-            'user' => OAuth::user()
+            'content' => view('errors/index', ['code' => $message]),
+            'user' => OAuth::user(),
         ]), $status);
     }
 }
