@@ -10,6 +10,8 @@ class Meal extends ApplicationModel
      */
     protected $fillable = ['event', 'promoted', 'meal_timestamp', 'locked_timestamp'];
 
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'meal_timestamp', 'locked_timestamp'];
+
     /**
      * Relationship: one meal has many registrations
      * @return Relations\HasMany
@@ -83,8 +85,7 @@ class Meal extends ApplicationModel
      */
     public function open_for_registrations()
     {
-      $closing_moment = strtotime($this->locked_timestamp);
-      return ($closing_moment > time());
+      return $this->locked_timestamp->timestamp > time();
     }
 
     /**
@@ -93,8 +94,7 @@ class Meal extends ApplicationModel
      */
     public function isToday()
     {
-        $date = new DateTime($this->meal_timestamp);
-        return ($date->format('Y-m-d') === date('Y-m-d'));
+        return $this->meal_timestamp->format('Y-m-d') === date('Y-m-d');
     }
 
     /**
@@ -103,14 +103,14 @@ class Meal extends ApplicationModel
      */
     public function deadline()
     {
-        $meal = (new DateTime($this->meal_timestamp))->format('Y-m-d');
-        $lock = (new DateTime($this->locked_timestamp))->format('Y-m-d');
+        $meal = $this->meal_timestamp->format('Y-m-d');
+        $lock = $this->locked_timestamp->format('Y-m-d');
 
         if ($meal === $lock) {
-            return strftime('%H:%M uur', strtotime($this->locked_timestamp));
+            return $this->locked_timestamp->format('H:i') . ' uur';
         }
         else {
-            return strftime('%A %e %B %H:%M uur', strtotime($this->locked_timestamp));
+            return $this->locked_timestamp->format('l d F H:i') . ' uur';
         }
     }
 
@@ -121,10 +121,7 @@ class Meal extends ApplicationModel
      */
     public function normalDeadline()
     {
-        $lock = new DateTime($this->locked_timestamp);
-        $meal = new DateTime($this->meal_timestamp);
-
-        return $lock->format('Y-m-d G:i') === $meal->format('Y-m-d 15:00');
+        return $this->locked_timestamp->format('Y-m-d H:i') === $this->meal_timestamp->format('Y-m-d 15:00');
     }
 
     /**
@@ -134,7 +131,6 @@ class Meal extends ApplicationModel
      */
     public function normalMealTime()
     {
-        $meal = new DateTime($this->meal_timestamp);
-        return $meal->format('G:i') === '18:30';
+        return $this->meal_timestamp->format('H:i') === '18:30';
     }
 }

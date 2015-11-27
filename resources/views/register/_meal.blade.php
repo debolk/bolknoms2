@@ -15,7 +15,7 @@
         <br>
         <span class="{{ !$meal->normalMealTime() ? 'attention' : '' }}">
             <i class="fa fa-fw fa-cutlery"></i>
-            Eten om {{ strftime("%H:%M", strtotime($meal->meal_timestamp)) }} uur
+            Eten om {{ $meal->meal_timestamp->format('H:i') }} uur
         </span>
     </div>
 </div>

@@ -8,7 +8,7 @@
         <i class="fa fa-fw fa-user"></i>
         <span id="count">{{ $meal->registrations()->confirmed()->count() }}</span>
         <i class="fa fa-fw fa-clock-o"></i> {{ $meal->deadline() }}
-        <i class="fa fa-fw fa-cutlery"></i> {{ date('H:i', strtotime($meal->meal_timestamp)) }} uur
+        <i class="fa fa-fw fa-cutlery"></i> {{ $meal->meal_timestamp->format('H:i') }} uur
         <span class="non_print">
             <a href="{{ action('Administration\UpdateMeal@edit', $meal->id) }}">maaltijd bewerken</a>
         </span>
