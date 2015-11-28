@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesCommands;
-use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Helpers\OAuth;
+use Illuminate\Foundation\Bus\DispatchesCommands;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
 
 class Application extends Controller
 {
     use DispatchesCommands, ValidatesRequests;
+
+    /**
+     * Common setup to all controllers
+     */
+    public function __construct()
+    {
+        // Variables to be included in *every* single view
+        View::share('user', OAuth::user());
+    }
 
     /**
      * Show a user-friendly error page
