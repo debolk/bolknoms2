@@ -22,7 +22,7 @@
         </p>
         <p>
             <input type="submit" value="Maaltijd toevoegen" />
-            of <a href="/administratie">niet toevoegen</a>
+            of <a href="{{ action('Administration\Meals@index')}}">niet toevoegen</a>
         </p>
     </form>
 @endsection
