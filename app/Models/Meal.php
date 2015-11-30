@@ -109,7 +109,7 @@ class Meal extends ApplicationModel
             return $this->locked_timestamp->format('H:i') . ' uur';
         }
         else {
-            return $this->locked_timestamp->format('l d F H:i') . ' uur';
+            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M') . ' uur';
         }
     }
 
