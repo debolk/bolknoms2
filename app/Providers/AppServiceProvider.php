@@ -12,7 +12,7 @@ class AppServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		// Force correct locale on every boot
-        setlocale(LC_ALL, "nl_NL");
+        setlocale(LC_TIME, "nl_NL.utf8");
 	}
 
 	/**
