@@ -61,8 +61,7 @@ class Meal extends ApplicationModel
      */
     public function longDate()
     {
-        $meal = new DateTime($this->meal_timestamp);
-        return $meal->format('l j F Y');
+        return $this->meal_timestamp->formatLocalized('%A %e %B %Y');
     }
 
     /**
