@@ -21,6 +21,6 @@
         {{ $registration->handicap }}
     </td>
     <td>
-        <i class="fa fa-fw fa-times remove_registration" data-name="{{ $registration->name }}" data-id="{{ $registration->id }}"></i>
+        <a href="#" class="button remove_registration" data-name="{{ $registration->name }}" data-id="{{ $registration->id }}">Afmelden</a>
     </td>
 </tr>
