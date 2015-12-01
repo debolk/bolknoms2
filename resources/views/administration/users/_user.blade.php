@@ -1,9 +1,9 @@
-<tr>
+<tr {{ $user->blocked ? 'class=blocked' : null }}>
     <td>
         <img class="user-picture" src="{{ action('OAuth@photoFor', $user->username) }}">
     </td>
     <td>{{ $user->name }}</td>
-    <td class="handicap">{{ $user->handicap or 'Geen dieet ingesteld' }}</td>
+    <td class="handicap">{{ $user->handicap }}</td>
     <td>
         <button class="edit-handicap" data-id="{{ $user->id }}" data-handicap="{{ $user->handicap }}">Dieet aanpassen</button>
     </td>

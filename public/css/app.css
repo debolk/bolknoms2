@@ -950,6 +950,9 @@ table .attention {
   width: 2em;
   height: 2em; }
 
+.blocked {
+  background-color: #f99; }
+
 /*
  * UI for anonymous meal registrations (name, email, etc.)
  */
