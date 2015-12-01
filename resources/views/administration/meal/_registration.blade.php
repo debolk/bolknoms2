@@ -2,6 +2,13 @@
     <td>
         <span class="box">&square;</span>
     </td>
+    <td>
+        @if ($registration->username)
+            <img src="{{ action('OAuth@photoFor', $registration->username) }}">
+        @else
+            &nbsp;
+        @endif
+    </td>
     <td class="name">
         {{ $registration->name }}
     </td>

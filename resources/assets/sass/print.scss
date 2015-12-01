@@ -22,10 +22,12 @@
     }
 
     section {
-        margin-top: 0;
-        position: static;
+        position: static !important;
+        margin: 0;
+        padding: 0;
         left: 0;
         top: 0;
+        padding: 0;
     }
 
     #print_instructions {

@@ -21,8 +21,7 @@
         <div class="registrations">
             @foreach ($meal->registrations as $registration)
                 @if ($registration->username)
-                    <img src="{{ action('OAuth@photoFor', $registration->username) }}"
-                         alt="Foto van {{ $registration->name }}" title="{{ $registration->name }}">
+                    <img src="{{ action('OAuth@photoFor', $registration->username) }}" title="{{ $registration->name }}">
                 @endif
             @endforeach
         </div>
