@@ -122,6 +122,12 @@ class OAuth
         return 'https://people.debolk.nl/persons/'.$user->username.'/photo/128/128?access_token='.$access_token;
     }
 
+    public static function photoURLFor($username)
+    {
+        $access_token = Session::get('oauth.token')->access_token;
+        return 'https://people.debolk.nl/persons/'.$username.'/photo/64/64?access_token='.$access_token;
+    }
+
     /**
      * Returns whether the token is not expired
      * @access private

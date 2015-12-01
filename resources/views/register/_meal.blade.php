@@ -17,5 +17,14 @@
             <i class="fa fa-fw fa-cutlery"></i>
             Eten om {{ $meal->meal_timestamp->format('H:i') }} uur
         </span>
+        <br>
+        <div class="registrations">
+            @foreach ($meal->registrations as $registration)
+                @if ($registration->username)
+                    <img src="{{ action('OAuth@photoFor', $registration->username) }}"
+                         alt="Foto van {{ $registration->name }}" title="{{ $registration->name }}">
+                @endif
+            @endforeach
+        </div>
     </div>
 </div>

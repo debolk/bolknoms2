@@ -41,4 +41,14 @@ class OAuth extends Application
     {
         return redirect(OAuthHelper::photoURL());
     }
+
+    /**
+     * Redirects to a photo of the user
+     * @param  string $username
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function photoFor($username)
+    {
+        return redirect(OAuthHelper::photoURLFor($username));
+    }
 }

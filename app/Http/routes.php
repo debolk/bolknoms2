@@ -24,6 +24,7 @@ Route::group(['middleware' => ['oauth']], function () {
 
     // Personal details of the user
     Route::get('/photo', 'OAuth@photo');
+    Route::get('/photo/{username}', 'OAuth@photoFor');
 
     // Top eaters list
     Route::get('/top-eters', 'Top@index');

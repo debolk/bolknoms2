@@ -1024,7 +1024,7 @@ button::-moz-focus-inner, .button::-moz-focus-inner, input[type="submit"]::-moz-
   margin-bottom: 1em;
   border-color: #9E9;
   width: 35em;
-  height: 5em; }
+  height: 6em; }
 
 .meal .details {
   float: left;
@@ -1039,6 +1039,12 @@ button::-moz-focus-inner, .button::-moz-focus-inner, input[type="submit"]::-moz-
 .meal.deadline_passed, .meal.deadline_passed .details, .meal.deadline_passed .attention {
   background-color: #ddd;
   color: #666; }
+
+.meal .registrations img {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  object-fit: cover; }
 
 /*
  * Customer behaviour for meal button lifecycle
