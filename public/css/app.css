@@ -944,12 +944,6 @@ table .attention {
   margin-top: -1em;
   font-style: italic; }
 
-.registration img {
-  border-radius: 50%;
-  object-fit: cover;
-  width: 2em;
-  height: 2em; }
-
 /*
  * UI for anonymous meal registrations (name, email, etc.)
  */
@@ -1196,12 +1190,10 @@ section.collapsed {
     margin-top: -1em;
     font-style: italic; }
   section {
-    position: static !important;
-    margin: 0;
-    padding: 0;
+    margin-top: 0;
+    position: static;
     left: 0;
-    top: 0;
-    padding: 0; }
+    top: 0; }
   #print_instructions {
     display: block !important; } }
 

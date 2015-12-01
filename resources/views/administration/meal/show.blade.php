@@ -27,7 +27,6 @@
         <thead>
             <tr>
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
                 <th>Naam</th>
                 <th>Bolkaccount</th>
                 <th>Dieet</th>
