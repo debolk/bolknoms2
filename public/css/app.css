@@ -944,6 +944,9 @@ table .attention {
   margin-top: -1em;
   font-style: italic; }
 
+.blocked {
+  background-color: #f99; }
+
 /*
  * UI for anonymous meal registrations (name, email, etc.)
  */

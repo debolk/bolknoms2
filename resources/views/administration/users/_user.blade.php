@@ -1,4 +1,4 @@
-<tr>
+<tr {{ $user->blocked ? 'class=blocked' : null }}>
     <td>{{ $user->name }}</td>
     <td class="handicap">{{ $user->handicap }}</td>
     <td>
