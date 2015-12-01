@@ -944,7 +944,7 @@ table .attention {
   margin-top: -1em;
   font-style: italic; }
 
-.registration img {
+.user-picture {
   border-radius: 50%;
   object-fit: cover;
   width: 2em;

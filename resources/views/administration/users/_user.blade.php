@@ -1,4 +1,7 @@
 <tr>
+    <td>
+        <img class="user-picture" src="{{ action('OAuth@photoFor', $user->username) }}">
+    </td>
     <td>{{ $user->name }}</td>
     <td class="handicap">{{ $user->handicap or 'Geen dieet ingesteld' }}</td>
     <td>
