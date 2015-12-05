@@ -1,6 +1,6 @@
-<tr>
+<tr {{ $user->blocked ? 'class=blocked' : null }}>
     <td>{{ $user->name }}</td>
-    <td class="handicap">{{ $user->handicap or 'Geen dieet ingesteld' }}</td>
+    <td class="handicap">{{ $user->handicap }}</td>
     <td>
         <button class="edit-handicap" data-id="{{ $user->id }}" data-handicap="{{ $user->handicap }}">Dieet aanpassen</button>
     </td>
