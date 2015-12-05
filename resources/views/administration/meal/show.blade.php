@@ -45,8 +45,8 @@
         <p>
             <label for="user_id">Bolker</label><br>
             <select name="user_id" id="user_id">
-                @foreach ($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @foreach ($users as $dropdown_user)
+                    <option value="{{ $dropdown_user->id }}">{{ $dropdown_user->name }}</option>
                 @endforeach
             </select>
         </p>
