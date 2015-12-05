@@ -103,6 +103,16 @@ class OAuth
             self::fatalError('Could not persist your account details', 'cannot persist user', 500);
         }
 
+        // Grab user photo and store on disk for caching purposes
+        try {
+            $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$access_token;
+            $response = $client->get($url, ['sink' => base_path() . '/uploads/profile_pictures/' . $user->id . '.jpg']);
+
+        }
+        catch (Exception $e) {
+            // No handling needed, we'll just not have an image available
+        }
+
         // Store the user in session
         Session::set('oauth.current_user', $user->id);
         Session::save(); // An explicit save is required in middleware
