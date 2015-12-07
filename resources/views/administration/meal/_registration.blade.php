@@ -2,6 +2,13 @@
     <td>
         <span class="box">&square;</span>
     </td>
+    <td>
+        @if ($registration->username)
+            <img class="user-picture" src="{{ action('ProfilePicture@photoFor', $registration->username) }}">
+        @else
+            &nbsp;
+        @endif
+    </td>
     <td class="name">
         {{ $registration->name }}
     </td>
@@ -14,6 +21,6 @@
         {{ $registration->handicap }}
     </td>
     <td>
-        <i class="fa fa-fw fa-times remove_registration" data-name="{{ $registration->name }}" data-id="{{ $registration->id }}"></i>
+        <a href="#" class="button remove_registration" data-name="{{ $registration->name }}" data-id="{{ $registration->id }}">Afmelden</a>
     </td>
 </tr>

@@ -55,6 +55,20 @@ class OAuth
     }
 
     /**
+     * Return a valid access token for use in OAuth2-protected calls
+     * @return string
+     */
+    public static function getAccessToken()
+    {
+        if (self::valid()) {
+            return Session::get('oauth.token')->access_token;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
      * Create or update the current user in the database and return it
      * @return \App\Models\User
      */
@@ -103,23 +117,14 @@ class OAuth
             self::fatalError('Could not persist your account details', 'cannot persist user', 500);
         }
 
+        // Grab user photo and store on disk for caching purposes
+        ProfilePicture::updatePictureFor($user);
+
         // Store the user in session
         Session::set('oauth.current_user', $user->id);
         Session::save(); // An explicit save is required in middleware
 
         return $user;
-    }
-
-    public static function photoURL()
-    {
-        // Must have a valid session
-        if (! OAuth::valid()) {
-            return null;
-        }
-
-        $user = self::user();
-        $access_token = Session::get('oauth.token')->access_token;
-        return 'https://people.debolk.nl/persons/'.$user->username.'/photo/128/128?access_token='.$access_token;
     }
 
     /**

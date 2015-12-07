@@ -32,13 +32,4 @@ class OAuth extends Application
         OAuthHelper::logout();
         return redirect('/');
     }
-
-    /**
-     * Redirects to a photo of the user
-     * @return Redirect
-     */
-    public function photo()
-    {
-        return redirect(OAuthHelper::photoURL());
-    }
 }

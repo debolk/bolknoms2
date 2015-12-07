@@ -25,3 +25,14 @@ table .attention {
     margin-top: -1em;
     font-style: italic;
 }
+
+.user-picture {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 2em;
+    height: 2em;
+}
+
+.blocked {
+    background-color: #f99;
+}

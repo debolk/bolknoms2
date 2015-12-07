@@ -8,6 +8,7 @@
     @if ($users->count() > 0)
         <table border-spacing=0>
             <thead><tr>
+                <th>&nbsp;</th>
                 <th>Naam</th>
                 <th colspan=2>Dieet</th>
                 <th>Geblokkeerd</th>
