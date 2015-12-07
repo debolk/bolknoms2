@@ -55,6 +55,20 @@ class OAuth
     }
 
     /**
+     * Return a valid access token for use in OAuth2-protected calls
+     * @return string
+     */
+    public static function getAccessToken()
+    {
+        if (self::valid()) {
+            return Session::get('oauth.token')->access_token;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
      * Create or update the current user in the database and return it
      * @return \App\Models\User
      */
@@ -104,38 +118,13 @@ class OAuth
         }
 
         // Grab user photo and store on disk for caching purposes
-        try {
-            $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$access_token;
-            $response = $client->get($url, ['sink' => base_path() . '/uploads/profile_pictures/' . $user->id . '.jpg']);
-
-        }
-        catch (Exception $e) {
-            // No handling needed, we'll just not have an image available
-        }
+        ProfilePicture::updatePictureFor($user);
 
         // Store the user in session
         Session::set('oauth.current_user', $user->id);
         Session::save(); // An explicit save is required in middleware
 
         return $user;
-    }
-
-    public static function photoURL()
-    {
-        // Must have a valid session
-        if (! OAuth::valid()) {
-            return null;
-        }
-
-        $user = self::user();
-        $access_token = Session::get('oauth.token')->access_token;
-        return 'https://people.debolk.nl/persons/'.$user->username.'/photo/128/128?access_token='.$access_token;
-    }
-
-    public static function photoURLFor($username)
-    {
-        $access_token = Session::get('oauth.token')->access_token;
-        return 'https://people.debolk.nl/persons/'.$username.'/photo/64/64?access_token='.$access_token;
     }
 
     /**

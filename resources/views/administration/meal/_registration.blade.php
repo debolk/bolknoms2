@@ -4,7 +4,7 @@
     </td>
     <td>
         @if ($registration->username)
-            <img class="user-picture" src="{{ action('OAuth@photoFor', $registration->username) }}">
+            <img class="user-picture" src="{{ action('ProfilePicture@photoFor', $registration->username) }}">
         @else
             &nbsp;
         @endif

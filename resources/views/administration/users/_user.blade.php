@@ -1,6 +1,6 @@
 <tr {{ $user->blocked ? 'class=blocked' : null }}>
     <td>
-        <img class="user-picture" src="{{ action('OAuth@photoFor', $user->username) }}">
+        <img class="user-picture" src="{{ action('ProfilePicture@photoFor', $user->username) }}">
     </td>
     <td>{{ $user->name }}</td>
     <td class="handicap">{{ $user->handicap }}</td>
