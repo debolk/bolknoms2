@@ -8,7 +8,13 @@
     margin-bottom: 1em;
     border-color: #9E9;
     width: 35em;
-    height: 6em;
+
+    // Meals are clearfixed for their (floating) content
+    &:after {
+        content:"";
+        display:table;
+        clear:both;
+    }
 }
 
 .meal .details {
@@ -29,11 +35,17 @@
     color: #666;
 }
 
-.meal .registrations img {
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 50%;
-    object-fit: cover;
+// Block of registrations
+.meal .registrations {
+    width: 24em;
+
+    // Rounded images
+    img {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 }
 
 /*

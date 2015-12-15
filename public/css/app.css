@@ -1032,8 +1032,11 @@ button::-moz-focus-inner, .button::-moz-focus-inner, input[type="submit"]::-moz-
   padding: 1em;
   margin-bottom: 1em;
   border-color: #9E9;
-  width: 35em;
-  height: 6em; }
+  width: 35em; }
+  .meal:after {
+    content: "";
+    display: table;
+    clear: both; }
 
 .meal .details {
   float: left;
@@ -1049,11 +1052,13 @@ button::-moz-focus-inner, .button::-moz-focus-inner, input[type="submit"]::-moz-
   background-color: #ddd;
   color: #666; }
 
-.meal .registrations img {
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 50%;
-  object-fit: cover; }
+.meal .registrations {
+  width: 24em; }
+  .meal .registrations img {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    object-fit: cover; }
 
 /*
  * Customer behaviour for meal button lifecycle
