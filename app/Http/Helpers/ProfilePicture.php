@@ -21,7 +21,8 @@ class ProfilePicture
             $client = new Client;
             $token = OAuth::getAccessToken();
             $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$token;
-            $response = $client->get($url, ['sink' => self::picturePathFor($user)]);
+            $file = fopen(self::picturePathFor($user), 'w');
+            $response = $client->get($url, ['sink' => $file]);
         }
         catch (Exception $e) {
             // No handling needed, we'll just not have an image available
