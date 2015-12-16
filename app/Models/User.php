@@ -43,21 +43,12 @@ class User extends ApplicationModel
      */
     public function dateList()
     {
-        $query = DB::table('registrations')
-                    ->select('meals.meal_timestamp')
-                    ->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id')
-                    ->where('user_id', '=', $this->id)
-                    ->whereNull('registrations.deleted_at')
-                    ->whereNull('meals.deleted_at');
-
-        // Determine last 1-sep
-        if (time() > strtotime('01 September')) {
-            $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September')));
-        }
-        else {
-            $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September last year')));
-        }
-
-        return $query->get();
+        return DB::table('registrations')
+            ->select('meals.meal_timestamp')
+            ->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id')
+            ->where('user_id', '=', $this->id)
+            ->whereNull('registrations.deleted_at')
+            ->whereNull('meals.deleted_at')
+            ->get();
     }
 }
