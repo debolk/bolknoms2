@@ -38,43 +38,26 @@ class User extends ApplicationModel
     }
 
     /**
-     * The number of registrations of this user for the current year
-     * @return integer
+     * Returns a list of dates on which you've joined a meal
+     * @return array
      */
-    public function numberOfRegistrationsThisYear()
+    public function dateList()
     {
-        // Calculate the last 1 september
-        $timestamp = mktime(0, 0, 0, 9, 1, date('Y'));
-        if ($timestamp > time()) {
-            $timestamp = mktime(0, 0, 0, 9, 1, date('Y') - 1);
+        $query = DB::table('registrations')
+                    ->select('meals.meal_timestamp')
+                    ->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id')
+                    ->where('user_id', '=', $this->id)
+                    ->whereNull('registrations.deleted_at')
+                    ->whereNull('meals.deleted_at');
+
+        // Determine last 1-sep
+        if (time() > strtotime('01 September')) {
+            $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September')));
+        }
+        else {
+            $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September last year')));
         }
 
-        return DB::table('registrations')
-                ->leftJoin('meals', 'registrations.meal_id', '=', 'meals.id')
-                ->where('user_id', '=', $this->id)
-                ->where('meals.meal_timestamp', '>=', date('Y-m-d', $timestamp))
-                ->whereNull('registrations.deleted_at')
-                ->whereNull('meals.deleted_at')
-                ->count();
-    }
-
-    /**
-     * Return the position (#1, #2, etc) of this user in the top-eaters list for this year
-     * @return integer or null when not in the list
-     */
-    public function topEatersPositionThisYear()
-    {
-        $entries = Registration::top_ytd();
-
-        $rank = 0;
-        foreach ($entries as $entry) {
-            $rank++;
-
-            if ($entry->id === $this->id) {
-                return $rank;
-            }
-        }
-
-        return null;
+        return $query->get();
     }
 }

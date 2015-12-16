@@ -30,30 +30,11 @@
     </div>
 
     <div class="profile">
-        <h2>Ranking dit collegejaar</h2>
-
-        <div class="medal {{ $medal }}">
-            <i class="fa fa-fw fa-5x fa-trophy"></i>
-        </div>
-
-        <?php if ($rank !== null): ?>
-            <h3>
-                {{ $rank }}e plaats <br>
-                {{ $count }}x meegegeten
-            </h3>
-        <?php else: ?>
-            <h3>
-                0x meegegeten
-            </h3>
-        <?php endif; ?>
-    </div>
-
-    <div class="profile">
         <h2>Maaltijden waar je hebt gegeten</h2>
         <ul>
-            <?php foreach ($user->registrations()->join('meals', 'registrations.meal_id', '=', 'meals.id')->orderBy('meal_timestamp', 'desc')->get() as $registration): ?>
-                <li>{{ $registration->longDate() }}</li>
-            <?php endforeach; ?>
+            @foreach ($user->dateList() as $entry)
+                <li>{{ strftime('%A %e %B %Y', strtotime($entry->meal_timestamp)) }}</li>
+            @endforeach
         </ul>
     </div>
 @endsection

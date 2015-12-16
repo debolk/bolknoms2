@@ -13,24 +13,7 @@ class Profile extends Application
     public function index()
     {
         $user = OAuth::user();
-
-        // Calculate the rank of the userr
-        $rank = $user->topEatersPositionThisYear();
-        $count = $user->numberOfRegistrationsThisYear();
-
-        // Determine the colour of the medal to display
-        $medal = '';
-        if ($rank === null) {
-            $medal = 'gray';
-        }
-        elseif ($rank <= 10) {
-            $medal = 'gold';
-        }
-        elseif ($rank <= 20) {
-            $medal = 'silver';
-        }
-
-        return view('profile/index', compact('user', 'rank', 'medal', 'count'));
+        return view('profile/index', compact('user'));
     }
 
     /**
