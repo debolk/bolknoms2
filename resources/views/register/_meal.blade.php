@@ -17,13 +17,15 @@
             <i class="fa fa-fw fa-cutlery"></i>
             Eten om {{ $meal->meal_timestamp->format('H:i') }} uur
         </span>
-        <br>
-        <div class="registrations">
-            @foreach ($meal->registrations as $registration)
-                @if ($registration->username)
-                    <img src="{{ action('ProfilePicture@photoFor', $registration->username) }}" title="{{ $registration->name }}">
-                @endif
-            @endforeach
-        </div>
+        @if ($user)
+            <br>
+            <div class="registrations">
+                @foreach ($meal->registrations as $registration)
+                    @if ($registration->username)
+                        <img src="{{ action('ProfilePicture@photoFor', $registration->username) }}" title="{{ $registration->name }}">
+                    @endif
+                @endforeach
+            </div>
+        @endif
     </div>
 </div>
