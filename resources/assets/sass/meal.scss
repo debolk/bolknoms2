@@ -15,77 +15,78 @@
         display:table;
         clear:both;
     }
-}
 
-.meal .details {
-    float: left;
-    color: #666;
-}
-
-.meal .attention {
-    color: red;
-}
-
-.meal h3 {
-    margin-top: 0;
-}
-
-.meal.deadline_passed, .meal.deadline_passed .details, .meal.deadline_passed .attention {
-    background-color: #ddd;
-    color: #666;
-}
-
-// Block of registrations
-.meal .registrations {
-    width: 24em;
-
-    // Rounded images
-    img {
-        width: 1.5em;
-        height: 1.5em;
-        border-radius: 50%;
-        object-fit: cover;
+    .details {
+        float: left;
+        color: #666;
     }
-}
 
-/*
- * Customer behaviour for meal button lifecycle
- * generic button styling in ./form.css
- */
-.meal button {
-    display: block;
-    float: left;
-    width: 10em;
-    height: 4.5em;
-    text-transform: uppercase;
-    padding: 0.25em;
-    font-size: 1em;
-    margin-right: 1em;
-}
+    .attention {
+        color: red;
+    }
 
-.meal button.busy {
-    /* orange colouring */
-    background-color: #f9a41a;
-    text-shadow: -1px 1px #ae7212;
-}
+    h3 {
+        margin-top: 0;
+    }
 
-.meal button.registered {
-    /* green colouring */
-    background-color: #1bb058;
-    box-shadow: 0 1px #5fc78a inset, 0 5px #127b3d, 0 3px 5px rgba(0, 0, 0, 0.3);
-    text-shadow: -1px 1px #127b3d;
-}
+    // Meals for which the deadline has passed are slight greyed out (buttons too)
+    &.deadline_passed {
+        background-color: #ddd;
+        color: #666;
 
-/* slightly grayed out buttons */
-.meal.deadline_passed button {
-    background-color: #912127;
-}
-.meal.deadline_passed button.registered {
-    background-color: #137c3f;
-}
+        button {
+            background-color: #912127;
+        }
+        button.registered {
+            background-color: #137c3f;
+        }
+    }
 
-.meal button.unusable {
-    box-shadow: none;
-    position: relative;
-    top: 5px;
+    // Block with pictures of all registered users
+    .registrations {
+        width: 24em;
+
+        // Rounded images
+        img {
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    /*
+     * Customer behaviour for meal button lifecycle
+     * generic button styling in ./form.css
+     */
+    button {
+        display: block;
+        float: left;
+        width: 10em;
+        height: 4.5em;
+        text-transform: uppercase;
+        padding: 0.25em;
+        font-size: 1em;
+        margin-right: 1em;
+
+        // Orange: process working
+        &.busy {
+            background-color: #f9a41a;
+            text-shadow: -1px 1px #ae7212;
+        }
+
+        // Green: sucesfully registered
+        &.registered {
+            background-color: #1bb058;
+            box-shadow: 0 1px #5fc78a inset, 0 5px #127b3d, 0 3px 5px rgba(0, 0, 0, 0.3);
+            text-shadow: -1px 1px #127b3d;
+        }
+
+        // Buttons that are not clickable
+        &.unusable {
+            box-shadow: none;
+            position: relative;
+            top: 5px;
+        }
+    }
 }
