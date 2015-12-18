@@ -40,6 +40,4 @@ elixir(function(mix) {
     mix.scripts(['app.js', 'menu.js'], 'public/js/common.js');
     mix.scripts(['administration.js'], 'public/js/administration.js');
     mix.scripts(['frontend.js'], 'public/js/frontend.js');
-
-    mix.browserSync({proxy: 'bolknoms.app'});
 });
