@@ -12,12 +12,6 @@
 
     <p>Als u een contact- of aanmeldformulier op de website invult, of ons een e-mail stuurt, dan worden de gegevens die u ons toestuurt bewaard zolang als naar de aard van het formulier of de inhoud van uw e-mail nodig is voor de volledige beantwoording en afhandeling daarvan.</p>
 
-    <h2>Klikgedrag en bezoekgegevens</h2>
-    <p>Op de website worden algemene bezoekgegevens bijgehouden. In dit kader kan met name het IP-adres van uw computer, de eventuele gebruikersnaam, het tijdstip van opvraging en gegevens die de browser van een bezoeker meestuurt, worden geregistreerd en worden gebruikt voor statistische analyses van bezoek- en klikgedrag op de website.Tevens optimaliseren wij hiermee de werking van de website. Wij proberen deze gegevens zo veel mogelijk te anonimiseren. Deze gegevens worden niet aan derden verstrekt.</p>
-
-    <h2>Google Analytics</h2>
-    <p>Wij maken gebruik van Google Analytics om bij te houden hoe gebruikers de Website gebruiken. De aldus verkregen informatie wordt overgebracht naar en door Google opgeslagen op servers in de Verenigde Staten. Lees <a href="http://www.google.com/intl/nl/analytics/privacyoverview.html">het privacybeleid van Google Analytics</a> voor meer informatie. Het gebruik van deze analyses is in overeenstemming met de <a href="https://cbpweb.nl/sites/default/files/atoms/files/handleiding_privacyvriendelijk_instellen_google_analytics_0.pdf">richtlijnen van het CPB over het gebruik van Google Analytics</a>.</p>
-
     <h2>Gebruik van lokale opslag</h2>
     <p>Wij maken bij het aanbieden van elektronische diensten gebruik van lokale opslag. Gegevens die u invult in een formulier op deze website worden lokaal in uw browser bewaard. Op deze manier kunt u zich de volgende keer makkelijker en sneller aanmelden. Deze gegevens worden niet verstuurd naar of opgeslagen op onze servers.</p>
 
