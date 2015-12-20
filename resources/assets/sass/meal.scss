@@ -7,7 +7,7 @@
     padding: 1em;
     margin-bottom: 1em;
     border-color: #9E9;
-    width: 35em;
+    width: 44em;
 
     // Meals are clearfixed for their (floating) content
     &:after {
@@ -44,12 +44,15 @@
 
     // Block with pictures of all registered users
     .registrations {
-        width: 24em;
+        float: right;
+        width: 7em;
 
         // Rounded images
         img {
+            float: right;
             width: 1.5em;
             height: 1.5em;
+            margin: 0 0 0.25em 0.25em;
             border-radius: 50%;
             object-fit: cover;
         }
