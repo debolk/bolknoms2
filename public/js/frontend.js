@@ -105,6 +105,15 @@ Frontend = {
             }),
             success: function() {
                 Frontend.setButtonState(button, 'registered', true);
+
+                // Add the users photo to a meal
+                var meal = button.parents('.meal')[0];
+                var image = $('.user .photo').clone().addClass('me')
+
+                // Add to UI invisibly
+                image.css('display', 'none');
+                $('.registrations', meal).append(image);
+                image.fadeIn(600);
             },
             error: function(error) {
                 Frontend.setButtonState(button, 'unregistered', true);
@@ -132,6 +141,12 @@ Frontend = {
             }),
             success: function() {
                 Frontend.setButtonState(button, 'unregistered', true);
+
+                // Remove the users' photo from a meal
+                var meal = button.parents('.meal')[0];
+                $('.registrations .me', meal).fadeOut(600, function(){
+                    $(this).remove();
+                });
             },
             error: function(error) {
                 Frontend.setButtonState(button, 'registered', true);
