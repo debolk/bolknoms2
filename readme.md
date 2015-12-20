@@ -20,6 +20,9 @@ This project is locally installed using [vagrant](https://www.vagrantup.com/) an
 1. Opening the administration panel of bolknoms requires board-level permissions. Using Gosa, you can add yourself temporarily(!) to the group "oauth-test". This requires that you have ICTcom-level access or above. Adding your account to this group will grant you access to all OAuth-protected resources regardless of the permission level. Use it for testing on your local machine and remove yourself from the group when done.
 1. Meals for the next week can be automatically generated using the command line: `php artisan meals:generate`.
 
+# Deployment (production)
+There is a one-step deployment script `./deploy.sh` which executes the required steps to deploy the application to production, provided that all dependencies are met. This requires the prior installation of PHP, MySQL, npm and other dependencies. It is strongly recommend to follow the initial deployment by hand, and running the one-click script for each deployment afterwards.
+
 ## Usage
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
 
