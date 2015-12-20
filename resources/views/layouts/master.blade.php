@@ -8,7 +8,7 @@
 
     <link href='//fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="{{ elixir('css/app.css') }}">
 
     <title>@yield('title') - Bolknoms</title>
 </head>
@@ -34,9 +34,9 @@
         @yield('content')
     </section>
 
-    <script type="text/javascript" src="/js/libs.js"></script>
-    <script type="text/javascript" src="/js/common.js"></script>
-    <script type="text/javascript" src="/js/frontend.js"></script>
-    <script type="text/javascript" src="/js/administration.js"></script>
+    <script type="text/javascript" src="{{ elixir('js/libs.js') }}"></script>
+    <script type="text/javascript" src="{{ elixir('js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ elixir('js/frontend.js') }}"></script>
+    <script type="text/javascript" src="{{ elixir('js/administration.js') }}"></script>
 </body>
 </html>
