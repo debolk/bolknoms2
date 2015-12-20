@@ -3,3 +3,5 @@
 .env
 .vagrant
 public/build
+public/js/
+public/css/
