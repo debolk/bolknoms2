@@ -28,6 +28,7 @@ elixir(function(mix) {
         'table.scss',
         'typography.scss',
         'user.scss',
+        'top.scss',
     ]);
 
     mix.scripts([

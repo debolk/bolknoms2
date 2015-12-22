@@ -3,17 +3,21 @@
 @section('title', 'Top eters')
 
 @section('content')
-    <h1>Top eters dit verenigingsjaar</h1>
-    <ol>
-        @foreach ($statistics_ytd as $registration)
-            <li>{{ $registration->name }} ({{ $registration->count }})</li>
-        @endforeach
-    </ol>
+    <div class="top-list">
+        <h1>Top eters dit verenigingsjaar</h1>
+        <ol>
+            @foreach ($statistics_ytd as $registration)
+                <li>{{ $registration->name }} ({{ $registration->count }})</li>
+            @endforeach
+        </ol>
+    </div>
 
-    <h1>Top eters all-time</h1>
-    <ol>
-        @foreach ($statistics_alltime as $registration)
-            <li>{{ $registration->name }} ({{ $registration->count }})</li>
-        @endforeach
-    </ol>
+    <div class="top-list">
+        <h1>Top eters all-time</h1>
+        <ol>
+            @foreach ($statistics_alltime as $registration)
+                <li>{{ $registration->name }} ({{ $registration->count }})</li>
+            @endforeach
+        </ol>
+    </div>
 @endsection
