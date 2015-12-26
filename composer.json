@@ -12,9 +12,8 @@
         }
     ],
     "require": {
-        "laravel/framework": "~5.1.0",
+        "laravel/framework": "~5.2.0",
         "guzzlehttp/guzzle": "~6.0.0",
-        "illuminate/html": "~5.0.0",
         "doctrine/dbal": "~2.5.1"
     },
     "require-dev": {
@@ -22,7 +21,9 @@
         "phpspec/phpspec": "~2.1",
         "laravel/homestead": "^2.1",
         "fzaninotto/faker": "~1.5.0",
-        "barryvdh/laravel-debugbar": "^2.0"
+        "barryvdh/laravel-debugbar": "^2.0",
+        "symfony/dom-crawler": "~3.0",
+        "symfony/css-selector": "~3.0"
     },
     "autoload": {
         "classmap": [

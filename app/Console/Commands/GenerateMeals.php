@@ -2,22 +2,17 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use App\Models\Meal;
+use Illuminate\Console\Command;
 
-/**
- * Automatically create meals in the database for this
- */
-class CreateMealsCommand extends Command {
-
+class GenerateMeals extends Command
+{
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'meals:generate';
+    protected $signature = 'meals:generate';
 
     /**
      * The console command description.
@@ -31,7 +26,7 @@ class CreateMealsCommand extends Command {
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         // Get next monday
         $date = strtotime('next monday');
