@@ -15,7 +15,13 @@
     <form action="" method="get">
       <p>
         Toon
-        <?php echo Form::select('count', array('5' => '5', '13' => '13', '25' => '25', '100' => '100', '0' => 'alle'), Request::get('count', 10), ['class' => 'auto-submit']); ?>
+        <select id=count name=count class="auto-submit">
+            <option value=5>5</option>
+            <option value=13>13</option>
+            <option value=25>25</option>
+            <option value=100>100</option>
+            <option value=0>alle</option>
+        </select>
         maaltijden per lijst
       </p>
     </form>
