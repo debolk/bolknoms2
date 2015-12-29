@@ -36,8 +36,8 @@ class ProfilePicture
      */
     public static function getPictureFor(User $user)
     {
-        // Try downloading a new file once if needed
-        if (! File::exists(self::picturePathFor($user))) {
+        // Try downloading a new file once if needed (and possible)
+        if (! File::exists(self::picturePathFor($user)) && OAuth::valid()) {
             self::updatePictureFor($user);
         }
 

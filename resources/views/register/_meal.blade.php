@@ -5,16 +5,13 @@
         <button class="unregistered" data-id="<?= $meal->id ;?>">nom!</button>
     @endif
 
-
-    @if ($user)
-        <div class="registrations">
-            @foreach ($meal->registrations as $registration)
-                @if ($registration->username)
-                    <img src="{{ action('ProfilePicture@photoFor', $registration->username) }}" title="{{ $registration->name }}" class="{{ $registration->user->id === $user->id ? 'me' : '' }}">
-                @endif
-            @endforeach
-        </div>
-    @endif
+    <div class="registrations">
+        @foreach ($meal->registrations as $registration)
+            @if ($registration->username)
+                <img src="{{ action('ProfilePicture@photoFor', $registration->username) }}" title="{{ $registration->name }}" class="{{ ($user && $registration->user->id === $user->id) ? 'me' : '' }}">
+            @endif
+        @endforeach
+    </div>
 
     <h3>{{ $meal }}</h3>
 

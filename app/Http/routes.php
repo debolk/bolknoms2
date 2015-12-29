@@ -19,12 +19,14 @@ Route::get('/oauth', 'OAuth@callback');
 Route::get('/login', 'OAuth@login');
 Route::get('/logout', 'OAuth@logout');
 
+// Profile picture of a user
+Route::get('/photo/{username}', 'ProfilePicture@photoFor');
+
 // Pages which require member-level authorisation
 Route::group(['middleware' => ['oauth']], function () {
 
-    // Personal details of the user
+    // Picture of the current user
     Route::get('/photo', 'ProfilePicture@photo');
-    Route::get('/photo/{username}', 'ProfilePicture@photoFor');
 
     // Top eaters list
     Route::get('/top-eters', 'Top@index');
