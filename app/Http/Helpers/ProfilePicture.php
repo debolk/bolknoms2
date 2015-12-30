@@ -36,18 +36,24 @@ class ProfilePicture
      */
     public static function getPictureFor(User $user)
     {
+        $path = self::picturePathFor($user);
+
+        if (File::exists($path)) {
+            return File::get($path);
+        }
+
         // Try downloading a new file once if needed (and possible)
-        if (! File::exists(self::picturePathFor($user)) && OAuth::valid()) {
+        if (OAuth::valid()) {
             self::updatePictureFor($user);
         }
 
         // If the file still doesn't exist, return the swedish chef
-        if (! File::exists(self::picturePathFor($user))) {
-            return public_path() . '/images/swedishchef.jpg';
+        if (File::exists($path)) {
+            return File::get($path);
         }
-
-        // Return picture
-        return File::get(self::picturePathFor($user));
+        else {
+            return File::get(public_path() . '/images/swedishchef.jpg');
+        }
     }
 
     /**
