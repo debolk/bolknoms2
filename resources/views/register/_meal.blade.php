@@ -1,8 +1,8 @@
 <div class="meal {{ $meal->open_for_registrations() ? '' : 'deadline_passed' }}">
     @if (isset($user) && $user->registeredFor($meal))
-        <button class="registered" data-id="<?= $meal->id ;?>">&#10004;</button>
+        <button class="registered" data-id="<?= $meal->id ;?>">&#10004; Je eet mee</button>
     @else
-        <button class="unregistered" data-id="<?= $meal->id ;?>">nom!</button>
+        <button class="unregistered" data-id="<?= $meal->id ;?>">Aanmelden</button>
     @endif
 
     <div class="registrations">

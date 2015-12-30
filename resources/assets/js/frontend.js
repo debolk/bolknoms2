@@ -208,17 +208,17 @@ Frontend = {
         {
             case 'unregistered':
             {
-                button.html('nom!');
+                button.html('Aanmelden');
                 break;
             }
             case 'busy':
             {
-                button.html('nom! <img src="images/spinner.gif" height="16" width="16" alt="">');
+                button.html('<img src="images/spinner.gif" height="16" width="16" alt=""> nom nom nom');
                 break;
             }
             case 'registered':
             {
-                button.html('&#10004;');
+                button.html('&#10004; Je eet mee');
                 break;
             }
         }
