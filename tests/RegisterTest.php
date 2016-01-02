@@ -19,4 +19,17 @@ class RegisterTest extends TestCase
         $this->assertResponseOk();
         $this->see( (string) $meal);
     }
+
+    public function testCannotSeeAClosedMeal()
+    {
+        $meal = factory(Meal::class)->create([
+            'meal_timestamp' => strtotime('+2 hours'),
+            'locked_timestamp' => strtotime('-1 hour'),
+        ]);
+
+        $request = $this->action('GET', 'Register@index');
+
+        $this->assertResponseOk();
+        $this->dontSee( (string) $meal);
+    }
 }
