@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
      * Reset the database after every test
