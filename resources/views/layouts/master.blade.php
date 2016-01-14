@@ -34,9 +34,6 @@
         @yield('content')
     </section>
 
-    <script type="text/javascript" src="{{ elixir('js/libs.js') }}"></script>
-    <script type="text/javascript" src="{{ elixir('js/common.js') }}"></script>
-    <script type="text/javascript" src="{{ elixir('js/frontend.js') }}"></script>
-    <script type="text/javascript" src="{{ elixir('js/administration.js') }}"></script>
+    <script type="text/javascript" src="{{ elixir('js/app.js') }}"></script>
 </body>
 </html>

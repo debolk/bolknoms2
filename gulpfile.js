@@ -36,11 +36,11 @@ elixir(function(mix) {
         'libs/zepto.fx.js',
         'libs/zepto.fx_methods.js',
         'libs/sweetalert.min.js',
-    ], 'public/js/libs.js');
+        'app.js',
+        'menu.js',
+        'administration.js',
+        'frontend.js',
+    ], 'public/js/app.js');
 
-    mix.scripts(['app.js', 'menu.js'], 'public/js/common.js');
-    mix.scripts(['administration.js'], 'public/js/administration.js');
-    mix.scripts(['frontend.js'], 'public/js/frontend.js');
-
-    mix.version(['css/app.css', 'js/libs.js', 'js/common.js', 'js/administration.js', 'js/frontend.js'])
+    mix.version(['css/app.css', 'js/app.js'])
 });
