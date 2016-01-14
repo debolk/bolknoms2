@@ -35,6 +35,11 @@ class CreateMeal extends Application
             $data['locked_timestamp'] = date('d-m-Y') . ' 15:00';
         }
 
+        // Set the event null if none is passed
+        if (empty($data['event'])) {
+            $data['event'] = null;
+        }
+
         // Create the meal
         try {
             $meal = with(new CreateMealService($data))->execute();

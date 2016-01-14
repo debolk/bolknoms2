@@ -38,8 +38,14 @@ class UpdateMeal extends Application
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
+        // Proces input
+        $data = $request->all();
+        if (empty($data['event'])) {
+            $data['event'] = null;
+        }
+
         try {
-            $meal = with(new UpdateMealService($meal, $request->all()))->execute();
+            $meal = with(new UpdateMealService($meal, $data))->execute();
         }
         catch (ValidationException $e) {
             return redirect(action('Administration\UpdateMeal@edit', $meal->id))->withErrors($e->messages())->withInput();
