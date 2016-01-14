@@ -28,11 +28,16 @@ class Register extends Application
 
         // Add more data if we have a current user
         if (OAuth::valid()) {
+            // A registered user can subscribe to any meal
             $data['meals'] = Meal::upcoming()->get();
             $data['user'] = OAuth::user();
         }
         else {
-            $data['meals'] = Meal::available()->take(1)->get();
+            // An anonymous user can subscribe to the next available meal
+            $meals = Meal::available()->take(1)->get();
+            // or any meal that is available with a description (aka `special` meals)
+            $meals = $meals->merge(Meal::available()->whereNotNull('event')->get());
+            $data['meals'] = $meals;
         }
 
         return view('register/index', $data);
