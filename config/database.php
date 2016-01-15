@@ -33,7 +33,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => env('DB_CONNECTION', 'mysql'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,6 +53,8 @@ return array(
 
 	'connections' => array(
 
+        // Main database configuration,
+        // dynamically on environment variables (see top)
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => $host,
@@ -64,6 +66,19 @@ return array(
 			'prefix'    => '',
             'strict'    => false,
 		),
+
+        // database used for running the tests
+        'mysql_testing' => array(
+            'driver'    => 'mysql',
+            'host'      => $host,
+            'database'  => 'bolknoms_testing',
+            'username'  => $username,
+            'password'  => $password,
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ),
 
 	),
 
