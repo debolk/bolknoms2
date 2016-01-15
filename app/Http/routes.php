@@ -12,7 +12,6 @@ Route::get('/bevestigen/{id}/{salt}', 'Confirm@confirm');
 Route::get('/spelregels', 'Page@spelregels');
 Route::get('/disclaimer', 'Page@disclaimer');
 Route::get('/privacy', 'Page@privacy');
-Route::get('/voordeel-account', 'Page@voordeelaccount');
 
 // OAuth routes
 Route::get('/oauth', 'OAuth@callback');
