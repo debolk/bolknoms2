@@ -32,16 +32,16 @@ class RegisterTest extends TestCase
 
     public function testRegisterToAMeal()
     {
-         $this->markTestIncomplete('Test not written');
+         $this->markTestIncomplete();
     }
 
     public function testDeregisterFromAMeal()
     {
-         $this->markTestIncomplete('Test not written');
+         $this->markTestIncomplete();
     }
 
     public function testConfirmARegistration()
     {
-        $this->markTestIncomplete('Test not written');
+        $this->markTestIncomplete();
     }
 }
