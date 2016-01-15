@@ -32,4 +32,19 @@ class RegisterTest extends TestCase
         $this->assertResponseOk();
         $this->dontSee( (string) $meal);
     }
+
+    public function testRegisterToAMeal()
+    {
+         $this->markTestIncomplete('Test not written');
+    }
+
+    public function testDeregisterFromAMeal()
+    {
+         $this->markTestIncomplete('Test not written');
+    }
+
+    public function testConfirmARegistration()
+    {
+        $this->markTestIncomplete('Test not written');
+    }
 }
