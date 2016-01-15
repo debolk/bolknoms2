@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class Meal extends ApplicationModel
 {
@@ -52,7 +53,7 @@ class Meal extends ApplicationModel
      */
     public function scopeToday($query)
     {
-        return $query->where('meal_timestamp', '=', date('Y-m-d'));
+        return $query->where(DB::raw('DATE_FORMAT(`meal_timestamp`, "%Y-%m-%d")'), '=', date('Y-m-d'));
     }
 
     /**

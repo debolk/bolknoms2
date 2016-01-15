@@ -6,6 +6,7 @@ use App;
 use App\Http\Controllers\Application;
 use App\Models\Meal;
 use App\Services\UpdateMealService;
+use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -37,8 +38,14 @@ class UpdateMeal extends Application
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
+        // Proces input
+        $data = $request->all();
+        if (empty($data['event'])) {
+            $data['event'] = null;
+        }
+
         try {
-            $meal = with(new UpdateMealService($meal, $request->all()))->execute();
+            $meal = with(new UpdateMealService($meal, $data))->execute();
         }
         catch (ValidationException $e) {
             return redirect(action('Administration\UpdateMeal@edit', $meal->id))->withErrors($e->messages())->withInput();

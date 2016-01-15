@@ -21,6 +21,9 @@ Frontend = {
 
         // Show a dialog to get the new handicap of the user
         $('#set_profile_handicap').on('click', Frontend.updateHandicap);
+
+        // Chef gimmick
+        $('.chef').on('click', Frontend.randomChefPromotion);
     },
 
     /**
@@ -276,6 +279,32 @@ Frontend = {
             });
         });
     },
+
+    /**
+     * Show a random Swedish Chef movie
+     * @param  {Event} event
+     * @return {undefined}
+     */
+    randomChefPromotion: function(event) {
+        event.preventDefault();
+
+        // Movies to play
+        var recipes = [
+            {name: 'Chocolate Moose', id: 'CAsYwW7pt7o'},
+            {name: 'Pöpcørn', id: 'B7UmUX68KtE'},
+            {name: 'Meatballs', id: 'sY_Yf4zz-yo'},
+        ];
+
+        // Choose a random entry
+        var recipe = recipes[Math.floor(Math.random() * recipes.length)];
+
+        // Show popup
+        swal({
+            title: "How to make " + recipe.name,
+            text: "<iframe width=420 height=315 src=\"https://www.youtube-nocookie.com/embed/"+recipe.id+"?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0\" frameborder=0 allowfullscreen></iframe>",
+            html: true,
+        });
+    }
 };
 
 $(document).on('ready', Frontend.init);

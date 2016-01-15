@@ -13,7 +13,7 @@
         <li>Je kunt niet mee-eten zonder je aan te melden.</li>
         <li>Je kunt je aanmelden tot de vastgestelde sluitingstijd (meestal 15:00 uur). De sluitingstijd wordt bepaald door het bestuur en staat vermeld bij de maaltijd.</li>
         <li> Bolkers kunnen zich aanmelden voor alle open maaltijden. Ze hoeven hun aanmelding niet te bevestigen via e-mail.</li>
-        <li>Externen kunnen zich aanmelden voor de eerstvolgende maaltijd. Na aanmelden krijg je een e-mail met een bevestigingslink. Als je je aanmelding niet bevestigt door voor 15:00 uur op die link te klikken, kun je niet mee-eten.</li>
+        <li>Externen kunnen zich aanmelden voor de eerstvolgende maaltijd, en in sommige gevallen ook voor latere maaltijden. Na aanmelden krijg je een e-mail met een bevestigingslink. Als je je aanmelding niet bevestigt door voor 15:00 uur op die link te klikken, kun je niet mee-eten.</li>
         <li>Je kunt je weer afmelden tot aan de sluitingstijd. Als je met je Bolkaccount aangemeld bent, doe je
         dat via de website. Als je geen Bolkaccount hebt, meld je je af door het bestuur te bellen op <a href="tel:+31152126012">015 212 60 12</a>.</li>
     </ol>

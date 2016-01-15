@@ -28,6 +28,8 @@ class ProfilePicture extends Application
             abort(404);
         }
 
-        return response(Picture::getPictureFor($user))->header('Content-Type', 'image/jpeg');
+        return response(Picture::getPictureFor($user))
+                ->header('Content-Type', 'image/jpeg')
+                ->header('Cache-Control', 'public, max-age=604800'); // cache one week
     }
 }

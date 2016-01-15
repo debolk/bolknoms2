@@ -29,14 +29,14 @@ class UpdateMealService extends Service
         // Validate the resulting input
         $validator = Validator::make($this->data, [
             'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'unique:meals,meal_timestamp,'.$this->meal->id],
-            'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'after:meal_timestamp'],
+            'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'before:meal_timestamp'],
         ],[
             'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
             'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
             'meal_timestamp.unique'        => 'Er is al een maaltijd op deze datum en tijd',
             'locked_timestamp.date_format' => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
             'locked_timestamp.required'    => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
-            'after:meal_timestamp' => 'De sluitingstijd moet eerder zijn dan het begin van de maaltijd',
+            'locked_timestamp.before'      => 'De sluitingstijd moet eerder zijn dan het begin van de maaltijd',
         ]);
 
         if ($validator->fails()) {
