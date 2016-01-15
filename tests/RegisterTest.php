@@ -1,9 +1,6 @@
 <?php
 
 use App\Models\Meal;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class RegisterTest extends TestCase
 {
