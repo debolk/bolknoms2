@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "433799cff712d8e2af7c7a21490bfbbb",
-    "content-hash": "782c2c73d032f4bee3dfcad901b37bab",
+    "hash": "dd376d51c7473f330bdf8e14850c50bd",
+    "content-hash": "d61f3c4c2e7b12fdd00835a26de55aaf",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1516,6 +1516,60 @@
                 "shell"
             ],
             "time": "2015-11-12 16:18:56"
+        },
+        {
+            "name": "raven/raven",
+            "version": "0.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/raven-php.git",
+                "reference": "1d5be07afc001df98a3528d1f928eeb2241afce6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/raven-php/zipball/1d5be07afc001df98a3528d1f928eeb2241afce6",
+                "reference": "1d5be07afc001df98a3528d1f928eeb2241afce6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "^1.8.0",
+                "phpunit/phpunit": "^4.6.6"
+            },
+            "bin": [
+                "bin/raven"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.13.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Raven_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "David Cramer",
+                    "email": "dcramer@gmail.com"
+                }
+            ],
+            "description": "A PHP client for Sentry (http://getsentry.com)",
+            "homepage": "http://getsentry.com",
+            "keywords": [
+                "log",
+                "logging"
+            ],
+            "time": "2015-09-09 18:12:58"
         },
         {
             "name": "swiftmailer/swiftmailer",
