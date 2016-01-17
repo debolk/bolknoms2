@@ -43,7 +43,12 @@ class RegisterTest extends TestCase
                         ->type('hans@vvd.nl', 'email')
                         ->click('Aanmelden');
 
-        $this->assertEquals($meal->registrations()->count(), 1);
+        $this->seeInDatabase('registrations', [
+            'name' => 'Hans van Baalen',
+            'email' => 'hans@vvd.nl',
+            'confirmed' => false,
+            'meal_id' => $meal->id,
+        ]);
     }
 
     public function testRegisterToANamedMealWithoutAccount()
