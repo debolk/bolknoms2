@@ -30,9 +30,30 @@ class RegisterTest extends TestCase
         $this->dontSee( (string) $meal);
     }
 
-    public function testRegisterToAMeal()
+    public function testRegisterToAMealWithoutAccount()
     {
-         $this->markTestIncomplete();
+        $meal = factory(Meal::class)->create([
+            'meal_timestamp' => strtotime('+2 hours'),
+            'locked_timestamp' => strtotime('-1 hour'),
+        ]);
+
+        $request = $this->visit('/')
+                        ->click('doorgaan zonder Bolkaccount')
+                        ->type('Hans van Baalen', 'name')
+                        ->type('hans@vvd.nl', 'email')
+                        ->click('Aanmelden');
+
+        $this->assertEquals($meal->registrations()->count(), 1);
+    }
+
+    public function testRegisterToANamedMealWithoutAccount()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testRegisterToAMealWithAccount()
+    {
+        $this->markTestIncomplete();
     }
 
     public function testDeregisterFromAMeal()
