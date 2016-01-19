@@ -32,6 +32,8 @@ class RegisterTest extends TestCase
 
     public function testRegisterToAMealWithoutAccount()
     {
+        $this->markTestIncomplete();
+
         $meal = factory(Meal::class)->create([
             'meal_timestamp' => strtotime('+2 hours'),
             'locked_timestamp' => strtotime('-1 hour'),
