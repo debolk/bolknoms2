@@ -7,7 +7,8 @@ class AdministrationMealsTest extends TestCase
 {
     use WithoutMiddleware;
 
-    public function testViewMeals()
+    /** @test */
+    public function can_view_a_list_of_meals()
     {
         $meals = factory(Meal::class, 2)->create();
 
@@ -16,7 +17,8 @@ class AdministrationMealsTest extends TestCase
              ->see(with($meals[1])->date);
     }
 
-    public function testViewMealDetails()
+    /** @test */
+    public function can_view_the_details_of_a_meal()
     {
         $meal = factory(Meal::class)->create();
 
@@ -24,47 +26,56 @@ class AdministrationMealsTest extends TestCase
              ->assertResponseOk();
     }
 
-    public function testCreateAMeal()
+    /** @test */
+    public function can_create_a_new_meal()
     {
         $this->markTestIncomplete();
     }
 
-    public function testUpdateAMeal()
+    /** @test */
+    public function can_update_the_information_of_a_meal()
     {
         $this->markTestIncomplete();
     }
 
-    public function testRegisterAUser()
+    /** @test */
+    public function can_add_a_user_to_a_meal()
     {
         $this->markTestIncomplete();
     }
 
-    public function testRegisterAUserAfterDeadline()
+    /** @test */
+    public function can_add_a_user_to_a_meal_after_the_deadline()
     {
         $this->markTestIncomplete();
     }
 
-    public function testRegisterAName()
+    /** @test */
+    public function can_add_a_registration_without_an_account()
     {
         $this->markTestIncomplete();
     }
 
-    public function testRegisterANameAfterDeadline()
+    /** @test */
+    public function can_add_a_registration_without_an_account_after_the_deadline()
     {
         $this->markTestIncomplete();
     }
 
-    public function testRemoveARegistration()
+    /** @test */
+    public function can_remove_a_registration()
     {
         $this->markTestIncomplete();
     }
 
-    public function testPrintRegistrationList()
+    /** @test */
+    public function can_print_the_list_of_registrations()
     {
         $this->markTestIncomplete();
     }
 
-    public function testRemoveAMeal()
+    /** @test */
+    public function can_remove_a_meal()
     {
         $this->markTestIncomplete();
     }

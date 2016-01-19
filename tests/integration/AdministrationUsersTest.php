@@ -7,7 +7,8 @@ class AdministrationUsersTest extends TestCase
 {
     use WithoutMiddleware;
 
-    public function testListUsers()
+    /** @test */
+    public function can_see_a_list_of_all_users()
     {
         $users = factory(User::class, 2)->create();
 
@@ -16,7 +17,8 @@ class AdministrationUsersTest extends TestCase
              ->see(with($users[1])->name);
     }
 
-    public function testBlockUser()
+    /** @test */
+    public function can_block_a_user()
     {
         $this->markTestIncomplete();
 
@@ -31,12 +33,14 @@ class AdministrationUsersTest extends TestCase
         ]);
     }
 
-    public function testUnblockUser()
+    /** @test */
+    public function can_unblock_a_blocked_user()
     {
         $this->markTestIncomplete();
     }
 
-    public function testSetHandicap()
+    /** @test */
+    public function can_change_the_handicap_of_a_user()
     {
         $this->markTestIncomplete();
     }

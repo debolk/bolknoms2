@@ -2,17 +2,20 @@
 
 class TopTest extends TestCase
 {
-    public function testRegistrationsAreCountedInResults()
+    /** @test */
+    public function can_view_number_of_registrations_in_list()
     {
         $this->markTestIncomplete();
     }
 
-    public function testOrderingIsProper()
+    /** @test */
+    public function results_are_ordered_descending()
     {
         $this->markTestIncomplete();
     }
 
-    public function testFutureMealsAreNotCounted()
+    /** @test */
+    public function future_registrations_are_not_counted()
     {
         $this->markTestIncomplete();
     }

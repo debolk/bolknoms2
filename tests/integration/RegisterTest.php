@@ -4,7 +4,8 @@ use App\Models\Meal;
 
 class RegisterTest extends TestCase
 {
-    public function testCanSeeAnOpenMeal()
+    /** @test */
+    public function can_view_an_available_meal()
     {
         $meal = factory(Meal::class)->create([
             'meal_timestamp' => strtotime('+2 hours'),
@@ -17,7 +18,8 @@ class RegisterTest extends TestCase
         $this->see( (string) $meal);
     }
 
-    public function testCannotSeeAClosedMeal()
+    /** @test */
+    public function cannot_view_a_unavailable_meal()
     {
         $meal = factory(Meal::class)->create([
             'meal_timestamp' => strtotime('+2 hours'),
@@ -30,7 +32,8 @@ class RegisterTest extends TestCase
         $this->dontSee( (string) $meal);
     }
 
-    public function testRegisterToAMealWithoutAccount()
+    /** @test */
+    public function can_register_for_the_next_meal_without_an_account()
     {
         $this->markTestIncomplete();
 
@@ -53,22 +56,26 @@ class RegisterTest extends TestCase
         ]);
     }
 
-    public function testRegisterToANamedMealWithoutAccount()
+    /** @test */
+    public function can_register_for_a_named_meal_without_an_account()
     {
         $this->markTestIncomplete();
     }
 
-    public function testRegisterToAMealWithAccount()
+    /** @test */
+    public function can_register_for_a_meal_with_an_account()
     {
         $this->markTestIncomplete();
     }
 
-    public function testDeregisterFromAMeal()
+    /** @test */
+    public function can_deregister_from_a_meal()
     {
          $this->markTestIncomplete();
     }
 
-    public function testConfirmARegistration()
+    /** @test */
+    public function can_confirm_a_registration()
     {
         $this->markTestIncomplete();
     }

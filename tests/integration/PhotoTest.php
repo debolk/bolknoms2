@@ -2,12 +2,14 @@
 
 class PhotoTest extends TestCase
 {
-    public function testCanViewPictureForOneself()
+    /** @test */
+    public function can_view_ones_own_profile_picture()
     {
         $this->markTestIncomplete();
     }
 
-    public function testCanViewPictureForAnotherUser()
+    /** @test */
+    public function can_view_the_profile_picture_of_another_user()
     {
         $this->markTestIncomplete();
     }

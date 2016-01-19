@@ -2,27 +2,32 @@
 
 class ProfileTest extends TestCase
 {
-    public function testViewProfile()
+    /** @test */
+    public function can_view_your_profile()
     {
         $this->markTestIncomplete();
     }
 
-    public function testViewHandicap()
+    /** @test */
+    public function profile_contains_your_handicap()
     {
         $this->markTestIncomplete();
     }
 
-    public function testUpdateHandicap()
+    /** @test */
+    public function can_set_your_handicap()
     {
         $this->markTestIncomplete();
     }
 
-    public function testViewRegistrationDates()
+    /** @test */
+    public function can_view_attended_meals()
     {
         $this->markTestIncomplete();
     }
 
-    public function testViewProfilePicture()
+    /** @test */
+    public function can_view_your_profile_picture()
     {
         $this->markTestIncomplete();
     }
