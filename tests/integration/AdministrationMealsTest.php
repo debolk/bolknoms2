@@ -1,15 +1,27 @@
 <?php
 
+use App\Models\Meal;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+
 class AdministrationMealsTest extends TestCase
 {
+    use WithoutMiddleware;
+
     public function testViewMeals()
     {
-        $this->markTestIncomplete();
+        $meals = factory(Meal::class, 2)->create();
+
+        $this->visit('/administratie/maaltijden')
+             ->see(with($meals[0])->date)
+             ->see(with($meals[1])->date);
     }
 
     public function testViewMealDetails()
     {
-        $this->markTestIncomplete();
+        $meal = factory(Meal::class)->create();
+
+        $this->visit('/administratie/maaltijden/'.$meal->id)
+             ->assertResponseOk();
     }
 
     public function testCreateAMeal()
