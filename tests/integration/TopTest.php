@@ -66,16 +66,4 @@ class TopTest extends TestCase
              ->see($this->user1->name . ' (2)')
              ->see($this->user2->name . ' (1)');
     }
-
-    /** @test */
-    public function results_are_ordered_descending()
-    {
-        $this->markTestIncomplete();
-    }
-
-    /** @test */
-    public function future_registrations_are_not_counted()
-    {
-        $this->markTestIncomplete();
-    }
 }
