@@ -24,10 +24,12 @@ $factory->define(Meal::class, function (Generator $faker) {
 });
 
 $factory->define(Registration::class, function (Generator $faker) use ($factory) {
+    $meal = $factory->create(Meal::class);
+
     return [
         'name'      => $faker->name(),
         'handicap'  => $faker->sentence(rand(1,3)),
-        'meal_id'   => $factory->raw(Meal::class),
+        'meal_id'   => $meal->id,
         'email'     => $faker->email(),
         'confirmed' => true
     ];
