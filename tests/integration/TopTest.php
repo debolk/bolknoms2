@@ -9,10 +9,9 @@ class TopTest extends TestCase
 {
     use WithoutMiddleware;
 
-    function setUp()
+    /** @test */
+    public function can_view_number_of_registrations_in_list()
     {
-        parent::setUp();
-
         /*
          * Create a set of registrations for meals both present and future
          * making the final result look like:
@@ -57,11 +56,8 @@ class TopTest extends TestCase
         $registration->user()->associate($this->user2);
         $registration->meal()->associate($this->past_meal);
         $registration->save();
-    }
 
-    /** @test */
-    public function can_view_number_of_registrations_in_list()
-    {
+        // Test output
         $this->visit('/top-eters')
              ->see($this->user1->name . ' (2)')
              ->see($this->user2->name . ' (1)');
