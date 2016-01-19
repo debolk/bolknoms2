@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder {
             exit(1);
         }
 
-        // Drop all tables except migrations and sessions
+        // Drop all tables except for migrations
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        $tables = ['users', 'registrations', 'meals'];
+        $tables = ['users', 'registrations', 'meals', 'sessions'];
         foreach($tables as $table) {
             DB::table($table)->truncate();
         }
