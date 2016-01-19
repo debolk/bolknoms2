@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Meal;
+use App\Models\User;
 use DB;
 
 class Registration extends ApplicationModel
@@ -17,7 +19,7 @@ class Registration extends ApplicationModel
      */
     public function meal()
     {
-        return $this->belongsTo('App\Models\Meal');
+        return $this->belongsTo(Meal::class);
     }
 
     /**
@@ -26,7 +28,7 @@ class Registration extends ApplicationModel
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
