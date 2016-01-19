@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder {
         }
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        // factory(Registration::class, 10)->create();
         // Create 10 meals with 1-5 registrations each
         factory(Meal::class, 5)->create()->each(function($meal) {
             $registrations = factory(Registration::class, rand(1,20))->make();
@@ -39,7 +38,7 @@ class DatabaseSeeder extends Seeder {
             }
         });
 
-        // // Create 3 users
+        // Create 3 users
         factory(User::class, 3)->create();
 	}
 
