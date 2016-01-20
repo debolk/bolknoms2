@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\OAuth;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 
 class Application extends Controller
 {
-    use DispatchesJobs, ValidatesRequests;
+    use ValidatesRequests;
 
     /**
      * Common setup to all controllers
