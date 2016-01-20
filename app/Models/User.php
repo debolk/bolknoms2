@@ -4,12 +4,6 @@ namespace App\Models;
 
 use DB;
 
-/**
- * The User-class is the local extension of the OAuth2 user.
- * It holds all custom user behaviour and data for Bolknoms.
- * Note that as users are primarily identified by only their
- * username, they cannot be persisted in the database.
- */
 class User extends ApplicationModel
 {
     public function registrations()
