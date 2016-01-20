@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider {
             return new Navigation($this->app[OAuth::class]);
         });
 
-        $this->app->bind(profilePicture::class, function() {
+        $this->app->bind(ProfilePicture::class, function() {
             return new ProfilePicture($this->app[OAuth::class]);
         });
     }

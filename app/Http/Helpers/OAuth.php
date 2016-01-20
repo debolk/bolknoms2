@@ -19,8 +19,7 @@ class OAuth
     private $session;
 
     /**
-     * @param Illuminate\Support\Facades\Session $session
-     * @param App\Http\Helpers\ProfilePicture $profile_picture
+     * @param Illuminate\Http\Request $request
      */
     public function __construct(Request $request)
     {

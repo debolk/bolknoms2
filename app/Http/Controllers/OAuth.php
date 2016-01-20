@@ -13,12 +13,12 @@ class OAuth extends Application
      * Store the callback
      * @return View
      */
-    public function callback(OAuthHelper $oauth, ProfilePicture $profilePicture)
+    public function callback(ProfilePicture $profilePicture)
     {
         $result = $this->oauth->processCallback(Request::all());
 
         // Update the profile picture
-        $profilePicture->updatePictureFor($oauth->user());
+        $profilePicture->updatePictureFor($this->oauth->user());
 
         return redirect($result);
     }

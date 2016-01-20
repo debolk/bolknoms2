@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App;
 use App\Http\Helpers\OAuth as OAuthHelper;
 use Closure;
+use Illuminate\Http\Request;
 
 class OAuth
 {
@@ -28,7 +28,7 @@ class OAuth
 	 * @param  \Closure  $next
 	 * @return mixed
  	 */
-	public function handle($request, Closure $next)
+	public function handle(Request $request, Closure $next)
 	{
         if ($this->oauth->valid()) {
             return $next($request);
