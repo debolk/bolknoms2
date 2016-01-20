@@ -1,4 +1,3 @@
-<?php $user = App\Http\Helpers\OAuth::user(); ?>
 @if ($user)
     <p>
         <?php if ($user->handicap): ?>
