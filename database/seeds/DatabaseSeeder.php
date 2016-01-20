@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder {
 
         // Drop all tables except for migrations
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        $tables = ['users', 'registrations', 'meals', 'sessions'];
+        $tables = ['users', 'registrations', 'meals'];
         foreach($tables as $table) {
             DB::table($table)->truncate();
         }
