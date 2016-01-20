@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App;
-use App\Http\Helpers\OAuth;
+use App\Http\Helpers\OAuth as OAuthHelper;
 use App\Http\Helpers\ProfilePicture as Picture;
 use App\Models\User;
 
@@ -14,7 +13,7 @@ class ProfilePicture extends Application
      */
     public function photo()
     {
-        return response(Picture::getPictureFor(OAuth::user()))->header('Content-Type', 'image/jpeg');
+        return response(Picture::getPictureFor(OAuthHelper::user()))->header('Content-Type', 'image/jpeg');
     }
 
     /**

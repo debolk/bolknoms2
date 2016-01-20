@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\OAuth;
+use App\Http\Helpers\OAuth as OAuthHelper;
 use \Request;
 
 class Profile extends Application
@@ -12,7 +12,7 @@ class Profile extends Application
      */
     public function index()
     {
-        $user = OAuth::user();
+        $user = OAuthHelper::user();
         return view('profile/index', compact('user'));
     }
 
@@ -21,7 +21,7 @@ class Profile extends Application
      */
     public function setHandicap()
     {
-        $user = OAuth::user();
+        $user = OAuthHelper::user();
         $user->handicap = Request::get('handicap');
 
         if ($user->save()) {
