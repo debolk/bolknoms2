@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Log;
 
 class OAuth
@@ -19,14 +20,6 @@ class OAuth
     private $session;
 
     /**
-     * @param Illuminate\Http\Request $request
-     */
-    public function __construct(Request $request)
-    {
-        $this->session = $request->session();
-    }
-
-    /**
      * Return whether we have a valid session
      * @access public
      * @return boolean
@@ -34,7 +27,7 @@ class OAuth
     public function valid()
     {
         // Must have a token
-        if (! $this->session->has('oauth.token')) {
+        if (! Session::has('oauth.token')) {
             return false;
         }
 
@@ -60,8 +53,8 @@ class OAuth
         }
 
         // Find the current user
-        if ($this->session->has('oauth.current_user')) {
-            return User::find($this->session->get('oauth.current_user'));
+        if (Session::has('oauth.current_user')) {
+            return User::find(Session::get('oauth.current_user'));
         }
 
         // Upsert the user
@@ -78,7 +71,7 @@ class OAuth
             return null;
         }
 
-        return $this->session->get('oauth.token')->access_token;
+        return Session::get('oauth.token')->access_token;
     }
 
     /**
@@ -88,7 +81,7 @@ class OAuth
     private function upsertUser()
     {
         $client = new Client();
-        $access_token = $this->session->get('oauth.token')->access_token;
+        $access_token = Session::get('oauth.token')->access_token;
 
         // Get the username
         try {
@@ -131,8 +124,8 @@ class OAuth
         }
 
         // Store the user in session
-        $this->session->set('oauth.current_user', $user->id);
-        $this->session->save(); // An explicit save is required in middleware
+        Session::set('oauth.current_user', $user->id);
+        Session::save(); // An explicit save is required in middleware
 
         return $user;
     }
@@ -145,7 +138,7 @@ class OAuth
     private function tokenIsExpired()
     {
         $now = new \DateTime();
-        $expiry = $this->session->get('oauth.token')->expires_at;
+        $expiry = Session::get('oauth.token')->expires_at;
 
         // Subtract one minute to allow for clock drift
         $expiry = $expiry->sub(new \DateInterval('PT1M'));
@@ -164,7 +157,7 @@ class OAuth
             $client = new Client();
             $response = $client->post(env('OAUTH_ENDPOINT').'token/', ['json' => [
                 'grant_type' => 'refresh_token',
-                'refresh_token' => $this->session->get('oauth.token')->refresh_token,
+                'refresh_token' => Session::get('oauth.token')->refresh_token,
                 'client_id' => env('OAUTH_CLIENT_ID'),
                 'client_secret' => env('OAUTH_CLIENT_SECRET'),
             ]]);
@@ -191,8 +184,8 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Overwrite the token with the new token
-        $this->session->set('oauth.token', $token);
-        $this->session->save();
+        Session::set('oauth.token', $token);
+        Session::save();
     }
 
     /**
@@ -202,14 +195,14 @@ class OAuth
     public function toAuthorisationServer($original_route)
     {
         // Store the URL we attempt to visit
-        $this->session->set('oauth.goal', $original_route);
+        Session::set('oauth.goal', $original_route);
 
         // Generate a random six digit number as state to defend against CSRF-attacks
         $state = rand(pow(10, 5), pow(10, 6)-1);
-        $this->session->set('oauth.state', $state);
+        Session::set('oauth.state', $state);
 
         // For some reason, an explicit save is needed in middleware
-        $this->session->save();
+        Session::save();
 
         // Redirect to the oauth endpoint for authentication
         $query_string = http_build_query([
@@ -230,7 +223,7 @@ class OAuth
     {
         try {
             $client = new Client();
-            $url = env('OAUTH_ENDPOINT').'bestuur/?access_token='.$this->session->get('oauth.token')->access_token;
+            $url = env('OAUTH_ENDPOINT').'bestuur/?access_token='.Session::get('oauth.token')->access_token;
             $request = $client->get($url);
             return ($request->getStatusCode() === 200);
         }
@@ -245,7 +238,7 @@ class OAuth
      */
     public function logout()
     {
-        $this->session->remove('oauth');
+        Session::remove('oauth');
     }
 
     /**
@@ -257,7 +250,7 @@ class OAuth
     public function processCallback($input)
     {
         // Check state to prevent CSRF
-        if ((string)$input['state'] !== (string)$this->session->get('oauth.state')) {
+        if ((string)$input['state'] !== (string)Session::get('oauth.state')) {
             $this->fatalError('state mismatch', 'state mismatch', 500);
         }
 
@@ -301,10 +294,10 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Store the token
-        $this->session->set('oauth.token', $token);
+        Session::set('oauth.token', $token);
 
         // Redirect to the original URL
-        return $this->session->get('oauth.goal');
+        return Session::get('oauth.goal');
 
     }
 
@@ -324,7 +317,7 @@ class OAuth
         }
 
         // Log out the current user
-        $this->session->remove('oauth');
+        Session::remove('oauth');
 
         // Send a nice error page with explanation
         abort($status_code, $technical);
