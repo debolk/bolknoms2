@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App;
-use Request;
 use App\Http\Helpers\OAuth as OAuthHelper;
+use App\Http\Helpers\ProfilePicture;
+use Request;
 
 class OAuth extends Application
 {
@@ -12,15 +13,19 @@ class OAuth extends Application
      * Store the callback
      * @return View
      */
-    public function callback()
+    public function callback(OAuthHelper $oauth, ProfilePicture $profilePicture)
     {
-        $result = OAuthHelper::processCallback(Request::all());
+        $result = $this->oauth->processCallback(Request::all());
+
+        // Update the profile picture
+        $profilePicture->updatePictureFor($oauth->user());
+
         return redirect($result);
     }
 
     public function login()
     {
-        return OAuthHelper::toAuthorisationServer('/');
+        return $this->oauth->toAuthorisationServer('/');
     }
 
     /**
@@ -29,7 +34,7 @@ class OAuth extends Application
      */
     public function logout()
     {
-        OAuthHelper::logout();
+        $this->oauth->logout();
         return redirect('/');
     }
 }

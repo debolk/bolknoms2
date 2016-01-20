@@ -25,7 +25,7 @@
             @include('user/_no_user')
         @endif
 
-        <?=\App\Http\Helpers\Navigation::show();?>
+        {!! $navigation->show(); !!}
     </nav>
 
     <section>

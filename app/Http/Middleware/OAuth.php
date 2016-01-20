@@ -2,10 +2,24 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App;
+use App\Http\Helpers\OAuth as OAuthHelper;
+use Closure;
 
-class OAuth {
+class OAuth
+{
+    /**
+     * @var App\Http\Helpers\OAuth
+     */
+    private $oauth;
+
+    /**
+     * @param App\Http\Helpers\OAuth $oauth
+     */
+    public function __construct(OAuthHelper $oauth)
+    {
+        $this->oauth = $oauth;
+    }
 
 	/**
 	 * Allow a request to proceed only if we hold a valid OAuth token
@@ -16,11 +30,11 @@ class OAuth {
  	 */
 	public function handle($request, Closure $next)
 	{
-        if (\App\Http\Helpers\OAuth::valid()) {
+        if ($this->oauth->valid()) {
             return $next($request);
         }
         else {
-            return \App\Http\Helpers\OAuth::toAuthorisationServer($request->route()->getUri());
+            return $this->oauth->toAuthorisationServer($request->route()->getUri());
         }
 
 	}

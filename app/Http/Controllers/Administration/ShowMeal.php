@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Administration;
 
 use App;
 use App\Http\Controllers\Application;
-use App\Http\Helpers\OAuth;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
@@ -54,7 +53,7 @@ class ShowMeal extends Application
 
         try {
             // Create registration
-            $registration = with(new AdminRegisterService($data, OAuth::user()))->execute();
+            $registration = with(new AdminRegisterService($data, $this->oauth->user()))->execute();
 
             // Return view of the new registration
             return view('administration/meal/_registration', ['registration' => $registration]);

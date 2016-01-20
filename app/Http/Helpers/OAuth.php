@@ -2,31 +2,46 @@
 
 namespace App\Http\Helpers;
 
-use Session;
 use App;
+use App\Http\Helpers\ProfilePicture;
+use App\Models\User;
 use Exception;
 use GuzzleHttp\Client;
-use App\Models\User;
+use Illuminate\Http\Request;
 use Log;
 
 class OAuth
 {
     /**
+     * Session storage to use
+     * @var Illuminate\Support\Facades\Session
+     */
+    private $session;
+
+    /**
+     * @param Illuminate\Support\Facades\Session $session
+     * @param App\Http\Helpers\ProfilePicture $profile_picture
+     */
+    public function __construct(Request $request)
+    {
+        $this->session = $request->session();
+    }
+
+    /**
      * Return whether we have a valid session
      * @access public
-     * @static
      * @return boolean
      */
-    public static function valid()
+    public function valid()
     {
         // Must have a token
-        if (! Session::has('oauth.token')) {
+        if (! $this->session->has('oauth.token')) {
             return false;
         }
 
         // Refresh the token if needed
-        if (self::tokenIsExpired()) {
-            self::refreshToken();
+        if ($this->tokenIsExpired()) {
+            $this->refreshToken();
         }
 
         // We assume a token is valid for its lifetime
@@ -38,44 +53,43 @@ class OAuth
      * Returns the current user details or null if none
      * @return App\Models\User
      */
-    public static function user()
+    public function user()
     {
         // Must have a valid session
-        if (! OAuth::valid()) {
+        if (! $this->valid()) {
             return null;
         }
 
         // Find the current user
-        if (Session::has('oauth.current_user')) {
-            return User::find(Session::get('oauth.current_user'));
+        if ($this->session->has('oauth.current_user')) {
+            return User::find($this->session->get('oauth.current_user'));
         }
 
         // Upsert the user
-        return self::upsertUser();
+        return $this->upsertUser();
     }
 
     /**
      * Return a valid access token for use in OAuth2-protected calls
      * @return string
      */
-    public static function getAccessToken()
+    public function getAccessToken()
     {
-        if (self::valid()) {
-            return Session::get('oauth.token')->access_token;
-        }
-        else {
+        if (! $this->valid()) {
             return null;
         }
+
+        return $this->session->get('oauth.token')->access_token;
     }
 
     /**
      * Create or update the current user in the database and return it
      * @return \App\Models\User
      */
-    private static function upsertUser()
+    private function upsertUser()
     {
         $client = new Client();
-        $access_token = Session::get('oauth.token')->access_token;
+        $access_token = $this->session->get('oauth.token')->access_token;
 
         // Get the username
         try {
@@ -84,7 +98,7 @@ class OAuth
             $username = json_decode($response->getBody())->user_id;
         }
         catch (Exception $e) {
-            self::fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
+            $this->fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
         }
 
         // We are upserting the current db entry
@@ -109,20 +123,17 @@ class OAuth
 
         // Validate the user object for necessary properties
         if ($user->email == null || $user->username == null || $user->name == null) {
-            self::fatalError('Could not retrieve crucial details of your user account', 'user object misses required values', 502);
+            $this->fatalError('Could not retrieve crucial details of your user account', 'user object misses required values', 502);
         }
 
         // Save to database
         if (! $user->save()) {
-            self::fatalError('Could not persist your account details', 'cannot persist user', 500);
+            $this->fatalError('Could not persist your account details', 'cannot persist user', 500);
         }
 
-        // Grab user photo and store on disk for caching purposes
-        ProfilePicture::updatePictureFor($user);
-
         // Store the user in session
-        Session::set('oauth.current_user', $user->id);
-        Session::save(); // An explicit save is required in middleware
+        $this->session->set('oauth.current_user', $user->id);
+        $this->session->save(); // An explicit save is required in middleware
 
         return $user;
     }
@@ -130,13 +141,12 @@ class OAuth
     /**
      * Returns whether the token is not expired
      * @access private
-     * @static
      * @return boolean
      */
-    private static function tokenIsExpired()
+    private function tokenIsExpired()
     {
         $now = new \DateTime();
-        $expiry = Session::get('oauth.token')->expires_at;
+        $expiry = $this->session->get('oauth.token')->expires_at;
 
         // Subtract one minute to allow for clock drift
         $expiry = $expiry->sub(new \DateInterval('PT1M'));
@@ -147,16 +157,15 @@ class OAuth
     /**
      * Refreshes the token
      * @access private
-     * @static
      * @return void
      */
-    private static function refreshToken()
+    private function refreshToken()
     {
         try {
             $client = new Client();
             $response = $client->post(env('OAUTH_ENDPOINT').'token/', ['json' => [
                 'grant_type' => 'refresh_token',
-                'refresh_token' => Session::get('oauth.token')->refresh_token,
+                'refresh_token' => $this->session->get('oauth.token')->refresh_token,
                 'client_id' => env('OAUTH_CLIENT_ID'),
                 'client_secret' => env('OAUTH_CLIENT_SECRET'),
             ]]);
@@ -168,14 +177,14 @@ class OAuth
                 Log::error((string) $e->getResponse()->getBody());
             }
 
-            self::fatalError('cannot refresh token', $e->getMessage(), 502);
+            $this->fatalError('cannot refresh token', $e->getMessage(), 502);
         }
 
         $token = json_decode($response->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            self::fatalError('refreshed token not valid', $token->error_description, 502);
+            $this->fatalError('refreshed token not valid', $token->error_description, 502);
         }
 
         // Calculate expiration date of token
@@ -183,25 +192,25 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Overwrite the token with the new token
-        Session::set('oauth.token', $token);
-        Session::save();
+        $this->session->set('oauth.token', $token);
+        $this->session->save();
     }
 
     /**
      * Redirect the client to the authorisation server to login
      * @return Redirect
      */
-    public static function toAuthorisationServer($original_route)
+    public function toAuthorisationServer($original_route)
     {
         // Store the URL we attempt to visit
-        Session::set('oauth.goal', $original_route);
+        $this->session->set('oauth.goal', $original_route);
 
         // Generate a random six digit number as state to defend against CSRF-attacks
         $state = rand(pow(10, 5), pow(10, 6)-1);
-        Session::set('oauth.state', $state);
+        $this->session->set('oauth.state', $state);
 
         // For some reason, an explicit save is needed in middleware
-        Session::save();
+        $this->session->save();
 
         // Redirect to the oauth endpoint for authentication
         $query_string = http_build_query([
@@ -216,14 +225,13 @@ class OAuth
     /**
      * Check whether the current user has board-level permissions
      * @access public
-     * @static
      * @return boolean
      */
-    public static function isBoardMember()
+    public function isBoardMember()
     {
         try {
             $client = new Client();
-            $url = env('OAUTH_ENDPOINT').'bestuur/?access_token='.Session::get('oauth.token')->access_token;
+            $url = env('OAUTH_ENDPOINT').'bestuur/?access_token='.$this->session->get('oauth.token')->access_token;
             $request = $client->get($url);
             return ($request->getStatusCode() === 200);
         }
@@ -236,23 +244,22 @@ class OAuth
      * Forget the currently logged-in user
      * @return void
      */
-    public static function logout()
+    public function logout()
     {
-        Session::remove('oauth');
+        $this->session->remove('oauth');
     }
 
     /**
      * Process the OAuth authorisation callback, storing the session
-     * @static
      * @access public
      * @param  array $input Input::get() is the only acceptable input here
      * @return string a URL to redirect to
      */
-    public static function processCallback($input)
+    public function processCallback($input)
     {
         // Check state to prevent CSRF
-        if ((string)$input['state'] !== (string)Session::get('oauth.state')) {
-            self::fatalError('state mismatch', 'state mismatch', 500);
+        if ((string)$input['state'] !== (string)$this->session->get('oauth.state')) {
+            $this->fatalError('state mismatch', 'state mismatch', 500);
         }
 
         // Check for errors
@@ -262,7 +269,7 @@ class OAuth
                 return '/';
             }
             else {
-                self::fatalError('fatal error while processing callback', $input['error_description'], 500);
+                $this->fatalError('fatal error while processing callback', $input['error_description'], 500);
             }
         }
 
@@ -280,14 +287,14 @@ class OAuth
             ]);
         }
         catch (Exception $e) {
-            self::fatalError('Cannot trade authorisation token for access token', $e->getMessage(), 500);
+            $this->fatalError('Cannot trade authorisation token for access token', $e->getMessage(), 500);
         }
 
         $token = json_decode($result->getBody());
 
         // Do not proceed if we encounter an error
         if (isset($token->error)) {
-            self::fatalError('Access token invalid', $token->error_description, 502);
+            $this->fatalError('Access token invalid', $token->error_description, 502);
         }
 
         // Determine expiry time
@@ -295,10 +302,10 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Store the token
-        Session::set('oauth.token', $token);
+        $this->session->set('oauth.token', $token);
 
         // Redirect to the original URL
-        return Session::get('oauth.goal');
+        return $this->session->get('oauth.goal');
 
     }
 
@@ -310,7 +317,7 @@ class OAuth
      * @param  int    $status_code  optional the HTTP status code to send, defaults to 500
      * @return void
      */
-    private static function fatalError($technical, $logged_error = null, $status_code = 500)
+    private function fatalError($technical, $logged_error = null, $status_code = 500)
     {
         // Log the appropriate error message
         if ($logged_error !== null) {
@@ -318,7 +325,7 @@ class OAuth
         }
 
         // Log out the current user
-        Session::remove('oauth');
+        $this->session->remove('oauth');
 
         // Send a nice error page with explanation
         abort($status_code, $technical);

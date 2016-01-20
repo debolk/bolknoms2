@@ -10,18 +10,25 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfilePicture
 {
+    private $oauth;
+
+    public function __construct(OAuth $oauth)
+    {
+        $this->oauth = $oauth;
+    }
+
     /**
      * Updates the local cached profile picture of a user
      * @param  User   $user
      * @return void
      */
-    public static function updatePictureFor(User $user)
+    public function updatePictureFor(User $user)
     {
         try {
             $client = new Client;
-            $token = OAuth::getAccessToken();
+            $token = $this->oauth->getAccessToken();
             $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$token;
-            $file = fopen(self::picturePathFor($user), 'w');
+            $file = fopen($this->picturePathFor($user), 'w');
             $response = $client->get($url, ['sink' => $file]);
         }
         catch (Exception $e) {
@@ -34,17 +41,17 @@ class ProfilePicture
      * @param  User   $user
      * @return string
      */
-    public static function getPictureFor(User $user)
+    public function getPictureFor(User $user)
     {
-        $path = self::picturePathFor($user);
+        $path = $this->picturePathFor($user);
 
         if (File::exists($path)) {
             return File::get($path);
         }
 
         // Try downloading a new file once if needed (and possible)
-        if (OAuth::valid()) {
-            self::updatePictureFor($user);
+        if ($this->oauth->valid()) {
+            $this->updatePictureFor($user);
         }
 
         // If the file still doesn't exist, return the swedish chef
@@ -61,7 +68,7 @@ class ProfilePicture
      * @param  User   $user user to get a picture for
      * @return string       full filesystem path to picture
      */
-    private static function picturePathFor(User $user)
+    private function picturePathFor(User $user)
     {
         return base_path() . '/uploads/profile_pictures/' . $user->id . '.jpg';
     }

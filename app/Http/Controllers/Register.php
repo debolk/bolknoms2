@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\OAuth;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Services\DeregisterService;
@@ -27,10 +26,10 @@ class Register extends Application
         $data = [];
 
         // Add more data if we have a current user
-        if (OAuth::valid()) {
+        if ($this->oauth->valid()) {
             // A registered user can subscribe to any meal
             $data['meals'] = Meal::upcoming()->get();
-            $data['user'] = OAuth::user();
+            $data['user'] = $this->oauth->user();
         }
         else {
             // An anonymous user can subscribe to the next available meal
@@ -49,7 +48,7 @@ class Register extends Application
 
         // Populate the data from the session if not passed
         if (! $request->has('name')) {
-            $user = OAuth::user();
+            $user = $this->oauth->user();
             if (!$user) {
                 return response()->json([
                     'error' => 'user_not_found',
@@ -64,7 +63,7 @@ class Register extends Application
 
         // Create registration
         try {
-            $registration = with(new RegisterService($data, OAuth::user()))->execute();
+            $registration = with(new RegisterService($data, $this->oauth->user()))->execute();
         }
         catch (ModelNotFoundException $e) {
             return response()->json([
@@ -117,7 +116,7 @@ class Register extends Application
         }
 
         // Find the registration data
-        $user = OAuth::user();
+        $user = $this->oauth->user();
         $registration = $user->registrationFor($meal);
         if (!$registration) {
             return response()->json([

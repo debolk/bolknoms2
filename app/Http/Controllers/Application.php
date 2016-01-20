@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\Navigation;
 use App\Http\Helpers\OAuth;
+use App\Http\Helpers\ProfilePicture;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 
@@ -12,12 +15,20 @@ class Application extends Controller
     use ValidatesRequests;
 
     /**
+     * @var App\Http\Helpers\OAuth
+     */
+    protected $oauth;
+
+    /**
      * Common setup to all controllers
      */
-    public function __construct()
+    public function __construct(OAuth $oauth, Request $request, Navigation $navigation)
     {
-        // Variables to be included in *every* single view
-        View::share('user', OAuth::user());
+        $this->oauth = $oauth;
+
+        // // Variables to be included in *every* single view
+        View::share('user', $this->oauth->user());
+        View::share('navigation', $navigation);
     }
 
     /**
@@ -30,7 +41,7 @@ class Application extends Controller
     {
         return response(view($this->layout, [
             'content' => view('errors/index', ['code' => $message]),
-            'user' => OAuth::user(),
+            'user' => $this->oauth->user(),
         ]), $status);
     }
 }

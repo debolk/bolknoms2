@@ -10,11 +10,16 @@ use Request;
  */
 class Navigation
 {
+    public function __construct(OAuth $oauth)
+    {
+        $this->oauth = $oauth;
+    }
+
     /**
      * Logged-in menu entries
      * @var array
      */
-    private static $menu = [
+    private $menu = [
         ['text' => 'Aanmelden', 'action' => 'Register@index', 'icon' => 'calendar', 'level' => '0'],
         ['text' => 'Spelregels', 'action' => 'Page@spelregels', 'icon' => 'file-text-o', 'level' => '0'],
         ['text' => 'Top eters', 'action' => 'Top@index', 'icon' => 'trophy', 'level' => '1'],
@@ -29,28 +34,28 @@ class Navigation
      * Format the main navigation into proper HTML
      * @return string rendered HTML
      */
-    public static function show()
+    public function show()
     {
-        $menu_entries = self::$menu;
+        $menu_entries = $this->menu;
         $output = '';
 
         // Determine which elements to show
         $level = 0;
-        if (OAuth::valid()) {
+        if ($this->oauth->valid()) {
             $level = 1;
-            if (OAuth::isBoardMember()) {
+            if ($this->oauth->isBoardMember()) {
                 $level = 2;
             }
         }
 
         // Set a flag to indicate the current route
         for ($i=0; $i < sizeof($menu_entries); $i++) {
-            $menu_entries[$i]['current'] = self::isCurrent($menu_entries[$i]['action']);
+            $menu_entries[$i]['current'] = $this->isCurrent($menu_entries[$i]['action']);
 
             // iterate over submenu's
             if (isset($menu_entries[$i]['submenu'])) {
                 for ($j=0; $j < sizeof($menu_entries[$i]['submenu']); $j++) {
-                    $menu_entries[$i]['submenu'][$j]['current'] = self::isCurrent($menu_entries[$i]['submenu'][$j]['action']);
+                    $menu_entries[$i]['submenu'][$j]['current'] = $this->isCurrent($menu_entries[$i]['submenu'][$j]['action']);
                 }
             }
         }
@@ -70,7 +75,7 @@ class Navigation
      * @param  string  $action
      * @return boolean
      */
-    private static function isCurrent($action)
+    private function isCurrent($action)
     {
         // Exceptional case for HTTP 404 errors (which have no route)
         if (Route::current() === null) {
