@@ -13,7 +13,11 @@
         @endforeach
     </div>
 
-    <h3>{{ $meal }}</h3>
+    <h3>{{ $meal->longDate() }}</h3>
+
+    @if ($meal->event)
+        <h4>{{ $meal->event }}</h4>
+    @endif
 
     <div class="details">
         <span class="{{ !$meal->normalDeadline() ? 'attention' : '' }}">

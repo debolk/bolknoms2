@@ -25,8 +25,14 @@
         color: red;
     }
 
-    h3 {
-        margin-top: 0;
+    h3, h4 {
+        margin: 0;
+    }
+
+    h4 {
+        margin-bottom: 0.5em;
+        font-weight: normal;
+        font-style: italic;
     }
 
     // Meals for which the deadline has passed are slight greyed out (buttons too)
