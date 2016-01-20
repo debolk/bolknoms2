@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App;
 use App\Http\Helpers\ProfilePicture as Picture;
 use App\Models\User;
 
