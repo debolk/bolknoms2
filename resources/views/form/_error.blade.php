@@ -1,4 +1,4 @@
-@if ($errors->count() > 0)
+@if (isset($errors) && $errors->count() > 0)
     <div class="notification error">
         <p><strong>De wijzigingen konden niet worden opgeslagen:</strong></p>
         <ul>
