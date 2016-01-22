@@ -24,15 +24,25 @@ class ProfilePicture
      */
     public function updatePictureFor(User $user)
     {
+        // Calculate location of image
+        $path = $this->picturePathFor($user);
+
         try {
             $client = new Client;
             $token = $this->oauth->getAccessToken();
             $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$token;
-            $file = fopen($this->picturePathFor($user), 'w');
+            $file = fopen($path, 'w');
             $response = $client->get($url, ['sink' => $file]);
         }
         catch (Exception $e) {
             // No handling needed, we'll just not have an image available
+            return;
+        }
+
+        // Check the mimetype of the resulting image
+        // to make sure we have a valid image
+        if (file_exists($path) && mime_content_type($path) !== "image/jpeg") {
+            unlink($path);
         }
     }
 
