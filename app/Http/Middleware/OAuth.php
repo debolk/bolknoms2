@@ -30,6 +30,11 @@ class OAuth
  	 */
 	public function handle(Request $request, Closure $next)
 	{
+        // Make this middleware inoperable for testing
+        if (env('APP_ENV') === 'testing') {
+            return $next($request);
+        }
+
         if ($this->oauth->valid()) {
             return $next($request);
         }

@@ -1,7 +1,7 @@
 <?php namespace App\Http\Middleware;
 
 use App;
-use App\Http\Helpers\OAuth;
+use App\Http\Helpers\OAuth as OAuthHelper;
 use Closure;
 use Session;
 
@@ -15,7 +15,7 @@ class Board
     /**
      * @param App\Http\Helpers\OAuth $oauth
      */
-    public function __construct(OAuth $oauth)
+    public function __construct(OAuthHelper $oauth)
     {
         $this->oauth = $oauth;
     }
@@ -29,6 +29,11 @@ class Board
 	 */
 	public function handle($request, Closure $next)
 	{
+        // Make this middleware inoperable for testing
+        if (env('APP_ENV') === 'testing') {
+            return $next($request);
+        }
+
         if (! $this->oauth->valid()) {
             abort(500, 'Attempted board authorization without a valid session');
         }
