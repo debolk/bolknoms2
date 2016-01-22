@@ -8,16 +8,21 @@ use App\Models\User;
 class ProfilePicture extends Application
 {
     /**
-     * Redirects to a photo of the user
+     * Serves a photo of the currently logged-in user
+     * @param  App\Http\Helpers\ProfilePicture $picture
+     * @return Illuminate\Http\Response
      */
     public function photo(Picture $picture)
     {
-        return response($picture->getPictureFor($this->oauth->user()))->header('Content-Type', 'image/jpeg');
+        $user = $this->oauth->user();
+        return $this->serveProfilePicture($picture, $user);
     }
 
     /**
-     * Redirects to a photo of the user
-     * @param  string $username
+     * Serves a profile picture of a named user
+     * @param  string                          $username
+     * @param  App\Http\Helpers\ProfilePicture $picture
+     * @return Illuminate\Http\Response
      */
     public function photoFor($username, Picture $picture)
     {
@@ -25,9 +30,21 @@ class ProfilePicture extends Application
         if (!$user) {
             abort(404);
         }
+        return $this->serveProfilePicture($picture, $user)
+                ->header('Cache-Control', 'public, max-age=604800'); // 1 week
+    }
 
-        return response($picture->getPictureFor($user))
-                ->header('Content-Type', 'image/jpeg')
-                ->header('Cache-Control', 'public, max-age=604800'); // cache one week
+    /**
+     * Common functionality to serve a profile picture for a specific user
+     * @param  App\Http\Helpers\ProfilePicture $picture
+     * @param  App\Models\User                 $user
+     * @return Illuminate\Http\Response
+     */
+    private function serveProfilePicture(Picture $picture, User $user)
+    {
+        $image = $picture->getPictureFor($user);
+        $mime = $picture->mimetypeFor($user);
+
+        return response($image)->header('Content-Type', $mime);
     }
 }

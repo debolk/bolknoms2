@@ -74,12 +74,22 @@ class ProfilePicture
     }
 
     /**
+     * Correct mime-type to use for serving a profile picture of a user
+     * @param  User   $user
+     * @return string
+     */
+    public function mimetypeFor(User $user)
+    {
+        return mime_content_type($this->picturePathFor($user));
+    }
+
+    /**
      * Determine the path to the a specific profile picture
      * @param  User   $user user to get a picture for
      * @return string       full filesystem path to picture
      */
     private function picturePathFor(User $user)
     {
-        return base_path() . '/uploads/profile_pictures/' . $user->id . '.jpg';
+        return base_path() . '/uploads/profile_pictures/' . $user->id;
     }
 }
