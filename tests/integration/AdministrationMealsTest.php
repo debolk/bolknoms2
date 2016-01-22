@@ -51,7 +51,26 @@ class AdministrationMealsTest extends TestCase
     /** @test */
     public function can_update_the_information_of_a_meal()
     {
-        $this->markTestIncomplete();
+        $meal = factory(Meal::class)->create();
+
+        $date = strtotime('+2 days');
+        $lock = strtotime('+1 days');
+        $event = 'nieuwe omschrijving van de maaltijd';
+
+        $this->visit('/administratie/maaltijden/'.$meal->id)
+             ->click('maaltijd bewerken')
+             ->type(strftime('%d-%m-%Y %H:%M', $date), 'meal_timestamp')
+             ->type(strftime('%d-%m-%Y %H:%M', $lock), 'locked_timestamp')
+             ->type($event, 'event')
+             ->press('Wijzigingen opslaan');
+
+        $this->assertResponseOk();
+        $this->see('Maaltijd bijgewerkt');
+        $this->seeInDatabase('meals', [
+            'meal_timestamp' => strftime('%Y-%m-%d %H:%M', $date),
+            'locked_timestamp' => strftime('%Y-%m-%d %H:%M', $lock),
+            'event' => $event,
+        ]);
     }
 
     /** @test */
@@ -93,6 +112,16 @@ class AdministrationMealsTest extends TestCase
     /** @test */
     public function can_remove_a_meal()
     {
-        $this->markTestIncomplete();
+        $meal = factory(Meal::class)->create();
+
+        $this->visit('/administratie/maaltijden/')
+             ->click('Verwijderen');
+
+        $this->assertResponseOk();
+        $this->see('verwijderd');
+        $this->seeInDatabase('meals', ['id' => $meal->id]); // Note: soft-deleting
+
+        $this->assertNull(Meal::find($meal->id));
+        $this->assertNotNull(Meal::withTrashed()->find($meal->id));
     }
 }
