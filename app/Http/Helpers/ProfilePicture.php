@@ -41,7 +41,7 @@ class ProfilePicture
 
         // Check the mimetype of the resulting image
         // to make sure we have a valid image
-        if (file_exists($path) && mime_content_type($path) !== "image/jpeg") {
+        if (file_exists($path) && substr(mime_content_type($path), 0, 6) !== "image/") {
             unlink($path);
         }
     }
