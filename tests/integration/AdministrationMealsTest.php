@@ -1,12 +1,9 @@
 <?php
 
 use App\Models\Meal;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class AdministrationMealsTest extends TestCase
 {
-    use WithoutMiddleware;
-
     /** @test */
     public function can_view_a_list_of_meals()
     {
@@ -29,7 +26,24 @@ class AdministrationMealsTest extends TestCase
     /** @test */
     public function can_create_a_new_meal()
     {
-        $this->markTestIncomplete();
+        $meal = factory(Meal::class)->make([
+            'meal_timestamp' => strtotime('+3 hours'),
+            'locked_timestamp' => strtotime('+2 hours'),
+            'event' => 'test feestje!'
+        ]);
+
+        $this->visit('/administratie/maaltijden/')
+             ->click('Nieuwe maaltijd toevoegen')
+             ->type($meal->meal_timestamp->format('d-m-Y H:i'), 'meal_timestamp')
+             ->type($meal->locked_timestamp->format('d-m-Y H:i'), 'locked_timestamp')
+             ->type($meal->event, 'event')
+             ->press('Maaltijd toevoegen');
+
+        $this->seeInDatabase('meals', [
+            'meal_timestamp' => $meal->meal_timestamp->format('Y-m-d H:i'),
+            'locked_timestamp' => $meal->locked_timestamp->format('Y-m-d H:i'),
+            'event' => $meal->event,
+        ]);
     }
 
     /** @test */
