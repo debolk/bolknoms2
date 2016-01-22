@@ -15,7 +15,7 @@ class RegisterTest extends TestCase
         $request = $this->action('GET', 'Register@index');
 
         $this->assertResponseOk();
-        $this->see( (string) $meal);
+        $this->see( (string) $meal->longDate());
     }
 
     /** @test */
