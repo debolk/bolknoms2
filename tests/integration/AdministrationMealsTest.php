@@ -39,6 +39,8 @@ class AdministrationMealsTest extends TestCase
              ->type($meal->event, 'event')
              ->press('Maaltijd toevoegen');
 
+        $this->assertResponseOk();
+        $this->see('Maaltijd toegevoegd');
         $this->seeInDatabase('meals', [
             'meal_timestamp' => $meal->meal_timestamp->format('Y-m-d H:i'),
             'locked_timestamp' => $meal->locked_timestamp->format('Y-m-d H:i'),
