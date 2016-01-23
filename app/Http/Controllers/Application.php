@@ -34,4 +34,20 @@ class Application extends Controller
             'user' => OAuth::user(),
         ]), $status);
     }
+
+    /**
+     * Helper function to construct correctly formatted JSON error responses
+     * to AJAX requests
+     * @param  integer $httpStatus    HTTP status code to send
+     * @param  string  $internalError descriptive error code, e.g. meal_not_found
+     * @param  string  $message       line of text to explain error state to end users
+     * @return Illuminate\Http\Response
+     */
+    protected function ajaxError($httpStatus, $internalError, $message)
+    {
+        return response()->json([
+            'error' => $internalError,
+            'error_details' => $message,
+        ], $httpStatus);
+    }
 }

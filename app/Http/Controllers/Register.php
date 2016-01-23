@@ -51,10 +51,8 @@ class Register extends Application
         if (! $request->has('name')) {
             $user = OAuth::user();
             if (!$user) {
-                return response()->json([
-                    'error' => 'user_not_found',
-                    'error_details' => 'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.'
-                ], 500);
+                return $this->ajaxError(500, 'user_not_found',
+                                        'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.');
             }
             $data['user_id'] = $user->id;
             $data['name'] = $user->name;
@@ -65,40 +63,23 @@ class Register extends Application
         // Create registration
         try {
             $registration = with(new RegisterService($data, OAuth::user()))->execute();
+            return response(null, 204);
         }
         catch (ModelNotFoundException $e) {
-            return response()->json([
-                'error' => 'meal_not_found',
-                'error_details' => 'De maaltijd waarvoor je je probeert aan te melden bestaat niet'
-            ], 404);
+            return $this->ajaxError(404, 'meal_not_found', 'De maaltijd waarvoor je je probeert aan te melden bestaat niet');
         }
         catch (ValidationException $e) {
-            return response()->json([
-                'error' => 'input_invalid',
-                'error_details' => 'Naam of e-mailadres niet ingevuld of ongeldig',
-            ], 400);
+            return $this->ajaxError(400, 'input_invalid', 'Naam of e-mailadres niet ingevuld of ongeldig');
         }
         catch (MealDeadlinePassedException $e) {
-            return response()->json([
-                'error' => 'meal_deadline_expired',
-                'error_details' => 'De aanmeldingsdeadline is verstreken'
-            ], 400);
+            return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }
         catch (UserBlockedException $e) {
-            return response()->json([
-                'error'         => 'user_blocked',
-                'error_details' => 'Je bent geblokkeerd op bolknoms. Je kunt je niet aanmelden voor maaltijden.',
-            ], 403);
+            return $this->ajaxError(404, 'user_blocked', 'Je bent geblokkeerd op bolknoms. Je kunt je niet aanmelden voor maaltijden.');
         }
         catch (DoubleRegistrationException $e) {
-            return response()->json([
-                'error'         => 'double_registration',
-                'error_details' => 'Je bent al aangemeld voor deze maaltijd',
-            ], 400);
+            return $this->ajaxError(400, 'double_registration', 'Je bent al aangemeld voor deze maaltijd.');
         }
-
-        // Return succesfull registration
-        return response(null, 204);
     }
 
     /**
@@ -110,32 +91,27 @@ class Register extends Application
         // Find the meal
         $meal = Meal::find((int) $request->input('meal_id'));
         if (!$meal) {
-            return response()->json([
-                'error' => 'meal_not_found',
-                'error_details' => 'De maaltijd bestaat niet'
-            ], 404);
+            return $this->ajaxError(404, 'meal_not_found', 'De maaltijd bestaat niet');
         }
 
         // Find the registration data
+<<<<<<< Updated upstream
         $user = OAuth::user();
         $registration = $user->registrationFor($meal);
+=======
+        $registration = $this->oauth->user()->registrationFor($meal);
+>>>>>>> Stashed changes
         if (!$registration) {
-            return response()->json([
-                'error' => 'no_registration',
-                'error_details' => 'Je bent niet aangemeld voor deze maaltijd'
-            ], 404);
+            return $this->ajaxError(404, 'no_registration', 'Je bent niet aangemeld voor deze maaltijd');
         }
 
         // Deregister from the meal
         try {
             with(new DeregisterService($registration))->execute();
+            return response(null, 204);
         }
         catch(MealDeadlinePassedException $e) {
-            return response()->json([
-                'error' => 'meal_deadline_expired',
-                'error_details' => 'De aanmeldingsdeadline is verstreken'
-            ], 400);
+            return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }
-        return response(null, 204);
     }
 }
