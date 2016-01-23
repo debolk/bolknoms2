@@ -20,28 +20,33 @@ class AdministrationUsersTest extends TestCase
     /** @test */
     public function can_block_a_user()
     {
-        $this->markTestIncomplete();
+        $user = factory(User::class)->create(['blocked' => false]);
 
-        $user = factory(User::class)->create();
+        $this->post('/administratie/gebruikers/'.$user->id.'/blokkeren');
 
-        $this->visit('/administratie/gebruikers')
-             ->click('Blokkeren');
-
-        $this->seeInDatabase('users', [
-            'id' => $user->id,
-            'blocked' => true
-        ]);
+        $this->assertResponseOk();
+        $this->seeInDatabase('users', ['id' => $user->id, 'blocked' => true]);
     }
 
     /** @test */
     public function can_unblock_a_blocked_user()
     {
-        $this->markTestIncomplete();
+        $user = factory(User::class)->create(['blocked' => true]);
+
+        $this->post('/administratie/gebruikers/'.$user->id.'/vrijgeven');
+
+        $this->assertResponseOk();
+        $this->seeInDatabase('users', ['id' => $user->id, 'blocked' => false]);
     }
 
     /** @test */
     public function can_change_the_handicap_of_a_user()
     {
-        $this->markTestIncomplete();
+        $user = factory(User::class)->create(['handicap' => 'geen vlees']);
+
+        $this->post('/administratie/gebruikers/'.$user->id.'/handicap', ['handicap' => 'juist vlees!']);
+
+        $this->assertResponseOk();
+        $this->seeInDatabase('users', ['id' => $user->id, 'handicap' => 'juist vlees!']);
     }
 }
