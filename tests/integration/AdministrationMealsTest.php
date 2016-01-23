@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Meal;
+use App\Models\Registration;
 use App\Models\User;
 
 class AdministrationMealsTest extends TestCase
@@ -77,14 +78,10 @@ class AdministrationMealsTest extends TestCase
     /** @test */
     public function can_add_a_user_to_a_meal()
     {
-        $this->markTestIncomplete('depends on javascript');
-
-        $meal = factory(Meal::class)->create();
+        $meal = factory(Meal::class)->create(['locked_timestamp' => new DateTime('+1 hour')]);
         $user = factory(User::class)->create();
 
-        $this->visit('/administratie/maaltijden/'.$meal->id);
-        $this->select($user->id, 'user_id');
-        $this->press('Toevoegen');
+        $this->post('/administratie/maaltijden/aanmelden', ['meal_id' => $meal->id, 'user_id' => $user->id]);
 
         $this->assertResponseOk();
         $this->seeInDatabase('registrations', ['user_id' => $user->id, 'meal_id' => $meal->id]);
@@ -93,31 +90,59 @@ class AdministrationMealsTest extends TestCase
     /** @test */
     public function can_add_a_user_to_a_meal_after_the_deadline()
     {
-        $this->markTestIncomplete();
+        $meal = factory(Meal::class)->create(['locked_timestamp' => new DateTime('-1 hour')]);
+        $user = factory(User::class)->create();
+
+        $this->post('/administratie/maaltijden/aanmelden', ['meal_id' => $meal->id, 'user_id' => $user->id]);
+
+        $this->assertResponseOk();
+        $this->seeInDatabase('registrations', ['user_id' => $user->id, 'meal_id' => $meal->id]);
     }
 
     /** @test */
     public function can_add_a_registration_without_an_account()
     {
-        $this->markTestIncomplete();
+        $meal = factory(Meal::class)->create();
+        $data = [
+            'meal_id' => $meal->id,
+            'name' => 'Hans van Baalen',
+            'handicap' => 'geen vlees'
+        ];
+
+        $this->post('/administratie/maaltijden/aanmelden', $data);
+
+        $this->assertResponseOk();
+        $this->seeInDatabase('registrations', $data);
     }
 
     /** @test */
     public function can_add_a_registration_without_an_account_after_the_deadline()
     {
-        $this->markTestIncomplete();
+        $meal = factory(Meal::class)->create(['locked_timestamp' => new DateTime('-1 hour')]);
+        $data = [
+            'meal_id' => $meal->id,
+            'name' => 'Hans van Baalen',
+            'handicap' => 'geen vlees'
+        ];
+
+        $this->post('/administratie/maaltijden/aanmelden', $data);
+
+        $this->assertResponseOk();
+        $this->seeInDatabase('registrations', $data);
     }
 
     /** @test */
     public function can_remove_a_registration()
     {
-        $this->markTestIncomplete();
-    }
+        $registration = factory(Registration::class)->create();
 
-    /** @test */
-    public function can_print_the_list_of_registrations()
-    {
-        $this->markTestIncomplete();
+        $this->post('/administratie/maaltijden/afmelden/'.$registration->id);
+
+        $this->assertResponseStatus(204);
+        $this->seeInDatabase('registrations', ['id' => $registration->id]); // Note: soft-deleting
+
+        $this->assertNull(Registration::find($registration->id));
+        $this->assertNotNull(Registration::withTrashed()->find($registration->id));
     }
 
     /** @test */
@@ -130,8 +155,8 @@ class AdministrationMealsTest extends TestCase
 
         $this->assertResponseOk();
         $this->see('verwijderd');
-        $this->seeInDatabase('meals', ['id' => $meal->id]); // Note: soft-deleting
 
+        $this->seeInDatabase('meals', ['id' => $meal->id]); // Note: soft-deleting
         $this->assertNull(Meal::find($meal->id));
         $this->assertNotNull(Meal::withTrashed()->find($meal->id));
     }
