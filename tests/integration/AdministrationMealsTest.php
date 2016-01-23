@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Meal;
+use App\Models\User;
 
 class AdministrationMealsTest extends TestCase
 {
@@ -76,7 +77,17 @@ class AdministrationMealsTest extends TestCase
     /** @test */
     public function can_add_a_user_to_a_meal()
     {
-        $this->markTestIncomplete();
+        $this->markTestIncomplete('depends on javascript');
+
+        $meal = factory(Meal::class)->create();
+        $user = factory(User::class)->create();
+
+        $this->visit('/administratie/maaltijden/'.$meal->id);
+        $this->select($user->id, 'user_id');
+        $this->press('Toevoegen');
+
+        $this->assertResponseOk();
+        $this->seeInDatabase('registrations', ['user_id' => $user->id, 'meal_id' => $meal->id]);
     }
 
     /** @test */
