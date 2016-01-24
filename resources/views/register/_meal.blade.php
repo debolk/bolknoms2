@@ -8,7 +8,9 @@
     <div class="registrations">
         @foreach ($meal->registrations as $registration)
             @if ($registration->username)
-                <img src="{{ action('ProfilePicture@photoFor', $registration->username) }}" class="{{ ($user && $registration->user->id === $user->id) ? 'me' : '' }}">
+                <img src="{{ action('ProfilePicture@photoFor', $registration->username) }}"
+                     class="{{ ($user && $registration->user->id === $user->id) ? 'me' : '' }}"
+                     title="{{ $user ? $registration->name : null }}">
             @endif
         @endforeach
     </div>
