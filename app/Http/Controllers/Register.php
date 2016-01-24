@@ -95,12 +95,7 @@ class Register extends Application
         }
 
         // Find the registration data
-<<<<<<< Updated upstream
-        $user = OAuth::user();
-        $registration = $user->registrationFor($meal);
-=======
-        $registration = $this->oauth->user()->registrationFor($meal);
->>>>>>> Stashed changes
+        $registration = OAuth::user()->registrationFor($meal);
         if (!$registration) {
             return $this->ajaxError(404, 'no_registration', 'Je bent niet aangemeld voor deze maaltijd');
         }
