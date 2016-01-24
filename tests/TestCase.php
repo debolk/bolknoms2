@@ -39,11 +39,6 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     protected function loginAs(User $user)
     {
-        // $token = new stdClass();
-        // $token->access_token = '1234';
-        // $token->refresh_token = '1234';
-        // $token->expires_at = new DateTime('+1 hours')
-
         Session::set('oauth', [
             'token' => (object)[
                 'access_token' => '1234',
