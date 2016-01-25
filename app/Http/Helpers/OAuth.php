@@ -153,6 +153,7 @@ class OAuth
     private static function refreshToken()
     {
         try {
+            Log::debug('Refreshing token ' . Session::get('oauth.token')->refresh_token);
             $client = new Client();
             $response = $client->post(env('OAUTH_ENDPOINT').'token/', ['json' => [
                 'grant_type' => 'refresh_token',
