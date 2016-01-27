@@ -7,7 +7,7 @@ php artisan route:clear
 php artisan view:clear
 git fetch
 git merge origin/master master
-php composer.phar install
+php composer.phar install --no-dev
 gulp --production
 php artisan migrate
 php artisan up
