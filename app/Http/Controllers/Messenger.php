@@ -14,15 +14,26 @@ class Messenger extends Application
      */
     public function verification(Request $request)
     {
-        $data = $request->get('hub');
-        if (!$data || !isset($data['verify_token']) || !isset($data['challenge'])) {
-            App::abort(400, 'Illegal input: no hub, or no verify_token or no challenge');
+        $verify_token = $request->get('hub_verify_token');
+        $challenge = $request->get('hub_challenge');
+
+        if (!$verify_token || !$challenge) {
+            App::abort(400, 'no verify_token or no challenge sent');
         }
 
-        if ($data['verify_token'] !== env('MESSENGER_VALIDATION_TOKEN')) {
-            App::abort(400, 'Error, wrong validation token');
+        if ($verify_token !== env('MESSENGER_VALIDATION_TOKEN')) {
+            App::abort(400, 'wrong verification token');
         }
 
-        return $data['challenge'];
+        return $challenge;
+    }
+
+    /**
+     * Handle webhook subscriptions
+     * @return string
+     */
+    public function webhook()
+    {
+        App:abort(501, 'This webhook is unimplemented');
     }
 }
