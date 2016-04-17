@@ -23,7 +23,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/photo/{username}', 'ProfilePicture@photoFor');
 
     // Messenger integration endpoint
-    Route::group(['middleware' => ['/messenger/']], function () {
+    Route::group(['prefix' => '/messenger/'], function () {
         Route::get('webhook', 'Messenger@verification');
         Route::post('webhook', 'Messenger@webhook');
     });
