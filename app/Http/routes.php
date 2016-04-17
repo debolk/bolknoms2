@@ -26,7 +26,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['middleware' => ['/messenger/']], function () {
         Route::get('webhook', 'Messenger@verification');
         Route::post('webhook', 'Messenger@webhook');
-    })
+    });
 
     // Pages which require member-level authorisation
     Route::group(['middleware' => ['oauth']], function () {
