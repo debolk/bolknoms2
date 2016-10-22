@@ -76,4 +76,9 @@ Route::group(['middleware' => 'web'], function () {
             Route::post('{id}/vrijgeven', 'Users@release');
         });
     });
+
+    // API for mobile client
+    Route::group(['prefix' => '/api/', 'middleware' => ['api_oauth'], 'namespace' => 'Api'], function () {
+        Route::get('meals/available', 'Meals@available');
+    });
 });
