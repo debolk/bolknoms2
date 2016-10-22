@@ -5,6 +5,8 @@ namespace App\Http\Middleware\Api;
 use App\Http\Helpers\OAuth as OAuthHelper;
 use Closure;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\TransferException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -24,7 +26,7 @@ class OAuth
             return $next($request);
         }
 
-        $authorization = $request->header('authorization', false);
+        $authorization = $request->header('Authorization', false);
         if (! $authorization) {
             return $this->ajaxError(400, 'missing_authorization', 'Client must send Authorization header');
         }
@@ -48,8 +50,12 @@ class OAuth
             $response = $client->get($url);
             return $response->getStatusCode() === 200;
         }
-        catch (Exception $e) {
-            Log::error('Error while communicating with auth server to validate token', $e);
+        catch(TransferException $e) {
+            Log::error("Cannot contact oauth server to validate token: {$e->getMessage()}");
+            return false;
+        }
+        catch (BadResponseException $e) {
+            Log::error("Error while communicating with auth server to validate token: {$e->getMessage()}");
             return false;
         }
     }
