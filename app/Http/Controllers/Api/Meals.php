@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Application;
 use App\Http\Requests;
 use App\Models\Meal;
+use App\Transformers\MealTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 
 class Meals extends Application
 {
@@ -14,6 +17,9 @@ class Meals extends Application
      */
     public function available()
     {
-        return response()->json(Meal::available()->get(), 200);
+        $fractal = new Manager();
+        $meals = Meal::available()->get();
+        $resource = new Collection($meals, new MealTransformer);
+        return response()->json($fractal->createData($resource)->toArray(), 200);
     }
 }
