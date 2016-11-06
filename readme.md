@@ -11,7 +11,7 @@ This project is locally installed using [vagrant](https://www.vagrantup.com/) an
 1. Install the server-side dependencies using [Composer](https://getcomposer.org/): `php composer.phar install`.
 1. Run `vagrant up` in the directory in which you've cloned bolknoms.
 1. In the project folder, copy `.env.example` to `.env` and fill in the details you require. Specifically, you must change APP_KEY, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET. The other values should be fine.
-1. Connect to the VM using `vagrant ssh`. Open the project folder (`cd /home/vagrant/bolknoms2`) and run all migrations `php artisan migrate`.
+1. Connect to the VM using `vagrant ssh`. Open the project folder (`cd /home/vagrant/bolknoms2`) and run all migrations `php artisan migrate` and `php artisan key:generate`.
 1. Point http://bolknoms.app to the IP address in the `Homestead.yaml` file. On Linux, you usually add the line `192.168.10.10    bolknoms.app` to the `/etc/hosts` file
 1. Open [http://bolknoms.app/](http://bolknoms.app/) in your browser.
 
