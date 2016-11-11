@@ -20,4 +20,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	if File.exists? afterScriptPath then
 		config.vm.provision "shell", path: afterScriptPath
 	end
+
+    config.vm.network "public_network"
 end
