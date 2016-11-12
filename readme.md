@@ -37,7 +37,7 @@ For the initial installation, use the following *rough* process:
 1. Copy or create the MySQL database.
 1. Setup letsencrypt if required
 
-There is a one-step deployment script `./deploy.sh` which executes the required steps to deploy the application to production, provided that all dependencies are met. This script deploys only updates, and requires all dependencies to be met. In practice, it is useful for your initial deployment if you run it over and over again, until it actually completes without errors. Note: you'll have to fix those errors manually ofcourse.
+There is a one-step deployment script `./deploy.sh` which executes the required steps to deploy the application to production, provided that all dependencies are met. This script deploys a new version of the software (i.e. pulling master, clearing caches, compiling assets, etc.): it doesn't install everything from scratch. In practice, it is useful for your initial deployment if you run it over and over again, while fixing the errors it spews in every step, until it actually completes without errors.
 
 ## Usage
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
