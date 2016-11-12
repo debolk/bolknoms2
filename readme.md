@@ -31,6 +31,7 @@ Bolknoms has a (limited) test suite consisting mostly of functional integration 
 
 # Deployment (production)
 For the initial installation, use the following *rough* process:
+
 1. Install the dependencies: PHP, MySQL, npm and nginx.
 1. Install the dependencies by running both `php composer.phar install` and `npm install`.
 1. Copy or create the MySQL database.
