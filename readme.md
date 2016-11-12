@@ -30,7 +30,13 @@ Bolknoms has a (limited) test suite consisting mostly of functional integration 
 1. Execute `vendor/bin/phpunit` in the project root directory to run the tests.
 
 # Deployment (production)
-There is a one-step deployment script `./deploy.sh` which executes the required steps to deploy the application to production, provided that all dependencies are met. This requires the prior installation of PHP, MySQL, npm and other dependencies. It is strongly recommend to follow the initial deployment by hand, and running the one-click script for each deployment afterwards.
+For the initial installation, use the following *rough* process:
+1. Install the dependencies: PHP, MySQL, npm and nginx.
+1. Install the dependencies by running both `php composer.phar install` and `npm install`.
+1. Copy or create the MySQL database.
+1. Setup letsencrypt if required
+
+There is a one-step deployment script `./deploy.sh` which executes the required steps to deploy the application to production, provided that all dependencies are met. This script deploys only updates, and requires all dependencies to be met. In practice, it is useful for your initial deployment if you run it over and over again, until it actually completes without errors. Note: you'll have to fix those errors manually ofcourse.
 
 ## Usage
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
