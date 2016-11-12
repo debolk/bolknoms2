@@ -23,11 +23,11 @@ This project is locally installed using [vagrant](https://www.vagrantup.com/) an
 # Testing
 Bolknoms has a (limited) test suite consisting mostly of functional integration tests. To run the test suite:
 
-1. Start the Vagrant VM if needed `vagrant up`
-1. Create the testing database, named `bolknoms_testing` using a MySQL-client.
-1. Run all migrations on the testing database `php artisan migrate --database=mysql_testing`.
-1. Login to the VM (`vagrant ssh`) and open the project root directory `cd /vagrant`.
-1. Execute `vendor/bin/phpunit` in the project root directory to run the tests.
+1. Start (`vagrant up`) or resume (`vagrant resume`) the Vagrant VM as needed.
+1. Login to the VM `vagrant ssh`
+1. Create the test database, named `bolknoms_testing` using a MySQL-client.
+1. Run all migrations on the testing database `php artisan migrate --database=mysql_testing`. Note that the database connection is named mysql_testing instead of bolknoms_testing. This is correct (see `config/database.php` for how this works).
+1. Execute `/vagrant/vendor/bin/phpunit`.
 
 # Deployment (production)
 For the initial installation, use the following *rough* process:
