@@ -24,14 +24,21 @@ This project is locally installed using [vagrant](https://www.vagrantup.com/) an
 # Testing
 Bolknoms has a (limited) test suite consisting mostly of functional integration tests. To run the test suite:
 
-1. Start the Vagrant VM if needed `vagrant up`
-1. Create the testing database, named `bolknoms_testing` using a MySQL-client.
-1. Run all migrations on the testing database `php artisan migrate --database=mysql_testing`.
-1. Login to the VM (`vagrant ssh`) and open the project root directory `cd /vagrant`.
-1. Execute `vendor/bin/phpunit` in the project root directory to run the tests.
+1. Start (`vagrant up`) or resume (`vagrant resume`) the Vagrant VM as needed.
+1. Login to the VM `vagrant ssh`
+1. Create the test database, named `bolknoms_testing` using a MySQL-client.
+1. Run all migrations on the testing database `php artisan migrate --database=mysql_testing`. Note that the database connection is named mysql_testing instead of bolknoms_testing. This is correct (see `config/database.php` for how this works).
+1. Execute `/vagrant/vendor/bin/phpunit`.
 
 # Deployment (production)
-There is a one-step deployment script `./deploy.sh` which executes the required steps to deploy the application to production, provided that all dependencies are met. This requires the prior installation of PHP, MySQL, npm and other dependencies. It is strongly recommend to follow the initial deployment by hand, and running the one-click script for each deployment afterwards.
+For the initial installation, use the following *rough* process:
+
+1. Install the dependencies: PHP, MySQL, npm and nginx.
+1. Install the dependencies by running both `php composer.phar install` and `npm install`.
+1. Copy or create the MySQL database.
+1. Setup letsencrypt if required
+
+There is a one-step deployment script `./deploy.sh` which executes the required steps to deploy the application to production, provided that all dependencies are met. This script deploys a new version of the software (i.e. pulling master, clearing caches, compiling assets, etc.): it doesn't install everything from scratch. In practice, it is useful for your initial deployment if you run it over and over again, while fixing the errors it spews in every step, until it actually completes without errors.
 
 ## Usage
 Create a meal using the administration panel. Anyone can use the front-end interface to subscribe to that meal.
