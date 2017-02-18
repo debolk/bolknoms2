@@ -53,4 +53,4 @@ This project is open for pull requests. Fork the repository and add your own con
 1. You are strongly urged to add at least a couple of integration tests with your pull request.
 
 ## License
-Copyright 2011-2016 [Jakob Buis](http://www.jakobbuis.com). This version of Bolknoms is distributed under the GNU GPL v3 license, the full text of which is included in the LICENSE file.
+Copyright 2011-2017 [Jakob Buis](http://www.jakobbuis.com). This version of Bolknoms is distributed under the GNU GPL v3 license, the full text of which is included in the LICENSE file.
