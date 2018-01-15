@@ -1,8 +1,8 @@
 ---
-ip: "192.168.10.10"
-memory: 256
+ip: "192.168.10.20"
+memory: 1024
 cpus: 1
-hostname: bolknoms.app
+hostname: bolknoms.test
 name: bolknoms2
 provider: virtualbox
 
