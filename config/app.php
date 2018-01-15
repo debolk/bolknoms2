@@ -147,9 +147,6 @@ return array(
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        // Laravel Debugbar
-        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -197,7 +194,5 @@ return array(
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
         'Notification' => 'Illuminate\Support\Facades\Notification',
-        // Laravel Debugbar
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 );

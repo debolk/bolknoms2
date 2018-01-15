@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "5.5.*",
         "guzzlehttp/guzzle": "^6.3.0",
         "doctrine/dbal": "^2.6.3",
         "barryvdh/laravel-debugbar": "~2.1",
@@ -20,7 +20,8 @@
         "laravel/tinker": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
+        "filp/whoops": "^2.0",
+        "phpunit/phpunit": "^6.0",
         "phpspec/phpspec": "~2.4",
         "laravel/homestead": "^3.0",
         "fzaninotto/faker": "~1.5.0",
@@ -53,9 +54,14 @@
         "post-create-project-cmd": [
             "php -r \"copy('.env.example', '.env');\"",
             "php artisan key:generate"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "optimize-autoloader": true
     }
 }

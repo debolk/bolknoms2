@@ -104,6 +104,3 @@ class AdminRegisterService extends Service
         return $registration;
     }
 }
-
-class UserBlockedException extends Exception {};
-class DoubleRegistrationException extends Exception {};
