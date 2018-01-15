@@ -141,6 +141,11 @@ return array(
         Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
+         * Package Service Providers...
+         */
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -194,5 +199,7 @@ return array(
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
         'Notification' => 'Illuminate\Support\Facades\Notification',
+
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
     ],
 );
