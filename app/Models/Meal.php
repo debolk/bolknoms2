@@ -133,4 +133,11 @@ class Meal extends ApplicationModel
     {
         return $this->meal_timestamp->format('H:i') === '18:30';
     }
+
+    public function registrationsBefore(\Carbon\Carbon $timestamp) : int
+    {
+        return $this->registrations->filter(function($registration) use ($timestamp) {
+            return $registration->created_at <= $timestamp;
+        })->count();
+    }
 }

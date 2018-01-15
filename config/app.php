@@ -146,7 +146,7 @@ return array(
         App\Providers\RouteServiceProvider::class,
 
         // Laravel Debugbar
-        Barryvdh\Debugbar\ServiceProvider::class,
+        // Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -194,6 +194,6 @@ return array(
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
         // Laravel Debugbar
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 );
