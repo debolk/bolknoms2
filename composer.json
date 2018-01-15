@@ -15,7 +15,6 @@
         "laravel/framework": "~5.2.0",
         "guzzlehttp/guzzle": "~6.0.0",
         "doctrine/dbal": "~2.5.1",
-        "raven/raven": "^0.13.0",
         "barryvdh/laravel-debugbar": "~2.1",
         "league/fractal": "^0.14.0"
     },

@@ -43,24 +43,6 @@ $app->singleton(
 
 /*
 |--------------------------------------------------------------------------
-| Configure exception tracking with Sentry
-|--------------------------------------------------------------------------
-|
-| Configure the Monolog logging engine to send all log files to a logging
-| endpoint
-|
-*/
-$app->configureMonologUsing(function($monolog) {
-    $client = new Raven_Client(env('SENTRY_URL'));
-
-    $handler = new Monolog\Handler\RavenHandler($client);
-    $handler->setFormatter(new Monolog\Formatter\LineFormatter("%message% %context% %extra%\n"));
-
-    $monolog->pushHandler($handler);
-});
-
-/*
-|--------------------------------------------------------------------------
 | Return The Application
 |--------------------------------------------------------------------------
 |

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b53a3a666314fbe1d21c2afb8b4f73f",
+    "content-hash": "7d3503bb651655466037ae698391a197",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1718,61 +1718,6 @@
                 "shell"
             ],
             "time": "2016-03-09T05:03:14+00:00"
-        },
-        {
-            "name": "raven/raven",
-            "version": "0.13.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/getsentry/raven-php.git",
-                "reference": "1d5be07afc001df98a3528d1f928eeb2241afce6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/raven-php/zipball/1d5be07afc001df98a3528d1f928eeb2241afce6",
-                "reference": "1d5be07afc001df98a3528d1f928eeb2241afce6",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.2.4"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "^1.8.0",
-                "phpunit/phpunit": "^4.6.6"
-            },
-            "bin": [
-                "bin/raven"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.13.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Raven_": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD"
-            ],
-            "authors": [
-                {
-                    "name": "David Cramer",
-                    "email": "dcramer@gmail.com"
-                }
-            ],
-            "description": "A PHP client for Sentry (http://getsentry.com)",
-            "homepage": "http://getsentry.com",
-            "keywords": [
-                "log",
-                "logging"
-            ],
-            "abandoned": "sentry/sentry",
-            "time": "2015-09-09T18:12:58+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
