@@ -60,13 +60,8 @@ class TensorflowController extends Application
 
             $closing = $meal->locked_timestamp;
 
-            // Check whether we have registrations.created_at so that we can bucket them
-            $beginningOfTime = new Carbon('1970-01-01 00:00:00', 'Europe/Amsterdam');
-            $bucketable = $meal->registrations->map(function($timestamp) use ($beginningOfTime) {
-                return $timestamp->created_at >= $beginningOfTime;
-            })->filter()->count() === $meal->registrations->count();
-
-            if ($bucketable) {
+            // First meal entries have no registrations.created_at timestamps to use
+            if ($meal->id <= 44) {
                 $buckets = $this->generateBuckets($closing);
             }
             else {
