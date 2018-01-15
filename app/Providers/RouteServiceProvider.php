@@ -22,11 +22,11 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
     {
-		parent::boot();
-
         // Set constraints to router pattern of ID's (nieuwe_maaltijd is not a valid Meal ID)
+
         Route::pattern('id', '[0-9]+');
-	}
+		parent::boot();
+    }
 
 	/**
 	 * Define the routes for the application.
@@ -36,10 +36,38 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function map()
 	{
-		Route::group(['namespace' => $this->namespace], function()
-		{
-			require app_path('Http/routes.php');
-		});
+        $this->mapApiRoutes();
+        $this->mapWebRoutes();
+
+        //
 	}
 
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiRoutes()
+    {
+        Route::prefix('api')
+             ->middleware('api')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/api.php'));
+    }
 }
