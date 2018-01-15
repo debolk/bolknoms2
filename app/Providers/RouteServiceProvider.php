@@ -1,6 +1,6 @@
 <?php namespace App\Providers;
 
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider {
@@ -20,12 +20,12 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
-	public function boot(Router $router)
-	{
-        // Set constraints to router pattern of ID's (nieuwe_maaltijd is not a valid Meal ID)
-        $router->pattern('id', '[0-9]+');
+	public function boot()
+    {
+		parent::boot();
 
-		parent::boot($router);
+        // Set constraints to router pattern of ID's (nieuwe_maaltijd is not a valid Meal ID)
+        Route::pattern('id', '[0-9]+');
 	}
 
 	/**
@@ -34,9 +34,9 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
-	public function map(Router $router)
+	public function map()
 	{
-		$router->group(['namespace' => $this->namespace], function($router)
+		Route::group(['namespace' => $this->namespace], function()
 		{
 			require app_path('Http/routes.php');
 		});

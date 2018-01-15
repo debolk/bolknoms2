@@ -2,6 +2,8 @@
 
 return array(
 
+    'name' => env('APP_NAME', 'Bolknoms'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -136,6 +138,7 @@ return array(
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -193,6 +196,7 @@ return array(
         'URL'       => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
+        'Notification' => 'Illuminate\Support\Facades\Notification',
         // Laravel Debugbar
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
