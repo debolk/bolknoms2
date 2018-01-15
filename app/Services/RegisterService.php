@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
-use App\Http\Helpers\Mailer;
+use App\Mail\RegistrationConfirmation;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
 use DateTime;
-use Validator;
-use Log;
 use Exception;
+use Illuminate\Support\Facades\Mail;
+use Log;
+use Validator;
 
 /**
  * RegisterService adds a new Registration to a Meal
@@ -104,7 +105,7 @@ class RegisterService extends Service
         }
         else {
             // Send e-mail to ask for confirmation
-            Mailer::confirmationEmail($registration);
+            Mail::send(new RegistrationConfirmation($registration));
         }
 
         // Log action
