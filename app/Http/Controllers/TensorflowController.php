@@ -54,7 +54,7 @@ class TensorflowController extends Application
         ];
         $this->printRow($headers);
 
-        $meals = Meal::limit(100)->with('registrations')->get();
+        $meals = Meal::with('registrations')->get();
 
         $meals->each(function ($meal) use ($meals) {
 
