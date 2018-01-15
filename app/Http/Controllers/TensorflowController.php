@@ -6,7 +6,6 @@ use App\Models\Meal;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Collection;
-use League\Csv\Writer;
 
 class TensorflowController extends Application
 {

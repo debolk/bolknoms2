@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Helpers\Mailer;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
@@ -105,6 +104,3 @@ class AdminRegisterService extends Service
         return $registration;
     }
 }
-
-class UserBlockedException extends Exception {};
-class DoubleRegistrationException extends Exception {};

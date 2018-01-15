@@ -124,7 +124,7 @@ class OAuth
         }
 
         // Store the user in session
-        Session::set('oauth.current_user', $user->id);
+        Session::put('oauth.current_user', $user->id);
         Session::save(); // An explicit save is required in middleware
 
         return $user;
@@ -185,7 +185,7 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Overwrite the token with the new token
-        Session::set('oauth.token', $token);
+        Session::put('oauth.token', $token);
         Session::save();
     }
 
@@ -196,11 +196,11 @@ class OAuth
     public function toAuthorisationServer($original_route)
     {
         // Store the URL we attempt to visit
-        Session::set('oauth.goal', $original_route);
+        Session::put('oauth.goal', $original_route);
 
         // Generate a random six digit number as state to defend against CSRF-attacks
         $state = rand(pow(10, 5), pow(10, 6)-1);
-        Session::set('oauth.state', $state);
+        Session::put('oauth.state', $state);
 
         // For some reason, an explicit save is needed in middleware
         Session::save();
@@ -267,7 +267,7 @@ class OAuth
         }
 
         // Retrieve access code
-        try {
+        // try {
             $client = new Client();
             $result = $client->post(env('OAUTH_ENDPOINT').'token/', [
                 'json' => [
@@ -278,10 +278,10 @@ class OAuth
                     'client_secret' => env('OAUTH_CLIENT_SECRET'),
                 ],
             ]);
-        }
-        catch (Exception $e) {
-            $this->fatalError('Cannot trade authorisation token for access token', $e->getMessage(), 500);
-        }
+        // }
+        // catch (Exception $e) {
+        //     $this->fatalError('Cannot trade authorisation token for access token', $e->getMessage(), 500);
+        // }
 
         $token = json_decode($result->getBody());
 
@@ -295,7 +295,7 @@ class OAuth
         $token->expires_at = new \DateTime("+{$token->expires_in} seconds");
 
         // Store the token
-        Session::set('oauth.token', $token);
+        Session::put('oauth.token', $token);
 
         // Redirect to the original URL
         return Session::get('oauth.goal');

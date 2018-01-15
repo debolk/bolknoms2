@@ -26,9 +26,14 @@ class Application extends Controller
     {
         $this->oauth = $oauth;
 
-        // // Variables to be included in *every* single view
-        View::share('user', $this->oauth->user());
-        View::share('navigation', $navigation);
+        $this->middleware(function ($request, $next) use ($navigation) {
+
+            // Variables to be included in *every* single view
+            View::share('user', $this->oauth->user());
+            View::share('navigation', $navigation);
+
+            return $next($request);
+        });
     }
 
     /**

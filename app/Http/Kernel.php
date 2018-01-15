@@ -26,7 +26,12 @@ class Kernel extends \Illuminate\Foundation\Http\Kernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \App\Http\Middleware\VerifyCsrfToken::class,
+        ],
+        'api' => [
+            'throttle:60,1',
+            'bindings',
         ],
     ];
 
@@ -41,5 +46,6 @@ class Kernel extends \Illuminate\Foundation\Http\Kernel
         'oauth' => \App\Http\Middleware\OAuth::class,
         'board' => \App\Http\Middleware\Board::class,
         'api_oauth' => \App\Http\Middleware\Api\OAuth::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ];
 }

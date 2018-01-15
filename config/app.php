@@ -2,6 +2,8 @@
 
 return array(
 
+    'name' => env('APP_NAME', 'Bolknoms'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -136,6 +138,12 @@ return array(
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+
+        /*
+         * Package Service Providers...
+         */
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -144,9 +152,6 @@ return array(
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        // Laravel Debugbar
-        // Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -193,7 +198,8 @@ return array(
         'URL'       => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
-        // Laravel Debugbar
-        // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Notification' => 'Illuminate\Support\Facades\Notification',
+
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
     ],
 );

@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Meal;
+use DateTime;
+use Illuminate\Support\Facades\Mail;
 use Log;
 use Validator;
-use DateTime;
-use App\Models\Meal;
-use App\Http\Helpers\Mailer;
 
 class DestroyMealService extends Service
 {
@@ -26,11 +26,9 @@ class DestroyMealService extends Service
      */
     public function execute()
     {
-        // Send an e-mail to the registrations for confirmation
-        Mailer::mealIsDestroyedEmail($this->meal);
-
-        // Remove all guests
+        // Remove all guests andsend them confirmation e-mails
         foreach ($this->meal->registrations()->get() as $registration) {
+            Mail::send(new MealDestroyed($this->meal, $registration));
             $registration->delete();
         }
 
