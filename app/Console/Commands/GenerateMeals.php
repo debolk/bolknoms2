@@ -26,7 +26,7 @@ class GenerateMeals extends Command
      *
      * @return mixed
      */
-    public function handwle()
+    public function handle()
     {
         // Get next monday
         $date = strtotime('next monday');
