@@ -138,7 +138,7 @@ class Registration extends ApplicationModel
         $query->whereNull('meals.deleted_at');
         $query->whereNull('registrations.deleted_at');
 
-        $query->groupBy('users.id', 'users.username');
+        $query->groupBy('users.id', 'users.name');
         $query->orderBy('count', 'desc');
 
         return $query;
