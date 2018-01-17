@@ -5,6 +5,7 @@ namespace App\Http\Helpers;
 use App;
 use App\Http\Helpers\ProfilePicture;
 use App\Models\User;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -90,6 +91,7 @@ class OAuth
             $username = json_decode($response->getBody())->user_id;
         }
         catch (Exception $e) {
+            Bugsnag::notifyException($e);
             $this->fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
         }
 
@@ -110,6 +112,7 @@ class OAuth
             $user->email = $user_data->email;
         }
         catch (Exception $e) {
+            Bugsnag::notifyException($e);
             // Ignore, we process missing information below
         }
 
@@ -164,12 +167,7 @@ class OAuth
             ]]);
         }
         catch (Exception $e) {
-            // Log the request and response, if available
-            Log::error((string) $e->getRequest()->getBody());
-            if ($e->hasResponse()) {
-                Log::error((string) $e->getResponse()->getBody());
-            }
-
+            Bugsnag::notifyException($e);
             $this->fatalError('cannot refresh token', $e->getMessage(), 502);
         }
 

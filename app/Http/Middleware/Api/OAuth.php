@@ -3,6 +3,7 @@
 namespace App\Http\Middleware\Api;
 
 use App\Http\Helpers\OAuth as OAuthHelper;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Closure;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
@@ -51,11 +52,11 @@ class OAuth
             return $response->getStatusCode() === 200;
         }
         catch(TransferException $e) {
-            Log::error("Cannot contact oauth server to validate token: {$e->getMessage()}");
+            Bugsnag::notifyException($e);
             return false;
         }
         catch (BadResponseException $e) {
-            Log::error("Error while communicating with auth server to validate token: {$e->getMessage()}");
+            Bugsnag::notifyException($e);
             return false;
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Helpers;
 
 use App\Http\Helpers\OAuth;
 use App\Models\User;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,8 @@ class ProfilePicture
             $file = fopen($path, 'w');
             $response = $client->get($url, ['sink' => $file]);
         }
-        catch (Exception $e) {
+        catch (Exception $exception) {
+            Bugsnag::notifyException($exception);
             // No handling needed, we'll just not have an image available
             return;
         }
