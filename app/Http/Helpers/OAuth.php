@@ -264,21 +264,16 @@ class OAuth
         }
 
         // Retrieve access code
-        // try {
-            $client = new Client();
-            $result = $client->post(env('OAUTH_ENDPOINT').'token/', [
-                'json' => [
-                    'grant_type' => 'authorization_code',
-                    'code' => $input['code'],
-                    'redirect_uri' => env('OAUTH_CALLBACK'),
-                    'client_id' => env('OAUTH_CLIENT_ID'),
-                    'client_secret' => env('OAUTH_CLIENT_SECRET'),
-                ],
-            ]);
-        // }
-        // catch (\Exception $e) {
-        //     $this->fatalError('Cannot trade authorisation token for access token', $e->getMessage(), 500);
-        // }
+        $client = new Client();
+        $result = $client->post(env('OAUTH_ENDPOINT').'token/', [
+            'json' => [
+                'grant_type' => 'authorization_code',
+                'code' => $input['code'],
+                'redirect_uri' => env('OAUTH_CALLBACK'),
+                'client_id' => env('OAUTH_CLIENT_ID'),
+                'client_secret' => env('OAUTH_CLIENT_SECRET'),
+            ],
+        ]);
 
         $token = json_decode($result->getBody());
 
