@@ -99,7 +99,8 @@ return array(
     | Available Settings: "single", "daily", "syslog", "errorlog"
     |
     */
-    'log' => 'single',
+    'log' => env('APP_LOG', 'single'),
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
