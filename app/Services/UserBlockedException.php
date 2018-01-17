@@ -2,6 +2,6 @@
 
 namespace App\Services;
 
-class UserBlockedException extends Exception
+class UserBlockedException extends \Exception
 {
 };

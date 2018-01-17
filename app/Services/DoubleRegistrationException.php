@@ -2,6 +2,6 @@
 
 namespace App\Services;
 
-class DoubleRegistrationException extends Exception
+class DoubleRegistrationException extends \Exception
 {
 };
