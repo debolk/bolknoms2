@@ -6,7 +6,6 @@ use App;
 use App\Http\Helpers\ProfilePicture;
 use App\Models\User;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
-use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -90,7 +89,7 @@ class OAuth
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             Bugsnag::notifyException($e);
             $this->fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
         }
@@ -111,7 +110,7 @@ class OAuth
             $user->name = $user_data->name;
             $user->email = $user_data->email;
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             Bugsnag::notifyException($e);
             // Ignore, we process missing information below
         }
@@ -166,7 +165,7 @@ class OAuth
                 'client_secret' => env('OAUTH_CLIENT_SECRET'),
             ]]);
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             Bugsnag::notifyException($e);
             $this->fatalError('cannot refresh token', $e->getMessage(), 502);
         }
@@ -226,7 +225,7 @@ class OAuth
             $request = $client->get($url);
             return ($request->getStatusCode() === 200);
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             return false;
         }
     }
@@ -277,7 +276,7 @@ class OAuth
                 ],
             ]);
         // }
-        // catch (Exception $e) {
+        // catch (\Exception $e) {
         //     $this->fatalError('Cannot trade authorisation token for access token', $e->getMessage(), 500);
         // }
 
