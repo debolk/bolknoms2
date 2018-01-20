@@ -53,50 +53,6 @@ class TensorflowController extends Application
         ];
         $this->printRow($headers);
 
-
-		// 'Replays' known registrations.
-		class RegistrationsIterator
-		{
-			private $registrations;
-			private $currentIndex = 0;
-			private $currentTimestamp = 0;
-			private $currentCounts = [];
-
-			function __construct($registrations)
-			{
-				$this->registrations = $registrations;
-			}
-
-			function forwardTo($timestamp)
-			{
-				if ($timestamp < $currentTimestamp) {
-					throw new Exception();
-				}
-				$currentTimestamp = $timestamp;
-
-				while ($currentIndex < count($registrations) && $registrations[$currentIndex][0] <= $timestamp)
-				{
-					$r = $registrations[$currentIndex];
-					$mealId = $r[1];
-					if (!isset($currentCounts[$mealId]))
-						$currentCounts[$mealId] = 0;
-
-					$currentCounts[$mealId]++;
-
-					$currentIndex++;
-				}
-
-				return 0;
-			}
-
-			function get($id)
-			{
-				if(!isset($currentCounts[$id]))
-					return 0;
-				return $currentCounts[$id];
-			}
-		}
-
 		$meals = Meal::with('registrations')->get();
 
 		$registrations = [];
@@ -249,3 +205,46 @@ class TensorflowController extends Application
         }
     }
 }
+
+// 'Replays' known registrations.
+        class RegistrationsIterator
+        {
+            private $registrations;
+            private $currentIndex = 0;
+            private $currentTimestamp = 0;
+            private $currentCounts = [];
+
+            function __construct($registrations)
+            {
+                $this->registrations = $registrations;
+            }
+
+            function forwardTo($timestamp)
+            {
+                if ($timestamp < $currentTimestamp) {
+                    throw new Exception();
+                }
+                $currentTimestamp = $timestamp;
+
+                while ($currentIndex < count($registrations) && $registrations[$currentIndex][0] <= $timestamp)
+                {
+                    $r = $registrations[$currentIndex];
+                    $mealId = $r[1];
+                    if (!isset($currentCounts[$mealId]))
+                        $currentCounts[$mealId] = 0;
+
+                    $currentCounts[$mealId]++;
+
+                    $currentIndex++;
+                }
+
+                return 0;
+            }
+
+            function get($id)
+            {
+                if(!isset($currentCounts[$id]))
+                    return 0;
+                return $currentCounts[$id];
+            }
+        }
