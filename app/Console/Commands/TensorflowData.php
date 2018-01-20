@@ -199,15 +199,23 @@ class TensorflowData extends Command
 
     private function mealFor(Collection $meals, Meal $meal, Carbon $timestamp)
     {
+        if (!isset($this->mealForCache))
+            $this->mealForCache = [];
+        if (isset($this->mealForCache[$timestamp->timestamp]))
+            return $this->mealForCache[$timestamp->timestamp];
+
         foreach ($meals as $candidate) {
             if ($candidate->meal_timestamp->isSameDay($timestamp)) {
+                $this->mealForCache[$timestamp->timestamp] = $candidate;
                 return $candidate;
             }
         }
 
-        return new class {
+        $result = new class {
             public $id = -1;
         };
+        $this->mealForCache[$timestamp->timestamp] = $result;
+        return $result;
     }
 
     public function debug(string $text)
