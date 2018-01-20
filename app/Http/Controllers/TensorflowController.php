@@ -53,7 +53,105 @@ class TensorflowController extends Application
         ];
         $this->printRow($headers);
 
-        $meals = Meal::with('registrations')->get();
+
+		// 'Replays' known registrations.
+		class RegistrationsIterator
+		{
+			private $registrations;
+			private $currentIndex = 0;
+			private $currentTimestamp = 0;
+			private $currentCounts = [];
+
+			function __construct($registrations)
+			{
+				$this->registrations = $registrations;
+			}
+
+			function forwardTo($timestamp)
+			{
+				if ($timestamp < $currentTimestamp) {
+					throw new Exception();
+				}
+				$currentTimestamp = $timestamp;
+
+				while ($currentIndex < count($registrations) && $registrations[$currentIndex][0] <= $timestamp)
+				{
+					$r = $registrations[$currentIndex];
+					$mealId = $r[1];
+					if (!isset($currentCounts[$mealId]))
+						$currentCounts[$mealId] = 0;
+
+					$currentCounts[$mealId]++;
+
+					$currentIndex++;	
+				}
+
+				return 0;
+			}
+
+			function get($id)
+			{
+				if(!isset($currentCounts[$id]))
+					return 0;
+				return $currentCounts[$id];
+			}
+		}
+
+		$meals = Meal::with('registrations')->get();
+
+		$registrations = [];
+		$days = [];
+		$day_codes = [];
+		$meal_sample_times = [];
+		$min_sample_start = time();
+		$max_sample_end = 0;
+
+		$meals->each(function ($meal) use ($registrations, $days, $day_codes, $meal_sample_times, $min_sample_start, $max_sample_end) {
+			$sample_end = $meal->locked_timestamp; // Samples stop here for this meal
+			$sample_start = (clone $closing)->addDays(-14); // Samples start here for this meal
+			if ($meal->id <= 44)
+				$sample_start = $sample_end;
+
+
+			$meal_sample_times[$meal->id] = array($sample_start->timestamp, $sample_end->timestamp);
+
+			$year = (int) strftime('%G', $meal->meal_timestamp->timestamp);
+			$week = (int) strftime('%V', $meal->meal_timestamp->timestamp);
+			$day = (int) strftime('%u', $meal->meal_timestamp->timestamp);
+			$day_code = $day + 10 * $week + 10 * 100 * $year; // 2014014
+
+			$days[$day_code] = $meal->id;
+			array_push($day_codes, $day_code);
+
+			if ($min_sample_start > $sample_start)
+				$min_sample_start = $sample_start;
+			if ($max_sample_end < $sample_end)
+			    $max_sample_end = $sample_end;
+
+			$meal->registrations->each(function($r) {
+				array_push($registrations, array($r->created_at->timestamp, $meal->id))
+			});
+		});
+		uasort($registrations, function($a, $b) { return $a[0] - $b[0] }); // Sort ascending
+
+		$sample_step = 15 * 60;
+
+		$iterator = new RegistrationsIterator($registrations);
+
+		for($t = $min_sample_start; $t += $sample_step; $t <= $max_sample_end)
+		{
+			$iterator.forwardTo($t);
+
+			for($days as $code => $id)
+			{
+				$sample_times = $meal_sample_times[$id];
+				if ($t < $sample_times[0] || $t > $sample_times[1])
+					continue;
+
+
+			}
+		}
+
 
         $meals->each(function ($meal) use ($meals) {
 
