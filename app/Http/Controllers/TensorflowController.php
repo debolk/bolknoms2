@@ -83,7 +83,7 @@ class TensorflowController extends Application
 
 					$currentCounts[$mealId]++;
 
-					$currentIndex++;	
+					$currentIndex++;
 				}
 
 				return 0;
@@ -129,10 +129,10 @@ class TensorflowController extends Application
 			    $max_sample_end = $sample_end;
 
 			$meal->registrations->each(function($r) {
-				array_push($registrations, array($r->created_at->timestamp, $meal->id))
+				array_push($registrations, array($r->created_at->timestamp, $meal->id));
 			});
 		});
-		uasort($registrations, function($a, $b) { return $a[0] - $b[0] }); // Sort ascending
+		uasort($registrations, function($a, $b) { return $a[0] - $b[0]; }); // Sort ascending
 
 		$sample_step = 15 * 60;
 
@@ -142,7 +142,7 @@ class TensorflowController extends Application
 		{
 			$iterator.forwardTo($t);
 
-			for($days as $code => $id)
+			foreach ($days as $code => $id)
 			{
 				$sample_times = $meal_sample_times[$id];
 				if ($t < $sample_times[0] || $t > $sample_times[1])
