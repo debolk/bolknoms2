@@ -199,18 +199,15 @@ class TensorflowData extends Command
 
     private function mealFor(Collection $meals, Meal $meal, Carbon $timestamp)
     {
-        $targets = $meals->filter(function($meal) use ($timestamp) {
-            return $meal->meal_timestamp->isSameDay($timestamp);
-        });
+        foreach ($meals as $candidate) {
+            if ($candidate->meal_timestamp->isSameDay($timestamp)) {
+                return $candidate;
+            }
+        }
 
-        if ($targets->count()) {
-            return $targets->first();
-        }
-        else {
-            return new class {
-                public $id = -1;
-            };
-        }
+        return new class {
+            public $id = -1;
+        };
     }
 
     public function debug(string $text)
