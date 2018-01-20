@@ -1,8 +1,5 @@
 <?php
 
-Route::get('/tensorflow', 'TensorflowController@index');
-Route::get('/tensorflow/data', 'TensorflowController@show');
-
 Route::group(['middleware' => 'web'], function () {
     // Register for meals
     Route::get('/', 'Register@index');
