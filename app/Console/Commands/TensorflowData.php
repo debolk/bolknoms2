@@ -137,7 +137,6 @@ class TensorflowData extends Command
                 $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+7))->id,    // 'p+7',
             ];
 
-            $this->debug("determined sampling ids for  {$meal->id}");
 
             if ($min_sample_start > $sample_start)
                 $min_sample_start = $sample_start;
@@ -151,10 +150,8 @@ class TensorflowData extends Command
         $this->debug("done preprocessing, days size: ".sizeof($days));
 
 
-        $this->debug("started sorting samples");
         uasort($registrations, function($a, $b) { return $a[0] - $b[0]; }); // Sort ascending
         $registrations = array_values($registrations);
-        $this->debug("finished sorting samples");
 
         $sample_step = 15 * 60;
 
@@ -188,7 +185,6 @@ class TensorflowData extends Command
 
                 $this->printRow($row);
             }
-            $this->debug("Done with sample $t");
         }
     }
 
