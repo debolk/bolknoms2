@@ -43,9 +43,6 @@ class TensorflowData extends Command
     {
         ini_set('max_execution_time', 0);
 
-        header('Content-Type: text/csv');
-        header('Content-Disposition: inline; filename="bolknoms_tensorflow_'.Carbon::now().'.csv"');
-
         $headers = [
             'timestamp_meal',
             'day_of_week',
