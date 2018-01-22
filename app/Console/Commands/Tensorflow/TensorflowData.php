@@ -73,8 +73,9 @@ class TensorflowData extends Command
 
             $sample_end = $meal->locked_timestamp->timestamp; // Samples stop here for this meal
             $sample_start = (clone $meal->locked_timestamp)->addDays(-14)->timestamp; // Samples start here for this meal
-            if ($meal->id <= 44)
+            if ($meal->id <= 44) {
                 $sample_start = $sample_end;
+            }
 
 
             $meal_sample_times[$meal->id] = array($sample_start, $sample_end);
@@ -116,27 +117,27 @@ class TensorflowData extends Command
             ];
 
 
-            if ($min_sample_start > $sample_start)
+            if ($min_sample_start > $sample_start) {
                 $min_sample_start = $sample_start;
-            if ($max_sample_end < $sample_end)
+            }
+            if ($max_sample_end < $sample_end) {
                 $max_sample_end = $sample_end;
+            }
 
             foreach ($meal->registrations as $r) {
-                array_push($registrations, array($r->created_at->timestamp, $meal->id));
+                $registrations[] = [$r->created_at->timestamp, $meal->id];
             }
         }
         $this->debug("done preprocessing, days size: ".sizeof($days));
-
 
         uasort($registrations, function($a, $b) { return $a[0] - $b[0]; }); // Sort ascending
         $registrations = array_values($registrations);
 
         $sample_step = 15 * 60;
 
-        $iterator = new RegistrationsIterator($registrations);
-
         $this->debug("start processing samples, end = $max_sample_end");
 
+        $iterator = new RegistrationsIterator($registrations);
         for($t = $min_sample_start; $t <= $max_sample_end; $t += $sample_step)
         {
             $iterator->forwardTo($t);
