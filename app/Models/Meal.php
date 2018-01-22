@@ -133,4 +133,29 @@ class Meal extends ApplicationModel
     {
         return $this->meal_timestamp->format('H:i') === '18:30';
     }
+
+    private $cache;
+    private $registrationTimestamps;
+
+    public function registrationsBefore(\Carbon\Carbon $timestamp) : int
+    {
+        if (isset($this->cache[$timestamp->timestamp])) {
+            return $this->cache[$timestamp->timestamp];
+        }
+
+        if (!isset($this->registrationTimestamps)) {
+            $this->registrationTimestamps = $this->registrations->map(function($r) { return $r->created_at->timestamp; });
+        }
+
+
+        $result = 0;
+        $time = $timestamp->timestamp;
+        foreach($this->registrationTimestamps as $t) {
+            $result += $t < $time;
+        }
+
+        $this->cache[$timestamp->timestamp] = $result;
+
+        return $result;
+    }
 }
