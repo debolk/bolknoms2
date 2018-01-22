@@ -13,6 +13,9 @@ class TensorflowData extends Command
     protected $signature = 'tensorflow:data';
     protected $description = 'Generate input data set for Tensorflow analysis of registrations';
 
+    // Memoize cache for looking up meals by their date
+    private $mealForCache = [];
+
     /**
      * Execute the console command.
      *
@@ -180,11 +183,6 @@ class TensorflowData extends Command
      */
     private function mealFor(Collection $meals, Carbon $timestamp)
     {
-        // Initialize the cache if needed
-        if (!isset($this->mealForCache)) {
-            $this->mealForCache = [];
-        }
-
         // Try the memoized results first
         if (isset($this->mealForCache[$timestamp->timestamp])) {
             return $this->mealForCache[$timestamp->timestamp];
