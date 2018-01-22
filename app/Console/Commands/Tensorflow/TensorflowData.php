@@ -16,6 +16,9 @@ class TensorflowData extends Command
     // Memoize cache for looking up meals by their date
     private $mealForCache = [];
 
+    // Output file (will be truncated!)
+    private $outputFile = null;
+
     /**
      * Execute the console command.
      *
@@ -24,6 +27,9 @@ class TensorflowData extends Command
     public function handle()
     {
         ini_set('max_execution_time', 0);
+
+        // Open the output file, and truncate it
+        $this->outputFile = fopen(storage_path('app/public/tensorflow/dataset.csv'), 'w');
 
         // Print header row in CSV for interpretation
         $this->printRow([
@@ -172,7 +178,8 @@ class TensorflowData extends Command
      */
     private function printRow(array $values)
     {
-        echo implode(",", $values) . "\n";
+        $line = implode(",", $values) . "\n";
+        fwrite($this->outputFile, $line);
     }
 
     /**
