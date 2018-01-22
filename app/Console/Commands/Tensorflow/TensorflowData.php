@@ -180,11 +180,17 @@ class TensorflowData extends Command
      */
     private function mealFor(Collection $meals, Carbon $timestamp)
     {
-        if (!isset($this->mealForCache))
+        // Initialize the cache if needed
+        if (!isset($this->mealForCache)) {
             $this->mealForCache = [];
-        if (isset($this->mealForCache[$timestamp->timestamp]))
-            return $this->mealForCache[$timestamp->timestamp];
+        }
 
+        // Try the memoized results first
+        if (isset($this->mealForCache[$timestamp->timestamp])) {
+            return $this->mealForCache[$timestamp->timestamp];
+        }
+
+        // Find a meal that is on the same day as the timestamp
         foreach ($meals as $candidate) {
             if ($candidate->meal_timestamp->isSameDay($timestamp)) {
                 $this->mealForCache[$timestamp->timestamp] = $candidate;
@@ -192,6 +198,7 @@ class TensorflowData extends Command
             }
         }
 
+        // Return a fake NullObject Meal if none are found
         $result = new class {
             public $id = -1;
         };
