@@ -58,7 +58,6 @@ class TensorflowData extends Command
 
         $registrations = [];
         $days = [];
-        $day_codes = [];
         $meal_sample_times = [];
         $min_sample_start = time();
         $max_sample_end = 0;
