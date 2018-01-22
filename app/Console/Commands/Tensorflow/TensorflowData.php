@@ -87,29 +87,29 @@ class TensorflowData extends Command
             $meal_results[$meal->id] = $meal->registrations->count();
 
             $days[$meal->id] = [
-                $this->mealFor($meals, $meal, (clone $meal->meal_timestamp)->addDays(-1))->id,    // 'c-1',
-                $this->mealFor($meals, $meal, (clone $meal->meal_timestamp)->addDays(-2))->id,    // 'c-2',
-                $this->mealFor($meals, $meal, (clone $meal->meal_timestamp)->addDays(-3))->id,    // 'c-3',
-                $this->mealFor($meals, $meal, (clone $meal->meal_timestamp)->addDays(-4))->id,    // 'c-4',
-                $this->mealFor($meals, $meal, (clone $meal->meal_timestamp)->addDays(-5))->id,    // 'c-5',
-                $this->mealFor($meals, $meal, (clone $meal->meal_timestamp)->addDays(-6))->id,    // 'c-6',
-                $this->mealFor($meals, $meal, (clone $meal->meal_timestamp)->addDays(-7))->id,    // 'c-7',
+                $this->mealFor($meals, (clone $meal->meal_timestamp)->addDays(-1))->id,    // 'c-1',
+                $this->mealFor($meals, (clone $meal->meal_timestamp)->addDays(-2))->id,    // 'c-2',
+                $this->mealFor($meals, (clone $meal->meal_timestamp)->addDays(-3))->id,    // 'c-3',
+                $this->mealFor($meals, (clone $meal->meal_timestamp)->addDays(-4))->id,    // 'c-4',
+                $this->mealFor($meals, (clone $meal->meal_timestamp)->addDays(-5))->id,    // 'c-5',
+                $this->mealFor($meals, (clone $meal->meal_timestamp)->addDays(-6))->id,    // 'c-6',
+                $this->mealFor($meals, (clone $meal->meal_timestamp)->addDays(-7))->id,    // 'c-7',
 
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(-7))->id,    // 'p-7',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(-6))->id,    // 'p-6',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(-5))->id,    // 'p-5',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(-4))->id,    // 'p-4',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(-3))->id,    // 'p-3',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(-2))->id,    // 'p-2',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(-1))->id,    // 'p-1',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+0))->id,    // 'p+0',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+1))->id,    // 'p+1',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+2))->id,    // 'p+2',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+3))->id,    // 'p+3',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+4))->id,    // 'p+4',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+5))->id,    // 'p+5',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+6))->id,    // 'p+6',
-                $this->mealFor($meals, $meal, (clone $lastYearPerISO)->addDays(+7))->id,    // 'p+7',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(-7))->id,    // 'p-7',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(-6))->id,    // 'p-6',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(-5))->id,    // 'p-5',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(-4))->id,    // 'p-4',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(-3))->id,    // 'p-3',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(-2))->id,    // 'p-2',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(-1))->id,    // 'p-1',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+0))->id,    // 'p+0',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+1))->id,    // 'p+1',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+2))->id,    // 'p+2',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+3))->id,    // 'p+3',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+4))->id,    // 'p+4',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+5))->id,    // 'p+5',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+6))->id,    // 'p+6',
+                $this->mealFor($meals, (clone $lastYearPerISO)->addDays(+7))->id,    // 'p+7',
             ];
 
 
@@ -175,11 +175,10 @@ class TensorflowData extends Command
     /**
      * Find a meal for a specific date
      * @param  Collection $meals     collection of all meals
-     * @param  Meal       $meal      unused
      * @param  Carbon     $timestamp timestamp on the day we seek
      * @return Meal
      */
-    private function mealFor(Collection $meals, Meal $meal, Carbon $timestamp)
+    private function mealFor(Collection $meals, Carbon $timestamp)
     {
         if (!isset($this->mealForCache))
             $this->mealForCache = [];
