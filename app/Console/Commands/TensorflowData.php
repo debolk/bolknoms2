@@ -10,29 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TensorflowData extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'tensorflow:data';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = '';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Generate input data set for Tensorflow analysis of registrations';
 
     /**
      * Execute the console command.
