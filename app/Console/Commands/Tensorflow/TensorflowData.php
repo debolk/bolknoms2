@@ -76,7 +76,7 @@ class TensorflowData extends Command
         $meal_results = [];
 
         foreach ($meals as $meal) {
-            $this->debug("processing meal {$meal->id}");
+            $this->debug("pre-processing meal {$meal->id}");
 
             // Determine sample bounds
             $sample_end = $meal->locked_timestamp->timestamp; // Samples stop here for this meal
@@ -133,7 +133,7 @@ class TensorflowData extends Command
                 $registrations[] = [$r->created_at->timestamp, $meal->id];
             }
         }
-        $this->debug("done preprocessing, days size: ".sizeof($days));
+        $this->debug("done preprocessing");
 
         uasort($registrations, function($a, $b) { return $a[0] - $b[0]; }); // Sort ascending
         $registrations = array_values($registrations);
@@ -170,6 +170,7 @@ class TensorflowData extends Command
                 $this->printRow($row);
             }
         }
+        $this->debug('done processing samples. Command complete');
     }
 
     /**
