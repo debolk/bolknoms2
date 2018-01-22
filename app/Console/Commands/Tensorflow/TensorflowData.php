@@ -163,11 +163,22 @@ class TensorflowData extends Command
         }
     }
 
+    /**
+     * Output a formatted line of CSV data
+     * @param  array  $values
+     */
     private function printRow(array $values)
     {
         echo implode(",", $values) . "\n";
     }
 
+    /**
+     * Find a meal for a specific date
+     * @param  Collection $meals     collection of all meals
+     * @param  Meal       $meal      unused
+     * @param  Carbon     $timestamp timestamp on the day we seek
+     * @return Meal
+     */
     private function mealFor(Collection $meals, Meal $meal, Carbon $timestamp)
     {
         if (!isset($this->mealForCache))
@@ -189,6 +200,10 @@ class TensorflowData extends Command
         return $result;
     }
 
+    /**
+     * Output a debug message, separate from normal output
+     * @param  string $text
+     */
     public function debug(string $text)
     {
         fwrite(STDERR, $text . "\n");
