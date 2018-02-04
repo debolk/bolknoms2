@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Log;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OAuth
 {
@@ -231,12 +232,15 @@ class OAuth
     }
 
     /**
-     * Forget the currently logged-in user
-     * @return void
+     * Logout the current user, optionally showing a message popup
+     * @param  string $message optional
      */
-    public function logout()
+    public function logout(string $message = 'Je bent uitgelogd')
     {
         Session::remove('oauth');
+        Session::flash('action_result', ['status' => 'success', 'message' => $message]);
+
+        throw new HttpException(301, $message, null, ['Location' => '/']);
     }
 
     /**
