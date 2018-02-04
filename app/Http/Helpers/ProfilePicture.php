@@ -81,7 +81,13 @@ class ProfilePicture
      */
     public function mimetypeFor(User $user)
     {
-        return mime_content_type($this->picturePathFor($user));
+        $path = $this->picturePathFor($user);
+
+        if (!File::exists($path)) {
+            $path = public_path('images/swedishchef.jpg');
+        }
+
+        return mime_content_type($path);
     }
 
     /**
