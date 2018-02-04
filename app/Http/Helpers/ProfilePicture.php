@@ -36,7 +36,6 @@ class ProfilePicture
             $response = $client->get($url, ['sink' => $file]);
         }
         catch (\Exception $exception) {
-            Bugsnag::notifyException($exception);
             // No handling needed, we'll just not have an image available
             return;
         }
