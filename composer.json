@@ -18,7 +18,6 @@
         "laravel/tinker": "~1.0",
         "guzzlehttp/guzzle": "~6.3",
         "doctrine/dbal": "~2.6",
-        "barryvdh/laravel-debugbar": "~3.1",
         "league/fractal": "~0.17",
         "bugsnag/bugsnag-laravel": "^2.0"
     },
@@ -27,7 +26,8 @@
         "phpunit/phpunit": "~6.0",
         "phpspec/phpspec": "~4.3",
         "fzaninotto/faker": "~1.7",
-        "laravel/homestead": "~7.0"
+        "laravel/homestead": "~7.0",
+        "barryvdh/laravel-debugbar": "^3.1"
     },
     "autoload": {
         "classmap": [
