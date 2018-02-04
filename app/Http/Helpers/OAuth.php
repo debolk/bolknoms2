@@ -7,6 +7,7 @@ use App\Http\Helpers\ProfilePicture;
 use App\Models\User;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Log;
@@ -165,6 +166,17 @@ class OAuth
                 'client_id' => env('OAUTH_CLIENT_ID'),
                 'client_secret' => env('OAUTH_CLIENT_SECRET'),
             ]]);
+        }
+        catch (ClientException $exception) {
+            // Test for invalid grants, which means our refresh token has expired
+            if ($exception->hasResponse()) {
+                $response = json_decode((string) $exception->getResponse()->getBody());
+                if ($response->error === 'invalid_grant') {
+                    $this->logout('Je huidige inlog is verlopen');
+                    return;
+                }
+            }
+            throw $exception;
         }
         catch (\Exception $e) {
             Bugsnag::notifyException($e);
