@@ -18,7 +18,10 @@ class Confirm extends Application
             $registration = Registration::findOrFail($id);
         }
         catch (ModelNotFoundException $e) {
-            return $this->userFriendlyError(404, 'Aanmelding bestaat niet');
+            return redirect('/')->with('action_result', [
+                'status' => 'error',
+                'message' => 'Deze aanmelding bestaat niet. Het kan zijn dat deze al weer verwijderd is.',
+            ]);
         }
 
         // Confirm registration
@@ -26,10 +29,17 @@ class Confirm extends Application
             $confirm = with(new ConfirmRegistrationService($registration, $salt))->execute();
         }
         catch (SaltMismatchException $e) {
-            return $this->userFriendlyError(400, 'Beveiligingscode klopt niet');
+            return redirect('/')->with('action_result', [
+                'status' => 'error',
+                'message' => 'De beveiligingscode klopt niet. Gebruik de link in de e-mail.',
+            ]);
         }
         catch (MealDeadlinePassedException $e) {
-            return $this->userFriendlyError(410, 'De deadline voor aanmelding voor deze maaltijd is al verstreken');
+            return redirect('/')->with('action_result', [
+                'status' => 'error',
+                'message' => 'De deadline voor aanmelding voor deze maaltijd is al verstreken. Je kunt je aanmelding niet
+                meer bevestigen. Je kunt helaas niet mee-eten.',
+            ]);
         }
 
         return view('confirm/confirm', ['registration' => $registration]);
