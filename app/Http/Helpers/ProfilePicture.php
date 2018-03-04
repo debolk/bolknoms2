@@ -35,7 +35,11 @@ class ProfilePicture
             $file = fopen($path, 'w');
             $response = $client->get($url, ['sink' => $file]);
         } catch (\Exception $exception) {
-            // No handling needed, we'll just not have an image available
+            // Having a exception that returns a response, still creates the file on disk
+            // so we clean up it here
+            if (file_exists($path)) {
+                unlink($path);
+            }
             return;
         }
 
