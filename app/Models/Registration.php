@@ -102,8 +102,7 @@ class Registration extends ApplicationModel
         // Determine last 1-sep
         if (time() > strtotime('01 September')) {
             $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September')));
-        }
-        else {
+        } else {
             $query->where('meals.meal_timestamp', '>=', date('Y-m-d', strtotime('01 September last year')));
         }
 

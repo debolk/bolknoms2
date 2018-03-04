@@ -135,7 +135,9 @@ class TensorflowData extends Command
         }
         $this->debug("done preprocessing");
 
-        uasort($registrations, function($a, $b) { return $a[0] - $b[0]; }); // Sort ascending
+        uasort($registrations, function ($a, $b) {
+            return $a[0] - $b[0];
+        }); // Sort ascending
         $registrations = array_values($registrations);
 
         $this->debug("start processing samples, end = $max_sample_end");
@@ -143,12 +145,10 @@ class TensorflowData extends Command
         // Sample the number of registrations per 15 minutes
         $sampling_step = 15*60;
         $iterator = new RegistrationsIterator($registrations);
-        for($t = $min_sample_start; $t <= $max_sample_end; $t += $sampling_step)
-        {
+        for ($t = $min_sample_start; $t <= $max_sample_end; $t += $sampling_step) {
             $iterator->forwardTo($t);
 
-            foreach ($days as $id => $mealSampleIds)
-            {
+            foreach ($days as $id => $mealSampleIds) {
                 $sample_times = $meal_sample_times[$id];
                 if ($t < $sample_times[0] || $t > $sample_times[1]) {
                     continue;
@@ -161,7 +161,7 @@ class TensorflowData extends Command
                     $iterator->get($id), // c+0
                 ];
 
-                foreach($mealSampleIds as $sampleId) {
+                foreach ($mealSampleIds as $sampleId) {
                     array_push($row, $iterator->get($sampleId));
                 }
 

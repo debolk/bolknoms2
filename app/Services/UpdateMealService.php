@@ -30,7 +30,7 @@ class UpdateMealService extends Service
         $validator = Validator::make($this->data, [
             'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'unique:meals,meal_timestamp,'.$this->meal->id],
             'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'before:meal_timestamp'],
-        ],[
+        ], [
             'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
             'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
             'meal_timestamp.unique'        => 'Er is al een maaltijd op deze datum en tijd',
@@ -52,8 +52,7 @@ class UpdateMealService extends Service
         if ($this->meal->save()) {
             Log::info("Maaltijd geupdate: $this->meal->id|$this->meal->meal_timestamp|$this->meal->event");
             return $this->meal;
-        }
-        else {
+        } else {
             return null;
         }
     }

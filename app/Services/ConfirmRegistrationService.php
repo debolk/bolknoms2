@@ -50,4 +50,6 @@ class ConfirmRegistrationService extends Service
     }
 }
 
-class SaltMismatchException extends Exception {}
+class SaltMismatchException extends Exception
+{
+}

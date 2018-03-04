@@ -50,7 +50,7 @@ class AdminRegisterService extends Service
         $validator = Validator::make($this->data, [
             'name'    => ['required'],
             'user_id' => ['exists:users,id']
-        ],[
+        ], [
             'name.required'  => 'Je moet je naam invullen',
             'email.required' => 'Je moet je e-mailadres invullen',
             'email.email'    => 'Het ingevulde e-mailadres is ongeldig',

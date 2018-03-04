@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use DateTime;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,7 @@ class Meal extends ApplicationModel
      */
     public function scopeAvailable($query)
     {
-        return $query->where(function($q){
+        return $query->where(function ($q) {
             $q->whereRaw('locked_timestamp > NOW()');
         })->orderBy('meal_timestamp');
     }
@@ -85,7 +86,7 @@ class Meal extends ApplicationModel
      */
     public function open_for_registrations()
     {
-      return $this->locked_timestamp->timestamp > time();
+        return $this->locked_timestamp->timestamp > time();
     }
 
     /**
@@ -108,8 +109,7 @@ class Meal extends ApplicationModel
 
         if ($meal === $lock) {
             return $this->locked_timestamp->format('H:i') . ' uur';
-        }
-        else {
+        } else {
             return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M') . ' uur';
         }
     }
@@ -144,13 +144,15 @@ class Meal extends ApplicationModel
         }
 
         if (!isset($this->registrationTimestamps)) {
-            $this->registrationTimestamps = $this->registrations->map(function($r) { return $r->created_at->timestamp; });
+            $this->registrationTimestamps = $this->registrations->map(function ($r) {
+                return $r->created_at->timestamp;
+            });
         }
 
 
         $result = 0;
         $time = $timestamp->timestamp;
-        foreach($this->registrationTimestamps as $t) {
+        foreach ($this->registrationTimestamps as $t) {
             $result += $t < $time;
         }
 

@@ -12,12 +12,12 @@ class RegistrationsIterator
     private $currentTimestamp = 0;
     private $currentCounts = [];
 
-    function __construct($registrations)
+    public function __construct($registrations)
     {
         $this->registrations = $registrations;
     }
 
-    function forwardTo($timestamp)
+    public function forwardTo($timestamp)
     {
         if ($timestamp < $this->currentTimestamp) {
             throw new Exception();
@@ -39,9 +39,9 @@ class RegistrationsIterator
         return 0;
     }
 
-    function get($id)
+    public function get($id)
     {
-        if(!isset($this->currentCounts[$id])) {
+        if (!isset($this->currentCounts[$id])) {
             return 0;
         }
 

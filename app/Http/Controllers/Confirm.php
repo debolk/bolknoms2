@@ -16,8 +16,7 @@ class Confirm extends Application
     {
         try {
             $registration = Registration::findOrFail($id);
-        }
-        catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return redirect('/')->with('action_result', [
                 'status' => 'error',
                 'message' => 'Deze aanmelding bestaat niet. Het kan zijn dat deze al weer verwijderd is.',
@@ -27,14 +26,12 @@ class Confirm extends Application
         // Confirm registration
         try {
             $confirm = with(new ConfirmRegistrationService($registration, $salt))->execute();
-        }
-        catch (SaltMismatchException $e) {
+        } catch (SaltMismatchException $e) {
             return redirect('/')->with('action_result', [
                 'status' => 'error',
                 'message' => 'De beveiligingscode klopt niet. Gebruik de link in de e-mail.',
             ]);
-        }
-        catch (MealDeadlinePassedException $e) {
+        } catch (MealDeadlinePassedException $e) {
             return redirect('/')->with('action_result', [
                 'status' => 'error',
                 'message' => 'De deadline voor aanmelding voor deze maaltijd is al verstreken. Je kunt je aanmelding niet

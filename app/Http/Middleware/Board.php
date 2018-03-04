@@ -20,15 +20,15 @@ class Board
         $this->oauth = $oauth;
     }
 
-	/**
-	 * Allow a request to proceed only if we have board-level permissions
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next)
-	{
+    /**
+     * Allow a request to proceed only if we have board-level permissions
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
         // Make this middleware inoperable for testing
         if (env('APP_ENV') === 'testing') {
             return $next($request);
@@ -41,9 +41,8 @@ class Board
         if ($this->oauth->isBoardMember()) {
             // Proceed with request
             return $next($request);
-        }
-        else {
+        } else {
             abort(403, 'Access denied: you\'re not authorized to access this');
         }
-	}
+    }
 }

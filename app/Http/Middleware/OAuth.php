@@ -21,15 +21,15 @@ class OAuth
         $this->oauth = $oauth;
     }
 
-	/**
-	 * Allow a request to proceed only if we hold a valid OAuth token
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
- 	 */
-	public function handle(Request $request, Closure $next)
-	{
+    /**
+     * Allow a request to proceed only if we hold a valid OAuth token
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next)
+    {
         // Make this middleware inoperable for testing
         if (env('APP_ENV') === 'testing') {
             return $next($request);
@@ -37,10 +37,8 @@ class OAuth
 
         if ($this->oauth->valid()) {
             return $next($request);
-        }
-        else {
+        } else {
             return $this->oauth->toAuthorisationServer($request->route()->getUri());
         }
-
-	}
+    }
 }

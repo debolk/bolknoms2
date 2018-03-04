@@ -33,8 +33,7 @@ class UpdateMeal extends Application
     {
         try {
             $meal = Meal::findOrFail($id);
-        }
-        catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
@@ -46,8 +45,7 @@ class UpdateMeal extends Application
 
         try {
             $meal = with(new UpdateMealService($meal, $data))->execute();
-        }
-        catch (ValidationException $e) {
+        } catch (ValidationException $e) {
             return redirect(action('Administration\UpdateMeal@edit', $meal->id))->withErrors($e->messages())->withInput();
         }
 

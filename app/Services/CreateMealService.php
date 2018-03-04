@@ -29,7 +29,7 @@ class CreateMealService extends Service
         $validator = Validator::make($this->data, [
             'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'after:now', 'unique:meals'],
             'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'after:now', 'before:meal_timestamp']
-        ],[
+        ], [
              'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
              'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
              'meal_timestamp.after'         => 'Je kunt geen maaltijden aanmaken in het verleden',
@@ -52,8 +52,7 @@ class CreateMealService extends Service
         $meal = new Meal($this->data);
         if ($meal->save()) {
             return $meal;
-        }
-        else {
+        } else {
             return null;
         }
     }

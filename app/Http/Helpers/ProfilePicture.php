@@ -34,8 +34,7 @@ class ProfilePicture
             $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$token;
             $file = fopen($path, 'w');
             $response = $client->get($url, ['sink' => $file]);
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             // No handling needed, we'll just not have an image available
             return;
         }
@@ -68,8 +67,7 @@ class ProfilePicture
         // If the file still doesn't exist, return the swedish chef
         if (File::exists($path)) {
             return File::get($path);
-        }
-        else {
+        } else {
             return File::get(public_path() . '/images/swedishchef.jpg');
         }
     }

@@ -38,8 +38,7 @@ class GenerateMeals extends Command
             if (Meal::withTrashed()->whereRaw("DATE(meal_timestamp) = '$current_date'")->count() == 0) {
                 Meal::create(['meal_timestamp' => $current_date.' 18:30:00', 'locked_timestamp' => $current_date.' 15:00:00']);
                 echo "created\n";
-            }
-            else {
+            } else {
                 echo "exists\n";
             }
         }

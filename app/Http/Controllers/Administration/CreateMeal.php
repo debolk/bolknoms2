@@ -43,16 +43,14 @@ class CreateMeal extends Application
         // Create the meal
         try {
             $meal = with(new CreateMealService($data))->execute();
-        }
-        catch (ValidationException $e) {
+        } catch (ValidationException $e) {
             return redirect(action('Administration\CreateMeal@index'))->withErrors($e->messages())->withInput();
         }
 
         if ($meal) {
             return redirect(action('Administration\Meals@index'))
                     ->with('action_result', ['status' => 'success', 'message' => 'Maaltijd toegevoegd op ' . $meal]);
-        }
-        else {
+        } else {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden aangemaakt: onbekende fout');
         }
     }

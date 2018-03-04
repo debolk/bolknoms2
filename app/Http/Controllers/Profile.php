@@ -25,13 +25,11 @@ class Profile extends Application
 
         if ($user->save()) {
             return response()->json(null, 200);
-        }
-        else {
+        } else {
             return response()->json([
                 'error' => 'handicap_update_failed',
                 'error_details' => 'Je dieetwensen konden niet worden opgeslagen'
             ], 500);
         }
-
     }
 }

@@ -30,8 +30,7 @@ class Register extends Application
             // A registered user can subscribe to any meal
             $data['meals'] = Meal::upcoming()->get();
             $data['user'] = $this->oauth->user();
-        }
-        else {
+        } else {
             // An anonymous user can subscribe to the next available meal
             $meals = Meal::available()->take(1)->get();
             // or any meal that is available with a description (aka `special` meals)
@@ -50,8 +49,11 @@ class Register extends Application
         if (! $request->has('name')) {
             $user = $this->oauth->user();
             if (!$user) {
-                return $this->ajaxError(500, 'user_not_found',
-                                        'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.');
+                return $this->ajaxError(
+                    500,
+                    'user_not_found',
+                                        'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.'
+                );
             }
             $data['user_id'] = $user->id;
             $data['name'] = $user->name;
@@ -63,20 +65,15 @@ class Register extends Application
         try {
             $registration = with(new RegisterService($data, $this->oauth->user()))->execute();
             return response(null, 204);
-        }
-        catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd waarvoor je je probeert aan te melden bestaat niet');
-        }
-        catch (ValidationException $e) {
+        } catch (ValidationException $e) {
             return $this->ajaxError(400, 'input_invalid', 'Naam of e-mailadres niet ingevuld of ongeldig');
-        }
-        catch (MealDeadlinePassedException $e) {
+        } catch (MealDeadlinePassedException $e) {
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
-        }
-        catch (UserBlockedException $e) {
+        } catch (UserBlockedException $e) {
             return $this->ajaxError(404, 'user_blocked', 'Je bent geblokkeerd op bolknoms. Je kunt je niet aanmelden voor maaltijden.');
-        }
-        catch (DoubleRegistrationException $e) {
+        } catch (DoubleRegistrationException $e) {
             return $this->ajaxError(400, 'double_registration', 'Je bent al aangemeld voor deze maaltijd.');
         }
     }
@@ -103,8 +100,7 @@ class Register extends Application
         try {
             with(new DeregisterService($registration))->execute();
             return response(null, 204);
-        }
-        catch(MealDeadlinePassedException $e) {
+        } catch (MealDeadlinePassedException $e) {
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }
     }

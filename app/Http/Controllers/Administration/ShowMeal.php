@@ -57,26 +57,22 @@ class ShowMeal extends Application
 
             // Return view of the new registration
             return view('administration/meal/_registration', ['registration' => $registration]);
-        }
-        catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'meal_not_found',
                 'error_details' => 'Maaltijd bestaat niet',
             ], 404);
-        }
-        catch (ValidationException $e) {
+        } catch (ValidationException $e) {
             return response()->json([
                 'error' => 'input_invalid',
                 'error_details' => $e->messages(),
             ], 400);
-        }
-        catch (UserBlockedException $e) {
+        } catch (UserBlockedException $e) {
             return response()->json([
                 'error' => 'user_blocked',
                 'error_details' => 'Deze gebruiker is geblokkeerd. Je kunt hem of haar niet aanmelden voor maaltijden.',
             ], 403);
-        }
-        catch (DoubleRegistrationException $e) {
+        } catch (DoubleRegistrationException $e) {
             return response()->json([
                 'error' => 'double_registration',
                 'error_details' => 'Deze gebruiker is al aangemeld voor deze maaltijd',

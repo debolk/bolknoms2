@@ -90,8 +90,7 @@ class OAuth
             $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$access_token;
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             Bugsnag::notifyException($e);
             $this->fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
         }
@@ -111,8 +110,7 @@ class OAuth
 
             $user->name = $user_data->name;
             $user->email = $user_data->email;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             Bugsnag::notifyException($e);
             // Ignore, we process missing information below
         }
@@ -166,8 +164,7 @@ class OAuth
                 'client_id' => env('OAUTH_CLIENT_ID'),
                 'client_secret' => env('OAUTH_CLIENT_SECRET'),
             ]]);
-        }
-        catch (ClientException $exception) {
+        } catch (ClientException $exception) {
             // Test for invalid grants, which means our refresh token has expired
             if ($exception->hasResponse()) {
                 $response = json_decode((string) $exception->getResponse()->getBody());
@@ -177,8 +174,7 @@ class OAuth
                 }
             }
             throw $exception;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             Bugsnag::notifyException($e);
             $this->fatalError('cannot refresh token', $e->getMessage(), 502);
         }
@@ -237,8 +233,7 @@ class OAuth
             $url = env('OAUTH_ENDPOINT').'bestuur/?access_token='.Session::get('oauth.token')->access_token;
             $request = $client->get($url);
             return ($request->getStatusCode() === 200);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }
@@ -273,8 +268,7 @@ class OAuth
             // Denying permission is not actually an error, redirect to frontpage
             if ($input['error'] === 'access_denied') {
                 return '/';
-            }
-            else {
+            } else {
                 $this->fatalError('fatal error while processing callback', $input['error_description'], 500);
             }
         }
@@ -307,7 +301,6 @@ class OAuth
 
         // Redirect to the original URL
         return Session::get('oauth.goal');
-
     }
 
     /**

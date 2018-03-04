@@ -41,8 +41,7 @@ class Meals extends Application
     {
         try {
             $meal = Meal::findOrFail($id);
-        }
-        catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 

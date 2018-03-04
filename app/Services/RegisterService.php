@@ -56,7 +56,7 @@ class RegisterService extends Service
             'email'   => ['required', 'email'],
             'name'    => ['required'],
             'user_id' => ['exists:users,id']
-        ],[
+        ], [
             'name.required'  => 'Je moet je naam invullen',
             'email.required' => 'Je moet je e-mailadres invullen',
             'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
@@ -102,8 +102,7 @@ class RegisterService extends Service
             $registration->username = $user->username;
             $registration->confirmed = true;
             $registration->save();
-        }
-        else {
+        } else {
             // Send e-mail to ask for confirmation
             Mail::send(new RegistrationConfirmation($registration));
         }
