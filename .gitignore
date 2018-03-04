@@ -1,6 +1,9 @@
 /vendor
 /node_modules
 .env
+/public/js/
+/public/css/
+/public/hot
+/public/storage
 .vagrant
-public/js/
-public/css/
+/public/mix-manifest.json
