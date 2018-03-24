@@ -1,3 +1,5 @@
+@inject('navigation', 'App\Http\Helpers\Navigation')
+
 <!doctype html>
 <html lang="nl">
 <head>

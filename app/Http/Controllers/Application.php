@@ -30,7 +30,6 @@ class Application extends Controller
 
             // Variables to be included in *every* single view
             View::share('user', $this->oauth->user());
-            View::share('navigation', $navigation);
 
             return $next($request);
         });
