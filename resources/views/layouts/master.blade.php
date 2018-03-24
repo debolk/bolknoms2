@@ -27,7 +27,7 @@
             @include('user/_no_user')
         @endif
 
-        {!! $navigation->show(); !!}
+        {!! $navigation->show() !!}
     </nav>
 
     <section>
