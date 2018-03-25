@@ -24,14 +24,6 @@ class Application extends Controller
     public function __construct(OAuth $oauth, Request $request)
     {
         $this->oauth = $oauth;
-
-        $this->middleware(function ($request, $next) {
-
-            // Variables to be included in *every* single view
-            View::share('user', $this->oauth->user());
-
-            return $next($request);
-        });
     }
 
     /**

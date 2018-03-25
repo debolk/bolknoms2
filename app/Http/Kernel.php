@@ -28,6 +28,7 @@ class Kernel extends \Illuminate\Foundation\Http\Kernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \App\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\LoggedInUserData::class,
         ],
         'api' => [
             'throttle:60,1',
