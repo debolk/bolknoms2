@@ -37,6 +37,5 @@ class OAuth extends Application
     public function logout()
     {
         $this->oauth->logout();
-        return redirect('/');
     }
 }
