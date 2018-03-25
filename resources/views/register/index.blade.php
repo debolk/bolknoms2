@@ -14,11 +14,7 @@
         @else
             <div class="meals">
                 @foreach ($meals as $meal)
-                    @if (isset($user))
-                        @include('register/_meal', ['meal' => $meal, 'user' => $user])
-                    @else
-                        @include('register/_meal', ['meal' => $meal])
-                    @endif
+                    @include('register/_meal', ['meal' => $meal, 'user' => $user])
                 @endforeach
             </div>
         @endif

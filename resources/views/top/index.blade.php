@@ -7,7 +7,7 @@
         <h1>Top eters dit verenigingsjaar</h1>
         <ol>
             @foreach ($statistics_ytd as $registration)
-                <li {{ (isset($user) && $user->name === $registration->name) ? 'class=attention' : '' }}>
+                <li {{ $user->name === $registration->name ? 'class=attention' : '' }}>
                     {{ $registration->name }} ({{ $registration->count }})
                 </li>
             @endforeach
@@ -18,7 +18,7 @@
         <h1>Top eters all-time</h1>
         <ol>
             @foreach ($statistics_alltime as $registration)
-                <li {{ (isset($user) && $user->name === $registration->name) ? 'class=attention' : '' }}>
+                <li {{ $user->name === $registration->name ? 'class=attention' : '' }}>
                     {{ $registration->name }} ({{ $registration->count }})
                 </li>
             @endforeach

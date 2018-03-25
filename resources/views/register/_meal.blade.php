@@ -1,5 +1,5 @@
 <div class="meal {{ $meal->open_for_registrations() ? '' : 'deadline_passed' }}">
-    @if (isset($user) && $user->registeredFor($meal))
+    @if ($user->registeredFor($meal))
         <button class="registered" data-id="<?= $meal->id ;?>">&#10004; Je eet mee</button>
     @else
         <button class="unregistered" data-id="<?= $meal->id ;?>">Aanmelden</button>

@@ -21,7 +21,7 @@
 
     <nav>
         <i class="fa fa-fw fa-2x fa-bars hamburger"></i>
-        @if (isset($user))
+        @if ($user !== null)
             @include('user/_user', ['user' => $user])
         @else
             @include('user/_no_user')
