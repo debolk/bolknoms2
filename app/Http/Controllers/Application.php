@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Navigation;
 use App\Http\Helpers\OAuth;
 use App\Http\Helpers\ProfilePicture;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -22,11 +21,11 @@ class Application extends Controller
     /**
      * Common setup to all controllers
      */
-    public function __construct(OAuth $oauth, Request $request, Navigation $navigation)
+    public function __construct(OAuth $oauth, Request $request)
     {
         $this->oauth = $oauth;
 
-        $this->middleware(function ($request, $next) use ($navigation) {
+        $this->middleware(function ($request, $next) {
 
             // Variables to be included in *every* single view
             View::share('user', $this->oauth->user());
