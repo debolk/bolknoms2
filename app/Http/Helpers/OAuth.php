@@ -246,6 +246,7 @@ class OAuth
     {
         Session::remove('oauth');
         Session::flash('action_result', ['status' => 'success', 'message' => $message]);
+        Session::save();
 
         throw new HttpException(301, $message, null, ['Location' => '/']);
     }
