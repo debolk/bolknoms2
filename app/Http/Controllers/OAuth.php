@@ -17,8 +17,10 @@ class OAuth extends Application
     {
         $result = $this->oauth->processCallback(Request::all());
 
-        // Update the profile picture
-        $profilePicture->updatePictureFor($this->oauth->user());
+        // Update the profile picture for this user
+        if ($this->oauth->user()) {
+            $profilePicture->updatePictureFor($this->oauth->user());
+        }
 
         return redirect($result);
     }
