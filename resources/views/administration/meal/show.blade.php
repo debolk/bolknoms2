@@ -27,11 +27,11 @@
         <thead>
             <tr>
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
+                <th class="non_print">&nbsp;</th>
                 <th>Naam</th>
-                <th>Bolkaccount</th>
+                <th class="non_print">Bolkaccount</th>
                 <th>Dieet</th>
-                <th><span class="non_print">Verwijderen </span></th>
+                <th class="non_print">Verwijderen</th>
             </tr>
         </thead>
         <tbody>
