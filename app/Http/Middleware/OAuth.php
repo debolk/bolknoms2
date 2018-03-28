@@ -38,7 +38,7 @@ class OAuth
         if ($this->oauth->valid()) {
             return $next($request);
         } else {
-            return $this->oauth->toAuthorisationServer($request->fullUrlWithQuery());
+            return $this->oauth->toAuthorisationServer($request->fullUrl());
         }
     }
 }
