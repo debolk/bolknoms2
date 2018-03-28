@@ -58,6 +58,4 @@
     <p class="non_print">
         <a href="#" id="subscribe_anonymous" data-meal_id="{{ $meal->id }}">Externe aanmelden</a>
     </p>
-
-    <link rel="stylesheet" href="/stylesheets/print.css" media="print" />
 @endsection
