@@ -48,19 +48,8 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $e
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render($request, Exception $exception)
     {
-        // Handle application down status differently
-        if ($e instanceof HttpException && $e->getStatusCode() === 503) {
-            return response()->view('errors/maintenance');
-        }
-
-        // Convert not found errors to HTTP 404 errors
-        if ($e instanceof ModelNotFoundException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
-        }
-
-        // Render the error
-        return parent::render($request, $e);
+        return parent::render($request, $exception);
     }
 }
