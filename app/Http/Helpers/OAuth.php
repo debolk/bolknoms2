@@ -244,10 +244,9 @@ class OAuth
      */
     public function logout(string $message = 'Je bent uitgelogd')
     {
-        Session::remove('oauth');
-        Session::flash('action_result', ['status' => 'success', 'message' => $message]);
-        Session::save();
+        $this->purgeSession();
 
+        Session::flash('action_result', ['status' => 'success', 'message' => $message]);
         throw new HttpException(301, $message, null, ['Location' => '/']);
     }
 
@@ -320,9 +319,19 @@ class OAuth
         }
 
         // Log out the current user
-        Session::remove('oauth');
+        $this->purgeSession();
 
         // Send a nice error page with explanation
         abort($status_code, $technical);
+    }
+
+    private function purgeSession()
+    {
+        Session::remove('oauth');
+        Session::remove('oauth.state');
+        Session::remove('oauth.token');
+        Session::remove('oauth.goal');
+        Session::remove('oauth.current_user');
+        Session::save();
     }
 }
