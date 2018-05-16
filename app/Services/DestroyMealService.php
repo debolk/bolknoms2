@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\MealDestroyed;
 use App\Models\Meal;
 use DateTime;
 use Illuminate\Support\Facades\Mail;
