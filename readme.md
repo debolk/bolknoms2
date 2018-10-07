@@ -1,7 +1,7 @@
 # Bolknoms
 The very best application in the world for feeding your members in an organized and predictable way.
 
-[![Dependency Status](https://www.versioneye.com/user/projects/558f07d031633800240002fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/558f07d031633800240002fa) [![Code Climate](https://codeclimate.com/github/debolk/bolknoms2/badges/gpa.svg)](https://codeclimate.com/github/debolk/bolknoms2)
+[![Code Climate](https://codeclimate.com/github/debolk/bolknoms2/badges/gpa.svg)](https://codeclimate.com/github/debolk/bolknoms2)
 
 ## Local installation
 This project is locally installed using [vagrant](https://www.vagrantup.com/) and [laravel homestead](http://laravel.com/docs/5.1/homestead). Vagrant provides an super easy way to setup a local virtual machine with the perfect environment for running bolknoms.
