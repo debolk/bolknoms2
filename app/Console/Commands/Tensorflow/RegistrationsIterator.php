@@ -20,7 +20,7 @@ class RegistrationsIterator
     public function forwardTo($timestamp)
     {
         if ($timestamp < $this->currentTimestamp) {
-            throw new \Exception();
+            throw new \Exception('Cannot move RegistrationsIterator backwards to an earlier timestamp');
         }
         $this->currentTimestamp = $timestamp;
 
