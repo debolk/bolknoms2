@@ -3,7 +3,7 @@
 Route::group(['middleware' => 'web'], function () {
 
     // Obsolete route that was used in the chrome plugin and mobile app
-    Route::redirect('/uitgebreid-inschrijven', '/');
+    Route::permanentRedirect('/uitgebreid-inschrijven', '/');
 
     // Register for meals
     Route::get('/', 'Register@index');

@@ -17,18 +17,18 @@ return array(
     'env' => env('APP_ENV', 'production'),
 
 
-	/*
-	|--------------------------------------------------------------------------
-	| Encryption Key
-	|--------------------------------------------------------------------------
-	|
-	| This key is used by the Illuminate encrypter service and should be set
-	| to a random, 32 character string, otherwise these encrypted strings
-	| will not be safe. Please do this before deploying an application!
-	|
-	*/
+    /*
+    |--------------------------------------------------------------------------
+    | Encryption Key
+    |--------------------------------------------------------------------------
+    |
+    | This key is used by the Illuminate encrypter service and should be set
+    | to a random, 32 character string, otherwise these encrypted strings
+    | will not be safe. Please do this before deploying an application!
+    |
+    */
 
-	'key' => env('APP_KEY'),
+    'key' => env('APP_KEY'),
     'cipher' => 'AES-256-CBC',
 
     /*
@@ -86,6 +86,18 @@ return array(
 
     'locale' => 'nl_NL',
     'fallback_locale' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Faker Locale
+    |--------------------------------------------------------------------------
+    |
+    | This locale will be used by the Faker PHP library when generating fake
+    | data for your database seeds. For example, this will be used to get
+    | localized telephone numbers, street address information and more.
+    |
+    */
+    'faker_locale' => 'nl_NL',
 
     /*
     |--------------------------------------------------------------------------
