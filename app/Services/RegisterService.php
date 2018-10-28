@@ -24,7 +24,7 @@ class RegisterService extends Service
 
     /**
      * Set the Service
-     * @param $data
+     * @param array $data
      */
     public function __construct($data, $current_user)
     {
