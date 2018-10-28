@@ -10,6 +10,7 @@ class ValidationException extends Exception
 
     public function __construct($error_messages)
     {
+        parent::__construct();
         $this->error_messages = $error_messages;
     }
 
