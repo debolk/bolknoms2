@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use Exception;
-
-class ValidationException extends Exception
+class ValidationException extends \Exception
 {
     private $error_messages;
 
