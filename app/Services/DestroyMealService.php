@@ -11,9 +11,11 @@ use Validator;
 
 class DestroyMealService extends Service
 {
+    private $meal;
+
     /**
      * Set the Service
-     * @param array $data data for the new Meal
+     * @param \App\Models\Meal $meal
      */
     public function __construct($meal)
     {
@@ -22,8 +24,8 @@ class DestroyMealService extends Service
 
     /**
      * Destroy the meal
-     * @return App\Models\Meal the newly created meal
-     * @throws ValidationException
+     * @return \App\Models\Meal the newly created meal
+     * @throws \App\Services\ValidationException
      */
     public function execute()
     {

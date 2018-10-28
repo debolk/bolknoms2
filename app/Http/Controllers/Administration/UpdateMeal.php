@@ -27,7 +27,7 @@ class UpdateMeal extends Application
 
     /**
      * Processes the edit meal form to update a meal
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update($id, Request $request)
     {

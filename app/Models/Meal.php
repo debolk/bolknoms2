@@ -16,7 +16,7 @@ class Meal extends ApplicationModel
 
     /**
      * Relationship: one meal has many registrations
-     * @return Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function registrations()
     {

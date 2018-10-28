@@ -32,7 +32,7 @@ class ShowMeal extends Application
 
     /**
      * Creates a registration
-     * @return View or a string "error" upon failure
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
      */
     public function aanmelden(Request $request)
     {
@@ -85,10 +85,10 @@ class ShowMeal extends Application
      * @param int $id the id of the registration to remove
      * @return string "success" if succesfull
      */
-    public function afmelden($id)
+    public function afmelden(int $id)
     {
         // Find registration
-        $registration = Registration::find((int) $id);
+        $registration = Registration::find($id);
         if (!$registration) {
             return response()->json([
                 'error' => 'registration_not_existent',

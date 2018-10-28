@@ -10,7 +10,7 @@ class Users extends Application
 {
     /**
      * Show a list of users
-     * @return Illuminate\View\View
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -21,8 +21,8 @@ class Users extends Application
     /**
      * Update the handicap of a user
      * @param integer  $id
-     * @param Request $request
-     * @return Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
      */
     public function setHandicap($id, Request $request)
     {
@@ -35,7 +35,7 @@ class Users extends Application
     /**
      * Block a user from the system
      * @param  integer $id
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function block($id)
     {
@@ -48,7 +48,7 @@ class Users extends Application
     /**
      * Unblock a user from the system
      * @param  integer $id
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function release($id)
     {

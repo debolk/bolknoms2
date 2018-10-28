@@ -9,6 +9,8 @@ use App\Models\Meal;
 
 class CreateMealService extends Service
 {
+    private $data;
+
     /**
      * Set the Service
      * @param array $data data for the new Meal
@@ -20,7 +22,7 @@ class CreateMealService extends Service
 
     /**
      * Create a new Meal
-     * @return App\Models\Meal the newly created meal
+     * @return \App\Models\Meal|null the newly created meal
      * @throws ValidationException
      */
     public function execute()

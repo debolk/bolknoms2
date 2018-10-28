@@ -17,13 +17,12 @@ class OAuth
 {
     /**
      * Session storage to use
-     * @var Illuminate\Support\Facades\Session
+     * @var \Illuminate\Support\Facades\Session
      */
     private $session;
 
     /**
      * Return whether we have a valid session
-     * @access public
      * @return boolean
      */
     public function valid()
@@ -45,7 +44,7 @@ class OAuth
 
     /**
      * Returns the current user details or null if none
-     * @return App\Models\User
+     * @return \App\Models\User|null
      */
     public function user()
     {
@@ -65,7 +64,7 @@ class OAuth
 
     /**
      * Return a valid access token for use in OAuth2-protected calls
-     * @return string
+     * @return string|null
      */
     public function getAccessToken()
     {
@@ -86,6 +85,7 @@ class OAuth
         $access_token = Session::get('oauth.token')->access_token;
 
         // Get the username
+        $username = null;
         try {
             $url = env('OAUTH_ENDPOINT').'resource/?access_token='.$access_token;
             $response = $client->get($url);
@@ -155,6 +155,7 @@ class OAuth
      */
     private function refreshToken()
     {
+        $response = null;
         try {
             Log::debug('Refreshing token ' . Session::get('oauth.token')->refresh_token);
             $client = new Client();
@@ -182,7 +183,7 @@ class OAuth
         $token = json_decode($response->getBody());
 
         // Do not proceed if we encounter an error
-        if (isset($token->error)) {
+        if (isset($token->error) || isset($token->error_description)) {
             $this->fatalError('refreshed token not valid', $token->error_description, 502);
         }
 
@@ -197,7 +198,7 @@ class OAuth
 
     /**
      * Redirect the client to the authorisation server to login
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function toAuthorisationServer($original_route)
     {
@@ -288,7 +289,7 @@ class OAuth
         $token = json_decode($result->getBody());
 
         // Do not proceed if we encounter an error
-        if (isset($token->error)) {
+        if (isset($token->error) || isset($token->error_description)) {
             $this->fatalError('Access token invalid', $token->error_description, 502);
         }
 

@@ -187,7 +187,6 @@ class TensorflowData extends Command
      * Find a meal for a specific date
      * @param  Collection $meals     collection of all meals
      * @param  Carbon     $timestamp timestamp on the day we seek
-     * @return Meal
      */
     private function mealFor(Collection $meals, Carbon $timestamp)
     {

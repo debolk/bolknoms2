@@ -19,7 +19,7 @@ class Register extends Application
 {
     /**
       * Show the index that allows users to quickly register for the upcoming meal
-      * @return View
+      * @return \Illuminate\Contracts\View\View
       */
     public function index()
     {
@@ -80,7 +80,6 @@ class Register extends Application
 
     /**
      * Unsubscribe a user from a meal
-     * @return JSON
      */
     public function afmelden(Request $request)
     {

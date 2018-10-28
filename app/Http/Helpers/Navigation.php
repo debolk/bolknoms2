@@ -10,6 +10,8 @@ use Request;
  */
 class Navigation
 {
+    private $oauth;
+
     public function __construct(OAuth $oauth)
     {
         $this->oauth = $oauth;

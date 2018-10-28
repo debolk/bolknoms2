@@ -11,7 +11,7 @@ class OAuth extends Application
 {
     /**
      * Store the callback
-     * @return View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function callback(ProfilePicture $profilePicture)
     {
@@ -32,7 +32,7 @@ class OAuth extends Application
 
     /**
      * Logs out the current user
-     * @return Redirect to previous page
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
     {

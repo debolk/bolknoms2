@@ -15,7 +15,7 @@ class Registration extends ApplicationModel
 
     /**
      * Relationship: a registration belongs to a meal
-     * @return Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function meal()
     {
@@ -24,7 +24,7 @@ class Registration extends ApplicationModel
 
     /**
      * Relationship: a registration belongs to a user
-     * @return Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -92,8 +92,7 @@ class Registration extends ApplicationModel
 
     /**
      * Returns the eaters whom have eaten the most in this year (starting 01 September)
-     * @param int $count the number of entries to retrieve
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function top_ytd()
     {
@@ -111,8 +110,7 @@ class Registration extends ApplicationModel
 
     /**
      * Returns the eaters whom have eaten the most (in all time)
-     * @param int $count the number of entries to retrieve
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function top_alltime()
     {
@@ -121,8 +119,7 @@ class Registration extends ApplicationModel
 
     /**
      * Helper function that abstracts the common logic of self::top_ytd and self::alltime
-     * @param int $count the number of entries to retrieve
-     * @return Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Query\Builder
      */
     private static function statistics()
     {

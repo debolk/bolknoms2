@@ -24,7 +24,7 @@ class Profile extends Application
         $user->handicap = Request::get('handicap');
 
         if ($user->save()) {
-            return response()->json(null, 200);
+            return response()->json([], 200);
         } else {
             return response()->json([
                 'error' => 'handicap_update_failed',
