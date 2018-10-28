@@ -29,12 +29,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->alias('bugsnag.logger', \Illuminate\Contracts\Logging\Log::class);
-        $this->app->alias('bugsnag.logger', \Psr\Log\LoggerInterface::class);
-
         // Identify OAuth class as a singleton in the repository
         $this->app->singleton(OAuth::class, function () {
-            return new OAuth($this->app[Session::class]);
+            return new OAuth();
         });
 
         $this->app->singleton(Navigation::class, function () {

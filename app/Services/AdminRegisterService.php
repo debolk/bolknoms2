@@ -23,10 +23,6 @@ class AdminRegisterService extends Service
     private $data;
     private $current_user;
 
-    /**
-     * Set the Service
-     * @param $data
-     */
     public function __construct($data, $current_user)
     {
         $this->data = $data;
@@ -35,11 +31,11 @@ class AdminRegisterService extends Service
 
     /**
      * Register for a meal
-     * @return boolean
-     * @throws ValidationException
-     * @throws UserBlockedException
-     * @throws ModelNotFoundException
-     * @throws DoubleRegistrationException
+     * @return \App\Models\Registration
+     * @throws \App\Services\ValidationException
+     * @throws \App\Services\UserBlockedException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws \App\Services\DoubleRegistrationException
      */
     public function execute()
     {
@@ -53,7 +49,6 @@ class AdminRegisterService extends Service
         ], [
             'name.required'  => 'Je moet je naam invullen',
             'email.required' => 'Je moet je e-mailadres invullen',
-            'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
             'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
             'user_id.exist'  => 'De gevraagde gebruiker is niet bekend'
         ]);

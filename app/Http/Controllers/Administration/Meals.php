@@ -11,14 +11,12 @@ class Meals extends Application
 {
     /**
      * List all past and current meals
-     * @return View
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
-        $count = \Request::input('count', 5);
-        if (!is_numeric($count)) {
-            \App::abort(400, "Count parameter not an integer");
-        }
+        $count = (int) \Request::input('count', '5');
+
         $upcoming_meals = Meal::upcoming();
         $previous_meals = Meal::previous();
         if ($count > 0) {
@@ -35,7 +33,7 @@ class Meals extends Application
     /**
      * Removes a meal
      * @param int $id the id of the meal to remove
-     * @return Redirect
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function verwijder($id)
     {

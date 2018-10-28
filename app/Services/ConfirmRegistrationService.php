@@ -10,10 +10,9 @@ use Exception;
 
 class ConfirmRegistrationService extends Service
 {
-    /**
-     * Set the Service
-     * @param array $data data for the new Meal
-     */
+    private $registration;
+    private $salt;
+
     public function __construct(Registration $registration, $salt)
     {
         $this->registration = $registration;
@@ -22,7 +21,7 @@ class ConfirmRegistrationService extends Service
 
     /**
      * Confirm a registration
-     * @return App\Models\Meal the newly created meal
+     * @return \App\Models\Meal|null the newly created meal
      * @throws SaltMismatchException
      * @throws MealDeadlinePassedException
      * @return Registration

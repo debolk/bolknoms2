@@ -50,7 +50,6 @@ class Kernel extends \Illuminate\Foundation\Http\Kernel
     protected $routeMiddleware = [
         'oauth' => \App\Http\Middleware\OAuth::class,
         'board' => \App\Http\Middleware\Board::class,
-        'api_oauth' => \App\Http\Middleware\Api\OAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ];
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\OAuth;
 use App\Http\Helpers\ProfilePicture;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 
@@ -14,14 +13,14 @@ class Application extends Controller
     use ValidatesRequests;
 
     /**
-     * @var App\Http\Helpers\OAuth
+     * @var \App\Http\Helpers\OAuth
      */
     protected $oauth;
 
     /**
      * Common setup to all controllers
      */
-    public function __construct(OAuth $oauth, Request $request)
+    public function __construct(OAuth $oauth)
     {
         $this->oauth = $oauth;
     }
@@ -30,12 +29,12 @@ class Application extends Controller
      * Show a user-friendly error page
      * @param  integer  $status  http status code
      * @param  string   $message error message to display
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     protected function userFriendlyError($status, $message)
     {
-        return response(view($this->layout, [
-            'content' => view('errors/index', ['code' => $message]),
+        return response(view('layouts/master', [
+            'content' => view('errors/' . $status, ['code' => $message]),
             'user' => $this->oauth->user(),
         ]), $status);
     }
@@ -46,7 +45,7 @@ class Application extends Controller
      * @param  integer $httpStatus    HTTP status code to send
      * @param  string  $internalError descriptive error code, e.g. meal_not_found
      * @param  string  $message       line of text to explain error state to end users
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function ajaxError($httpStatus, $internalError, $message)
     {

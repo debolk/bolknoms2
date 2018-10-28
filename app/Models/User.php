@@ -33,7 +33,7 @@ class User extends ApplicationModel
 
     /**
      * Returns a list of dates on which you've joined a meal
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public function dateList()
     {

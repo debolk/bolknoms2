@@ -9,8 +9,8 @@ class ProfilePicture extends Application
 {
     /**
      * Serves a photo of the currently logged-in user
-     * @param  App\Http\Helpers\ProfilePicture $picture
-     * @return Illuminate\Http\Response
+     * @param  \App\Http\Helpers\ProfilePicture $picture
+     * @return \Illuminate\Http\Response
      */
     public function photo(Picture $picture)
     {
@@ -20,9 +20,9 @@ class ProfilePicture extends Application
 
     /**
      * Serves a profile picture of a named user
-     * @param  string                          $username
-     * @param  App\Http\Helpers\ProfilePicture $picture
-     * @return Illuminate\Http\Response
+     * @param  string $username
+     * @param  \App\Http\Helpers\ProfilePicture $picture
+     * @return \Illuminate\Http\Response
      */
     public function photoFor($username, Picture $picture)
     {
@@ -36,9 +36,9 @@ class ProfilePicture extends Application
 
     /**
      * Common functionality to serve a profile picture for a specific user
-     * @param  App\Http\Helpers\ProfilePicture $picture
-     * @param  App\Models\User                 $user
-     * @return Illuminate\Http\Response
+     * @param  \App\Http\Helpers\ProfilePicture $picture
+     * @param  \App\Models\User                 $user
+     * @return \Illuminate\Http\Response
      */
     private function serveProfilePicture(Picture $picture, User $user)
     {

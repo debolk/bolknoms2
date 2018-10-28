@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\TensorFlow;
+namespace App\Console\Commands\Tensorflow;
 
 /**
  * 'Replays' known registrations.

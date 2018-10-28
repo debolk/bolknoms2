@@ -6,7 +6,7 @@ class Page extends Application
 {
     /**
      * Displays the disclaimer page
-     * @return View
+     * @return \Illuminate\Contracts\View\View
      */
     public function disclaimer()
     {
@@ -15,7 +15,7 @@ class Page extends Application
 
     /**
      * Displays the privacy statement
-     * @return View
+     * @return \Illuminate\Contracts\View\View
      */
     public function privacy()
     {
@@ -24,7 +24,7 @@ class Page extends Application
 
     /**
      * Display the rules and regulations
-     * @return View
+     * @return \Illuminate\Contracts\View\View
      */
     public function spelregels()
     {

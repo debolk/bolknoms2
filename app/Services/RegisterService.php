@@ -34,14 +34,14 @@ class RegisterService extends Service
 
     /**
      * Register for a meal
-     * @return boolean true if successful
-     * @throws MealDeadlinePassedException
-     * @throws ValidationException
-     * @throws ModelNotFoundException
-     * @throws UserBlockedException
-     * @throws DoubleRegistrationException
+     * @throws \App\Services\MealDeadlinePassedException
+     * @throws \App\Services\ValidationException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws \App\Services\UserBlockedException
+     * @throws \App\Services\DoubleRegistrationException
+     * @return \App\Models\Registration
      */
-    public function execute()
+    public function execute() : Registration
     {
         // Meal must exist
         $meal = Meal::findOrFail($this->data['meal_id']);
@@ -59,7 +59,6 @@ class RegisterService extends Service
         ], [
             'name.required'  => 'Je moet je naam invullen',
             'email.required' => 'Je moet je e-mailadres invullen',
-            'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
             'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
             'user_id.exist'  => 'De gevraagde gebruiker is niet bekend'
         ]);

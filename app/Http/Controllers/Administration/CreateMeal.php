@@ -20,7 +20,7 @@ class CreateMeal extends Application
 
     /**
      * Processes the new meal form to create a new meal
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function create(Request $request)
     {

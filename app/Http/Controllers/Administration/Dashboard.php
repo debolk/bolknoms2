@@ -8,7 +8,7 @@ class Dashboard extends Application
 {
     /**
      * List all past and current meals
-     * @return View
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {

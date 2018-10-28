@@ -26,12 +26,6 @@ Route::group(['middleware' => 'web'], function () {
     // Profile picture of a user
     Route::get('/photo/{username}', 'ProfilePicture@photoFor');
 
-    // Messenger integration endpoint
-    Route::group(['prefix' => '/messenger/'], function () {
-        Route::get('webhook', 'Messenger@verification');
-        Route::post('webhook', 'Messenger@webhook');
-    });
-
     // Pages which require member-level authorisation
     Route::group(['middleware' => ['oauth']], function () {
 

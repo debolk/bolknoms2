@@ -9,6 +9,9 @@ use DateTime;
 
 class UpdateMealService extends Service
 {
+    private $meal;
+    private $data;
+
     /**
      * Set the Service
      * @param array $data data for the new Meal
@@ -21,10 +24,11 @@ class UpdateMealService extends Service
 
     /**
      * Create a new Meal
-     * @return App\Models\Meal the newly created meal
+     * @return \App\Models\Meal the newly created meal
+     * @return null when saving fails
      * @throws ValidationException
      */
-    public function execute()
+    public function execute() : ?Meal
     {
         // Validate the resulting input
         $validator = Validator::make($this->data, [
