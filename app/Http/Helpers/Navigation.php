@@ -29,6 +29,7 @@ class Navigation
         ['text' => 'Administratie', 'action' => 'Administration\Dashboard@index', 'icon' => 'wrench', 'level' => '2', 'submenu' => [
             ['text' => 'Maaltijden', 'action' => 'Administration\Meals@index', 'icon' => 'cutlery'],
             ['text' => 'Gebruikers', 'action' => 'Administration\Users@index', 'icon' => 'users'],
+            ['text' => 'Vakanties', 'action' => 'Administration\Vacations@index', 'icon' => 'plane'],
         ]],
     ];
 
