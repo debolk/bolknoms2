@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Meal;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class GenerateMeals extends Command
 {
@@ -12,19 +14,30 @@ class GenerateMeals extends Command
 
     public function handle()
     {
-        // Get next monday
-        $date = strtotime('next monday');
+        $date = Carbon::parse('next sunday');
 
-        // Walk until the thursday (4 days)
         for ($i=0; $i < 4; $i++) {
-            $current_date = date('Y-m-d', strtotime("+{$i} days", $date));
-            echo "Attempting {$current_date}...";
-            if (Meal::withTrashed()->whereRaw("DATE(meal_timestamp) = '$current_date'")->count() == 0) {
-                Meal::create(['meal_timestamp' => $current_date.' 18:30:00', 'locked_timestamp' => $current_date.' 15:00:00']);
-                echo "created\n";
-            } else {
-                echo "exists\n";
-            }
+            $date = $date->addDay();
+            $this->createMeal($date);
         }
+    }
+
+    private function createMeal(Carbon $date) : void
+    {
+        $dateString = $date->format('Y-m-d');
+
+        // Do not recreate meals that already exist, or where previously deleted
+        $hadMeal = (Meal::withTrashed()->whereRaw("DATE(meal_timestamp) = '{$dateString}'")->count() > 0);
+        if ($hadMeal) {
+            Log::info("Not creating meal for {$dateString}: meal exists or existed previously");
+            return;
+        }
+
+        // Create the meal
+        Meal::create([
+            'meal_timestamp' => $dateString . ' 18:30:00',
+            'locked_timestamp' => $dateString . ' 15:00:00',
+        ]);
+        Log::info("Created automatic meal for {$dateString}");
     }
 }
