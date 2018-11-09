@@ -20,20 +20,24 @@
     </p>
 
     <h2>Alle vakanties</h2>
-    @if ($vacations->count() > 0)
-        <table border-spacing=0>
-            <thead><tr>
-                <th>Start vakantie</th>
-                <th>Maaltijden hervat</th>
-                <th>&nbsp;</th>
-            </tr></thead>
-            <tbody>
+    <table border-spacing=0>
+        <thead><tr>
+            <th>Start vakantie</th>
+            <th>Maaltijden hervat</th>
+            <th>&nbsp;</th>
+        </tr></thead>
+        <tbody>
+            @include('administration/vacations/_create')
+
+            @if ($vacations->count() > 0)
                 @each ('administration/vacations/_vacation', $vacations, 'vacation')
-            </tbody>
-        </table>
-    @else
-        <p class="zero_case">
-            Er zijn nog geen vakantieperiodes gedefini&euml;erd.
-        </p>
-    @endif
+            @else
+                <tr>
+                    <td colspan=3 class="zero_case">
+                        Er zijn nog geen vakantieperiodes gedefini&euml;erd.
+                    </td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
 @endsection

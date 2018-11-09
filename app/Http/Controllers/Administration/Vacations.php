@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administration;
 
 use App\Models\Vacation;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class Vacations
 {
@@ -23,6 +24,16 @@ class Vacations
         return back()->with('action_result', [
             'status' => 'success',
             'message' => 'Vakantie verwijderd',
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $vacation = Vacation::create($request->only('start', 'end'));
+
+        return back()->with('action_result', [
+            'status' => 'success',
+            'message' => 'Vakantie toegevoegd ' . $vacation->span(),
         ]);
     }
 }

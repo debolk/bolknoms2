@@ -76,7 +76,7 @@ Route::group(['middleware' => 'web'], function () {
 
         // Vacation periods
         Route::resource('vakanties', 'Vacations', [
-            'only' => ['index', 'destroy'],
+            'only' => ['index', 'destroy', 'store'],
             'names' => 'vacations',
             'parameters' => ['vakanties' => 'vacation'],
         ]);
