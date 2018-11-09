@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Models\Vacation;
+use Carbon\Carbon;
 
 class Vacations
 {
@@ -10,6 +11,8 @@ class Vacations
     {
         return view('administration/vacations/index', [
             'vacations' => Vacation::orderBy('start', 'desc')->get(),
+            'currentVacation' => Vacation::contains(Carbon::now())->first(),
+            'upcomingVacation' => Vacation::upcoming()->first(),
         ]);
     }
 
