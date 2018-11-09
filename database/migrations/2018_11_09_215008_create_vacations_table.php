@@ -12,7 +12,7 @@ class CreateVacationsTable extends Migration
             $table->increments('id');
             $table->date('start');
             $table->date('end');
-            $table->timestamp('deleted_at');
+            $table->timestamp('deleted_at')->nullable()->default(null);
             $table->timestamps();
         });
     }
