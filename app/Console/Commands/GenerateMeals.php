@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Meal;
+use App\Models\Vacation;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -30,6 +31,12 @@ class GenerateMeals extends Command
         $hadMeal = (Meal::withTrashed()->whereRaw("DATE(meal_timestamp) = '{$dateString}'")->count() > 0);
         if ($hadMeal) {
             Log::info("Not creating meal for {$dateString}: meal exists or existed previously");
+            return;
+        }
+
+        // Do not create meals in defined vacation periods
+        if (Vacation::inPlannedVacation($date)) {
+            Log::info("Not creating meal for {$dateString}: date is in vacation period");
             return;
         }
 
