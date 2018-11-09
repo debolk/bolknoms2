@@ -7,25 +7,9 @@ use Illuminate\Console\Command;
 
 class GenerateMeals extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'meals:generate';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Generate the meals for next week';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         // Get next monday
