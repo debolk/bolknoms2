@@ -73,5 +73,12 @@ Route::group(['middleware' => 'web'], function () {
             Route::post('{id}/blokkeren', 'Users@block');
             Route::post('{id}/vrijgeven', 'Users@release');
         });
+
+        // Vacation periods
+        Route::resource('vakanties', 'Vacations', [
+            'only' => ['index', 'destroy'],
+            'names' => 'vacations',
+            'parameters' => ['vakanties' => 'vacation'],
+        ]);
     });
 });

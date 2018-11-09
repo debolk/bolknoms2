@@ -7,6 +7,7 @@ use Carbon\Carbon;
 class Vacation extends ApplicationModel
 {
     protected $fillable = ['start', 'end'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'start', 'end'];
 
     /**
      * Determine whether a given date is in a planned vacation period
