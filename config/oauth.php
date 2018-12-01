@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'oauth' => env('OAUTH_ENDPOINT'),
+    'endpoint' => env('OAUTH_ENDPOINT'),
     'callback' => env('OAUTH_CALLBACK'),
     'client' => [
         'id' => env('OAUTH_CLIENT_ID'),
