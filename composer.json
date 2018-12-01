@@ -9,6 +9,14 @@
             "email": "jakob@jakobbuis.nl",
             "homepage": "http://www.jakobbuis.nl",
             "role": "lead developer"
+        },
+        {
+            "name": "Max Maton",
+            "role": "contributor"
+        },
+        {
+            "name": "Willem Jan Glerum",
+            "role": "contributor"
         }
     ],
     "require": {
