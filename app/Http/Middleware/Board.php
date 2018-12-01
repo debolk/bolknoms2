@@ -30,7 +30,7 @@ class Board
     public function handle($request, Closure $next)
     {
         // Make this middleware inoperable for testing
-        if (env('APP_ENV') === 'testing') {
+        if (config('app.env') === 'testing') {
             return $next($request);
         }
 

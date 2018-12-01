@@ -2,6 +2,13 @@
 
 return [
 
+    // Custom configuration for e-mails we send in this project
+    'admin-mail' => env('MAIL_ADMIN_MAIL'),
+    'reply-to' => [
+        'mail' => env('MAIL_REPLY_TO_MAIL'),
+        'name' => env('MAIL_REPLY_TO_NAME'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Mail Driver
