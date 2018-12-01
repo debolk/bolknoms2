@@ -216,7 +216,7 @@ class OAuth
         $query_string = http_build_query([
             'response_type' => 'code',
             'client_id' => config('oauth.client.id'),
-            'redirect_uri' => config('oauth.client.secret'),
+            'redirect_uri' => config('oauth.callback'),
             'state'=> $state,
         ]);
         return redirect(config('oauth.endpoint').'authenticate/?'.$query_string);
