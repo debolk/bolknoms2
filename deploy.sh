@@ -13,6 +13,7 @@ function update_code {
     composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
     npm install
     npm run prod
+    php artisan config:cache
     php artisan route:cache
     php artisan up
     exit
