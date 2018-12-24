@@ -24,7 +24,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/logout', 'OAuth@logout');
 
     // Profile picture of a user
-    Route::get('/photo/{username}', 'ProfilePicture@photoFor');
+    Route::get('/photo/{username}', 'ProfilePicture@photoFor')->name('photo.src');
 
     // Pages which require member-level authorisation
     Route::group(['middleware' => ['oauth']], function () {

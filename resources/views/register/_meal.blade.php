@@ -8,7 +8,7 @@
     <div class="registrations">
         @foreach ($meal->registrations as $registration)
             @if ($registration->username)
-                <img src="/photo/{{ $registration->username }}"
+                <img src="{{ route('photo.src', $registration->username) }}"
                      class="{{ ($user && $registration->user->id === $user->id) ? 'me' : '' }}"
                      title="{{ $user ? $registration->name : null }}">
             @endif
