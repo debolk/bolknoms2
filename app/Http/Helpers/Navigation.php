@@ -81,7 +81,7 @@ class Navigation
     private function isCurrent($action)
     {
         // Exceptional case for HTTP 404 errors (which have no route)
-        if (Route::current() === null) {
+        if (!Route::current()) {
             return false;
         }
 
