@@ -90,13 +90,13 @@ class Register extends Application
         }
 
         // Find the registration data
-        $registration = $this->oauth->user()->registrationFor($meal);
-        if (!$registration) {
+        if (!$this->oauth->user()->registeredFor($meal)) {
             return $this->ajaxError(404, 'no_registration', 'Je bent niet aangemeld voor deze maaltijd');
         }
 
         // Deregister from the meal
         try {
+            $registration = $this->oauth->user()->registrationFor($meal);
             with(new DeregisterService($registration))->execute();
             return response(null, 204);
         } catch (MealDeadlinePassedException $e) {
