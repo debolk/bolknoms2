@@ -34,7 +34,7 @@
         "phpunit/phpunit": "~7.0",
         "phpspec/phpspec": "~4.3",
         "fzaninotto/faker": "~1.7",
-        "laravel/homestead": "~7.0",
+        "laravel/homestead": "^8.2",
         "barryvdh/laravel-debugbar": "^3.1",
         "nunomaduro/larastan": "^0.3.4"
     },
