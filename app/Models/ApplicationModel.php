@@ -11,5 +11,4 @@ class ApplicationModel extends Model
      * No models are removed from the database upon deletion
      */
     use SoftDeletes;
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 }
