@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
 
 class Vacation extends ApplicationModel
@@ -18,7 +19,7 @@ class Vacation extends ApplicationModel
         return implode(' ', [$start, 'tot', $end]);
     }
 
-    public function scopeUpcoming(Builder $query, Carbon $date = null) : Builder
+    public function scopeUpcoming(Builder $query, CarbonInterface $date = null) : Builder
     {
         if ($date === null) {
             $date = Carbon::now();
@@ -27,7 +28,7 @@ class Vacation extends ApplicationModel
         return $query->orderBy('start', 'asc')->where('start', '>', $date->format('Y-m-d'));
     }
 
-    public function scopeContains(Builder $query, Carbon $date) : Builder
+    public function scopeContains(Builder $query, CarbonInterface $date) : Builder
     {
         return $query->where('start', '<=', $date->format('Y-m-d'))
                      ->where('end', '>', $date->format('Y-m-d'));
@@ -36,7 +37,7 @@ class Vacation extends ApplicationModel
     /**
      * Determine whether a given date is in a planned vacation period
      */
-    public static function inPlannedVacation(Carbon $date) : bool
+    public static function inPlannedVacation(CarbonInterface $date) : bool
     {
         return self::where('start', '<=', $date->format('Y-m-d'))
                    ->where('end', '>', $date->format('Y-m-d'))

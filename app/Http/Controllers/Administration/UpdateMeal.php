@@ -29,11 +29,10 @@ class UpdateMeal extends Application
      * Processes the edit meal form to update a meal
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update(string $id, Request $request)
     {
-        try {
-            $meal = Meal::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
+        $meal = Meal::where('id', $id)->first();
+        if (!$meal) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 

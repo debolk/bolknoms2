@@ -48,8 +48,13 @@ class UpdateMealService extends Service
         }
 
         // Reformat dates for storage in the database
-        $this->data['meal_timestamp']   = DateTime::createFromFormat('d-m-Y G:i', $this->data['meal_timestamp'])->format('Y-m-d G:i:00');
-        $this->data['locked_timestamp'] = DateTime::createFromFormat('d-m-Y G:i', $this->data['locked_timestamp'])->format('Y-m-d G:i:00');
+        $mealTime = DateTime::createFromFormat('d-m-Y G:i', $this->data['meal_timestamp']);
+        $lockedTime = DateTime::createFromFormat('d-m-Y G:i', $this->data['locked_timestamp']);
+        if (!$mealTime || !$lockedTime) {
+            throw new \Exception('Unparseable timestamp format passed through validation, but could not be parsed');
+        }
+        $this->data['meal_timestamp'] = $mealTime->format('Y-m-d G:i:00');
+        $this->data['locked_timestamp'] = $lockedTime->format('Y-m-d G:i:00');
 
         // Save new meal
         $this->meal->update($this->data);

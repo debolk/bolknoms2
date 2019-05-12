@@ -4,27 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\ProfilePicture as Picture;
 use App\Models\User;
+use Illuminate\Http\Response;
 
 class ProfilePicture extends Application
 {
     /**
      * Serves a photo of the currently logged-in user
-     * @param  \App\Http\Helpers\ProfilePicture $picture
-     * @return \Illuminate\Http\Response
      */
-    public function photo(Picture $picture)
+    public function photo(Picture $picture) : Response
     {
         $user = $this->oauth->user();
+        if ($user === null) {
+            return response(null, 404);
+        }
         return $this->serveProfilePicture($picture, $user);
     }
 
     /**
      * Serves a profile picture of a named user
-     * @param  string $username
-     * @param  \App\Http\Helpers\ProfilePicture $picture
-     * @return \Illuminate\Http\Response
      */
-    public function photoFor($username, Picture $picture)
+    public function photoFor(string $username, Picture $picture) : Response
     {
         $user = User::where('username', $username)->first();
         if (!$user) {
@@ -36,15 +35,16 @@ class ProfilePicture extends Application
 
     /**
      * Common functionality to serve a profile picture for a specific user
-     * @param  \App\Http\Helpers\ProfilePicture $picture
-     * @param  \App\Models\User                 $user
-     * @return \Illuminate\Http\Response
      */
-    private function serveProfilePicture(Picture $picture, User $user)
+    private function serveProfilePicture(Picture $picture, User $user) : Response
     {
         $image = $picture->getPictureFor($user);
         $mime = $picture->mimetypeFor($user);
 
-        return response($image)->header('Content-Type', $mime);
+        if ($mime) {
+            return response($image)->header('Content-Type', $mime);
+        } else {
+            return response($image);
+        }
     }
 }

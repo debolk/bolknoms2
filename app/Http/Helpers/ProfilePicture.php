@@ -45,7 +45,8 @@ class ProfilePicture
 
         // Check the mimetype of the resulting image
         // to make sure we have a valid image
-        if (file_exists($path) && substr(mime_content_type($path), 0, 6) !== "image/") {
+        $mimeType = mime_content_type($path) ?: '';
+        if (file_exists($path) && substr($mimeType, 0, 6) !== "image/") {
             unlink($path);
         }
     }
@@ -78,10 +79,8 @@ class ProfilePicture
 
     /**
      * Correct mime-type to use for serving a profile picture of a user
-     * @param  User   $user
-     * @return string
      */
-    public function mimetypeFor(User $user)
+    public function mimetypeFor(User $user) : ?string
     {
         $path = $this->picturePathFor($user);
 
@@ -89,7 +88,7 @@ class ProfilePicture
             $path = public_path('images/swedishchef.jpg');
         }
 
-        return mime_content_type($path);
+        return mime_content_type($path) ?: null;
     }
 
     /**

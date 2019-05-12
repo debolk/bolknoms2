@@ -14,9 +14,8 @@ class Confirm extends Application
 {
     public function confirm($id, $salt)
     {
-        try {
-            $registration = Registration::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
+        $registration = Registration::where('id', $id)->first();
+        if (!$registration) {
             return redirect('/')->with('action_result', [
                 'status' => 'error',
                 'message' => 'Deze aanmelding bestaat niet. Het kan zijn dat deze al weer verwijderd is.',

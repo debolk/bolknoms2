@@ -13,20 +13,16 @@ class User extends ApplicationModel
 
     /**
      * Return whether the user is registered to the meal
-     * @param  Meal $meal
-     * @return boolean       true if registered, false otherwise
      */
-    public function registeredFor($meal)
+    public function registeredFor(Meal $meal) : bool
     {
         return $this->registrations()->where(['meal_id' => $meal->id])->count() > 0;
     }
 
     /**
      * Return the Registration for this user and meal
-     * @param  Meal $meal the meal
-     * @return Registration
      */
-    public function registrationFor($meal)
+    public function registrationFor(Meal $meal) : ?Registration
     {
         return $this->registrations()->where(['meal_id' => $meal->id])->first();
     }

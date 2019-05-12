@@ -35,9 +35,8 @@ class Navigation
 
     /**
      * Format the main navigation into proper HTML
-     * @return string rendered HTML
      */
-    public function show()
+    public function show() : string
     {
         $menu_entries = $this->menu;
         $output = '';
@@ -75,16 +74,16 @@ class Navigation
 
     /**
      * Determine if a given action is currently on screen
-     * @param  string  $action
-     * @return boolean
      */
-    private function isCurrent($action)
+    private function isCurrent(string $action) : bool
     {
+        $current = Route::current();
+
         // Exceptional case for HTTP 404 errors (which have no route)
-        if (!Route::current()) {
+        if (!$current) {
             return false;
         }
 
-        return Route::current()->getActionName() === 'App\Http\Controllers\\' . $action;
+        return $current->getActionName() === 'App\Http\Controllers\\' . $action;
     }
 }

@@ -84,23 +84,29 @@ class Register extends Application
     public function afmelden(Request $request)
     {
         // Find the meal
-        $meal = Meal::find((int) $request->input('meal_id'));
+        $meal = Meal::where('id', (int) $request->input('meal_id'))->first();
         if (!$meal) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd bestaat niet');
         }
 
-        // Find the registration data
-        if (!$this->oauth->user()->registeredFor($meal)) {
+        // Find the user
+        $user = $this->oauth->user();
+        if (!$user) {
+            return $this->ajaxError(404, 'no_user', 'Deze gebruikers bestaat niet');
+        }
+
+        $registration = $user->registrationFor($meal);
+        if (!$registration) {
             return $this->ajaxError(404, 'no_registration', 'Je bent niet aangemeld voor deze maaltijd');
         }
 
         // Deregister from the meal
         try {
-            $registration = $this->oauth->user()->registrationFor($meal);
             with(new DeregisterService($registration))->execute();
-            return response(null, 204);
         } catch (MealDeadlinePassedException $e) {
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }
+
+        return response(null, 204);
     }
 }

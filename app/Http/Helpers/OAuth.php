@@ -44,9 +44,8 @@ class OAuth
 
     /**
      * Returns the current user details or null if none
-     * @return \App\Models\User|null
      */
-    public function user()
+    public function user() : ?User
     {
         // Must have a valid session
         if (! $this->valid()) {

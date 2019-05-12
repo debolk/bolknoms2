@@ -5,17 +5,19 @@ namespace App\Http\Controllers\Administration;
 use App\Http\Controllers\Application;
 use App\Models\Meal;
 use App\Services\DestroyMealService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class Meals extends Application
 {
     /**
      * List all past and current meals
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request) : View
     {
-        $count = (int) \Request::input('count', '5');
+        $count = (int) $request->get('count', 5);
 
         $upcoming_meals = Meal::upcoming();
         $previous_meals = Meal::previous();
@@ -32,14 +34,12 @@ class Meals extends Application
 
     /**
      * Removes a meal
-     * @param int $id the id of the meal to remove
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function verwijder($id)
+    public function verwijder(int $id)
     {
-        try {
-            $meal = Meal::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
+        $meal = Meal::where('id', $id)->first();
+        if (!$meal) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
