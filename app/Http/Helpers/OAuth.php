@@ -205,7 +205,7 @@ class OAuth
         Session::put('oauth.goal', $original_route);
 
         // Generate a random six digit number as state to defend against CSRF-attacks
-        $state = rand(pow(10, 5), pow(10, 6)-1);
+        $state = rand(100000, 999999);
         Session::put('oauth.state', $state);
 
         // For some reason, an explicit save is needed in middleware
