@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'endpoint' => env('OAUTH_ENDPOINT'),
-    'callback' => env('OAUTH_CALLBACK'),
+    'endpoint' => env('OAUTH_ENDPOINT', 'https://auth.debolk.nl/'),
+    'callback' => env('OAUTH_CALLBACK', 'http://bolknoms.test/oauth/'),
     'client' => [
         'id' => env('OAUTH_CLIENT_ID'),
         'secret' => env('OAUTH_CLIENT_SECRET'),
