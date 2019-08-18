@@ -55,7 +55,7 @@ return array(
     |
     */
 
-    'url' => env('APPLICATION_URL'),
+    'url' => env('APP_URL', 'https://noms.debolk.nl'),
 
     /* --- No configuration usually needed below this point ---------------- */
 
