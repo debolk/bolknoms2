@@ -130,7 +130,9 @@ class TensorflowData extends Command
             ];
 
             foreach ($meal->registrations as $r) {
-                $registrations[] = [$r->created_at->timestamp, $meal->id];
+                if ($r->created_at instanceof Carbon) {
+                    $registrations[] = [$r->created_at->timestamp, $meal->id];
+                }
             }
         }
         $this->debug("done preprocessing");
