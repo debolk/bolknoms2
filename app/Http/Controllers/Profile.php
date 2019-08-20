@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use \Request;
+use Illuminate\Http\Request;
 
 class Profile extends Application
 {
