@@ -31,10 +31,16 @@ class Profile extends Application
             ], 500);
         }
 
+        $existingHandicap = $user->handicap;
         $user->handicap = $request->get('handicap');
 
         if ($user->save()) {
-            Log::info("User changed diet", ['user' => $user->id, 'handicap' => $user->handicap]);
+            Log::info('User changed diet', [
+                'user' => $user->id,
+                'handicap' => $user->handicap,
+                'was' => $existingHandicap,
+                'changed_by' => $user->id,
+            ]);
             return response()->json([], 200);
         } else {
             return response()->json([
