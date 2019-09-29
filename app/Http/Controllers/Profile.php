@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Profile extends Application
 {
@@ -30,9 +31,10 @@ class Profile extends Application
             ], 500);
         }
 
-        $user->handicap = $request->get('handicap', null);
+        $user->handicap = $request->get('handicap');
 
         if ($user->save()) {
+            Log::info("User changed diet", ['user' => $user->id, 'handicap' => $user->handicap]);
             return response()->json([], 200);
         } else {
             return response()->json([
