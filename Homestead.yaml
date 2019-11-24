@@ -16,7 +16,7 @@ folders:
       to: "/home/vagrant/bolknoms2"
 
 sites:
-    - map: bolknoms.app
+    - map: bolknoms.test
       to: "/home/vagrant/bolknoms2/public"
 
 databases:
