@@ -6,7 +6,11 @@ use DB;
 
 class User extends ApplicationModel
 {
-    public $id;
+    public $username;
+    public $name;
+    public $email;
+    public $handicap;
+    public $blocked;
 
     public function registrations()
     {

@@ -64,7 +64,7 @@ class RegisterService extends Service
         ]);
 
         if ($validator->fails()) {
-            throw new ValidationException($validator->messages());
+            throw new ValidationException($validator->errors());
         }
 
         // Get the user if appropriate

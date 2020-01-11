@@ -44,7 +44,7 @@ class UpdateMealService extends Service
         ]);
 
         if ($validator->fails()) {
-            throw new ValidationException($validator->messages());
+            throw new ValidationException($validator->errors());
         }
 
         // Reformat dates for storage in the database

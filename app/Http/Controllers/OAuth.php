@@ -33,9 +33,8 @@ class OAuth extends Application
 
     /**
      * Logs out the current user
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function logout()
+    public function logout(): void
     {
         $this->oauth->logout();
     }
