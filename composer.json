@@ -28,7 +28,7 @@
         "doctrine/dbal": "~2.6",
         "league/fractal": "~0.17",
         "bugsnag/bugsnag-laravel": "^2.0",
-        "laravel/homestead": "^9.4"
+        "laravel/homestead": "^10.1"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

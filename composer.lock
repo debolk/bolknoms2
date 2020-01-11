@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a60d30a3af72ed95cf6e29f1f29337c0",
+    "content-hash": "481f639a14b6b0061c04ad9478fcf184",
     "packages": [
         {
             "name": "bugsnag/bugsnag",
@@ -1242,16 +1242,16 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v9.4.1",
+            "version": "v10.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "97bdd90b2408a73651d3665083933e422e0720e5"
+                "reference": "03e6095674557239008542eeee6ca0bddc1d80be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/97bdd90b2408a73651d3665083933e422e0720e5",
-                "reference": "97bdd90b2408a73651d3665083933e422e0720e5",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/03e6095674557239008542eeee6ca0bddc1d80be",
+                "reference": "03e6095674557239008542eeee6ca0bddc1d80be",
                 "shasum": ""
             },
             "require": {
@@ -1279,11 +1279,11 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylor@laravel.com"
                 }
             ],
             "description": "A virtual machine for web artisans.",
-            "time": "2019-11-27T00:15:26+00:00"
+            "time": "2019-12-23T16:08:22+00:00"
         },
         {
             "name": "laravel/tinker",
