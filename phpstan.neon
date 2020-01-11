@@ -3,4 +3,4 @@ includes:
 parameters:
     paths:
         - app
-    level: 0
+    level: 1

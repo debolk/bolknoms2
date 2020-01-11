@@ -8,6 +8,9 @@ use DB;
 
 class Registration extends ApplicationModel
 {
+    public $name;
+    public $salt;
+
     /**
      * All properties that can be mass-assigned
      */
