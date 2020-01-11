@@ -4,3 +4,4 @@ parameters:
     paths:
         - app
     level: 2
+    inferPrivatePropertyTypeFromConstructor: true
