@@ -24,9 +24,6 @@ class UpdateMealService extends Service
 
     /**
      * Create a new Meal
-     * @return \App\Models\Meal the newly created meal
-     * @return null when saving fails
-     * @throws ValidationException
      */
     public function execute() : ?Meal
     {

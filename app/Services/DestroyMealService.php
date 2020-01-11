@@ -24,7 +24,7 @@ class DestroyMealService extends Service
 
     /**
      * Destroy the meal
-     * @return \App\Models\Meal the newly created meal
+     * @return bool
      * @throws \App\Services\ValidationException
      */
     public function execute()

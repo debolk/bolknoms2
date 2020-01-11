@@ -24,7 +24,7 @@ class ConfirmRegistrationService extends Service
      * @return \App\Models\Meal|null the newly created meal
      * @throws SaltMismatchException
      * @throws MealDeadlinePassedException
-     * @return Registration
+     * @return ?Registration
      */
     public function execute()
     {
