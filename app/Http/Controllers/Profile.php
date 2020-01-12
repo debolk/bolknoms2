@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class Profile extends Application
+class Profile extends Controller
 {
     /**
      * Show a list of all eaters

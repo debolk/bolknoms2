@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class Users extends Application
+class Users extends Controller
 {
     /**
      * Show a list of users

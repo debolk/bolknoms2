@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Administration;
 
 use App;
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
@@ -15,7 +15,7 @@ use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class ShowMeal extends Application
+class ShowMeal extends Controller
 {
     /**
      * Shows the details page of a meal

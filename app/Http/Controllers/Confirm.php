@@ -10,7 +10,7 @@ use App\Services\ConfirmRegistrationService;
 use App\Services\SaltMismatchException;
 use App\Services\MealDeadlinePassedException;
 
-class Confirm extends Application
+class Confirm extends Controller
 {
     public function confirm($id, $salt)
     {
