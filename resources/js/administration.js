@@ -1,4 +1,6 @@
-Administration = {
+import Swal from 'sweetalert2';
+
+var Administration = {
 
     /**
      * Start the Adminstration specific log
@@ -146,7 +148,7 @@ Administration = {
         var user_id = button.attr('data-id');
         var existing_handicap = button.attr('data-handicap');
 
-        swal({
+        Swal.fire({
             title: 'Dieet instellen',
             text: 'Specificeer dieetwensen zo exact en duidelijk mogelijk',
             type: 'input',
@@ -223,4 +225,4 @@ Administration = {
     },
 };
 
-$(document).on('ready', Administration.init);
+$(document).ready(Administration.init);

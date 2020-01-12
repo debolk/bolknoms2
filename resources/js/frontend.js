@@ -1,4 +1,6 @@
-Frontend = {
+import Swal from 'sweetalert2';
+
+var Frontend = {
 
     /**
      * Setup the frontend javascript interface
@@ -74,7 +76,7 @@ Frontend = {
         var button = $(this);
 
         // Choose appropriate submission process
-        if ($('.user.someone').size() == 1) {
+        if ($('.user.someone').length == 1) {
             if (button.hasClass('unregistered')) {
                 Frontend.register(button);
             }
@@ -238,7 +240,7 @@ Frontend = {
 
         var existing_handicap = $('#handicap').attr('data-handicap');
 
-        swal({
+        Swal.fire({
             title: 'Dieetwensen instellen',
             text: 'Specificeer je dieetwensen zo exact en duidelijk mogelijk',
             type: 'input',
@@ -299,7 +301,7 @@ Frontend = {
         var recipe = recipes[Math.floor(Math.random() * recipes.length)];
 
         // Show popup
-        swal({
+        Swal.fire({
             title: "How to make " + recipe.name,
             text: "<iframe width=420 height=315 src=\"https://www.youtube-nocookie.com/embed/"+recipe.id+"?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0\" frameborder=0 allowfullscreen></iframe>",
             html: true,
@@ -307,4 +309,4 @@ Frontend = {
     }
 };
 
-$(document).on('ready', Frontend.init);
+$(document).ready(Frontend.init);
