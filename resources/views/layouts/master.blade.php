@@ -6,6 +6,8 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="description" value="Join the Mon-Thu dinner at De Bolk">
+
     <link rel=icon href="/images/favicon.png" sizes="196x196" type="image/png">
 
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
