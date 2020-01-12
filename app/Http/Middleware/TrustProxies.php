@@ -14,7 +14,7 @@ class TrustProxies extends Middleware
      */
     protected $proxies = [
         '10.99.1.16', // nginx.i.bolkhuis.nl
-    ]
+    ];
 
     /**
      * The headers that should be used to detect proxies.
