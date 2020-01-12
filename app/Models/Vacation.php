@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Vacation extends ApplicationModel
 {
-    public $start;
-    public $end;
-
     protected $fillable = ['start', 'end'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'start', 'end'];
 

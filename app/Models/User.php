@@ -6,12 +6,6 @@ use DB;
 
 class User extends ApplicationModel
 {
-    public $username;
-    public $name;
-    public $email;
-    public $handicap;
-    public $blocked;
-
     public function registrations()
     {
         return $this->hasMany('App\Models\Registration')->orderBy('name');

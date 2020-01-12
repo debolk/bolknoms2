@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class Meal extends ApplicationModel
 {
-    public $meal_timestamp;
-    public $locked_timestamp;
-
     /**
      * All attributes that can be mass-assigned
      */

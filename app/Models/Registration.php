@@ -8,14 +8,6 @@ use DB;
 
 class Registration extends ApplicationModel
 {
-    public $name;
-    public $salt;
-    public $meal_id;
-    public $confirmed;
-    public $user_id;
-    public $username;
-    public $created_by;
-
     /**
      * All properties that can be mass-assigned
      */
