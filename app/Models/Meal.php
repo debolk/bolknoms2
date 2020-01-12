@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 
@@ -89,7 +90,7 @@ class Meal extends ApplicationModel
      */
     public function open_for_registrations()
     {
-        return $this->locked_timestamp->timestamp > time();
+        return $this->locked_timestamp > Carbon::now();
     }
 
     /**
