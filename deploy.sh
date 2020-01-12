@@ -11,7 +11,7 @@ function update_code {
     php artisan view:clear
     git pull --ff-only origin
     composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
-    npm install
+    npm ci
     npm run prod
     php artisan config:cache
     php artisan route:cache
