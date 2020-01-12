@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class Page extends Application
+class Page extends Controller
 {
     /**
      * Displays the disclaimer page

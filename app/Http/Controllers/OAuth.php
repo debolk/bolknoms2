@@ -8,7 +8,7 @@ use App\Http\Helpers\ProfilePicture;
 use Illuminate\Http\RedirectResponse;
 use Request;
 
-class OAuth extends Application
+class OAuth extends Controller
 {
     /**
      * Store the callback

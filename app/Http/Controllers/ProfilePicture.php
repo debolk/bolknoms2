@@ -6,7 +6,7 @@ use App\Http\Helpers\ProfilePicture as Picture;
 use App\Models\User;
 use Illuminate\Http\Response;
 
-class ProfilePicture extends Application
+class ProfilePicture extends Controller
 {
     /**
      * Serves a photo of the currently logged-in user

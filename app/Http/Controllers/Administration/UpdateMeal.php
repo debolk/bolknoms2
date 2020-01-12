@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Administration;
 
 use App;
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\UpdateMealService;
 use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class UpdateMeal extends Application
+class UpdateMeal extends Controller
 {
     /**
      * Shows the page for editing a new meal

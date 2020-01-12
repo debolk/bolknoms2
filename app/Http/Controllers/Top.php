@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Registration;
 
-class Top extends Application
+class Top extends Controller
 {
     /**
      * Show a list of all eaters

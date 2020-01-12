@@ -10,6 +10,16 @@ use Session;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        // Force correct locale on every boot
+        setlocale(LC_TIME, "nl_NL.utf8");
+    }
 
     /**
      * Bootstrap any application services.
@@ -17,17 +27,6 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        // Force correct locale on every boot
-        setlocale(LC_TIME, "nl_NL.utf8");
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
     {
         // Identify OAuth class as a singleton in the repository
         $this->app->singleton(OAuth::class, function () {

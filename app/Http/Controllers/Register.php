@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Log;
 use Validator;
 
-class Register extends Application
+class Register extends Controller
 {
     /**
       * Show the index that allows users to quickly register for the upcoming meal
