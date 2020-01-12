@@ -1,4 +1,6 @@
-App = {
+import Swal from 'sweetalert2';
+
+var App = {
 
     /**
      * Bootstrap the application, set event handlers, etc.
@@ -46,7 +48,7 @@ App = {
             title = 'Foutmelding';
         }
 
-        swal({
+        Swal.fire({
             title: title,
             text: message,
             type: type
@@ -65,4 +67,4 @@ App = {
 };
 
 // Start the application
-$(document).on('ready', App.init);
+$(document).ready(App.init);

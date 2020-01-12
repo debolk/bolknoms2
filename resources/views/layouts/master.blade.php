@@ -6,6 +6,8 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="description" content="Join the Mon-Thu dinner at De Bolk">
+
     <link rel=icon href="/images/favicon.png" sizes="196x196" type="image/png">
 
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -36,6 +38,9 @@
         @yield('content')
     </section>
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
