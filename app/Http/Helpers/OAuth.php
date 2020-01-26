@@ -260,7 +260,9 @@ class OAuth
     {
         // Check state to prevent CSRF
         if ((string)$input['state'] !== (string)Session::get('oauth.state')) {
-            $this->fatalError('state mismatch', 'state mismatch', 500);
+            // Log out the user and send to error page
+            $this->purgeSession();
+            abort(400, 'state mismatch');
         }
 
         // Check for errors
