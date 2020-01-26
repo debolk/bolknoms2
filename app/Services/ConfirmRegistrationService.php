@@ -44,7 +44,7 @@ class ConfirmRegistrationService extends Service
             return null;
         }
 
-        Log::notice("Registration {$this->registration->id} bevestigd");
+        Log::info("Registration {$this->registration->id} bevestigd");
         return $this->registration;
     }
 }
