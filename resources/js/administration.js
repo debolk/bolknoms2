@@ -52,7 +52,7 @@ window.Administration = {
             }),
             success: function(response) {
                 $('#registrations tbody').append(response);
-                Administration.update_counter(+1);
+                Administration.updateCounter(+1);
                 form.reset();
             },
             error: App.fatalError
@@ -88,7 +88,7 @@ window.Administration = {
             }),
             success: function(response) {
                 $('#registrations tbody').append(response);
-                Administration.update_counter(+1);
+                Administration.updateCounter(+1);
             },
             error: App.fatalError
         });
@@ -116,7 +116,7 @@ window.Administration = {
             dataType: 'html',
             success: function(response) {
                 registration.remove();
-                Administration.update_counter(-1);
+                Administration.updateCounter(-1);
             },
             error: App.fatalError
         });
