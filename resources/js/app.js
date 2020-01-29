@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-var App = {
+App = {
 
     /**
      * Bootstrap the application, set event handlers, etc.

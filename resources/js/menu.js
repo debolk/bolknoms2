@@ -1,4 +1,4 @@
-var Menu = {
+Menu = {
 
     /**
      * Start the menu

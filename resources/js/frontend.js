@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-var Frontend = {
+Frontend = {
 
     /**
      * Setup the frontend javascript interface

@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-var Administration = {
+Administration = {
 
     /**
      * Start the Adminstration specific log
