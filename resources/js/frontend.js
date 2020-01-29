@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-Frontend = {
+window.Frontend = {
 
     /**
      * Setup the frontend javascript interface

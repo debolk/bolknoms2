@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-Administration = {
+window.Administration = {
 
     /**
      * Start the Adminstration specific log

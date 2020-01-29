@@ -1,4 +1,4 @@
-Menu = {
+window.Menu = {
 
     /**
      * Start the menu
