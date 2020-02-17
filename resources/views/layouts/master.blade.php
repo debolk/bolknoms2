@@ -17,6 +17,8 @@
     <title>@yield('title') - Bolknoms</title>
 </head>
 <body>
+    @include('layouts._bugsnag_monitoring')
+
     <header>
         <h1>Bolknoms</h1>
     </header>
