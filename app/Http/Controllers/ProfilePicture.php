@@ -11,7 +11,7 @@ class ProfilePicture extends Controller
     /**
      * Serves a photo of the currently logged-in user
      */
-    public function photo(Picture $picture) : Response
+    public function photo(Picture $picture): Response
     {
         $user = $this->oauth->user();
         if ($user === null) {
@@ -23,7 +23,7 @@ class ProfilePicture extends Controller
     /**
      * Serves a profile picture of a named user
      */
-    public function photoFor(string $username, Picture $picture) : Response
+    public function photoFor(string $username, Picture $picture): Response
     {
         $user = User::where('username', $username)->first();
         if (!$user) {
@@ -36,7 +36,7 @@ class ProfilePicture extends Controller
     /**
      * Common functionality to serve a profile picture for a specific user
      */
-    private function serveProfilePicture(Picture $picture, User $user) : Response
+    private function serveProfilePicture(Picture $picture, User $user): Response
     {
         $image = $picture->getPictureFor($user);
         $mime = $picture->mimetypeFor($user);

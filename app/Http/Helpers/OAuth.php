@@ -45,7 +45,7 @@ class OAuth
     /**
      * Returns the current user details or null if none
      */
-    public function user() : ?User
+    public function user(): ?User
     {
         // Must have a valid session
         if (! $this->valid()) {
@@ -86,7 +86,7 @@ class OAuth
         // Get the username
         $username = null;
         try {
-            $url = config('oauth.endpoint').'resource/?access_token='.$access_token;
+            $url = config('oauth.endpoint') . 'resource/?access_token=' . $access_token;
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
         } catch (\Exception $e) {
@@ -103,7 +103,7 @@ class OAuth
 
         // Get the details of the user
         try {
-            $url = 'https://people.debolk.nl/persons/'.$user->username.'/basic?access_token='.$access_token;
+            $url = 'https://people.debolk.nl/persons/' . $user->username . '/basic?access_token=' . $access_token;
             $response = $client->get($url);
             $user_data = json_decode($response->getBody());
 
@@ -158,7 +158,7 @@ class OAuth
         try {
             Log::debug('Refreshing token ' . Session::get('oauth.token')->refresh_token);
             $client = new Client();
-            $response = $client->post(config('oauth.endpoint').'token/', ['json' => [
+            $response = $client->post(config('oauth.endpoint') . 'token/', ['json' => [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => Session::get('oauth.token')->refresh_token,
                 'client_id' => config('oauth.client.id'),
@@ -216,9 +216,9 @@ class OAuth
             'response_type' => 'code',
             'client_id' => config('oauth.client.id'),
             'redirect_uri' => config('oauth.callback'),
-            'state'=> $state,
+            'state' => $state,
         ]);
-        return redirect(config('oauth.endpoint').'authenticate/?'.$query_string);
+        return redirect(config('oauth.endpoint') . 'authenticate/?' . $query_string);
     }
 
     /**
@@ -230,7 +230,7 @@ class OAuth
     {
         try {
             $client = new Client();
-            $url = config('oauth.endpoint').'bestuur/?access_token='.Session::get('oauth.token')->access_token;
+            $url = config('oauth.endpoint') . 'bestuur/?access_token=' . Session::get('oauth.token')->access_token;
             $request = $client->get($url);
             return ($request->getStatusCode() === 200);
         } catch (\Exception $e) {
@@ -277,7 +277,7 @@ class OAuth
 
         // Retrieve access code
         $client = new Client();
-        $result = $client->post(config('oauth.endpoint').'token/', [
+        $result = $client->post(config('oauth.endpoint') . 'token/', [
             'json' => [
                 'grant_type' => 'authorization_code',
                 'code' => $input['code'],

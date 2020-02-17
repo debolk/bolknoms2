@@ -36,7 +36,7 @@ class DestroyMealService extends Service
         }
 
         // Write loggin
-        Log::info('Maaltijd verwijderd: '.$this->meal);
+        Log::info('Maaltijd verwijderd: ' . $this->meal);
 
         // Remove the meal
         return $this->meal->delete();

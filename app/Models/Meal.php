@@ -76,7 +76,7 @@ class Meal extends ApplicationModel
         $output = $this->longDate();
 
         if (! empty($this->event)) {
-            $output .= ' ('.$this->event.')';
+            $output .= ' (' . $this->event . ')';
         }
         return $output;
     }
@@ -138,7 +138,7 @@ class Meal extends ApplicationModel
     private $cache;
     private $registrationTimestamps;
 
-    public function registrationsBefore(\Carbon\Carbon $timestamp) : int
+    public function registrationsBefore(\Carbon\Carbon $timestamp): int
     {
         if (isset($this->cache[$timestamp->timestamp])) {
             return $this->cache[$timestamp->timestamp];

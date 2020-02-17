@@ -13,7 +13,7 @@ class OAuth extends Controller
     /**
      * Store the callback
      */
-    public function callback(ProfilePicture $profilePicture) : RedirectResponse
+    public function callback(ProfilePicture $profilePicture): RedirectResponse
     {
         $result = $this->oauth->processCallback(Request::all());
 
@@ -26,7 +26,7 @@ class OAuth extends Controller
         return redirect($result);
     }
 
-    public function login() : RedirectResponse
+    public function login(): RedirectResponse
     {
         return $this->oauth->toAuthorisationServer('/');
     }

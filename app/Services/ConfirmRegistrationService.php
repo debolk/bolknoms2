@@ -30,12 +30,12 @@ class ConfirmRegistrationService extends Service
     {
         // Salt must match
         if ($this->registration->salt !== $this->salt) {
-            throw new SaltMismatchException;
+            throw new SaltMismatchException();
         }
 
         // Deadline must not have passed
         if (! $this->registration->meal->open_for_registrations()) {
-            throw new MealDeadlinePassedException;
+            throw new MealDeadlinePassedException();
         }
 
         // Confirm registration

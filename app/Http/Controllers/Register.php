@@ -52,7 +52,7 @@ class Register extends Controller
                 return $this->ajaxError(
                     500,
                     'user_not_found',
-                                        'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.'
+                    'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.'
                 );
             }
             $data['user_id'] = $user->id;

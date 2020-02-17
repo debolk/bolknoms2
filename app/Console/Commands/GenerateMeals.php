@@ -18,13 +18,13 @@ class GenerateMeals extends Command
     {
         $date = Carbon::parse('next sunday');
 
-        for ($i=0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $date = $date->addDay();
             $this->createMeal($date);
         }
     }
 
-    private function createMeal(CarbonInterface $date) : void
+    private function createMeal(CarbonInterface $date): void
     {
         $dateString = $date->format('Y-m-d');
 

@@ -41,14 +41,14 @@ class RegisterService extends Service
      * @throws \App\Services\DoubleRegistrationException
      * @return \App\Models\Registration
      */
-    public function execute() : Registration
+    public function execute(): Registration
     {
         // Meal must exist
         $meal = Meal::findOrFail($this->data['meal_id']);
 
         // Meal must be open for registrations, unless we allow ignoring this requirement
         if (!$meal->open_for_registrations()) {
-            throw new MealDeadlinePassedException;
+            throw new MealDeadlinePassedException();
         }
 
         // Submitted data must be complete and valid
@@ -75,12 +75,12 @@ class RegisterService extends Service
 
         // User may not be blocked
         if ($user && $user->blocked) {
-            throw new UserBlockedException;
+            throw new UserBlockedException();
         }
 
         // Users may not register twice
         if ($user && $user->registeredFor($meal)) {
-            throw new DoubleRegistrationException;
+            throw new DoubleRegistrationException();
         }
 
         // Create the registration

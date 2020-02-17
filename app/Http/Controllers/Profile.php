@@ -12,7 +12,7 @@ class Profile extends Controller
     /**
      * Show a list of all eaters
      */
-    public function index() : View
+    public function index(): View
     {
         $user = $this->oauth->user();
         return view('profile/index', compact('user'));
@@ -21,7 +21,7 @@ class Profile extends Controller
     /**
      * Overwrite the handicap of a user
      */
-    public function setHandicap(Request $request) : JsonResponse
+    public function setHandicap(Request $request): JsonResponse
     {
         $user = $this->oauth->user();
         if (!$user) {

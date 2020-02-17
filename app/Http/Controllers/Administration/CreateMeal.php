@@ -15,7 +15,7 @@ class CreateMeal extends Controller
      */
     public function index()
     {
-        return view('administration/meal/nieuwe_maaltijd', ['meal' => new Meal]);
+        return view('administration/meal/nieuwe_maaltijd', ['meal' => new Meal()]);
     }
 
     /**

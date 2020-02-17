@@ -36,7 +36,7 @@ class Navigation
     /**
      * Format the main navigation into proper HTML
      */
-    public function show() : string
+    public function show(): string
     {
         $menu_entries = $this->menu;
         $output = '';
@@ -51,12 +51,12 @@ class Navigation
         }
 
         // Set a flag to indicate the current route
-        for ($i=0; $i < sizeof($menu_entries); $i++) {
+        for ($i = 0; $i < sizeof($menu_entries); $i++) {
             $menu_entries[$i]['current'] = $this->isCurrent($menu_entries[$i]['action']);
 
             // iterate over submenu's
             if (isset($menu_entries[$i]['submenu'])) {
-                for ($j=0; $j < sizeof($menu_entries[$i]['submenu']); $j++) {
+                for ($j = 0; $j < sizeof($menu_entries[$i]['submenu']); $j++) {
                     $menu_entries[$i]['submenu'][$j]['current'] = $this->isCurrent($menu_entries[$i]['submenu'][$j]['action']);
                 }
             }
@@ -75,7 +75,7 @@ class Navigation
     /**
      * Determine if a given action is currently on screen
      */
-    private function isCurrent(string $action) : bool
+    private function isCurrent(string $action): bool
     {
         $current = Route::current();
 

@@ -29,9 +29,9 @@ class ProfilePicture
         $path = $this->picturePathFor($user);
 
         try {
-            $client = new Client;
+            $client = new Client();
             $token = $this->oauth->getAccessToken();
-            $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$token;
+            $url = 'https://people.debolk.nl/persons/' . $user->username . '/photo/256/256?access_token=' . $token;
             $file = fopen($path, 'w');
             $response = $client->get($url, ['sink' => $file]);
         } catch (\Exception $exception) {
@@ -80,7 +80,7 @@ class ProfilePicture
     /**
      * Correct mime-type to use for serving a profile picture of a user
      */
-    public function mimetypeFor(User $user) : ?string
+    public function mimetypeFor(User $user): ?string
     {
         $path = $this->picturePathFor($user);
 

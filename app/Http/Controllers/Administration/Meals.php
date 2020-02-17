@@ -15,7 +15,7 @@ class Meals extends Controller
     /**
      * List all past and current meals
      */
-    public function index(Request $request) : View
+    public function index(Request $request): View
     {
         $count = (int) $request->get('count', 5);
 
