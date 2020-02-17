@@ -320,6 +320,10 @@ class OAuth
             Log::error($logged_error);
         }
 
+        Bugsnag::notifyError('OAuthFatalError', $technical, function ($report) use ($technical, $logged_error,$status_code) {
+            $report->setMetaData(compact('technical', 'logged_error', 'status_code'));
+        });
+
         // Log out the current user
         $this->purgeSession();
 
