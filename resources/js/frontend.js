@@ -189,8 +189,8 @@ window.Frontend = {
                 App.showNotification('Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd. Volg de link in de e-mail om je aanmelding definitief te maken.', 'Bevestiging nodig', 'warning');
             },
             error: function(error){
-                App.fatalError(error);
                 Frontend.setButtonState(button, 'unregistered', true);
+                App.fatalError(error);
             },
         });
     },
