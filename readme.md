@@ -30,4 +30,4 @@ This project is open for pull requests. Fork the repository and add your own con
 Bolknoms is production software that supports actual business operations at [De Bolk](http://www.debolk.nl). Your changes will be reviewed and tested on a private staging environment, before being deployed to production. Even if your change is perfect, it might not be acceptable for the product. If you want to be sure your change will be accepted, ask in advance. The decision belongs ultimately to the lead developer (Jakob) and the board of De Bolk.
 
 ## License
-Copyright 2011-20120[Jakob Buis](http://www.jakobbuis.com). This version of Bolknoms is distributed under the GNU GPL v3 license, the full text of which is included in the LICENSE file.
+Copyright 2011-2020 [Jakob Buis](http://www.jakobbuis.com). This version of Bolknoms is distributed under the GNU GPL v3 license, the full text of which is included in the LICENSE file.
