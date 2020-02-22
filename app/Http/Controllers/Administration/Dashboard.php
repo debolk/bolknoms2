@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 
-class Dashboard extends Application
+class Dashboard extends Controller
 {
     /**
      * List all past and current meals

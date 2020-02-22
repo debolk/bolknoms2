@@ -1,4 +1,6 @@
-App = {
+import Swal from 'sweetalert2';
+
+window.App = {
 
     /**
      * Bootstrap the application, set event handlers, etc.
@@ -35,7 +37,7 @@ App = {
      * @param  {String} message the body of the message to show
      * @param  {String} title   title of the popup, default "Foutmelding"
      * @param  {String} type    type of message to show
-     * @return {[type]}         [description]
+     * @return {void}
      */
     showNotification: function(message, title, type) {
         if (type === undefined) {
@@ -46,7 +48,7 @@ App = {
             title = 'Foutmelding';
         }
 
-        swal({
+        Swal.fire({
             title: title,
             text: message,
             type: type
@@ -59,10 +61,10 @@ App = {
      * @return {undefined}
      */
     fatalError: function (error) {
-        error = JSON.parse(error.response);
+        error = JSON.parse(error.responseText);
         App.showNotification(error.error_details);
     }
 };
 
 // Start the application
-$(document).on('ready', App.init);
+$(document).ready(App.init);

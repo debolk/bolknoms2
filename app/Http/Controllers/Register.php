@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Log;
 use Validator;
 
-class Register extends Application
+class Register extends Controller
 {
     /**
       * Show the index that allows users to quickly register for the upcoming meal
@@ -52,7 +52,7 @@ class Register extends Application
                 return $this->ajaxError(
                     500,
                     'user_not_found',
-                                        'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.'
+                    'Je gebruikersaccount kon niet worden gevonden. Probeer opnieuw in te loggen.'
                 );
             }
             $data['user_id'] = $user->id;
@@ -84,13 +84,18 @@ class Register extends Application
     public function afmelden(Request $request)
     {
         // Find the meal
-        $meal = Meal::find((int) $request->input('meal_id'));
+        $meal = Meal::where('id', (int) $request->input('meal_id'))->first();
         if (!$meal) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd bestaat niet');
         }
 
-        // Find the registration data
-        $registration = $this->oauth->user()->registrationFor($meal);
+        // Find the user
+        $user = $this->oauth->user();
+        if (!$user) {
+            return $this->ajaxError(404, 'no_user', 'Deze gebruikers bestaat niet');
+        }
+
+        $registration = $user->registrationFor($meal);
         if (!$registration) {
             return $this->ajaxError(404, 'no_registration', 'Je bent niet aangemeld voor deze maaltijd');
         }
@@ -98,9 +103,10 @@ class Register extends Application
         // Deregister from the meal
         try {
             with(new DeregisterService($registration))->execute();
-            return response(null, 204);
         } catch (MealDeadlinePassedException $e) {
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }
+
+        return response(null, 204);
     }
 }

@@ -54,7 +54,7 @@ class AdminRegisterService extends Service
         ]);
 
         if ($validator->fails()) {
-            throw new ValidationException($validator->messages());
+            throw new ValidationException($validator->errors());
         }
 
         // Get the user if appropriate
@@ -65,12 +65,12 @@ class AdminRegisterService extends Service
 
         // User may not be blocked
         if ($user && $user->blocked) {
-            throw new UserBlockedException;
+            throw new UserBlockedException();
         }
 
         // Users may not register twice
         if ($user && $user->registeredFor($meal)) {
-            throw new DoubleRegistrationException;
+            throw new DoubleRegistrationException();
         }
 
         // Create the registration

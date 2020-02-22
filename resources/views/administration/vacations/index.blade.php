@@ -6,15 +6,22 @@
     <h1>Vakanties</h1>
 
     <p>
+        Bolknoms maakt elke maandag tot donderdag automatisch een nieuwe maaltijd
+        aan om 18:30 uur. Vakantieperiodes kun je hier instellen. In een vakantieperiode
+        zal Bolknoms geen nieuwe maaltijden aanmaken.
+    </p>
+
+    <p>
         @if ($currentVacation)
-            Er is nu vakantie. De maaltijden worden hervat op {{ $currentVacation->end->formatLocalized('%e %B %Y') }}.
+            Het is nu vakantie. De maaltijden worden hervat op {{ $currentVacation->end->formatLocalized('%e %B %Y') }}.
         @else
             Er is nu geen vakantie.
         @endif
-        <br>
+
         @if ($upcomingVacation)
-            De eerstvolgende vakantie is van
-            {{ $upcomingVacation->start->formatLocalized('%e %B %Y') }} tot
+            De eerstvolgende vakantie begint op
+            {{ $upcomingVacation->start->formatLocalized('%e %B %Y') }}.
+            De maaltijden beginnen dan weer op
             {{ $upcomingVacation->end->formatLocalized('%e %B %Y') }}.
         @endif
     </p>

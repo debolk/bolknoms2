@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\CreateMealService;
 use App\Services\ValidationException;
 use Illuminate\Http\Request;
 
-class CreateMeal extends Application
+class CreateMeal extends Controller
 {
     /**
      * Shows the page for creating a new meal
      */
     public function index()
     {
-        return view('administration/meal/nieuwe_maaltijd', ['meal' => new Meal]);
+        return view('administration/meal/nieuwe_maaltijd', ['meal' => new Meal()]);
     }
 
     /**

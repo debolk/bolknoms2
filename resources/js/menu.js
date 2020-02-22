@@ -1,4 +1,4 @@
-Menu = {
+window.Menu = {
 
     /**
      * Start the menu
@@ -75,4 +75,4 @@ Menu = {
     },
 };
 
-$(document).on('ready', Menu.init);
+$(document).ready(Menu.init);

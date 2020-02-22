@@ -1,9 +1,15 @@
-/vendor
 /node_modules
-.env
-/public/js/
-/public/css/
 /public/hot
 /public/storage
-.vagrant
+/storage/*.key
+/vendor
+.env
+npm-debug.log
+
+# Build artifacts
+/public/css
+/public/js
 /public/mix-manifest.json
+
+# vagrant
+/.vagrant

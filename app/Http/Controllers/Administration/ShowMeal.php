@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Administration;
 
 use App;
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
@@ -15,7 +15,7 @@ use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class ShowMeal extends Application
+class ShowMeal extends Controller
 {
     /**
      * Shows the details page of a meal
@@ -40,9 +40,8 @@ class ShowMeal extends Application
 
         // Populate request from data
         if ($request->has('user_id')) {
-            try {
-                $user = User::findOrFail($request->get('user_id'));
-            } catch (ModelNotFoundException $e) {
+            $user = User::where('id', $request->user_id)->first();
+            if (!$user) {
                 return response()->json(['error' => 'user_not_found', 'error_details' => 'Gebruiker bestaat niet'], 400);
             }
             $data['user_id'] = $user->id;

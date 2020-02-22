@@ -9,7 +9,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class RegistrationConfirmation extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     private $registration;
 
@@ -26,8 +27,8 @@ class RegistrationConfirmation extends Mailable
     public function build()
     {
         $this->to($this->registration->email, $this->registration->name);
-        $this->replyTo(env('MAIL_REPLY_TO_MAIL'), env('MAIL_REPLY_TO_NAME'));
-        $this->subject("Bevestigen aanmelding maaltijd ". $this->registration->longDate());
+        $this->replyTo(config('mail.reply-to.mail'), config('mail.reply-to.name'));
+        $this->subject("Bevestigen aanmelding maaltijd " . $this->registration->longDate());
 
         return $this->view('mails/confirm_registration/html', ['registration' => $this->registration])
                     ->text('mails/confirm_registration/text', ['registration' => $this->registration]);

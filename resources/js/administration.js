@@ -1,4 +1,6 @@
-Administration = {
+import Swal from 'sweetalert2';
+
+window.Administration = {
 
     /**
      * Start the Adminstration specific log
@@ -50,7 +52,7 @@ Administration = {
             }),
             success: function(response) {
                 $('#registrations tbody').append(response);
-                Administration.update_counter(+1);
+                Administration.updateCounter(+1);
                 form.reset();
             },
             error: App.fatalError
@@ -86,7 +88,7 @@ Administration = {
             }),
             success: function(response) {
                 $('#registrations tbody').append(response);
-                Administration.update_counter(+1);
+                Administration.updateCounter(+1);
             },
             error: App.fatalError
         });
@@ -114,7 +116,7 @@ Administration = {
             dataType: 'html',
             success: function(response) {
                 registration.remove();
-                Administration.update_counter(-1);
+                Administration.updateCounter(-1);
             },
             error: App.fatalError
         });
@@ -146,7 +148,7 @@ Administration = {
         var user_id = button.attr('data-id');
         var existing_handicap = button.attr('data-handicap');
 
-        swal({
+        Swal.fire({
             title: 'Dieet instellen',
             text: 'Specificeer dieetwensen zo exact en duidelijk mogelijk',
             type: 'input',
@@ -223,4 +225,4 @@ Administration = {
     },
 };
 
-$(document).on('ready', Administration.init);
+$(document).ready(Administration.init);

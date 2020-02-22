@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 
@@ -75,7 +76,7 @@ class Meal extends ApplicationModel
         $output = $this->longDate();
 
         if (! empty($this->event)) {
-            $output .= ' ('.$this->event.')';
+            $output .= ' (' . $this->event . ')';
         }
         return $output;
     }
@@ -86,7 +87,7 @@ class Meal extends ApplicationModel
      */
     public function open_for_registrations()
     {
-        return $this->locked_timestamp->timestamp > time();
+        return $this->locked_timestamp > Carbon::now();
     }
 
     /**
@@ -137,7 +138,7 @@ class Meal extends ApplicationModel
     private $cache;
     private $registrationTimestamps;
 
-    public function registrationsBefore(\Carbon\Carbon $timestamp) : int
+    public function registrationsBefore(\Carbon\Carbon $timestamp): int
     {
         if (isset($this->cache[$timestamp->timestamp])) {
             return $this->cache[$timestamp->timestamp];

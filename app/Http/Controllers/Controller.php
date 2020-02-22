@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\OAuth;
 use App\Http\Helpers\ProfilePicture;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\View;
+use Illuminate\Routing\Controller as BaseController;
 
-class Application extends Controller
+class Controller extends BaseController
 {
+    use AuthorizesRequests;
+    use DispatchesJobs;
     use ValidatesRequests;
 
-    /**
-     * @var \App\Http\Helpers\OAuth
-     */
     protected $oauth;
 
     /**

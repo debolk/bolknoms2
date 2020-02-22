@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Meal;
 use App\Models\Vacation;
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -17,13 +18,13 @@ class GenerateMeals extends Command
     {
         $date = Carbon::parse('next sunday');
 
-        for ($i=0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $date = $date->addDay();
             $this->createMeal($date);
         }
     }
 
-    private function createMeal(Carbon $date) : void
+    private function createMeal(CarbonInterface $date): void
     {
         $dateString = $date->format('Y-m-d');
 

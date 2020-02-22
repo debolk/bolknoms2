@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-class Users extends Application
+class Users extends Controller
 {
     /**
      * Show a list of users
@@ -27,8 +28,15 @@ class Users extends Application
     public function setHandicap($id, Request $request)
     {
         $user = User::findOrFail($id);
+        $existingHandicap = $user->handicap;
         $user->handicap = $request->input('handicap');
         $user->save();
+        Log::info('User changed diet', [
+            'user' => $user->id,
+            'handicap' => $user->handicap,
+            'was' => $existingHandicap,
+            'changed_by' => $this->oauth->user()->id,
+        ]);
         return view('administration/users/_user', compact('user'));
     }
 

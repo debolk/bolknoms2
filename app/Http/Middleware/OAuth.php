@@ -31,7 +31,7 @@ class OAuth
     public function handle(Request $request, Closure $next)
     {
         // Make this middleware inoperable for testing
-        if (env('APP_ENV') === 'testing') {
+        if (config('app.env') === 'testing') {
             return $next($request);
         }
 

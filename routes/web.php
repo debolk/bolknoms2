@@ -2,9 +2,6 @@
 
 Route::group(['middleware' => 'web'], function () {
 
-    // Obsolete route that was used in the chrome plugin and mobile app
-    Route::permanentRedirect('/uitgebreid-inschrijven', '/');
-
     // Register for meals
     Route::get('/', 'Register@index');
     Route::post('/aanmelden', 'Register@aanmelden');
@@ -24,7 +21,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/logout', 'OAuth@logout');
 
     // Profile picture of a user
-    Route::get('/photo/{username}', 'ProfilePicture@photoFor');
+    Route::get('/photo/{username}', 'ProfilePicture@photoFor')->name('photo.src');
 
     // Pages which require member-level authorisation
     Route::group(['middleware' => ['oauth']], function () {

@@ -24,18 +24,18 @@ class ConfirmRegistrationService extends Service
      * @return \App\Models\Meal|null the newly created meal
      * @throws SaltMismatchException
      * @throws MealDeadlinePassedException
-     * @return Registration
+     * @return ?Registration
      */
     public function execute()
     {
         // Salt must match
         if ($this->registration->salt !== $this->salt) {
-            throw new SaltMismatchException;
+            throw new SaltMismatchException();
         }
 
         // Deadline must not have passed
         if (! $this->registration->meal->open_for_registrations()) {
-            throw new MealDeadlinePassedException;
+            throw new MealDeadlinePassedException();
         }
 
         // Confirm registration
@@ -44,7 +44,7 @@ class ConfirmRegistrationService extends Service
             return null;
         }
 
-        Log::notice("Registration {$this->registration->id} bevestigd");
+        Log::info("Registration {$this->registration->id} bevestigd");
         return $this->registration;
     }
 }

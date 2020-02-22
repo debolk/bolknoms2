@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Administration;
 
 use App;
-use App\Http\Controllers\Application;
+use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\UpdateMealService;
 use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class UpdateMeal extends Application
+class UpdateMeal extends Controller
 {
     /**
      * Shows the page for editing a new meal
@@ -29,11 +29,10 @@ class UpdateMeal extends Application
      * Processes the edit meal form to update a meal
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update(string $id, Request $request)
     {
-        try {
-            $meal = Meal::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
+        $meal = Meal::where('id', $id)->first();
+        if (!$meal) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
