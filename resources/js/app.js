@@ -37,7 +37,7 @@ window.App = {
      * @param  {String} message the body of the message to show
      * @param  {String} title   title of the popup, default "Foutmelding"
      * @param  {String} type    type of message to show
-     * @return {[type]}         [description]
+     * @return {void}
      */
     showNotification: function(message, title, type) {
         if (type === undefined) {
