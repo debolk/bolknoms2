@@ -2,17 +2,7 @@
 The very best application in the world for feeding your members in an organized and predictable way.
 
 ## Local installation
-This project is locally installed using [vagrant](https://www.vagrantup.com/) and [laravel homestead](http://laravel.com/docs/5.1/homestead). Vagrant provides an super easy way to setup a local virtual machine with the perfect environment for running bolknoms.
-
-1. Install [vagrant](https://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/) if not installed already.
-1. Clone this repository `git clone git@github.com:debolk/bolknoms2.git`.
-1. Install the server-side dependencies using [Composer](https://getcomposer.org/): `php composer.phar install`.
-1. Install [node](https://nodejs.org/en/). Install the local dependencies `npm install` and compile all assets by executing the commands in package.json.
-1. Run `vagrant up` in the directory in which you've cloned bolknoms.
-1. In the project folder, copy `.env.example` to `.env` and fill in the details you require.
-1. Connect to the VM using `vagrant ssh`. Open the project folder (`cd /home/vagrant/bolknoms2`) and run all migrations `php artisan migrate` and `php artisan key:generate`.
-1. Point http://bolknoms.test to the IP address in the `Homestead.yaml` file. On Linux, you usually add the line `192.168.10.10    bolknoms.test` to the `/etc/hosts` file
-1. Open [http://bolknoms.test/](http://bolknoms.test/) in your browser.
+Local installation is done as with any plain Laravel project. Use [Homestead](https://laravel.com/docs/6.x/homestead) or [Valet](https://laravel.com/docs/6.x/valet) to run the project.
 
 ### Next steps that are probably useful
 1. Opening the administration panel of bolknoms requires board-level permissions. Using Gosa, you can add yourself temporarily(!) to the group "oauth-test". This requires that you have ICTcom-level access or above. Adding your account to this group will grant you access to all OAuth-protected resources regardless of the permission level. Use it for testing on your local machine and remove yourself from the group when done.

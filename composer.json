@@ -27,8 +27,7 @@
         "guzzlehttp/guzzle": "~6.3",
         "doctrine/dbal": "~2.6",
         "league/fractal": "~0.17",
-        "bugsnag/bugsnag-laravel": "^2.0",
-        "laravel/homestead": "^10.1"
+        "bugsnag/bugsnag-laravel": "^2.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
