@@ -61,7 +61,7 @@ window.App = {
      * @return {undefined}
      */
     fatalError: function (error) {
-        error = JSON.parse(error.response);
+        error = JSON.parse(error.responseText);
         App.showNotification(error.error_details);
     }
 };
