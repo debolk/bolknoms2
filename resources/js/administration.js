@@ -148,38 +148,31 @@ window.Administration = {
         var user_id = button.attr('data-id');
         var existing_handicap = button.attr('data-handicap');
 
-        Swal.fire({
-            title: 'Dieet instellen',
-            text: 'Specificeer dieetwensen zo exact en duidelijk mogelijk',
-            type: 'input',
-            showCancelButton: true,
-            closeOnConfirm: true,
-            inputValue: existing_handicap,
-        }, function(new_handicap) {
-            // Abort if cancel is clicked
-            if (new_handicap === false) {
-                return;
-            }
+        var new_handicap = prompt('Specificeer dieetwensen zo exact en duidelijk mogelijk');
 
-            // Abort if handicap is unchanged
-            if (existing_handicap === new_handicap) {
-                return;
-            }
+        // Abort if cancel is clicked
+        if (new_handicap === false) {
+            return;
+        }
 
-            // Update server
-            $.ajax({
-                type: 'POST',
-                url: '/administratie/gebruikers/'+user_id+'/handicap',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    handicap: new_handicap
-                }),
-                dataType: 'html',
-                success: function(html){
-                    $(button.parents('tr')[0]).replaceWith(html);
-                },
-                error: App.fatalError,
-            });
+        // Abort if handicap is unchanged
+        if (existing_handicap === new_handicap) {
+            return;
+        }
+
+        // Update server
+        $.ajax({
+            type: 'POST',
+            url: '/administratie/gebruikers/'+user_id+'/handicap',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                handicap: new_handicap
+            }),
+            dataType: 'html',
+            success: function(html){
+                $(button.parents('tr')[0]).replaceWith(html);
+            },
+            error: App.fatalError,
         });
     },
 
