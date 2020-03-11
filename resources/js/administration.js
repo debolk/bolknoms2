@@ -150,11 +150,6 @@ window.Administration = {
 
         var new_handicap = prompt('Specificeer dieetwensen zo exact en duidelijk mogelijk');
 
-        // Abort if cancel is clicked
-        if (new_handicap === false) {
-            return;
-        }
-
         // Abort if handicap is unchanged
         if (existing_handicap === new_handicap) {
             return;
