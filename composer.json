@@ -20,22 +20,23 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.2.5",
         "bugsnag/bugsnag-laravel": "^2.0",
         "doctrine/dbal": "~2.6",
         "fideloper/proxy": "^4.0",
+        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "~6.3",
-        "laravel/framework": "^6.2",
+        "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "league/fractal": "~0.17",
-        "nunomaduro/larastan": "^0.6.1"
+        "nunomaduro/larastan": "^0.6"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "^1.7",
         "barryvdh/laravel-debugbar": "^3.1",
-        "facade/ignition": "^1.4",
-        "nunomaduro/collision": "^3.0"
+        "facade/ignition": "^2.0",
+        "nunomaduro/collision": "^4.1"
     },
     "config": {
         "optimize-autoloader": true,
