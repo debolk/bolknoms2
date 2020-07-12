@@ -10,7 +10,7 @@ class TrustProxies extends Middleware
     /**
      * The trusted proxies for this application.
      *
-     * @var array|string
+     * @var array|string|null
      */
     protected $proxies = [
         '10.99.1.16', // nginx.i.bolkhuis.nl
