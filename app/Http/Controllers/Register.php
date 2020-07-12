@@ -12,6 +12,7 @@ use App\Services\UserBlockedException;
 use App\Services\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Log;
 use Validator;
@@ -41,7 +42,11 @@ class Register extends Controller
         return view('register/index', $data);
     }
 
-    public function aanmelden(Request $request): mixed
+    /**
+     * Register a user for a meal
+     * @param  Request $request
+     */
+    public function aanmelden(Request $request): JsonResponse
     {
         $data = $request->all();
 
@@ -64,7 +69,7 @@ class Register extends Controller
         // Create registration
         try {
             $registration = with(new RegisterService($data, $this->oauth->user()))->execute();
-            return response(null, 204);
+            return response()->json([], 204);
         } catch (ModelNotFoundException $e) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd waarvoor je je probeert aan te melden bestaat niet');
         } catch (ValidationException $e) {
@@ -81,7 +86,7 @@ class Register extends Controller
     /**
      * Unsubscribe a user from a meal
      */
-    public function afmelden(Request $request): mixed
+    public function afmelden(Request $request): JsonResponse
     {
         // Find the meal
         $meal = Meal::where('id', (int) $request->input('meal_id'))->first();
@@ -107,6 +112,6 @@ class Register extends Controller
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }
 
-        return response(null, 204);
+        return response()->json([], 204);
     }
 }
