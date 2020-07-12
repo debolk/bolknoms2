@@ -20,24 +20,16 @@ use Exception;
  */
 class AdminRegisterService extends Service
 {
-    private $data;
-    private $current_user;
+    private array $data;
+    private User $current_user;
 
-    public function __construct($data, $current_user)
+    public function __construct(array $data, User $current_user)
     {
         $this->data = $data;
         $this->current_user = $current_user;
     }
 
-    /**
-     * Register for a meal
-     * @return \App\Models\Registration
-     * @throws \App\Services\ValidationException
-     * @throws \App\Services\UserBlockedException
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @throws \App\Services\DoubleRegistrationException
-     */
-    public function execute()
+    public function execute(): Registration
     {
         // Meal must exist
         $meal = Meal::findOrFail($this->data['meal_id']);
@@ -87,10 +79,8 @@ class AdminRegisterService extends Service
         }
 
         // Add the creating user logging if known
-        if ($this->current_user) {
-            $registration->created_by = $this->current_user->id;
-            $registration->save();
-        }
+        $registration->created_by = $this->current_user->id;
+        $registration->save();
 
         // Log action
         Log::info("Aangemeld: $registration->id|$registration->name");

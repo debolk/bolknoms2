@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class Meal extends ApplicationModel
@@ -27,7 +29,7 @@ class Meal extends ApplicationModel
     /**
      * Scope: all meals open for new registrations
      */
-    public function scopeAvailable($query)
+    public function scopeAvailable(Builder $query): Builder
     {
         return $query->where(function ($q) {
             $q->whereRaw('locked_timestamp > NOW()');
@@ -37,7 +39,7 @@ class Meal extends ApplicationModel
     /**
      * Scope: all meals dated today or later
      */
-    public function scopeUpcoming($query)
+    public function scopeUpcoming(Builder $query): Builder
     {
         return $query->where('meal_timestamp', '>=', date('Y-m-d'))->orderBy('meal_timestamp', 'asc');
     }
@@ -45,7 +47,7 @@ class Meal extends ApplicationModel
     /**
      * Scope: all meals dated before today, ordered in reverse date (last one first)
      */
-    public function scopePrevious($query)
+    public function scopePrevious(Builder $query): Builder
     {
         return $query->where('meal_timestamp', '<', date('Y-m-d'))->orderBy('meal_timestamp', 'desc');
     }
@@ -53,7 +55,7 @@ class Meal extends ApplicationModel
     /**
      * Scope: the meal for today, if any
      */
-    public function scopeToday($query)
+    public function scopeToday(Builder $query): Builder
     {
         return $query->where(DB::raw('DATE_FORMAT(`meal_timestamp`, "%Y-%m-%d")'), '=', date('Y-m-d'));
     }
@@ -135,8 +137,8 @@ class Meal extends ApplicationModel
         return $this->meal_timestamp->format('H:i') === '18:30';
     }
 
-    private $cache;
-    private $registrationTimestamps;
+    private array $cache;
+    private Collection $registrationTimestamps;
 
     public function registrationsBefore(\Carbon\Carbon $timestamp): int
     {

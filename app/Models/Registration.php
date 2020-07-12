@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Meal;
 use App\Models\User;
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class Registration extends ApplicationModel
 {
@@ -52,7 +53,7 @@ class Registration extends ApplicationModel
     /**
      * Scope: all confirmed registrations
      */
-    public function scopeConfirmed($query)
+    public function scopeConfirmed(Builder $query): Builder
     {
         return $query->where('confirmed', '=', true);
     }
@@ -60,7 +61,7 @@ class Registration extends ApplicationModel
     /**
      * Scope: all unconfirmed registrations
      */
-    public function scopeUnconfirmed($query)
+    public function scopeUnconfirmed(Builder $query): Builder
     {
         return $query->where('confirmed', '=', false);
     }

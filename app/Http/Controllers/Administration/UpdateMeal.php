@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\UpdateMealService;
 use App\Services\ValidationException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class UpdateMeal extends Controller
     /**
      * Shows the page for editing a new meal
      */
-    public function edit($id)
+    public function edit(int $id): View
     {
         $meal = Meal::find($id);
         if (!$meal) {
@@ -29,7 +30,7 @@ class UpdateMeal extends Controller
      * Processes the edit meal form to update a meal
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(string $id, Request $request)
+    public function update(int $id, Request $request)
     {
         $meal = Meal::where('id', $id)->first();
         if (!$meal) {

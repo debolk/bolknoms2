@@ -19,14 +19,10 @@ use Validator;
  */
 class RegisterService extends Service
 {
-    private $data;
-    private $current_user;
+    private array $data;
+    private ?User $current_user;
 
-    /**
-     * Set the Service
-     * @param array $data
-     */
-    public function __construct($data, $current_user)
+    public function __construct(array $data, ?User $current_user)
     {
         $this->data = $data;
         $this->current_user = $current_user;
@@ -34,12 +30,6 @@ class RegisterService extends Service
 
     /**
      * Register for a meal
-     * @throws \App\Services\MealDeadlinePassedException
-     * @throws \App\Services\ValidationException
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @throws \App\Services\UserBlockedException
-     * @throws \App\Services\DoubleRegistrationException
-     * @return \App\Models\Registration
      */
     public function execute(): Registration
     {

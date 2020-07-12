@@ -7,6 +7,7 @@ use App\Http\Helpers\ProfilePicture;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
@@ -15,7 +16,7 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    protected $oauth;
+    protected OAuth $oauth;
 
     /**
      * Common setup to all controllers
@@ -27,11 +28,8 @@ class Controller extends BaseController
 
     /**
      * Show a user-friendly error page
-     * @param  integer  $status  http status code
-     * @param  string   $message error message to display
-     * @return \Illuminate\Http\Response
      */
-    protected function userFriendlyError($status, $message)
+    protected function userFriendlyError(int $status, string $message): Response
     {
         return response(view('layouts/master', [
             'content' => view('errors/' . $status, ['code' => $message]),

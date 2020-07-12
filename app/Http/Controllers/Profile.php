@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -20,7 +21,7 @@ class Profile extends Controller
     /**
      * Overwrite the handicap of a user
      */
-    public function setHandicap(Request $request)
+    public function setHandicap(Request $request): JsonResponse
     {
         $user = $this->oauth->user();
         if (!$user) {
@@ -40,7 +41,7 @@ class Profile extends Controller
                 'was' => $existingHandicap,
                 'changed_by' => $user->id,
             ]);
-            return response()->noContent();
+            return response()->json([], 204);
         } else {
             return response()->json([
                 'error' => 'handicap_update_failed',

@@ -12,7 +12,10 @@ use App\Services\MealDeadlinePassedException;
 
 class Confirm extends Controller
 {
-    public function confirm($id, $salt)
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\View
+     */
+    public function confirm(string $id, string $salt)
     {
         $registration = Registration::where('id', $id)->first();
         if (!$registration) {
