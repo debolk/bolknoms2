@@ -8,6 +8,7 @@ use App\Models\User;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Log;
@@ -197,9 +198,8 @@ class OAuth
 
     /**
      * Redirect the client to the authorisation server to login
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function toAuthorisationServer($original_route)
+    public function toAuthorisationServer(string $original_route): RedirectResponse
     {
         // Store the URL we attempt to visit
         Session::put('oauth.goal', $original_route);
@@ -242,7 +242,7 @@ class OAuth
      * Logout the current user, optionally showing a message popup
      * @param  string $message optional
      */
-    public function logout(string $message = 'Je bent uitgelogd')
+    public function logout(string $message = 'Je bent uitgelogd'): void
     {
         $this->purgeSession();
 
@@ -331,7 +331,7 @@ class OAuth
         abort($status_code, $technical);
     }
 
-    private function purgeSession()
+    private function purgeSession(): void
     {
         Session::remove('oauth');
         Session::remove('oauth.state');

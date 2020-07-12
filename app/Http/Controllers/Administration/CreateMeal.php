@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\CreateMealService;
 use App\Services\ValidationException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class CreateMeal extends Controller
@@ -13,7 +14,7 @@ class CreateMeal extends Controller
     /**
      * Shows the page for creating a new meal
      */
-    public function index()
+    public function index(): View
     {
         return view('administration/meal/nieuwe_maaltijd', ['meal' => new Meal()]);
     }

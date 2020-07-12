@@ -10,6 +10,7 @@ use App\Services\MealDeadlinePassedException;
 use App\Services\RegisterService;
 use App\Services\UserBlockedException;
 use App\Services\ValidationException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Log;
@@ -19,9 +20,8 @@ class Register extends Controller
 {
     /**
       * Show the index that allows users to quickly register for the upcoming meal
-      * @return \Illuminate\Contracts\View\View
       */
-    public function index()
+    public function index(): View
     {
         $data = [];
 
@@ -41,7 +41,7 @@ class Register extends Controller
         return view('register/index', $data);
     }
 
-    public function aanmelden(Request $request)
+    public function aanmelden(Request $request): mixed
     {
         $data = $request->all();
 
@@ -81,7 +81,7 @@ class Register extends Controller
     /**
      * Unsubscribe a user from a meal
      */
-    public function afmelden(Request $request)
+    public function afmelden(Request $request): mixed
     {
         // Find the meal
         $meal = Meal::where('id', (int) $request->input('meal_id'))->first();

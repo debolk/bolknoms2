@@ -11,7 +11,7 @@ class Vacation extends ApplicationModel
     protected $fillable = ['start', 'end'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'start', 'end'];
 
-    public function span()
+    public function span(): string
     {
         $start = $this->start->formatLocalized('%e %B %Y');
         $end = $this->end->formatLocalized('%e %B %Y');

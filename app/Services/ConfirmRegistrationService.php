@@ -10,10 +10,10 @@ use Exception;
 
 class ConfirmRegistrationService extends Service
 {
-    private $registration;
-    private $salt;
+    private Registration $registration;
+    private string $salt;
 
-    public function __construct(Registration $registration, $salt)
+    public function __construct(Registration $registration, string $salt)
     {
         $this->registration = $registration;
         $this->salt = $salt;
@@ -21,12 +21,8 @@ class ConfirmRegistrationService extends Service
 
     /**
      * Confirm a registration
-     * @return \App\Models\Meal|null the newly created meal
-     * @throws SaltMismatchException
-     * @throws MealDeadlinePassedException
-     * @return ?Registration
      */
-    public function execute()
+    public function execute(): ?Registration
     {
         // Salt must match
         if ($this->registration->salt !== $this->salt) {

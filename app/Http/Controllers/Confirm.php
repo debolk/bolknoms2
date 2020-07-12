@@ -12,7 +12,7 @@ use App\Services\MealDeadlinePassedException;
 
 class Confirm extends Controller
 {
-    public function confirm($id, $salt)
+    public function confirm(string $id, string $salt): mixed
     {
         $registration = Registration::where('id', $id)->first();
         if (!$registration) {

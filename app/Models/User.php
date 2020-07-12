@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use DB;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class User extends ApplicationModel
 {
-    public function registrations()
+    public function registrations(): HasMany
     {
         return $this->hasMany('App\Models\Registration')->orderBy('name');
     }
@@ -29,9 +31,8 @@ class User extends ApplicationModel
 
     /**
      * Returns a list of dates on which you've joined a meal
-     * @return \Illuminate\Support\Collection
      */
-    public function dateList()
+    public function dateList(): Collection
     {
         return DB::table('registrations')
             ->select('meals.meal_timestamp')

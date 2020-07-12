@@ -2,25 +2,27 @@
 
 namespace App\Mail;
 
+use App\Models\Meal;
+use App\Models\Registration;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class MealDestroyed extends Mailable
 {
     use Queueable;
     use SerializesModels;
 
-    private $meal;
-    private $registration;
+    private Meal $meal;
+    private Registration $registration;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($meal, $registration)
+    public function __construct(Meal $meal, Registration $registration)
     {
         $this->meal = $meal;
         $this->registration = $registration;

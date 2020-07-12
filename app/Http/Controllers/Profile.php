@@ -20,7 +20,7 @@ class Profile extends Controller
     /**
      * Overwrite the handicap of a user
      */
-    public function setHandicap(Request $request)
+    public function setHandicap(Request $request): mixed
     {
         $user = $this->oauth->user();
         if (!$user) {

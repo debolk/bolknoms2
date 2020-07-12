@@ -14,7 +14,7 @@ class GenerateMeals extends Command
     protected $signature = 'meals:generate';
     protected $description = 'Generate the meals for next week';
 
-    public function handle()
+    public function handle(): int
     {
         $date = Carbon::parse('next sunday');
 
@@ -22,6 +22,8 @@ class GenerateMeals extends Command
             $date = $date->addDay();
             $this->createMeal($date);
         }
+
+        return 0;
     }
 
     private function createMeal(CarbonInterface $date): void
