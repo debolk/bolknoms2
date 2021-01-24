@@ -34,7 +34,7 @@
     },
     "require-dev": {
         "filp/whoops": "~2.0",
-        "fzaninotto/faker": "^1.7",
+        "fakerphp/faker": "^1.13",
         "barryvdh/laravel-debugbar": "^3.1",
         "nunomaduro/collision": "^5.0"
     },
