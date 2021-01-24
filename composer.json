@@ -22,7 +22,7 @@
     "require": {
         "php": "^7.2.5",
         "bugsnag/bugsnag-laravel": "^2.0",
-        "doctrine/dbal": "~2.6",
+        "doctrine/dbal": "^3.0",
         "facade/ignition": "^2.3.6",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
