@@ -12,7 +12,7 @@ function update_code {
     git pull --ff-only origin
     composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
     npm install
-    npm run prod
+    npm run production
     php artisan config:cache
     php artisan route:cache
     php artisan up
