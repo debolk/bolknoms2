@@ -19,5 +19,5 @@ function update_code {
     exit
 }
 
-ssh jakob@bolknoms.i.bolkhuis.nl "$(typeset -f); update_code"
+ssh jakob@10.99.1.24 "$(typeset -f); update_code"
 echo "Done"
