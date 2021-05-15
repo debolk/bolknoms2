@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+set -e
 
 function update_code {
     cd /srv/bolknoms2/
