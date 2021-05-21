@@ -4,7 +4,6 @@ namespace App\Http\Helpers;
 
 use App\Http\Helpers\OAuth;
 use App\Models\User;
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
