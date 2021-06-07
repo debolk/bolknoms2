@@ -38,8 +38,8 @@ class MealDestroyed extends Mailable
         $data = ['registration' => $this->registration, 'meal' => $this->meal];
 
         return $this->to($this->registration->email, $this->registration->name);
-                    ->replyTo(config('mail.reply-to.mail'), config('mail.reply-to.name'));
-                    ->subject("Maaltijd " . $this->meal->longDate() . ' gaat niet door');
+                    ->replyTo(config('mail.reply-to.mail'), config('mail.reply-to.name'))
+                    ->subject("Maaltijd " . $this->meal->longDate() . ' gaat niet door')
                     ->view('mails/meal_is_destroyed/html', $data)
                     ->text('mails/meal_is_destroyed/text', $data);
     }
