@@ -27,11 +27,10 @@ class RegistrationConfirmation extends Mailable
      */
     public function build()
     {
-        $this->to($this->registration->email, $this->registration->name);
-        $this->replyTo(config('mail.reply-to.mail'), config('mail.reply-to.name'));
-        $this->subject("Bevestigen aanmelding maaltijd " . $this->registration->longDate());
-
-        return $this->view('mails/confirm_registration/html', ['registration' => $this->registration])
+        return $this->to($this->registration->email, $this->registration->name)
+                    ->replyTo(config('mail.reply-to.mail'), config('mail.reply-to.name'));
+                    ->subject("Bevestigen aanmelding maaltijd " . $this->registration->longDate());
+                    ->view('mails/confirm_registration/html', ['registration' => $this->registration])
                     ->text('mails/confirm_registration/text', ['registration' => $this->registration]);
     }
 }
