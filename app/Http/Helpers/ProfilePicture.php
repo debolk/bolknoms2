@@ -97,6 +97,6 @@ class ProfilePicture
      */
     private function picturePathFor(User $user)
     {
-        return base_path() . '/uploads/profile_pictures/' . $user->id;
+        return storage_path('app/public/profile_pictures/' . $user->id);
     }
 }
