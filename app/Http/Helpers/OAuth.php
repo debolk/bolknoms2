@@ -5,7 +5,6 @@ namespace App\Http\Helpers;
 use App;
 use App\Http\Helpers\ProfilePicture;
 use App\Models\User;
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\RedirectResponse;
@@ -91,7 +90,7 @@ class OAuth
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
         } catch (\Exception $e) {
-            Bugsnag::notifyException($e);
+            app('sentry')->captureException($e);
             $this->fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
         }
 
@@ -111,7 +110,7 @@ class OAuth
             $user->name = $user_data->name;
             $user->email = $user_data->email;
         } catch (\Exception $e) {
-            Bugsnag::notifyException($e);
+            app('sentry')->captureException($e);
             // Ignore, we process missing information below
         }
 
@@ -176,7 +175,7 @@ class OAuth
             }
             throw $exception;
         } catch (\Exception $e) {
-            Bugsnag::notifyException($e);
+            app('sentry')->captureException($e);
             $this->fatalError('cannot refresh token', $e->getMessage(), 502);
         }
 
@@ -320,9 +319,7 @@ class OAuth
             Log::error($logged_error);
         }
 
-        Bugsnag::notifyError('OAuthFatalError', $technical, function ($report) use ($technical, $logged_error,$status_code) {
-            $report->setMetaData(compact('technical', 'logged_error', 'status_code'));
-        });
+        app('sentry')->captureMessage("OAuthFatalError: {$technical} {$logged_error}");
 
         // Log out the current user
         $this->purgeSession();
