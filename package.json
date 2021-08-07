@@ -9,14 +9,14 @@
     },
     "devDependencies": {
         "cross-env": "^7.0.3",
-        "laravel-mix": "^6.0.25",
-        "postcss": "^8.3.5",
+        "laravel-mix": "^6.0.27",
+        "postcss": "^8.3.6",
         "resolve-url-loader": "^4.0.0",
-        "sass": "^1.35.1",
+        "sass": "^1.37.5",
         "sass-loader": "^12.1.0",
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
-        "sweetalert2": "^11.0.18"
+        "sweetalert2": "^11.1.2"
     }
 }
