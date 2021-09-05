@@ -92,6 +92,15 @@ class Meal extends ApplicationModel
         return $this->locked_timestamp > Carbon::now();
     }
 
+    public function capacityAvailable(): bool
+    {
+        if ($this->capacity === null) {
+            return true;
+        }
+
+        return $this->registrations()->count() + 1 <= $this->capacity;
+    }
+
     /**
      * Returns whether a meal is today
      * @return boolean
