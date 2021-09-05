@@ -22,6 +22,11 @@
             <input type="text" value="{{ $meal->event }}" name="event">
         </p>
         <p>
+            <label class="label" for="capacity">Capaciteit</label><br>
+            <input type="text" placeholder="" name="capacity" value="{{ $meal->capacity }}">
+            <br><small>Laat leeg om geen limiet te hanteren.</small>
+        </p>
+        <p>
             <input type="submit" value="Wijzigingen opslaan" />
             of <a href="{{ action('Administration\ShowMeal@show', $meal->id) }}">niet opslaan</a>
         </p>

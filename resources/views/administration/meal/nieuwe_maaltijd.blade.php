@@ -21,6 +21,11 @@
             <input type="text" placeholder="" name="event" value="{{ old('event', null) }}">
         </p>
         <p>
+            <label class="label" for="capacity">Capaciteit</label><br>
+            <input type="text" placeholder="" name="capacity" value="{{ old('capacity', null) }}">
+            <br><small>Laat leeg om geen limiet te hanteren.</small>
+        </p>
+        <p>
             <input type="submit" value="Maaltijd toevoegen" />
             of <a href="{{ action('Administration\Meals@index')}}">niet toevoegen</a>
         </p>
