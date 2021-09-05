@@ -6,6 +6,7 @@ use App\Models\Meal;
 use App\Models\Registration;
 use App\Services\DeregisterService;
 use App\Services\DoubleRegistrationException;
+use App\Services\MealCapacityExceededException;
 use App\Services\MealDeadlinePassedException;
 use App\Services\RegisterService;
 use App\Services\UserBlockedException;
@@ -80,6 +81,8 @@ class Register extends Controller
             return $this->ajaxError(404, 'user_blocked', 'Je bent geblokkeerd op bolknoms. Je kunt je niet aanmelden voor maaltijden.');
         } catch (DoubleRegistrationException $e) {
             return $this->ajaxError(400, 'double_registration', 'Je bent al aangemeld voor deze maaltijd.');
+        } catch (MealCapacityExceededException $e) {
+            return $this->ajaxError(400, 'capacity_exceeded', 'De limiet voor het aantal eters is bereikt.');
         }
     }
 

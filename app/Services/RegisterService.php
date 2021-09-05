@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Mail;
 use Log;
 use Validator;
+use App\Services\MealCapacityExceededException;
 
 /**
  * RegisterService adds a new Registration to a Meal
@@ -39,6 +40,11 @@ class RegisterService extends Service
         // Meal must be open for registrations, unless we allow ignoring this requirement
         if (!$meal->open_for_registrations()) {
             throw new MealDeadlinePassedException();
+        }
+
+        // Meal capacity must not have been exceeded
+        if (!$meal->capacityAvailable()) {
+            throw new MealCapacityExceededException();
         }
 
         // Submitted data must be complete and valid

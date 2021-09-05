@@ -13,7 +13,7 @@ class Meal extends ApplicationModel
     /**
      * All attributes that can be mass-assigned
      */
-    protected $fillable = ['event', 'promoted', 'meal_timestamp', 'locked_timestamp'];
+    protected $fillable = ['event', 'promoted', 'meal_timestamp', 'locked_timestamp', 'capacity'];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'meal_timestamp', 'locked_timestamp'];
 
@@ -90,6 +90,15 @@ class Meal extends ApplicationModel
     public function open_for_registrations()
     {
         return $this->locked_timestamp > Carbon::now();
+    }
+
+    public function capacityAvailable(): bool
+    {
+        if ($this->capacity === null) {
+            return true;
+        }
+
+        return $this->registrations()->count() + 1 <= $this->capacity;
     }
 
     /**

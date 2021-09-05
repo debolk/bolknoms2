@@ -31,5 +31,14 @@
             <i class="fa fa-fw fa-cutlery"></i>
             Eten om {{ $meal->meal_timestamp->format('H:i') }} uur
         </span>
+        <br>
+        <span class="{{ $meal->capacity ? 'attention' : '' }}">
+            <i class="fa fa-fw fa-list"></i>
+            @if ($meal->capacity !== null)
+                Maximaal {{ $meal->capacity }} eters
+            @else
+                Geen limiet aantal eters
+            @endif
+        </span>
     </div>
 </div>
