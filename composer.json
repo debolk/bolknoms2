@@ -34,7 +34,7 @@
         "fakerphp/faker": "^1.13",
         "filp/whoops": "~2.0",
         "nunomaduro/collision": "^6.1",
-        "nunomaduro/larastan": "^0.7.0",
+        "nunomaduro/larastan": "^2.0",
         "roave/security-advisories": "dev-latest"
     },
     "config": {
