@@ -16,12 +16,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class OAuth
 {
     /**
-     * Session storage to use
-     * @var \Illuminate\Support\Facades\Session
-     */
-    private $session;
-
-    /**
      * Return whether we have a valid session
      * @return boolean
      */

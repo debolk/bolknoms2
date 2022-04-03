@@ -6,7 +6,6 @@ use App\Http\Helpers\OAuth;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class ProfilePicture
 {
@@ -32,7 +31,7 @@ class ProfilePicture
             $token = $this->oauth->getAccessToken();
             $url = 'https://people.debolk.nl/persons/' . $user->username . '/photo/256/256?access_token=' . $token;
             $file = fopen($path, 'w');
-            $response = $client->get($url, ['sink' => $file]);
+            $client->get($url, ['sink' => $file]);
         } catch (\Exception $exception) {
             // Having a exception that returns a response, still creates the file on disk
             // so we clean up it here
@@ -69,6 +68,7 @@ class ProfilePicture
         }
 
         // If the file still doesn't exist, return the swedish chef
+        // @phpstan-ignore-next-line because static analysis does not understand the dynamic image creation
         if (File::exists($path)) {
             return File::get($path);
         } else {
