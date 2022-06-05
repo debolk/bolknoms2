@@ -30,10 +30,10 @@ class CreateMeal extends Controller
 
         // Use todays date as defaults if none are given
         if (empty($data['meal_timestamp'])) {
-            $data['meal_timestamp'] = date('d-m-Y') . ' 18:30';
+            $data['meal_timestamp'] = date('d-m-Y').' 18:30';
         }
         if (empty($data['locked_timestamp'])) {
-            $data['locked_timestamp'] = date('d-m-Y') . ' 15:00';
+            $data['locked_timestamp'] = date('d-m-Y').' 15:00';
         }
 
         // Set the event null if none is passed
@@ -45,12 +45,12 @@ class CreateMeal extends Controller
         try {
             $meal = with(new CreateMealService($data))->execute();
         } catch (ValidationException $e) {
-            return redirect(action('Administration\CreateMeal@index'))->withErrors($e->messages())->withInput();
+            return redirect(action([self::class, 'index']))->withErrors($e->messages())->withInput();
         }
 
         if ($meal) {
-            return redirect(action('Administration\Meals@index'))
-                    ->with('action_result', ['status' => 'success', 'message' => 'Maaltijd toegevoegd op ' . $meal]);
+            return redirect(action([\App\Http\Controllers\Administration\Meals::class, 'index']))
+                    ->with('action_result', ['status' => 'success', 'message' => 'Maaltijd toegevoegd op '.$meal]);
         } else {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden aangemaakt: onbekende fout');
         }

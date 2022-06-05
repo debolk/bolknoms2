@@ -29,7 +29,7 @@ class ProfilePicture
         try {
             $client = new Client();
             $token = $this->oauth->getAccessToken();
-            $url = 'https://people.debolk.nl/persons/' . $user->username . '/photo/256/256?access_token=' . $token;
+            $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$token;
             $file = fopen($path, 'w');
             $client->get($url, ['sink' => $file]);
         } catch (\Exception $exception) {
@@ -38,13 +38,14 @@ class ProfilePicture
             if (file_exists($path)) {
                 unlink($path);
             }
+
             return;
         }
 
         // Check the mimetype of the resulting image
         // to make sure we have a valid image
         $mimeType = mime_content_type($path) ?: '';
-        if (file_exists($path) && substr($mimeType, 0, 6) !== "image/") {
+        if (file_exists($path) && substr($mimeType, 0, 6) !== 'image/') {
             unlink($path);
         }
     }
@@ -72,7 +73,7 @@ class ProfilePicture
         if (File::exists($path)) {
             return File::get($path);
         } else {
-            return File::get(public_path() . '/images/swedishchef.jpg');
+            return File::get(public_path().'/images/swedishchef.jpg');
         }
     }
 
@@ -83,7 +84,7 @@ class ProfilePicture
     {
         $path = $this->picturePathFor($user);
 
-        if (!File::exists($path)) {
+        if (! File::exists($path)) {
             $path = public_path('images/swedishchef.jpg');
         }
 
@@ -97,6 +98,6 @@ class ProfilePicture
      */
     private function picturePathFor(User $user)
     {
-        return storage_path('app/public/profile_pictures/' . $user->id);
+        return storage_path('app/public/profile_pictures/'.$user->id);
     }
 }

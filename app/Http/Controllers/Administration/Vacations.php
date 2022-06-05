@@ -13,7 +13,7 @@ class Vacations
     public function index(): View
     {
         return view('administration/vacations/index', [
-            'vacations' => Vacation::orderBy('start', 'desc')->get(),
+            'vacations' => Vacation::orderByDesc('start')->get(),
             'currentVacation' => Vacation::contains(Carbon::now())->first(),
             'upcomingVacation' => Vacation::upcoming()->first(),
         ]);
@@ -23,7 +23,7 @@ class Vacations
     {
         $vacation->delete();
 
-        return back()->with('action_result', [
+        return redirect()->back()->with('action_result', [
             'status' => 'success',
             'message' => 'Vakantie verwijderd',
         ]);
@@ -33,9 +33,9 @@ class Vacations
     {
         $vacation = Vacation::create($request->only('start', 'end'));
 
-        return back()->with('action_result', [
+        return redirect()->back()->with('action_result', [
             'status' => 'success',
-            'message' => 'Vakantie toegevoegd ' . $vacation->span(),
+            'message' => 'Vakantie toegevoegd '.$vacation->span(),
         ]);
     }
 }

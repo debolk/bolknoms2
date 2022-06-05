@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App;
-use App\Http\Helpers\OAuth as OAuthHelper;
 use App\Http\Helpers\ProfilePicture;
 use Illuminate\Http\RedirectResponse;
-use Request;
+use Illuminate\Http\Request;
 
 class OAuth extends Controller
 {
     /**
      * Store the callback
      */
-    public function callback(ProfilePicture $profilePicture): RedirectResponse
+    public function callback(Request $request, ProfilePicture $profilePicture): RedirectResponse
     {
-        $result = $this->oauth->processCallback(Request::all());
+        $result = $this->oauth->processCallback($request->all());
 
         // Update the profile picture for this user
         $user = $this->oauth->user();
@@ -23,7 +21,7 @@ class OAuth extends Controller
             $profilePicture->updatePictureFor($user);
         }
 
-        return redirect($result);
+        return redirect()->to($result);
     }
 
     public function login(): RedirectResponse

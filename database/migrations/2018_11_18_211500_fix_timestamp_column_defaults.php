@@ -23,14 +23,13 @@ class FixTimestampColumnDefaults extends Migration
             'registrations',
             'users',
             'vacations',
-        ])->each(function(string $tableName) {
+        ])->each(function (string $tableName) {
             DB::statement("ALTER TABLE {$tableName}
                 MODIFY created_at TIMESTAMP NULL DEFAULT NULL,
                 MODIFY updated_at TIMESTAMP NULL DEFAULT NULL");
 
             DB::statement("UPDATE {$tableName} SET created_at = NULL WHERE created_at = '0000-00-00 00:00:00'");
             DB::statement("UPDATE {$tableName} SET updated_at = NULL WHERE updated_at = '0000-00-00 00:00:00'");
-
         });
 
         // Re-enable strict dates

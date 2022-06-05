@@ -6,7 +6,7 @@
     <h1>Maaltijden</h1>
 
     <p>
-      <a href="{{ action('Administration\CreateMeal@index') }}">
+      <a href="{{ action([\App\Http\Controllers\Administration\CreateMeal::class, 'index']) }}">
       <i class="fa fa-fw fa-plus"></i>
         Nieuwe maaltijd toevoegen
       </a>

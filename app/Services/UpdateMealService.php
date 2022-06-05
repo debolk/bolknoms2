@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
-use Log;
-use Validator;
 use App\Models\Meal;
 use DateTime;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class UpdateMealService extends Service
 {
     private $meal;
+
     private $data;
 
     /**
@@ -29,7 +30,7 @@ class UpdateMealService extends Service
     {
         // Validate the resulting input
         $validator = Validator::make($this->data, [
-            'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'unique:meals,meal_timestamp,' . $this->meal->id],
+            'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'unique:meals,meal_timestamp,'.$this->meal->id],
             'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'before:meal_timestamp'],
             'capacity' => ['integer', 'min:1'],
         ], [
@@ -50,7 +51,7 @@ class UpdateMealService extends Service
         // Reformat dates for storage in the database
         $mealTime = DateTime::createFromFormat('d-m-Y G:i', $this->data['meal_timestamp']);
         $lockedTime = DateTime::createFromFormat('d-m-Y G:i', $this->data['locked_timestamp']);
-        if (!$mealTime || !$lockedTime) {
+        if (! $mealTime || ! $lockedTime) {
             throw new \Exception('Unparseable timestamp format passed through validation, but could not be parsed');
         }
         $this->data['meal_timestamp'] = $mealTime->format('Y-m-d G:i:00');
@@ -60,6 +61,7 @@ class UpdateMealService extends Service
         $this->meal->update($this->data);
         if ($this->meal->save()) {
             Log::info("Maaltijd geupdate: $this->meal->id|$this->meal->meal_timestamp|$this->meal->event");
+
             return $this->meal;
         } else {
             return null;

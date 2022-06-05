@@ -16,12 +16,13 @@ class Users extends Controller
     public function index()
     {
         $users = User::orderBy('name')->get();
+
         return view('administration/users/index', compact('users'));
     }
 
     /**
      * Update the handicap of a user
-     * @param integer  $id
+     * @param int  $id
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
@@ -37,12 +38,13 @@ class Users extends Controller
             'was' => $existingHandicap,
             'changed_by' => $this->oauth->user()->id,
         ]);
+
         return view('administration/users/_user', compact('user'));
     }
 
     /**
      * Block a user from the system
-     * @param  integer $id
+     * @param  int $id
      * @return \Illuminate\View\View
      */
     public function block($id)
@@ -50,12 +52,13 @@ class Users extends Controller
         $user = User::findOrFail($id);
         $user->blocked = true;
         $user->save();
+
         return view('administration/users/_user', compact('user'));
     }
 
     /**
      * Unblock a user from the system
-     * @param  integer $id
+     * @param  int $id
      * @return \Illuminate\View\View
      */
     public function release($id)
@@ -63,6 +66,7 @@ class Users extends Controller
         $user = User::findOrFail($id);
         $user->blocked = false;
         $user->save();
+
         return view('administration/users/_user', compact('user'));
     }
 }

@@ -3,11 +3,8 @@
 namespace App\Services;
 
 use App\Mail\MealDestroyed;
-use App\Models\Meal;
-use DateTime;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Log;
-use Validator;
 
 class DestroyMealService extends Service
 {
@@ -36,7 +33,7 @@ class DestroyMealService extends Service
         }
 
         // Write loggin
-        Log::info('Maaltijd verwijderd: ' . $this->meal);
+        Log::info('Maaltijd verwijderd: '.$this->meal);
 
         // Remove the meal
         return $this->meal->delete();

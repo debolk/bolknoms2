@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class WhoHasSubscribedWhom extends Migration
 {
@@ -12,7 +12,7 @@ class WhoHasSubscribedWhom extends Migration
      */
     public function up()
     {
-        Schema::table('registrations', function(Blueprint $table) {
+        Schema::table('registrations', function (Blueprint $table) {
             $table->integer('created_by')->nullable();
         });
     }
@@ -24,7 +24,7 @@ class WhoHasSubscribedWhom extends Migration
      */
     public function down()
     {
-        Schema::table('registrations', function(Blueprint $table) {
+        Schema::table('registrations', function (Blueprint $table) {
             $table->dropColumn('created_by');
         });
     }

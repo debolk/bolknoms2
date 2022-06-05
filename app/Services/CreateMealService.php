@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
-use Log;
-use Validator;
-use DateTime;
 use App\Models\Meal;
+use DateTime;
+use Illuminate\Support\Facades\Validator;
 
 class CreateMealService extends Service
 {
@@ -33,16 +32,16 @@ class CreateMealService extends Service
             'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'after:now', 'before:meal_timestamp'],
             'capacity' => ['integer', 'min:1'],
         ], [
-             'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
-             'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
-             'meal_timestamp.after'         => 'Je kunt geen maaltijden aanmaken in het verleden',
-             'meal_timestamp.unique'        => 'Er is al een maaltijd op deze datum en tijd',
-             'locked_timestamp.date_format' => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
-             'locked_timestamp.required'    => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
-             'locked_timestamp.after'       => 'De deadline voor aanmelding mag niet al geweest zijn',
-             'locked_timestamp.before'      => 'De sluitingstijd moet voor het begin van de maaltijd liggen',
-             'capacity.integer'             => 'De capaciteit moet een geheel getal zijn (of leeg)',
-             'capacity.min'                 => 'Capaciteit moet groter zijn dan 0',
+            'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+            'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+            'meal_timestamp.after'         => 'Je kunt geen maaltijden aanmaken in het verleden',
+            'meal_timestamp.unique'        => 'Er is al een maaltijd op deze datum en tijd',
+            'locked_timestamp.date_format' => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+            'locked_timestamp.required'    => 'De ingevulde sluitingstijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
+            'locked_timestamp.after'       => 'De deadline voor aanmelding mag niet al geweest zijn',
+            'locked_timestamp.before'      => 'De sluitingstijd moet voor het begin van de maaltijd liggen',
+            'capacity.integer'             => 'De capaciteit moet een geheel getal zijn (of leeg)',
+            'capacity.min'                 => 'Capaciteit moet groter zijn dan 0',
         ]);
 
         if ($validator->fails()) {
@@ -52,7 +51,7 @@ class CreateMealService extends Service
         // Reformat dates for storage in the database
         $mealTime = DateTime::createFromFormat('d-m-Y G:i', $this->data['meal_timestamp']);
         $lockedTime = DateTime::createFromFormat('d-m-Y G:i', $this->data['locked_timestamp']);
-        if (!$mealTime || !$lockedTime) {
+        if (! $mealTime || ! $lockedTime) {
             throw new \Exception('Unparseable timestamp format passed through validation, but could not be parsed');
         }
         $this->data['meal_timestamp'] = $mealTime->format('Y-m-d G:i:00');

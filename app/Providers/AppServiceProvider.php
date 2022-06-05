@@ -6,7 +6,6 @@ use App\Http\Helpers\Navigation;
 use App\Http\Helpers\OAuth;
 use App\Http\Helpers\ProfilePicture;
 use Illuminate\Support\ServiceProvider;
-use Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // Force correct locale on every boot
-        setlocale(LC_TIME, "nl_NL.utf8");
+        setlocale(LC_TIME, 'nl_NL.utf8');
     }
 
     /**

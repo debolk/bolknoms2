@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\DestroyMealService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class Meals extends Controller
 {
@@ -39,22 +37,22 @@ class Meals extends Controller
     public function verwijder(int $id)
     {
         $meal = Meal::where('id', $id)->first();
-        if (!$meal) {
+        if (! $meal) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
         $date = (string) $meal;
         $destroy = with(new DestroyMealService($meal))->execute();
 
-        if (!$destroy) {
+        if (! $destroy) {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden verwijderd; onbekende fout.');
         }
 
         // Update user
-        return redirect(action('Administration\Meals@index'))
+        return redirect(action([self::class, 'index']))
                 ->with('action_result', [
                     'status' => 'success',
-                    'message' => "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging."
+                    'message' => "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.",
                 ]);
     }
 }

@@ -2,15 +2,14 @@
 
 namespace App\Services;
 
-use Log;
-use Validator;
-use DateTime;
 use App\Models\Registration;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ConfirmRegistrationService extends Service
 {
     private Registration $registration;
+
     private string $salt;
 
     public function __construct(Registration $registration, string $salt)
@@ -36,11 +35,12 @@ class ConfirmRegistrationService extends Service
 
         // Confirm registration
         $this->registration->confirmed = true;
-        if (!$this->registration->save()) {
+        if (! $this->registration->save()) {
             return null;
         }
 
         Log::info("Registration {$this->registration->id} bevestigd");
+
         return $this->registration;
     }
 }

@@ -15,8 +15,9 @@ class ProfilePicture extends Controller
     {
         $user = $this->oauth->user();
         if ($user === null) {
-            return response(null, 404);
+            return response()->noContent(404);
         }
+
         return $this->serveProfilePicture($picture, $user);
     }
 
@@ -26,9 +27,10 @@ class ProfilePicture extends Controller
     public function photoFor(string $username, Picture $picture): Response
     {
         $user = User::where('username', $username)->first();
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
+
         return $this->serveProfilePicture($picture, $user)
                 ->header('Cache-Control', 'public, max-age=604800'); // 1 week
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\OAuth;
-use App\Http\Helpers\ProfilePicture;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -40,7 +39,7 @@ class Controller extends BaseController
     /**
      * Helper function to construct correctly formatted JSON error responses
      * to AJAX requests
-     * @param  integer $httpStatus    HTTP status code to send
+     * @param  int $httpStatus    HTTP status code to send
      * @param  string  $internalError descriptive error code, e.g. meal_not_found
      * @param  string  $message       line of text to explain error state to end users
      * @return \Illuminate\Http\JsonResponse

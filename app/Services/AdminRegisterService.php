@@ -5,10 +5,8 @@ namespace App\Services;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
-use DateTime;
-use Validator;
-use Log;
-use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * AdminRegisterService adds a new Registration to a Meal
@@ -21,6 +19,7 @@ use Exception;
 class AdminRegisterService extends Service
 {
     private array $data;
+
     private User $current_user;
 
     public function __construct(array $data, User $current_user)
@@ -37,12 +36,12 @@ class AdminRegisterService extends Service
         // Submitted data must be complete and valid
         $validator = Validator::make($this->data, [
             'name'    => ['required'],
-            'user_id' => ['exists:users,id']
+            'user_id' => ['exists:users,id'],
         ], [
             'name.required'  => 'Je moet je naam invullen',
             'email.required' => 'Je moet je e-mailadres invullen',
             'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
-            'user_id.exist'  => 'De gevraagde gebruiker is niet bekend'
+            'user_id.exist'  => 'De gevraagde gebruiker is niet bekend',
         ]);
 
         if ($validator->fails()) {

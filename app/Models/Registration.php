@@ -4,11 +4,15 @@ namespace App\Models;
 
 use App\Models\Meal;
 use App\Models\User;
-use DB;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
-class Registration extends ApplicationModel
+class Registration extends Model
 {
+    use SoftDeletes;
+
     /**
      * All properties that can be mass-assigned
      */
@@ -72,7 +76,7 @@ class Registration extends ApplicationModel
      * @param  array  $options
      * @return bool
      */
-    public function save(array $options = array())
+    public function save(array $options = [])
     {
         // Set the salt
         if ($this->salt === null) {
@@ -88,7 +92,7 @@ class Registration extends ApplicationModel
      */
     private static function generateSalt()
     {
-        return substr(str_shuffle(MD5(microtime())), 0, 10);
+        return substr(str_shuffle(md5(microtime())), 0, 10);
     }
 
     /**
@@ -136,7 +140,7 @@ class Registration extends ApplicationModel
         $query->whereNull('registrations.deleted_at');
 
         $query->groupBy('users.id', 'users.name');
-        $query->orderBy('count', 'desc');
+        $query->orderByDesc('count');
 
         return $query;
     }

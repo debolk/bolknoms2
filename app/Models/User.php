@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-use DB;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
-class User extends ApplicationModel
+class User extends Model
 {
+    use SoftDeletes;
+
     public function registrations(): HasMany
     {
-        return $this->hasMany('App\Models\Registration')->orderBy('name');
+        return $this->hasMany(\App\Models\Registration::class)->orderBy('name');
     }
 
     /**

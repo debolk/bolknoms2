@@ -5,11 +5,19 @@ namespace App\Models;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Vacation extends ApplicationModel
+class Vacation extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['start', 'end'];
-    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'start', 'end'];
+
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
+    ];
 
     public function span(): string
     {
@@ -25,7 +33,7 @@ class Vacation extends ApplicationModel
             $date = Carbon::now();
         }
 
-        return $query->orderBy('start', 'asc')->where('start', '>', $date->format('Y-m-d'));
+        return $query->orderBy('start')->where('start', '>', $date->format('Y-m-d'));
     }
 
     public function scopeContains(Builder $query, CarbonInterface $date): Builder

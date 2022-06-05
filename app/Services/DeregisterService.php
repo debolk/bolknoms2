@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Meal;
 use App\Models\Registration;
-use DateTime;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Removes a registration from a meal
@@ -26,7 +24,7 @@ class DeregisterService extends Service
 
     /**
      * Remove a registration from a meal
-     * @return boolean
+     * @return bool
      * @throws MealDeadlinePassedException
      */
     public function execute()
@@ -44,7 +42,7 @@ class DeregisterService extends Service
         $name = $this->registration->name;
 
         // Log action
-        \Log::info("Afgemeld $name (ID: $id) voor $meal (ID: $meal->id)");
+        Log::info("Afgemeld $name (ID: $id) voor $meal (ID: $meal->id)");
 
         // Remove the registration
         return $this->registration->delete();
