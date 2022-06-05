@@ -10,7 +10,7 @@ class User extends ApplicationModel
 {
     public function registrations(): HasMany
     {
-        return $this->hasMany('App\Models\Registration')->orderBy('name');
+        return $this->hasMany(\App\Models\Registration::class)->orderBy('name');
     }
 
     /**

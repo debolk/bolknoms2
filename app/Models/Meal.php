@@ -23,7 +23,7 @@ class Meal extends ApplicationModel
      */
     public function registrations()
     {
-        return $this->hasMany('App\Models\Registration')->orderBy('name');
+        return $this->hasMany(\App\Models\Registration::class)->orderBy('name');
     }
 
     /**
