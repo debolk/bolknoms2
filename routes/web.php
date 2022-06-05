@@ -83,6 +83,6 @@ Route::middleware('web')->group(function () {
 
         // Vacation periods
         Route::resource('vakanties', Administration\Vacations::class, [
-            'names' => 'vacations',]);
+            'names' => 'vacations', ]);
     });
 });

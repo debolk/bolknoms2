@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Models\Meal;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Registration extends ApplicationModel
 {

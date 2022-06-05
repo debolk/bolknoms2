@@ -14,6 +14,7 @@ class Meal extends ApplicationModel
      * All attributes that can be mass-assigned
      */
     protected $fillable = ['event', 'promoted', 'meal_timestamp', 'locked_timestamp', 'capacity'];
+
     protected $casts = [
         'meal_timestamp' => 'datetime',
         'locked_timestamp' => 'datetime',

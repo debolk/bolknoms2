@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Vacation extends ApplicationModel
 {
     protected $fillable = ['start', 'end'];
+
     protected $casts = [
         'start' => 'datetime',
         'end' => 'datetime',

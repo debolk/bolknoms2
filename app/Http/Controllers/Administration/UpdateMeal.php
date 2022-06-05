@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administration;
 
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\UpdateMealService;
@@ -10,6 +9,7 @@ use App\Services\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class UpdateMeal extends Controller
 {
@@ -46,7 +46,7 @@ class UpdateMeal extends Controller
         try {
             $meal = with(new UpdateMealService($meal, $data))->execute();
         } catch (ValidationException $e) {
-            return redirect(action([\App\Http\Controllers\Administration\UpdateMeal::class, 'edit'], $meal->id))->withErrors($e->messages())->withInput();
+            return redirect(action([self::class, 'edit'], $meal->id))->withErrors($e->messages())->withInput();
         }
 
         if (! $meal) {

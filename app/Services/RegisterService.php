@@ -9,8 +9,8 @@ use App\Models\User;
 use App\Services\MealCapacityExceededException;
 use DateTime;
 use Exception;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 /**

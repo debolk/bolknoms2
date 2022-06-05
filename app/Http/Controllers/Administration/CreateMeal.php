@@ -45,7 +45,7 @@ class CreateMeal extends Controller
         try {
             $meal = with(new CreateMealService($data))->execute();
         } catch (ValidationException $e) {
-            return redirect(action([\App\Http\Controllers\Administration\CreateMeal::class, 'index']))->withErrors($e->messages())->withInput();
+            return redirect(action([self::class, 'index']))->withErrors($e->messages())->withInput();
         }
 
         if ($meal) {

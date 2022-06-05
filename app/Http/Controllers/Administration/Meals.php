@@ -51,7 +51,7 @@ class Meals extends Controller
         }
 
         // Update user
-        return redirect(action([\App\Http\Controllers\Administration\Meals::class, 'index']))
+        return redirect(action([self::class, 'index']))
                 ->with('action_result', [
                     'status' => 'success',
                     'message' => "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.",
