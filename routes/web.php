@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'web'], function () {
+Route::middleware('web')->group(function () {
 
     // Register for meals
     Route::get('/', 'Register@index');
@@ -24,7 +24,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/photo/{username}', 'ProfilePicture@photoFor')->name('photo.src');
 
     // Pages which require member-level authorisation
-    Route::group(['middleware' => ['oauth']], function () {
+    Route::middleware('oauth')->group(function () {
 
         // Picture of the current user
         Route::get('/photo', 'ProfilePicture@photo');
@@ -38,13 +38,13 @@ Route::group(['middleware' => 'web'], function () {
     });
 
     // Administration pages
-    Route::group(['prefix' => '/administratie/', 'middleware' => ['oauth', 'board'], 'namespace' => 'Administration'], function () {
+    Route::prefix('/administratie/')->middleware('oauth', 'board')->namespace('Administration')->group(function () {
 
         // Administration dashboard
         Route::get('', 'Dashboard@index');
 
         // Managing meals
-        Route::group(['prefix' => '/maaltijden/'], function () {
+        Route::prefix('/maaltijden/')->group(function () {
             // List of meals
             Route::get('', 'Meals@index');
             Route::get('/verwijder/{id}', 'Meals@verwijder');
@@ -64,7 +64,7 @@ Route::group(['middleware' => 'web'], function () {
         });
 
         // Managing users
-        Route::group(['prefix' => '/gebruikers/'], function () {
+        Route::prefix('/gebruikers/')->group(function () {
             Route::get('', 'Users@index');
             Route::post('{id}/handicap', 'Users@setHandicap');
             Route::post('{id}/blokkeren', 'Users@block');
@@ -73,9 +73,6 @@ Route::group(['middleware' => 'web'], function () {
 
         // Vacation periods
         Route::resource('vakanties', 'Vacations', [
-            'only' => ['index', 'destroy', 'store'],
-            'names' => 'vacations',
-            'parameters' => ['vakanties' => 'vacation'],
-        ]);
+            'names' => 'vacations',]);
     });
 });
