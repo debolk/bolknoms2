@@ -24,8 +24,8 @@ class ShowMeal extends Controller
     public function show(int $id): View
     {
         $meal = Meal::find($id);
-        if (!$meal) {
-            App::abort(404, "Maaltijd niet gevonden");
+        if (! $meal) {
+            App::abort(404, 'Maaltijd niet gevonden');
         }
 
         return view('administration/meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]);
@@ -42,7 +42,7 @@ class ShowMeal extends Controller
         // Populate request from data
         if ($request->has('user_id')) {
             $user = User::where('id', $request->user_id)->first();
-            if (!$user) {
+            if (! $user) {
                 return response()->json(['error' => 'user_not_found', 'error_details' => 'Gebruiker bestaat niet'], 400);
             }
             $data['user_id'] = $user->id;
@@ -89,7 +89,7 @@ class ShowMeal extends Controller
     {
         // Find registration
         $registration = Registration::find($id);
-        if (!$registration) {
+        if (! $registration) {
             return response()->json([
                 'error' => 'registration_not_existent',
                 'error_details' => 'Deze registratie bestaat niet',
@@ -98,6 +98,7 @@ class ShowMeal extends Controller
 
         // Deregister from the meal
         with(new AdminDeregisterService($registration))->execute();
+
         return response(null, 204);
     }
 }

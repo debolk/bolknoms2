@@ -32,7 +32,7 @@ class Controller extends BaseController
     protected function userFriendlyError(int $status, string $message): Response
     {
         return response(view('layouts/master', [
-            'content' => view('errors/' . $status, ['code' => $message]),
+            'content' => view('errors/'.$status, ['code' => $message]),
             'user' => $this->oauth->user(),
         ]), $status);
     }
@@ -40,7 +40,7 @@ class Controller extends BaseController
     /**
      * Helper function to construct correctly formatted JSON error responses
      * to AJAX requests
-     * @param  integer $httpStatus    HTTP status code to send
+     * @param  int $httpStatus    HTTP status code to send
      * @param  string  $internalError descriptive error code, e.g. meal_not_found
      * @param  string  $message       line of text to explain error state to end users
      * @return \Illuminate\Http\JsonResponse

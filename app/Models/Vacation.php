@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Vacation extends ApplicationModel
 {
     protected $fillable = ['start', 'end'];
+
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'start', 'end'];
 
     public function span(): string

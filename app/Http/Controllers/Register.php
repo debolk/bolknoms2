@@ -21,8 +21,8 @@ use Validator;
 class Register extends Controller
 {
     /**
-      * Show the index that allows users to quickly register for the upcoming meal
-      */
+     * Show the index that allows users to quickly register for the upcoming meal
+     */
     public function index(): View
     {
         $data = [];
@@ -54,7 +54,7 @@ class Register extends Controller
         // Populate the data from the session if not passed
         if (! $request->has('name')) {
             $user = $this->oauth->user();
-            if (!$user) {
+            if (! $user) {
                 return $this->ajaxError(
                     500,
                     'user_not_found',
@@ -70,6 +70,7 @@ class Register extends Controller
         // Create registration
         try {
             $registration = with(new RegisterService($data, $this->oauth->user()))->execute();
+
             return response()->json([], 204);
         } catch (ModelNotFoundException $e) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd waarvoor je je probeert aan te melden bestaat niet');
@@ -93,18 +94,18 @@ class Register extends Controller
     {
         // Find the meal
         $meal = Meal::where('id', (int) $request->input('meal_id'))->first();
-        if (!$meal) {
+        if (! $meal) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd bestaat niet');
         }
 
         // Find the user
         $user = $this->oauth->user();
-        if (!$user) {
+        if (! $user) {
             return $this->ajaxError(404, 'no_user', 'Deze gebruikers bestaat niet');
         }
 
         $registration = $user->registrationFor($meal);
-        if (!$registration) {
+        if (! $registration) {
             return $this->ajaxError(404, 'no_registration', 'Je bent niet aangemeld voor deze maaltijd');
         }
 

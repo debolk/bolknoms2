@@ -26,7 +26,7 @@ class DeregisterService extends Service
 
     /**
      * Remove a registration from a meal
-     * @return boolean
+     * @return bool
      * @throws MealDeadlinePassedException
      */
     public function execute()

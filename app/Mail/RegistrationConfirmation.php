@@ -29,7 +29,7 @@ class RegistrationConfirmation extends Mailable
     {
         return $this->to($this->registration->email, $this->registration->name)
                     ->replyTo(config('mail.reply-to.mail'), config('mail.reply-to.name'))
-                    ->subject("Bevestigen aanmelding maaltijd " . $this->registration->longDate())
+                    ->subject('Bevestigen aanmelding maaltijd '.$this->registration->longDate())
                     ->view('mails/confirm_registration/html', ['registration' => $this->registration])
                     ->text('mails/confirm_registration/text', ['registration' => $this->registration]);
     }

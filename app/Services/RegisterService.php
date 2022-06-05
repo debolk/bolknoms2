@@ -6,12 +6,12 @@ use App\Mail\RegistrationConfirmation;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
+use App\Services\MealCapacityExceededException;
 use DateTime;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use Log;
 use Validator;
-use App\Services\MealCapacityExceededException;
 
 /**
  * RegisterService adds a new Registration to a Meal
@@ -21,6 +21,7 @@ use App\Services\MealCapacityExceededException;
 class RegisterService extends Service
 {
     private array $data;
+
     private ?User $current_user;
 
     public function __construct(array $data, ?User $current_user)
@@ -38,12 +39,12 @@ class RegisterService extends Service
         $meal = Meal::findOrFail($this->data['meal_id']);
 
         // Meal must be open for registrations, unless we allow ignoring this requirement
-        if (!$meal->open_for_registrations()) {
+        if (! $meal->open_for_registrations()) {
             throw new MealDeadlinePassedException();
         }
 
         // Meal capacity must not have been exceeded
-        if (!$meal->capacityAvailable()) {
+        if (! $meal->capacityAvailable()) {
             throw new MealCapacityExceededException();
         }
 
@@ -51,12 +52,12 @@ class RegisterService extends Service
         $validator = Validator::make($this->data, [
             'email'   => ['required', 'email'],
             'name'    => ['required'],
-            'user_id' => ['exists:users,id']
+            'user_id' => ['exists:users,id'],
         ], [
             'name.required'  => 'Je moet je naam invullen',
             'email.required' => 'Je moet je e-mailadres invullen',
             'email.email'    => 'Het ingevulde e-mailadres is ongeldig',
-            'user_id.exist'  => 'De gevraagde gebruiker is niet bekend'
+            'user_id.exist'  => 'De gevraagde gebruiker is niet bekend',
         ]);
 
         if ($validator->fails()) {

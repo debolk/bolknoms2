@@ -17,7 +17,7 @@ class OAuth
 {
     /**
      * Return whether we have a valid session
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {
@@ -80,12 +80,12 @@ class OAuth
         // Get the username
         $username = null;
         try {
-            $url = config('oauth.endpoint') . 'resource/?access_token=' . $access_token;
+            $url = config('oauth.endpoint').'resource/?access_token='.$access_token;
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
         } catch (\Exception $e) {
             app('sentry')->captureException($e);
-            $this->fatalError("OAuth authorisation server not okay", $e->getMessage(), 502);
+            $this->fatalError('OAuth authorisation server not okay', $e->getMessage(), 502);
         }
 
         // We are upserting the current db entry
@@ -97,7 +97,7 @@ class OAuth
 
         // Get the details of the user
         try {
-            $url = 'https://people.debolk.nl/persons/' . $user->username . '/basic?access_token=' . $access_token;
+            $url = 'https://people.debolk.nl/persons/'.$user->username.'/basic?access_token='.$access_token;
             $response = $client->get($url);
             $user_data = json_decode($response->getBody());
 
@@ -127,8 +127,7 @@ class OAuth
 
     /**
      * Returns whether the token is not expired
-     * @access private
-     * @return boolean
+     * @return bool
      */
     private function tokenIsExpired()
     {
@@ -138,21 +137,20 @@ class OAuth
         // Subtract one minute to allow for clock drift
         $expiry = $expiry->sub(new \DateInterval('PT1M'));
 
-        return ($expiry <= $now);
+        return $expiry <= $now;
     }
 
     /**
      * Refreshes the token
-     * @access private
      * @return void
      */
     private function refreshToken()
     {
         $response = null;
         try {
-            Log::debug('Refreshing token ' . Session::get('oauth.token')->refresh_token);
+            Log::debug('Refreshing token '.Session::get('oauth.token')->refresh_token);
             $client = new Client();
-            $response = $client->post(config('oauth.endpoint') . 'token/', ['json' => [
+            $response = $client->post(config('oauth.endpoint').'token/', ['json' => [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => Session::get('oauth.token')->refresh_token,
                 'client_id' => config('oauth.client.id'),
@@ -164,6 +162,7 @@ class OAuth
                 $response = json_decode((string) $exception->getResponse()->getBody());
                 if ($response->error === 'invalid_grant') {
                     $this->logout('Je huidige inlog is verlopen');
+
                     return;
                 }
             }
@@ -211,21 +210,22 @@ class OAuth
             'redirect_uri' => config('oauth.callback'),
             'state' => $state,
         ]);
-        return redirect(config('oauth.endpoint') . 'authenticate/?' . $query_string);
+
+        return redirect(config('oauth.endpoint').'authenticate/?'.$query_string);
     }
 
     /**
      * Check whether the current user has board-level permissions
-     * @access public
-     * @return boolean
+     * @return bool
      */
     public function isBoardMember()
     {
         try {
             $client = new Client();
-            $url = config('oauth.endpoint') . 'bestuur/?access_token=' . Session::get('oauth.token')->access_token;
+            $url = config('oauth.endpoint').'bestuur/?access_token='.Session::get('oauth.token')->access_token;
             $request = $client->get($url);
-            return ($request->getStatusCode() === 200);
+
+            return $request->getStatusCode() === 200;
         } catch (\Exception $e) {
             return false;
         }
@@ -245,14 +245,13 @@ class OAuth
 
     /**
      * Process the OAuth authorisation callback, storing the session
-     * @access public
      * @param  array $input Input::get() is the only acceptable input here
      * @return string a URL to redirect to
      */
     public function processCallback($input)
     {
         // Check state to prevent CSRF
-        if ((string)$input['state'] !== (string)Session::get('oauth.state')) {
+        if ((string) $input['state'] !== (string) Session::get('oauth.state')) {
             // Log out the user and send to error page
             $this->purgeSession();
             abort(400, 'state mismatch');
@@ -270,7 +269,7 @@ class OAuth
 
         // Retrieve access code
         $client = new Client();
-        $result = $client->post(config('oauth.endpoint') . 'token/', [
+        $result = $client->post(config('oauth.endpoint').'token/', [
             'json' => [
                 'grant_type' => 'authorization_code',
                 'code' => $input['code'],

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Registration;
-use Request;
-use Log;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Services\ConfirmRegistrationService;
-use App\Services\SaltMismatchException;
 use App\Services\MealDeadlinePassedException;
+use App\Services\SaltMismatchException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Log;
+use Request;
 
 class Confirm extends Controller
 {
@@ -18,7 +18,7 @@ class Confirm extends Controller
     public function confirm(string $id, string $salt)
     {
         $registration = Registration::where('id', $id)->first();
-        if (!$registration) {
+        if (! $registration) {
             return redirect('/')->with('action_result', [
                 'status' => 'error',
                 'message' => 'Deze aanmelding bestaat niet. Het kan zijn dat deze al weer verwijderd is.',

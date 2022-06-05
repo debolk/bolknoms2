@@ -15,6 +15,7 @@ class Profile extends Controller
     public function index(): View
     {
         $user = $this->oauth->user();
+
         return view('profile/index', compact('user'));
     }
 
@@ -24,7 +25,7 @@ class Profile extends Controller
     public function setHandicap(Request $request): JsonResponse
     {
         $user = $this->oauth->user();
-        if (!$user) {
+        if (! $user) {
             return response()->json([
                 'error' => 'handicap_update_failed',
                 'error_details' => 'Gebruiker bestaat niet',
@@ -41,6 +42,7 @@ class Profile extends Controller
                 'was' => $existingHandicap,
                 'changed_by' => $user->id,
             ]);
+
             return response()->json([], 204);
         } else {
             return response()->json([

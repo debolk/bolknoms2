@@ -26,7 +26,7 @@ class AdminDeregisterService extends Service
 
     /**
      * Remove a registration from a meal
-     * @return boolean
+     * @return bool
      */
     public function execute()
     {

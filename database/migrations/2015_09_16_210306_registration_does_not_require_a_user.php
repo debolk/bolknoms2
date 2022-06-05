@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class RegistrationDoesNotRequireAUser extends Migration
 {
@@ -12,10 +12,10 @@ class RegistrationDoesNotRequireAUser extends Migration
      */
     public function up()
     {
-        Schema::table('registrations', function($table) {
+        Schema::table('registrations', function ($table) {
             $table->integer('user_id')->nullable()->change();
         });
-        \DB::unprepared("UPDATE registrations SET user_id = NULL WHERE user_id = 0;");
+        \DB::unprepared('UPDATE registrations SET user_id = NULL WHERE user_id = 0;');
     }
 
     /**
@@ -26,7 +26,7 @@ class RegistrationDoesNotRequireAUser extends Migration
     public function down()
     {
         // No Laravel migration to do this :/
-        \DB::unprepared("UPDATE registrations SET user_id = 0 WHERE user_id IS NULL;");
-        \DB::unprepared("ALTER TABLE `registrations` MODIFY `user_id` INTEGER NOT NULL;");
+        \DB::unprepared('UPDATE registrations SET user_id = 0 WHERE user_id IS NULL;');
+        \DB::unprepared('ALTER TABLE `registrations` MODIFY `user_id` INTEGER NOT NULL;');
     }
 }

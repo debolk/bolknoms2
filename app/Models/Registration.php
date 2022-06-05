@@ -72,7 +72,7 @@ class Registration extends ApplicationModel
      * @param  array  $options
      * @return bool
      */
-    public function save(array $options = array())
+    public function save(array $options = [])
     {
         // Set the salt
         if ($this->salt === null) {
@@ -88,7 +88,7 @@ class Registration extends ApplicationModel
      */
     private static function generateSalt()
     {
-        return substr(str_shuffle(MD5(microtime())), 0, 10);
+        return substr(str_shuffle(md5(microtime())), 0, 10);
     }
 
     /**

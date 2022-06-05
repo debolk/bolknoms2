@@ -35,7 +35,7 @@ class Vacations
 
         return back()->with('action_result', [
             'status' => 'success',
-            'message' => 'Vakantie toegevoegd ' . $vacation->span(),
+            'message' => 'Vakantie toegevoegd '.$vacation->span(),
         ]);
     }
 }

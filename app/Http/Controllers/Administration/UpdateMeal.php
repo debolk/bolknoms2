@@ -19,8 +19,8 @@ class UpdateMeal extends Controller
     public function edit(int $id): View
     {
         $meal = Meal::find($id);
-        if (!$meal) {
-            \App::abort(404, "Maaltijd niet gevonden");
+        if (! $meal) {
+            \App::abort(404, 'Maaltijd niet gevonden');
         }
 
         return view('administration/meal/edit', ['meal' => $meal]);
@@ -33,7 +33,7 @@ class UpdateMeal extends Controller
     public function update(int $id, Request $request)
     {
         $meal = Meal::where('id', $id)->first();
-        if (!$meal) {
+        if (! $meal) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
@@ -49,12 +49,12 @@ class UpdateMeal extends Controller
             return redirect(action('Administration\UpdateMeal@edit', $meal->id))->withErrors($e->messages())->withInput();
         }
 
-        if (!$meal) {
+        if (! $meal) {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden geupdate; onbekende fout.');
         }
 
         // Update user
         return redirect(action('Administration\ShowMeal@show', $meal->id))
-                ->with('action_result', ['status' => 'success', 'message' => "Maaltijd bijgewerkt"]);
+                ->with('action_result', ['status' => 'success', 'message' => 'Maaltijd bijgewerkt']);
     }
 }

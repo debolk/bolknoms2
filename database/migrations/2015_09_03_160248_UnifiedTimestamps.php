@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class UnifiedTimestamps extends Migration
 {
@@ -12,7 +12,7 @@ class UnifiedTimestamps extends Migration
      */
     public function up()
     {
-        Schema::table('meals', function($table){
+        Schema::table('meals', function ($table) {
             $table->datetime('meal_timestamp');
             $table->datetime('locked_timestamp');
             $table->date('date')->nullable()->change();
@@ -32,7 +32,7 @@ class UnifiedTimestamps extends Migration
      */
     public function down()
     {
-        Schema::table('meals', function($table){
+        Schema::table('meals', function ($table) {
             $table->dropColumn('meal_timestamp');
             $table->dropColumn('locked_timestamp');
         });

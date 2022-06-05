@@ -64,7 +64,7 @@ Route::group(['middleware' => 'web'], function () {
         });
 
         // Managing users
-        Route::group(['prefix' => '/gebruikers/'], function(){
+        Route::group(['prefix' => '/gebruikers/'], function () {
             Route::get('', 'Users@index');
             Route::post('{id}/handicap', 'Users@setHandicap');
             Route::post('{id}/blokkeren', 'Users@block');

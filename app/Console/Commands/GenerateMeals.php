@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 class GenerateMeals extends Command
 {
     protected $signature = 'meals:generate';
+
     protected $description = 'Generate the meals for next week';
 
     public function handle(): int
@@ -34,19 +35,21 @@ class GenerateMeals extends Command
         $hadMeal = (Meal::withTrashed()->whereRaw("DATE(meal_timestamp) = '{$dateString}'")->count() > 0);
         if ($hadMeal) {
             Log::info("Not creating meal for {$dateString}: meal exists or existed previously");
+
             return;
         }
 
         // Do not create meals in defined vacation periods
         if (Vacation::inPlannedVacation($date)) {
             Log::info("Not creating meal for {$dateString}: date is in vacation period");
+
             return;
         }
 
         // Create the meal
         Meal::create([
-            'meal_timestamp' => $dateString . ' 18:30:00',
-            'locked_timestamp' => $dateString . ' 15:00:00',
+            'meal_timestamp' => $dateString.' 18:30:00',
+            'locked_timestamp' => $dateString.' 15:00:00',
         ]);
         Log::info("Created automatic meal for {$dateString}");
     }

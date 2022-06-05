@@ -78,14 +78,15 @@ class Meal extends ApplicationModel
         $output = $this->longDate();
 
         if (! empty($this->event)) {
-            $output .= ' (' . $this->event . ')';
+            $output .= ' ('.$this->event.')';
         }
+
         return $output;
     }
 
     /**
      * Return whether this meal can be subscribed to
-     * @return boolean true if the meal is open for registrations, false if not
+     * @return bool true if the meal is open for registrations, false if not
      */
     public function open_for_registrations()
     {
@@ -103,7 +104,7 @@ class Meal extends ApplicationModel
 
     /**
      * Returns whether a meal is today
-     * @return boolean
+     * @return bool
      */
     public function isToday()
     {
@@ -120,16 +121,16 @@ class Meal extends ApplicationModel
         $lock = $this->locked_timestamp->format('Y-m-d');
 
         if ($meal === $lock) {
-            return $this->locked_timestamp->format('H:i') . ' uur';
+            return $this->locked_timestamp->format('H:i').' uur';
         } else {
-            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M') . ' uur';
+            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M').' uur';
         }
     }
 
     /**
      * Return whether the deadline for this meal could be considered 'normal'
      * that is, on the day of the meal and on 15:00.
-     * @return boolean true if normal
+     * @return bool true if normal
      */
     public function normalDeadline()
     {
@@ -139,7 +140,7 @@ class Meal extends ApplicationModel
     /**
      * Return whether the mealtime for this meal could be considered 'normal'
      * that is, 18:30
-     * @return boolean true if normal
+     * @return bool true if normal
      */
     public function normalMealTime()
     {
@@ -147,20 +148,20 @@ class Meal extends ApplicationModel
     }
 
     private array $cache;
+
     private Collection $registrationTimestamps;
 
-    public function registrationsBefore(\Carbon\Carbon $timestamp): int
+    public function registrationsBefore(Carbon $timestamp): int
     {
         if (isset($this->cache[$timestamp->timestamp])) {
             return $this->cache[$timestamp->timestamp];
         }
 
-        if (!isset($this->registrationTimestamps)) {
+        if (! isset($this->registrationTimestamps)) {
             $this->registrationTimestamps = $this->registrations->map(function ($r) {
                 return $r->created_at->timestamp;
             });
         }
-
 
         $result = 0;
         $time = $timestamp->timestamp;

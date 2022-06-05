@@ -39,14 +39,14 @@ class Meals extends Controller
     public function verwijder(int $id)
     {
         $meal = Meal::where('id', $id)->first();
-        if (!$meal) {
+        if (! $meal) {
             return $this->userFriendlyError(404, 'Maaltijd bestaat niet');
         }
 
         $date = (string) $meal;
         $destroy = with(new DestroyMealService($meal))->execute();
 
-        if (!$destroy) {
+        if (! $destroy) {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden verwijderd; onbekende fout.');
         }
 
@@ -54,7 +54,7 @@ class Meals extends Controller
         return redirect(action('Administration\Meals@index'))
                 ->with('action_result', [
                     'status' => 'success',
-                    'message' => "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging."
+                    'message' => "Maaltijd op $date verwijderd. Alle aanmeldingen zijn gemaild met een bevestiging.",
                 ]);
     }
 }

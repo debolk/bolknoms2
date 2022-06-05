@@ -51,12 +51,12 @@ class Navigation
         }
 
         // Set a flag to indicate the current route
-        for ($i = 0; $i < sizeof($menu_entries); $i++) {
+        for ($i = 0; $i < count($menu_entries); $i++) {
             $menu_entries[$i]['current'] = $this->isCurrent($menu_entries[$i]['action']);
 
             // iterate over submenu's
             if (isset($menu_entries[$i]['submenu'])) {
-                for ($j = 0; $j < sizeof($menu_entries[$i]['submenu']); $j++) {
+                for ($j = 0; $j < count($menu_entries[$i]['submenu']); $j++) {
                     $menu_entries[$i]['submenu'][$j]['current'] = $this->isCurrent($menu_entries[$i]['submenu'][$j]['action']);
                 }
             }
@@ -80,10 +80,10 @@ class Navigation
         $current = Route::current();
 
         // Exceptional case for HTTP 404 errors (which have no route)
-        if (!$current) {
+        if (! $current) {
             return false;
         }
 
-        return $current->getActionName() === 'App\Http\Controllers\\' . $action;
+        return $current->getActionName() === 'App\Http\Controllers\\'.$action;
     }
 }

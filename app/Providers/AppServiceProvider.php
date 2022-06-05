@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // Force correct locale on every boot
-        setlocale(LC_TIME, "nl_NL.utf8");
+        setlocale(LC_TIME, 'nl_NL.utf8');
     }
 
     /**
