@@ -6,8 +6,8 @@ use App\Mail\MealDestroyed;
 use App\Models\Meal;
 use DateTime;
 use Illuminate\Support\Facades\Mail;
-use Log;
-use Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class DestroyMealService extends Service
 {

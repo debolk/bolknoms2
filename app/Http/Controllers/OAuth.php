@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App;
+use Illuminate\Support\Facades\App;
 use App\Http\Helpers\OAuth as OAuthHelper;
 use App\Http\Helpers\ProfilePicture;
 use Illuminate\Http\RedirectResponse;
-use Request;
+use Illuminate\Support\Facades\Request;
 
 class OAuth extends Controller
 {

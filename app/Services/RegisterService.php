@@ -10,8 +10,8 @@ use App\Services\MealCapacityExceededException;
 use DateTime;
 use Exception;
 use Illuminate\Support\Facades\Mail;
-use Log;
-use Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * RegisterService adds a new Registration to a Meal

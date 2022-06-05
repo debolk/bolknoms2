@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App;
+use Illuminate\Support\Facades\App;
 use App\Http\Helpers\OAuth as OAuthHelper;
 use Closure;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class Board
 {

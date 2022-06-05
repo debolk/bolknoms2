@@ -7,8 +7,8 @@ use App\Models\Registration;
 use App\Models\User;
 use DateTime;
 use Exception;
-use Log;
-use Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * AdminRegisterService adds a new Registration to a Meal

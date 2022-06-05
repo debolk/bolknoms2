@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Meal;
 use App\Models\Registration;
 use DateTime;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Removes a registration from a meal

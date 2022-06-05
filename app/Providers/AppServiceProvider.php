@@ -6,7 +6,7 @@ use App\Http\Helpers\Navigation;
 use App\Http\Helpers\OAuth;
 use App\Http\Helpers\ProfilePicture;
 use Illuminate\Support\ServiceProvider;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class AppServiceProvider extends ServiceProvider
 {

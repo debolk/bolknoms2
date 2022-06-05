@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Models\Registration;

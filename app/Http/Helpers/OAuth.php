@@ -2,7 +2,7 @@
 
 namespace App\Http\Helpers;
 
-use App;
+use Illuminate\Support\Facades\App;
 use App\Http\Helpers\ProfilePicture;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OAuth

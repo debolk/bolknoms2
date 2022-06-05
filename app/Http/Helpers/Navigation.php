@@ -3,7 +3,7 @@
 namespace App\Http\Helpers;
 
 use Illuminate\Support\Facades\Route;
-use Request;
+use Illuminate\Support\Facades\Request;
 
 /**
  * Renders the menu

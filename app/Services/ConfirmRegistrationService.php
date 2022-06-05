@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Models\Registration;
 use DateTime;
 use Exception;
-use Log;
-use Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class ConfirmRegistrationService extends Service
 {
