@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 
 class UnifiedTimestamps extends Migration
 {
@@ -21,8 +22,8 @@ class UnifiedTimestamps extends Migration
             $table->time('locked')->nullable()->change();
         });
 
-        \DB::unprepared("UPDATE meals SET meal_timestamp = CONCAT_WS(' ', date, mealtime);");
-        \DB::unprepared("UPDATE meals SET locked_timestamp = CONCAT_WS(' ', locked_date, locked);");
+        DB::unprepared("UPDATE meals SET meal_timestamp = CONCAT_WS(' ', date, mealtime);");
+        DB::unprepared("UPDATE meals SET locked_timestamp = CONCAT_WS(' ', locked_date, locked);");
     }
 
     /**

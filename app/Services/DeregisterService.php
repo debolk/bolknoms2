@@ -44,7 +44,7 @@ class DeregisterService extends Service
         $name = $this->registration->name;
 
         // Log action
-        \Log::info("Afgemeld $name (ID: $id) voor $meal (ID: $meal->id)");
+        Log::info("Afgemeld $name (ID: $id) voor $meal (ID: $meal->id)");
 
         // Remove the registration
         return $this->registration->delete();

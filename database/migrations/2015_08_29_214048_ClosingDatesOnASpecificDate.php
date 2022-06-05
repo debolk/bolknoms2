@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 
 class ClosingDatesOnASpecificDate extends Migration
 {
@@ -16,7 +17,7 @@ class ClosingDatesOnASpecificDate extends Migration
             $table->date('locked_date');
         });
 
-        \DB::unprepared('UPDATE meals SET locked_date = date;');
+        DB::unprepared('UPDATE meals SET locked_date = date;');
     }
 
     /**

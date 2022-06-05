@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 
 class UserFullModel extends Migration
 {
@@ -22,12 +23,12 @@ class UserFullModel extends Migration
         });
 
         // Add IDs to the registrations table
-        \DB::unprepared('UPDATE users,registrations
+        DB::unprepared('UPDATE users,registrations
                     SET registrations.user_id = users.id
                     WHERE users.username = registrations.username;');
 
         // Update name in users table
-        \DB::unprepared('UPDATE users,registrations
+        DB::unprepared('UPDATE users,registrations
                     SET users.name = registrations.name
                     WHERE users.id = registrations.user_id;');
     }
