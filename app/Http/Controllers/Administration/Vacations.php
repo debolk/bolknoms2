@@ -13,7 +13,7 @@ class Vacations
     public function index(): View
     {
         return view('administration/vacations/index', [
-            'vacations' => Vacation::orderBy('start', 'desc')->get(),
+            'vacations' => Vacation::orderByDesc('start')->get(),
             'currentVacation' => Vacation::contains(Carbon::now())->first(),
             'upcomingVacation' => Vacation::upcoming()->first(),
         ]);

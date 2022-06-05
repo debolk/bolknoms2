@@ -41,7 +41,7 @@ class Meal extends ApplicationModel
      */
     public function scopeUpcoming(Builder $query): Builder
     {
-        return $query->where('meal_timestamp', '>=', date('Y-m-d'))->orderBy('meal_timestamp', 'asc');
+        return $query->where('meal_timestamp', '>=', date('Y-m-d'))->orderBy('meal_timestamp');
     }
 
     /**
@@ -49,7 +49,7 @@ class Meal extends ApplicationModel
      */
     public function scopePrevious(Builder $query): Builder
     {
-        return $query->where('meal_timestamp', '<', date('Y-m-d'))->orderBy('meal_timestamp', 'desc');
+        return $query->where('meal_timestamp', '<', date('Y-m-d'))->orderByDesc('meal_timestamp');
     }
 
     /**

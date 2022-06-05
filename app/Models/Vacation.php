@@ -26,7 +26,7 @@ class Vacation extends ApplicationModel
             $date = Carbon::now();
         }
 
-        return $query->orderBy('start', 'asc')->where('start', '>', $date->format('Y-m-d'));
+        return $query->orderBy('start')->where('start', '>', $date->format('Y-m-d'));
     }
 
     public function scopeContains(Builder $query, CarbonInterface $date): Builder
