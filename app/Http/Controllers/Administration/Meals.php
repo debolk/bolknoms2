@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\DestroyMealService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class Meals extends Controller
 {

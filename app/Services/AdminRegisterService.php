@@ -5,8 +5,6 @@ namespace App\Services;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
-use DateTime;
-use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 

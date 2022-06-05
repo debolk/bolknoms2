@@ -6,9 +6,6 @@ use App\Models\Registration;
 use App\Services\ConfirmRegistrationService;
 use App\Services\MealDeadlinePassedException;
 use App\Services\SaltMismatchException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Request;
 
 class Confirm extends Controller
 {

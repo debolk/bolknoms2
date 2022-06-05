@@ -14,7 +14,6 @@ use App\Services\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class ShowMeal extends Controller
 {

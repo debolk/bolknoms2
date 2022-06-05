@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Meal;
 use App\Models\Registration;
-use DateTime;
 use Illuminate\Support\Facades\Log;
 
 /**

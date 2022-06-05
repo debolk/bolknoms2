@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Meal;
 use DateTime;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class CreateMealService extends Service

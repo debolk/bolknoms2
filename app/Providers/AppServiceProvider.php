@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Http\Helpers\Navigation;
 use App\Http\Helpers\OAuth;
 use App\Http\Helpers\ProfilePicture;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

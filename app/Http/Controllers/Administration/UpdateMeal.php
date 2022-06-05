@@ -7,9 +7,7 @@ use App\Models\Meal;
 use App\Services\UpdateMealService;
 use App\Services\ValidationException;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class UpdateMeal extends Controller
 {

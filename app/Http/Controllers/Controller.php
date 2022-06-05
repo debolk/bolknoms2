@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\OAuth;
-use App\Http\Helpers\ProfilePicture;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
