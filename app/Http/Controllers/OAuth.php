@@ -23,7 +23,7 @@ class OAuth extends Controller
             $profilePicture->updatePictureFor($user);
         }
 
-        return redirect($result);
+        return redirect()->to($result);
     }
 
     public function login(): RedirectResponse

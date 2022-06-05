@@ -15,7 +15,7 @@ class ProfilePicture extends Controller
     {
         $user = $this->oauth->user();
         if ($user === null) {
-            return response(null, 404);
+            return response()->noContent(404);
         }
 
         return $this->serveProfilePicture($picture, $user);

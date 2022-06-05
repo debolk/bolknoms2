@@ -99,6 +99,6 @@ class ShowMeal extends Controller
         // Deregister from the meal
         with(new AdminDeregisterService($registration))->execute();
 
-        return response(null, 204);
+        return response()->noContent();
     }
 }

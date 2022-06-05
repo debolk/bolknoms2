@@ -32,9 +32,9 @@ class Controller extends BaseController
     protected function userFriendlyError(int $status, string $message): Response
     {
         return response(view('layouts/master', [
-            'content' => view('errors/'.$status, ['code' => $message]),
+            'content' => view('errors/'., ['code' => $message]),
             'user' => $this->oauth->user(),
-        ]), $status);
+        ]), );
     }
 
     /**
