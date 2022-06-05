@@ -45,11 +45,11 @@ class CreateMeal extends Controller
         try {
             $meal = with(new CreateMealService($data))->execute();
         } catch (ValidationException $e) {
-            return redirect(action('Administration\CreateMeal@index'))->withErrors($e->messages())->withInput();
+            return redirect(action([\App\Http\Controllers\Administration\CreateMeal::class, 'index']))->withErrors($e->messages())->withInput();
         }
 
         if ($meal) {
-            return redirect(action('Administration\Meals@index'))
+            return redirect(action([\App\Http\Controllers\Administration\Meals::class, 'index']))
                     ->with('action_result', ['status' => 'success', 'message' => 'Maaltijd toegevoegd op '.$meal]);
         } else {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden aangemaakt: onbekende fout');

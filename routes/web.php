@@ -1,78 +1,88 @@
 <?php
 
+use App\Http\Controllers\Administration;
+use App\Http\Controllers\Confirm;
+use App\Http\Controllers\OAuth;
+use App\Http\Controllers\Page;
+use App\Http\Controllers\Profile;
+use App\Http\Controllers\ProfilePicture;
+use App\Http\Controllers\Register;
+use App\Http\Controllers\Top;
+use Illuminate\Support\Facades\Route;
+
 Route::middleware('web')->group(function () {
 
     // Register for meals
-    Route::get('/', 'Register@index');
-    Route::post('/aanmelden', 'Register@aanmelden');
-    Route::post('/afmelden', 'Register@afmelden');
+    Route::get('/', [Register::class, 'index']);
+    Route::post('/aanmelden', [Register::class, 'aanmelden']);
+    Route::post('/afmelden', [Register::class, 'afmelden']);
 
     // Confirm registration
-    Route::get('/bevestigen/{id}/{salt}', 'Confirm@confirm');
+    Route::get('/bevestigen/{id}/{salt}', [Confirm::class, 'confirm']);
 
     // Information pages
-    Route::get('/spelregels', 'Page@spelregels');
-    Route::get('/disclaimer', 'Page@disclaimer');
-    Route::get('/privacy', 'Page@privacy');
+    Route::get('/spelregels', [Page::class, 'spelregels']);
+    Route::get('/disclaimer', [Page::class, 'disclaimer']);
+    Route::get('/privacy', [Page::class, 'privacy']);
 
     // OAuth routes
-    Route::get('/oauth', 'OAuth@callback');
-    Route::get('/login', 'OAuth@login');
-    Route::get('/logout', 'OAuth@logout');
+    Route::get('/oauth', [OAuth::class, 'callback']);
+    Route::get('/login', [OAuth::class, 'login']);
+    Route::get('/logout', [OAuth::class, 'logout']);
 
     // Profile picture of a user
-    Route::get('/photo/{username}', 'ProfilePicture@photoFor')->name('photo.src');
+    Route::get('/photo/{username}', [ProfilePicture::class, 'photoFor'])->name('photo.src');
 
     // Pages which require member-level authorisation
     Route::middleware('oauth')->group(function () {
 
         // Picture of the current user
-        Route::get('/photo', 'ProfilePicture@photo');
+        Route::get('/photo', [ProfilePicture::class, 'photo']);
 
         // Top eaters list
-        Route::get('/top-eters', 'Top@index');
+        Route::get('/top-eters', [Top::class, 'index']);
 
         // My Profile page
-        Route::get('/profiel', 'Profile@index');
-        Route::post('/handicap', 'Profile@setHandicap');
+        Route::get('/profiel', [Profile::class, 'index']);
+        Route::post('/handicap', [Profile::class, 'setHandicap']);
     });
 
     // Administration pages
-    Route::prefix('/administratie/')->middleware('oauth', 'board')->namespace('Administration')->group(function () {
+    Route::prefix('/administratie/')->middleware('oauth', 'board')->group(function () {
 
         // Administration dashboard
-        Route::get('', 'Dashboard@index');
+        Route::get('', [Administration\Dashboard::class, 'index']);
 
         // Managing meals
         Route::prefix('/maaltijden/')->group(function () {
             // List of meals
-            Route::get('', 'Meals@index');
-            Route::get('/verwijder/{id}', 'Meals@verwijder');
+            Route::get('', [Administration\Meals::class, 'index']);
+            Route::get('/verwijder/{id}', [Administration\Meals::class, 'verwijder']);
 
             // Show meals in the backend
-            Route::get('{id}', 'ShowMeal@show');
-            Route::post('afmelden/{id}', 'ShowMeal@afmelden');
-            Route::post('aanmelden', 'ShowMeal@aanmelden');
+            Route::get('{id}', [Administration\ShowMeal::class, 'show']);
+            Route::post('afmelden/{id}', [Administration\ShowMeal::class, 'afmelden']);
+            Route::post('aanmelden', [Administration\ShowMeal::class, 'aanmelden']);
 
             // Create new meals
-            Route::get('nieuwe_maaltijd', 'CreateMeal@index');
-            Route::post('nieuwe_maaltijd', 'CreateMeal@create');
+            Route::get('nieuwe_maaltijd', [Administration\CreateMeal::class, 'index']);
+            Route::post('nieuwe_maaltijd', [Administration\CreateMeal::class, 'create']);
 
             // Update existing meals
-            Route::get('{id}/edit', 'UpdateMeal@edit');
-            Route::post('{id}', 'UpdateMeal@update');
+            Route::get('{id}/edit', [Administration\UpdateMeal::class, 'edit']);
+            Route::post('{id}', [Administration\UpdateMeal::class, 'update']);
         });
 
         // Managing users
         Route::prefix('/gebruikers/')->group(function () {
-            Route::get('', 'Users@index');
-            Route::post('{id}/handicap', 'Users@setHandicap');
-            Route::post('{id}/blokkeren', 'Users@block');
-            Route::post('{id}/vrijgeven', 'Users@release');
+            Route::get('', [Administration\Users::class, 'index']);
+            Route::post('{id}/handicap', [Administration\Users::class, 'setHandicap']);
+            Route::post('{id}/blokkeren', [Administration\Users::class, 'block']);
+            Route::post('{id}/vrijgeven', [Administration\Users::class, 'release']);
         });
 
         // Vacation periods
-        Route::resource('vakanties', 'Vacations', [
+        Route::resource('vakanties', Administration\Vacations::class, [
             'names' => 'vacations',]);
     });
 });

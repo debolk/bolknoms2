@@ -7,7 +7,7 @@
 
     @include('form/_error')
 
-    <form action="{{ action('Administration\CreateMeal@create') }}" method="post" accept-charset="utf-8">
+    <form action="{{ action([\App\Http\Controllers\Administration\CreateMeal::class, 'create']) }}" method="post" accept-charset="utf-8">
         <p>
             <label class="label" for="meal_timestamp">Datum en tijd</label><br>
             <input type="text" placeholder="{{ date('d-m-Y 18:30') }}" autofocus name="meal_timestamp" value="{{ old('meal_timestamp', null) }}">
@@ -27,7 +27,7 @@
         </p>
         <p>
             <input type="submit" value="Maaltijd toevoegen" />
-            of <a href="{{ action('Administration\Meals@index')}}">niet toevoegen</a>
+            of <a href="{{ action([\App\Http\Controllers\Administration\Meals::class, 'index'])}}">niet toevoegen</a>
         </p>
     </form>
 @endsection

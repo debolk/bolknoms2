@@ -10,7 +10,7 @@
         <i class="fa fa-fw fa-clock-o"></i> {{ $meal->deadline() }}
         <i class="fa fa-fw fa-cutlery"></i> {{ $meal->meal_timestamp->format('H:i') }} uur
         <span class="non_print">
-            <a href="{{ action('Administration\UpdateMeal@edit', $meal->id) }}">maaltijd bewerken</a>
+            <a href="{{ action([\App\Http\Controllers\Administration\UpdateMeal::class, 'edit'], $meal->id) }}">maaltijd bewerken</a>
         </span>
     </p>
 

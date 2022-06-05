@@ -46,7 +46,7 @@ class UpdateMeal extends Controller
         try {
             $meal = with(new UpdateMealService($meal, $data))->execute();
         } catch (ValidationException $e) {
-            return redirect(action('Administration\UpdateMeal@edit', $meal->id))->withErrors($e->messages())->withInput();
+            return redirect(action([\App\Http\Controllers\Administration\UpdateMeal::class, 'edit'], $meal->id))->withErrors($e->messages())->withInput();
         }
 
         if (! $meal) {
@@ -54,7 +54,7 @@ class UpdateMeal extends Controller
         }
 
         // Update user
-        return redirect(action('Administration\ShowMeal@show', $meal->id))
+        return redirect(action([\App\Http\Controllers\Administration\ShowMeal::class, 'show'], $meal->id))
                 ->with('action_result', ['status' => 'success', 'message' => 'Maaltijd bijgewerkt']);
     }
 }
