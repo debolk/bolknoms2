@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\App;
 class Board
 {
     /**
-     * @var App\Http\Helpers\OAuth
+     * @var \App\Http\Helpers\OAuth
      */
     private $oauth;
 
     /**
-     * @param App\Http\Helpers\OAuth $oauth
+     * @param \App\Http\Helpers\OAuth $oauth
      */
     public function __construct(OAuthHelper $oauth)
     {
