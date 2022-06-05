@@ -5,9 +5,13 @@ namespace App\Models;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Vacation extends ApplicationModel
+class Vacation extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['start', 'end'];
 
     protected $casts = [

@@ -5,11 +5,15 @@ namespace App\Models;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class Meal extends ApplicationModel
+class Meal extends Model
 {
+    use SoftDeletes;
+
     /**
      * All attributes that can be mass-assigned
      */
