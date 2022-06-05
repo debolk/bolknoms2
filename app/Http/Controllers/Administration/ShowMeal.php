@@ -25,7 +25,7 @@ class ShowMeal extends Controller
     {
         $meal = Meal::find($id);
         if (! $meal) {
-            App::abort(404, 'Maaltijd niet gevonden');
+            abort(404, 'Maaltijd niet gevonden');
         }
 
         return view('administration/meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]);
