@@ -2,6 +2,14 @@
 
 namespace App\Http\Helpers;
 
+use App\Http\Controllers\Administration\Dashboard;
+use App\Http\Controllers\Administration\Meals;
+use App\Http\Controllers\Administration\Users;
+use App\Http\Controllers\Administration\Vacations;
+use App\Http\Controllers\Page;
+use App\Http\Controllers\Profile;
+use App\Http\Controllers\Register;
+use App\Http\Controllers\Top;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -21,14 +29,14 @@ class Navigation
      * @var array
      */
     private $menu = [
-        ['text' => 'Aanmelden', 'action' => 'Register@index', 'icon' => 'calendar', 'level' => '0'],
-        ['text' => 'Spelregels', 'action' => 'Page@spelregels', 'icon' => 'file-text-o', 'level' => '0'],
-        ['text' => 'Top eters', 'action' => 'Top@index', 'icon' => 'trophy', 'level' => '1'],
-        ['text' => 'Mijn profiel', 'action' => 'Profile@index', 'icon' => 'user', 'level' => '1'],
-        ['text' => 'Administratie', 'action' => 'Administration\Dashboard@index', 'icon' => 'wrench', 'level' => '2', 'submenu' => [
-            ['text' => 'Maaltijden', 'action' => 'Administration\Meals@index', 'icon' => 'cutlery'],
-            ['text' => 'Gebruikers', 'action' => 'Administration\Users@index', 'icon' => 'users'],
-            ['text' => 'Vakanties', 'action' => 'Administration\Vacations@index', 'icon' => 'plane'],
+        ['text' => 'Aanmelden', 'action' => [Register::class, 'index'], 'icon' => 'calendar', 'level' => '0'],
+        ['text' => 'Spelregels', 'action' => [Page::class, 'spelregels'], 'icon' => 'file-text-o', 'level' => '0'],
+        ['text' => 'Top eters', 'action' => [Top::class, 'index'], 'icon' => 'trophy', 'level' => '1'],
+        ['text' => 'Mijn profiel', 'action' => [Profile::class, 'index'], 'icon' => 'user', 'level' => '1'],
+        ['text' => 'Administratie', 'action' => [Dashboard::class, 'index'], 'icon' => 'wrench', 'level' => '2', 'submenu' => [
+            ['text' => 'Maaltijden', 'action' => [Meals::class, 'index'], 'icon' => 'cutlery'],
+            ['text' => 'Gebruikers', 'action' => [Users::class, 'index'], 'icon' => 'users'],
+            ['text' => 'Vakanties', 'action' => [Vacations::class, 'index'], 'icon' => 'plane'],
         ]],
     ];
 
@@ -74,7 +82,7 @@ class Navigation
     /**
      * Determine if a given action is currently on screen
      */
-    private function isCurrent(string $action): bool
+    private function isCurrent(array $action): bool
     {
         $current = Route::current();
 
@@ -83,6 +91,6 @@ class Navigation
             return false;
         }
 
-        return $current->getActionName() === 'App\Http\Controllers\\'.$action;
+        return $current->getActionName() === $action[0] . '@' . $action[1];
     }
 }
