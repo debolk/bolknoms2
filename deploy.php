@@ -8,7 +8,7 @@ set('application', 'bolknoms2');
 set('repository', 'git@github.com:debolk/bolknoms2.git');
 set('default_stage', 'production');
 set('keep_releases', 5);
-set('writable_mode', 'chown');
+set('writable_use_sudo', false);
 
 host('noms.debolk.nl')
     ->setRemoteUser('jakob')
