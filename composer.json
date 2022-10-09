@@ -37,12 +37,17 @@
         "laravel/sail": "^1.15",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
+        "pestphp/pest": "^1.22",
+        "pestphp/pest-plugin-laravel": "^1.3",
         "roave/security-advisories": "dev-latest"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
@@ -58,6 +63,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
