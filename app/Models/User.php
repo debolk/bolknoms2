@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 class User extends Authenticatable
 {
     use SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'username',
@@ -56,5 +59,10 @@ class User extends Authenticatable
             ->whereNull('registrations.deleted_at')
             ->whereNull('meals.deleted_at')
             ->get();
+    }
+
+    public function collectibles(): BelongsToMany
+    {
+        return $this->belongsToMany(Collectible::class);
     }
 }
