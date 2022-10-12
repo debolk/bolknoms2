@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 class Meal extends Model
 {
     use SoftDeletes;
+    use HasFactory;
 
     /**
      * All attributes that can be mass-assigned
