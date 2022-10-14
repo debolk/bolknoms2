@@ -43,7 +43,7 @@ class CreateMeal extends Controller
 
         // Create the meal
         try {
-            $meal = with(new CreateMealService($data))->execute();
+            $meal = (new CreateMealService($data))->execute();
         } catch (ValidationException $e) {
             return redirect(action([self::class, 'index']))->withErrors($e->messages())->withInput();
         }

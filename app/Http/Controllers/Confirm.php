@@ -24,7 +24,7 @@ class Confirm extends Controller
 
         // Confirm registration
         try {
-            $confirm = with(new ConfirmRegistrationService($registration, $salt))->execute();
+            $confirm = (new ConfirmRegistrationService($registration, $salt))->execute();
         } catch (SaltMismatchException $e) {
             return redirect()->to('/')->with('action_result', [
                 'status' => 'error',

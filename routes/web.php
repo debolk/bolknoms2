@@ -10,10 +10,10 @@ use App\Http\Controllers\Register;
 use App\Http\Controllers\Top;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('web')->group(function () {
+Route::middleware(['web'])->group(function () {
 
     // Register for meals
-    Route::get('/', [Register::class, 'index']);
+    Route::get('/', [Register::class, 'index'])->name('register.index');
     Route::post('/aanmelden', [Register::class, 'aanmelden']);
     Route::post('/afmelden', [Register::class, 'afmelden']);
 
@@ -34,7 +34,7 @@ Route::middleware('web')->group(function () {
     Route::get('/photo/{username}', [ProfilePicture::class, 'photoFor'])->name('photo.src');
 
     // Pages which require member-level authorisation
-    Route::middleware('oauth')->group(function () {
+    Route::middleware('auth')->group(function () {
 
         // Picture of the current user
         Route::get('/photo', [ProfilePicture::class, 'photo']);
@@ -48,7 +48,7 @@ Route::middleware('web')->group(function () {
     });
 
     // Administration pages
-    Route::prefix('/administratie/')->middleware('oauth', 'board')->group(function () {
+    Route::prefix('/administratie/')->middleware('auth', 'board')->group(function () {
 
         // Administration dashboard
         Route::get('', [Administration\Dashboard::class, 'index']);

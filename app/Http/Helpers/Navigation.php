@@ -10,6 +10,7 @@ use App\Http\Controllers\Page;
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\Register;
 use App\Http\Controllers\Top;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -17,14 +18,7 @@ use Illuminate\Support\Facades\Route;
  */
 class Navigation
 {
-    private $oauth;
-
-    public function __construct(OAuth $oauth)
-    {
-        $this->oauth = $oauth;
-    }
-
-    /**
+     /**
      * Logged-in menu entries
      * @var array
      */
@@ -50,9 +44,9 @@ class Navigation
 
         // Determine which elements to show
         $level = 0;
-        if ($this->oauth->valid()) {
+        if (Auth::check()) {
             $level = 1;
-            if ($this->oauth->isBoardMember()) {
+            if (Auth::user()->is_board) {
                 $level = 2;
             }
         }

@@ -2,45 +2,25 @@
 
 namespace App\Http\Helpers;
 
-use App\Http\Helpers\OAuth;
 use App\Models\User;
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\File;
 
 class ProfilePicture
 {
-    private $oauth;
-
-    public function __construct(OAuth $oauth)
-    {
-        $this->oauth = $oauth;
-    }
-
     /**
      * Updates the local cached profile picture of a user
-     * @param  User   $user
-     * @return void
      */
-    public function updatePictureFor(User $user)
+    public function updatePictureFor(User $user, string $token): void
     {
         // Calculate location of image
         $path = $this->picturePathFor($user);
 
-        try {
-            $client = new Client();
-            $token = $this->oauth->getAccessToken();
-            $url = 'https://people.debolk.nl/persons/'.$user->username.'/photo/256/256?access_token='.$token;
-            $file = fopen($path, 'w');
-            $client->get($url, ['sink' => $file]);
-        } catch (\Exception $exception) {
-            // Having a exception that returns a response, still creates the file on disk
-            // so we clean up it here
-            if (file_exists($path)) {
-                unlink($path);
-            }
-
-            return;
-        }
+        $client = app(Client::class);
+        $url = 'https://people.debolk.nl/persons/' . $user->username . '/photo/256/256?access_token=' . $token;
+        $file = fopen($path, 'w');
+        $client->get($url, ['sink' => $file]);
 
         // Check the mimetype of the resulting image
         // to make sure we have a valid image
@@ -61,19 +41,8 @@ class ProfilePicture
 
         if (File::exists($path)) {
             return File::get($path);
-        }
-
-        // Try downloading a new file once if needed (and possible)
-        if ($this->oauth->valid()) {
-            $this->updatePictureFor($user);
-        }
-
-        // If the file still doesn't exist, return the swedish chef
-        // @phpstan-ignore-next-line because static analysis does not understand the dynamic image creation
-        if (File::exists($path)) {
-            return File::get($path);
         } else {
-            return File::get(public_path().'/images/swedishchef.jpg');
+            return File::get(public_path() . '/images/swedishchef.jpg');
         }
     }
 
@@ -98,6 +67,6 @@ class ProfilePicture
      */
     private function picturePathFor(User $user)
     {
-        return storage_path('app/public/profile_pictures/'.$user->id);
+        return storage_path('app/public/profile_pictures/' . $user->id);
     }
 }

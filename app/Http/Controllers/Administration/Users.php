@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class Users extends Controller
@@ -36,7 +37,7 @@ class Users extends Controller
             'user' => $user->id,
             'handicap' => $user->handicap,
             'was' => $existingHandicap,
-            'changed_by' => $this->oauth->user()->id,
+            'changed_by' => Auth::user()->id,
         ]);
 
         return view('administration/users/_user', compact('user'));

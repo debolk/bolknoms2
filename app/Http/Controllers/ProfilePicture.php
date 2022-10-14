@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\ProfilePicture as Picture;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilePicture extends Controller
 {
@@ -13,7 +14,7 @@ class ProfilePicture extends Controller
      */
     public function photo(Picture $picture): Response
     {
-        $user = $this->oauth->user();
+        $user = Auth::user();
         if ($user === null) {
             return response()->noContent(404);
         }

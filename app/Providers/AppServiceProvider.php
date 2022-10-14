@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Helpers\Navigation;
-use App\Http\Helpers\OAuth;
-use App\Http\Helpers\ProfilePicture;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,17 +24,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Identify OAuth class as a singleton in the repository
-        $this->app->singleton(OAuth::class, function () {
-            return new OAuth();
-        });
-
-        $this->app->singleton(Navigation::class, function () {
-            return new Navigation($this->app[OAuth::class]);
-        });
-
-        $this->app->bind(ProfilePicture::class, function () {
-            return new ProfilePicture($this->app[OAuth::class]);
-        });
     }
 }

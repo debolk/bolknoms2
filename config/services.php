@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'bolklogin' => [
+        'redirect' => env('BOLKLOGIN_REDIRECT', '/oauth'),
+        'client_id' => env('BOLKLOGIN_CLIENT_ID'),
+        'client_secret' => env('BOLKLOGIN_CLIENT_SECRET'),
+    ],
 ];

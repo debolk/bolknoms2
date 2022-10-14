@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meal;
-use App\Models\Registration;
 use App\Services\DeregisterService;
 use App\Services\DoubleRegistrationException;
 use App\Services\MealCapacityExceededException;
@@ -15,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Register extends Controller
 {
@@ -26,10 +26,10 @@ class Register extends Controller
         $data = [];
 
         // Add more data if we have a current user
-        if ($this->oauth->valid()) {
+        if (Auth::check()) {
             // A registered user can subscribe to any meal
             $data['meals'] = Meal::upcoming()->get();
-            $data['user'] = $this->oauth->user();
+            $data['user'] = Auth::user();
         } else {
             // An anonymous user can subscribe to the next available meal
             $meals = Meal::available()->take(1)->get();
@@ -51,7 +51,7 @@ class Register extends Controller
 
         // Populate the data from the session if not passed
         if (! $request->has('name')) {
-            $user = $this->oauth->user();
+            $user = Auth::user();
             if (! $user) {
                 return $this->ajaxError(
                     500,
@@ -67,7 +67,7 @@ class Register extends Controller
 
         // Create registration
         try {
-            $registration = with(new RegisterService($data, $this->oauth->user()))->execute();
+            (new RegisterService($data, Auth::user()))->execute();
 
             return response()->json([], 204);
         } catch (ModelNotFoundException $e) {
@@ -97,7 +97,7 @@ class Register extends Controller
         }
 
         // Find the user
-        $user = $this->oauth->user();
+        $user = Auth::user();
         if (! $user) {
             return $this->ajaxError(404, 'no_user', 'Deze gebruikers bestaat niet');
         }
@@ -109,7 +109,7 @@ class Register extends Controller
 
         // Deregister from the meal
         try {
-            with(new DeregisterService($registration))->execute();
+            (new DeregisterService($registration))->execute();
         } catch (MealDeadlinePassedException $e) {
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }

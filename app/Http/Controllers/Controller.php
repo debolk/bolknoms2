@@ -8,22 +8,13 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;
-
-    protected OAuth $oauth;
-
-    /**
-     * Common setup to all controllers
-     */
-    public function __construct(OAuth $oauth)
-    {
-        $this->oauth = $oauth;
-    }
 
     /**
      * Show a user-friendly error page
@@ -32,7 +23,7 @@ class Controller extends BaseController
     {
         return response(view('layouts/master', [
             'content' => view('errors/' . $status, ['code' => $message]),
-            'user' => $this->oauth->user(),
+            'user' => Auth::user(),
         ]), $status);
     }
 

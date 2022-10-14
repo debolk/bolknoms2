@@ -42,7 +42,7 @@ class UpdateMeal extends Controller
         }
 
         try {
-            $meal = with(new UpdateMealService($meal, $data))->execute();
+            $meal = (new UpdateMealService($meal, $data))->execute();
         } catch (ValidationException $e) {
             return redirect(action([self::class, 'edit'], $meal->id))->withErrors($e->messages())->withInput();
         }

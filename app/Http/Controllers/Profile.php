@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class Profile extends Controller
@@ -14,7 +15,7 @@ class Profile extends Controller
      */
     public function index(): View
     {
-        $user = $this->oauth->user();
+        $user = Auth::user();
 
         return view('profile/index', compact('user'));
     }
@@ -24,7 +25,7 @@ class Profile extends Controller
      */
     public function setHandicap(Request $request): JsonResponse
     {
-        $user = $this->oauth->user();
+        $user = Auth::user();
         if (! $user) {
             return response()->json([
                 'error' => 'handicap_update_failed',

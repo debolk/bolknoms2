@@ -14,6 +14,7 @@ use App\Services\ValidationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShowMeal extends Controller
 {
@@ -52,7 +53,7 @@ class ShowMeal extends Controller
 
         try {
             // Create registration
-            $registration = with(new AdminRegisterService($data, $this->oauth->user()))->execute();
+            $registration = (new AdminRegisterService($data, Auth::user()))->execute();
 
             // Return view of the new registration
             return view('administration/meal/_registration', ['registration' => $registration]);
@@ -96,7 +97,7 @@ class ShowMeal extends Controller
         }
 
         // Deregister from the meal
-        with(new AdminDeregisterService($registration))->execute();
+        (new AdminDeregisterService($registration))->execute();
 
         return response()->noContent();
     }

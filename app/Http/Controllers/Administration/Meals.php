@@ -42,7 +42,7 @@ class Meals extends Controller
         }
 
         $date = (string) $meal;
-        $destroy = with(new DestroyMealService($meal))->execute();
+        $destroy = (new DestroyMealService($meal))->execute();
 
         if (! $destroy) {
             return $this->userFriendlyError(500, 'Maaltijd kon niet worden verwijderd; onbekende fout.');
