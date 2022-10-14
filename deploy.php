@@ -12,6 +12,7 @@ set('keep_releases', 5);
 host('noms.debolk.nl')
     ->setRemoteUser('jakob')
     ->setHostname('10.99.1.24')
+    ->setBranch('main')
     ->setDeployPath('/srv/bolknoms2')
     ->setForwardAgent(true);
 
