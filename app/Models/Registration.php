@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Registration extends Model
 {
     use SoftDeletes;
+    use HasFactory;
 
     /**
      * All properties that can be mass-assigned
@@ -32,6 +35,11 @@ class Registration extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function collectible(): BelongsTo
+    {
+        return $this->belongsTo(Collectible::class);
     }
 
     /**

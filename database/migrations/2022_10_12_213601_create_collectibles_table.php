@@ -23,10 +23,14 @@ return new class extends Migration
             $table->unsignedInteger('user_id')->nullable(false);
             $table->foreignId('collectible_id')->constrained();
 
-            $table->foreign('user_id')->references('id')->on('users');
-                // ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
 
             $table->unique(['collectible_id', 'user_id']);
+        });
+
+        Schema::table('registrations', function (Blueprint $table) {
+            $table->foreignId('collectible_id')->nullable()->constrained();
         });
     }
 

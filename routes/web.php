@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['web'])->group(function () {
     // Register for meals
     Route::get('/', [Register::class, 'index'])->name('register.index');
-    Route::post('/aanmelden', [Register::class, 'aanmelden']);
-    Route::post('/afmelden', [Register::class, 'afmelden']);
+    Route::post('/aanmelden', [Register::class, 'aanmelden'])->name('meal.register');
+    Route::post('/afmelden', [Register::class, 'afmelden'])->name('meal.deregister');
 
     // Confirm registration
     Route::get('/bevestigen/{id}/{salt}', [Confirm::class, 'confirm']);

@@ -23,4 +23,9 @@ class Collectible extends Model
     {
         $this->users()->save($user);
     }
+
+    public function stripFrom(User $user): void
+    {
+        $this->users()->detach($user);
+    }
 }

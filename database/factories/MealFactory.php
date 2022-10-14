@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,5 +21,18 @@ class MealFactory extends Factory
             'meal_timestamp' => $this->faker->dateTime(),
             'locked_timestamp' => $this->faker->dateTime(),
         ];
+    }
+
+    public function available()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'locked_timestamp' => $this->faker->dateTimeBetween(
+                    Carbon::now()->addHour(),
+                    Carbon::now()->addWeeks(100)
+                ),
+                'capacity' => null,
+            ];
+        });
     }
 }

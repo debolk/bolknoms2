@@ -109,7 +109,7 @@ class Register extends Controller
 
         // Deregister from the meal
         try {
-            (new DeregisterService($registration))->execute();
+            (new DeregisterService($registration, Auth::user()))->execute();
         } catch (MealDeadlinePassedException $e) {
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
         }

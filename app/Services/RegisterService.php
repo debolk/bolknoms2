@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Mail\RegistrationConfirmation;
+use App\Models\Collectible;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
@@ -102,6 +103,17 @@ class RegisterService extends Service
 
         // Log action
         Log::info("Aangemeld: $registration->id|$registration->name");
+
+        // Award collectible
+        if ($user) {
+            $eligible = Collectible::whereDoesntHave('users', function ($query) use ($user) {
+                return $query->where('user_id', $user->id);
+            });
+            $picked = $eligible->inRandomOrder()->first();
+            if ($picked) {
+                $picked->awardTo($user);
+            }
+        }
 
         // Return data of the new registration
         return $registration;

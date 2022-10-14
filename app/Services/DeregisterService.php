@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Registration;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -11,15 +12,8 @@ use Illuminate\Support\Facades\Log;
  */
 class DeregisterService extends Service
 {
-    private $registration;
-
-    /**
-     * Set the Service
-     * @param Registration $registration
-     */
-    public function __construct(Registration $registration)
+    public function __construct(private Registration $registration, private User $user)
     {
-        $this->registration = $registration;
     }
 
     /**
@@ -43,6 +37,11 @@ class DeregisterService extends Service
 
         // Log action
         Log::info("Afgemeld $name (ID: $id) voor $meal (ID: $meal->id)");
+
+        // Remove any collectibles
+        if ($this->registration->collectible) {
+            $this->registration->collectible->stripFrom($this->user);
+        }
 
         // Remove the registration
         return $this->registration->delete();
