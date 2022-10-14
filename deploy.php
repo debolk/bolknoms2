@@ -10,11 +10,10 @@ set('default_stage', 'production');
 set('keep_releases', 5);
 
 host('noms.debolk.nl')
-    ->setRemoteUser('jakob')
-    ->setHostname('10.99.1.24')
-    ->setBranch('main')
-    ->setDeployPath('/srv/bolknoms2')
-    ->setForwardAgent(true);
+    ->set('hostname', '10.99.1.24')
+    ->set('remote_user', 'jakob')
+    ->set('branch', 'main')
+    ->set('deploy_path', '/srv/bolknoms2');
 
 // Build frontend upon release
 task('build:frontend', function () {
