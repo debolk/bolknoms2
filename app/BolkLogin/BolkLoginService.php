@@ -3,6 +3,7 @@
 namespace App\BolkLogin;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Laravel\Socialite\Two\User;
 use Throwable;
 
@@ -37,9 +38,16 @@ class BolkLoginService
         try {
             $client = app(Client::class);
             $url = 'https://auth.debolk.nl/bestuur/?access_token=' . $user->token;
-            $request = $client->get($url);
-
-            return $request->getStatusCode() === 200;
+            $client->get($url);
+            return true;
+        } catch (ClientException $e) {
+            // Non-board members will return a 403 with JSON error: unauthorized
+            $body = json_decode((string) $e->getResponse()->getBody());
+            if (isset($body->error) && $body->error === 'unauthorized') {
+                return false;
+            } else {
+                throw $e;
+            }
         } catch (Throwable $e) {
             app('sentry')->captureException($e);
             return false;
