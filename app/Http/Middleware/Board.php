@@ -2,9 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Helpers\OAuth as OAuthHelper;
 use Closure;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class Board
@@ -22,11 +20,10 @@ class Board
             abort(500, 'Attempted board authorization without a valid session');
         }
 
-        if (Auth::user()->is_board) {
-            // Proceed with request
-            return $next($request);
-        } else {
+        if (!Auth::user()->is_board) {
             abort(403, 'Access denied: you\'re not authorized to access this');
         }
+
+        return $next($request);
     }
 }
