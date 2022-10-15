@@ -16,7 +16,7 @@ class OAuth extends Controller
     public function callback(): RedirectResponse
     {
         try {
-            $oauthUser = Socialite::driver('BolkLogin')->user();
+            $token = Socialite::driver('BolkLogin')->user();
         } catch (InvalidStateException) {
             // usually happens when someone goes back or refreshes in the process
             // causing our authorization token be invalid (single-use tokens)
@@ -33,19 +33,16 @@ class OAuth extends Controller
             ]);
         }
 
-        $user = User::where('email', $oauthUser->getId())->first();
-
-        // First time, create a new user
-        $details = app(BolkLoginService::class)->userDetails($oauthUser);
-        if (!$user) {
-            $user = User::create($details);
-        } else {
-            $user->update($details);
-        }
-
-        // Set authorisations and update the profile picture
-        $user->update(['is_board' => app(BolkLoginService::class)->isBoardMember($oauthUser)]);
-        app(ProfilePicture::class)->updatePictureFor($user, $oauthUser->token);
+        // Find or create user
+        $details = app(BolkLoginService::class)->userDetails($token);
+        $user = User::updateOrCreate([
+            'username' => $details['username'],
+        ], [
+            'email' => $details['email'],
+            'name' => $details['name'],
+            'is_board' => app(BolkLoginService::class)->isBoardMember($token),
+        ]);
+        app(ProfilePicture::class)->updatePictureFor($user, $token->token);
 
         Auth::login($user);
 
