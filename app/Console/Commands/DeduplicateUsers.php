@@ -10,7 +10,7 @@ class DeduplicateUsers extends Command
     protected $signature = 'users:deduplicate {username}';
     protected $description = 'Deduplicate a user by their username, merging registrations';
 
-    public function handle()
+    public function handle(): int
     {
         $duplicates = User::where('username', $this->argument('username'))->orderBy('created_at', 'asc')->get();
         if ($duplicates->count() < 2) {
@@ -27,7 +27,9 @@ class DeduplicateUsers extends Command
             }
             $this->info("Reassigned {$registrations->count()} registrations to user id {$original->id}");
             $dup->delete();
-            $this->info("Deleted duplicate user {$user->id}");
+            $this->info("Deleted duplicate user {$dup->id}");
         }
+
+        return 0;
     }
 }
