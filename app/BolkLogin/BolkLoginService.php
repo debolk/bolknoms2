@@ -4,6 +4,7 @@ namespace App\BolkLogin;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Two\User;
 use Throwable;
 
@@ -21,6 +22,7 @@ class BolkLoginService
         $url = 'https://auth.debolk.nl/resource/?access_token=' . $user->token;
         $response = $client->get($url);
         $username = json_decode($response->getBody())->user_id;
+        Log::debug('Received username from BolkLogin resource', ['username' => $username]);
 
         $url = 'https://people.debolk.nl/persons/' . $username . '/basic?access_token=' . $user->token;
         $response = $client->get($url);
