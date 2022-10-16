@@ -27,7 +27,7 @@ Route::middleware(['web'])->group(function () {
 
     // OAuth routes
     Route::get('/oauth', [OAuth::class, 'callback']);
-    Route::get('/login', [OAuth::class, 'login']);
+    Route::get('/login', [OAuth::class, 'login'])->name('login');
     Route::get('/logout', [OAuth::class, 'logout']);
 
     // Profile picture of a user
