@@ -22,7 +22,11 @@ class BolkLoginService
         $url = 'https://auth.debolk.nl/resource/?access_token=' . $user->token;
         $response = $client->get($url);
         $username = json_decode($response->getBody())->user_id;
+
+        // In some cases, usernames are sent with an added space, reason unknown.
+        //We trim here as a temporary fix
         Log::debug('Received username from BolkLogin resource', ['username' => $username]);
+        $username = trim($username);
 
         $url = 'https://people.debolk.nl/persons/' . $username . '/basic?access_token=' . $user->token;
         $response = $client->get($url);
