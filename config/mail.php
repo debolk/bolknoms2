@@ -50,6 +50,16 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
+
+            // Disable SSL peer verification as the mailserver uses
+            // a self-signed certificate
+            'stream' => [
+                'ssl' => [
+                    'allow_self_signed' => env('MAIL_ALLOW_SELFSIGNED', true),
+                    'verify_peer' => env('MAIL_VERIFY_PEER', false),
+                    'verify_peer_name' => env('MAIL_VERIFY_PEER_NAME', false),
+                ],
+            ],
         ],
 
         'ses' => [
