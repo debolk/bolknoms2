@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -27,10 +26,6 @@ return new class extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->unique(['collectible_id', 'user_id']);
-        });
-
-        Schema::table('registrations', function (Blueprint $table) {
-            $table->foreignId('collectible_id')->nullable()->constrained();
         });
     }
 

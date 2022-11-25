@@ -16,7 +16,7 @@ it('can award a collectible to a user', function () {
         ->first()->id->toBe($collectible->id);
 });
 
-test('a registration awards a random collectible', function () {
+test('a registration awards a collectible', function () {
     $user = User::factory()->create();
     $collectible = Collectible::factory()->create();
     $meal = Meal::factory()->available()->create();
@@ -30,7 +30,6 @@ test('a registration awards a random collectible', function () {
     expect($user->collectibles->contains($collectible))->toBeTrue();
 });
 
-// no collectible awarded if you have all of them
 it('does not award a collectible when all are owned', function () {
     $user = User::factory()->create();
     $collectible = Collectible::factory()->count(3)->create();
@@ -50,17 +49,15 @@ test('deregistering removes the awarded collectible', function () {
     $user = User::factory()->create();
     $collectibleA = Collectible::factory()->create();
     $collectibleB = Collectible::factory()->create();
-    $mealA = Meal::factory()->available()->create();
-    $mealB = Meal::factory()->available()->create();
+    $mealA = Meal::factory()->available()->create(['collectible_id' => $collectibleA->id]);
+    $mealB = Meal::factory()->available()->create(['collectible_id' => $collectibleB->id]);
     Registration::factory()->create([
         'meal_id' => $mealA->id,
         'user_id' => $user->id,
-        'collectible_id' => $collectibleA->id,
     ]);
     Registration::factory()->create([
         'meal_id' => $mealB->id,
         'user_id' => $user->id,
-        'collectible_id' => $collectibleB->id,
     ]);
     $collectibleA->awardTo($user);
     $collectibleB->awardTo($user);
@@ -79,5 +76,12 @@ test('deregistering removes the awarded collectible', function () {
     expect($user->collectibles->contains($collectibleB))->toBeFalse();
 });
 
-
+// can earn collectibles multiple times, with counter
+// must assign collecible at random, allowing re-issues
 // if a collectible is awarded twice, deregistering allows you to keep it
+// anonymous users do not get collectibles
+// a page to view your collectibles
+// unawarded collectibles are greyed out
+// popup for confirmation shows new collectible
+// register > deregister > register must award the same GIF, or it never assigns a GIF as anti-cheat?
+// GIFs are NOT linked to a specific meal, two users registering can get different GIFs (could drop?)

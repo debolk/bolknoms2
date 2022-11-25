@@ -27,7 +27,7 @@ class DeregisterService extends Service
         $meal = $this->registration->meal;
 
         // Check if the meal is still open
-        if (! $meal->open_for_registrations()) {
+        if (!$meal->open_for_registrations()) {
             throw new MealDeadlinePassedException();
         }
 
@@ -39,8 +39,9 @@ class DeregisterService extends Service
         Log::info("Afgemeld $name (ID: $id) voor $meal (ID: $meal->id)");
 
         // Remove any collectibles
-        if ($this->registration->collectible) {
-            $this->registration->collectible->stripFrom($this->user);
+        $collectible = $this->registration->meal->awardsCollectible;
+        if ($collectible) {
+            $collectible->stripFrom($this->user);
         }
 
         // Remove the registration

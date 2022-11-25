@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,11 @@ class Meal extends Model
     public function registrations()
     {
         return $this->hasMany(\App\Models\Registration::class)->orderBy('name');
+    }
+
+    public function awardsCollectible(): BelongsTo
+    {
+        return $this->belongsTo(Collectible::class, 'collectible_id');
     }
 
     /**
@@ -85,8 +91,8 @@ class Meal extends Model
     {
         $output = $this->longDate();
 
-        if (! empty($this->event)) {
-            $output .= ' ('.$this->event.')';
+        if (!empty($this->event)) {
+            $output .= ' (' . $this->event . ')';
         }
 
         return $output;
@@ -129,9 +135,9 @@ class Meal extends Model
         $lock = $this->locked_timestamp->format('Y-m-d');
 
         if ($meal === $lock) {
-            return $this->locked_timestamp->format('H:i').' uur';
+            return $this->locked_timestamp->format('H:i') . ' uur';
         } else {
-            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M').' uur';
+            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M') . ' uur';
         }
     }
 
@@ -165,7 +171,7 @@ class Meal extends Model
             return $this->cache[$timestamp->timestamp];
         }
 
-        if (! isset($this->registrationTimestamps)) {
+        if (!isset($this->registrationTimestamps)) {
             $this->registrationTimestamps = $this->registrations->map(function ($r) {
                 return $r->created_at->timestamp;
             });
