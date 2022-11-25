@@ -16,10 +16,10 @@ it('can award a collectible to a user', function () {
         ->first()->id->toBe($collectible->id);
 });
 
-test('a registration awards a collectible', function () {
+test('a meal doesn\'t have to award a collectible', function () {
     $user = User::factory()->create();
-    $collectible = Collectible::factory()->create();
-    $meal = Meal::factory()->available()->create();
+    Collectible::factory()->create();
+    $meal = Meal::factory()->available()->create(['collectible_id' => null]);
 
     $this->actingAs($user)
         ->postJson(route('meal.register'), [
@@ -27,14 +27,13 @@ test('a registration awards a collectible', function () {
         ])
         ->assertNoContent();
 
-    expect($user->collectibles->contains($collectible))->toBeTrue();
+    expect($user->collectibles)->toBeEmpty();
 });
 
-it('does not award a collectible when all are owned', function () {
+test('a meal awards a collectible', function () {
     $user = User::factory()->create();
-    $collectible = Collectible::factory()->count(3)->create();
-    $collectible->each->awardTo($user);
-    $meal = Meal::factory()->available()->create();
+    $collectible = Collectible::factory()->create();
+    $meal = Meal::factory()->available()->create(['collectible_id' => $collectible->id]);
 
     $this->actingAs($user)
         ->postJson(route('meal.register'), [
@@ -42,7 +41,8 @@ it('does not award a collectible when all are owned', function () {
         ])
         ->assertNoContent();
 
-    expect($user->collectibles)->toHaveCount(3);
+    expect($user->collectibles)->toHaveCount(1);
+    expect($user->collectibles->contains($collectible))->toBeTrue();
 });
 
 test('deregistering removes the awarded collectible', function () {
@@ -76,6 +76,7 @@ test('deregistering removes the awarded collectible', function () {
     expect($user->collectibles->contains($collectibleB))->toBeFalse();
 });
 
+// seed meals with random collectibles
 // can earn collectibles multiple times, with counter
 // must assign collecible at random, allowing re-issues
 // if a collectible is awarded twice, deregistering allows you to keep it

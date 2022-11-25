@@ -37,12 +37,12 @@ class RegisterService extends Service
         $meal = Meal::findOrFail($this->data['meal_id']);
 
         // Meal must be open for registrations, unless we allow ignoring this requirement
-        if (! $meal->open_for_registrations()) {
+        if (!$meal->open_for_registrations()) {
             throw new MealDeadlinePassedException();
         }
 
         // Meal capacity must not have been exceeded
-        if (! $meal->capacityAvailable()) {
+        if (!$meal->capacityAvailable()) {
             throw new MealCapacityExceededException();
         }
 
@@ -105,14 +105,8 @@ class RegisterService extends Service
         Log::info("Aangemeld: $registration->id|$registration->name");
 
         // Award collectible
-        if ($user) {
-            $eligible = Collectible::whereDoesntHave('users', function ($query) use ($user) {
-                return $query->where('user_id', $user->id);
-            });
-            $picked = $eligible->inRandomOrder()->first();
-            if ($picked) {
-                $picked->awardTo($user);
-            }
+        if ($user && $meal->awardsCollectible) {
+            $meal->awardsCollectible->awardTo($user);
         }
 
         // Return data of the new registration

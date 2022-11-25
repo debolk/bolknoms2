@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Collectible;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,6 +21,7 @@ class MealFactory extends Factory
         return [
             'meal_timestamp' => $this->faker->dateTime(),
             'locked_timestamp' => $this->faker->dateTime(),
+            'collectible_id' => Collectible::factory(),
         ];
     }
 
