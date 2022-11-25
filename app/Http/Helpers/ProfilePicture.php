@@ -3,7 +3,6 @@
 namespace App\Http\Helpers;
 
 use App\Models\User;
-use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\File;
 

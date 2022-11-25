@@ -6,7 +6,6 @@ use App\Mail\RegistrationConfirmation;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Models\User;
-use App\Services\MealCapacityExceededException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;

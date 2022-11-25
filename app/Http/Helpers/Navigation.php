@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Route;
  */
 class Navigation
 {
-     /**
-     * Logged-in menu entries
-     * @var array
-     */
+    /**
+    * Logged-in menu entries
+    * @var array
+    */
     private $menu = [
         ['text' => 'Aanmelden', 'action' => [Register::class, 'index'], 'icon' => 'calendar', 'level' => '0'],
         ['text' => 'Spelregels', 'action' => [Page::class, 'spelregels'], 'icon' => 'file-text-o', 'level' => '0'],

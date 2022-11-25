@@ -4,7 +4,6 @@ namespace App\BolkLogin;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Two\User;
 use Throwable;
 
