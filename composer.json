@@ -35,6 +35,7 @@
         "deployer/deployer": "^7.0",
         "fakerphp/faker": "^1.13",
         "filp/whoops": "~2.0",
+        "laravel/pint": "^1.2",
         "laravel/sail": "^1.15",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
