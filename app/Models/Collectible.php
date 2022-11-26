@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Collectible extends Model
 {
@@ -14,18 +15,27 @@ class Collectible extends Model
         'uuid'
     ];
 
-    public function users(): BelongsToMany
+    public function awards(): HasMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(Award::class);
     }
 
     public function awardTo(User $user): void
     {
-        $this->users()->save($user);
+        $award = $this->awards()->firstOrCreate(
+            ['user_id' => $user->id],
+            ['awarded' => 0]
+        );
+        $award->increment('awarded');
     }
 
     public function stripFrom(User $user): void
     {
-        $this->users()->detach($user);
+        $award = $this->awards()->where('user_id', $user->id)->first();
+        if ($award->awarded === 1) {
+            $award->delete();
+        } else {
+            $award->decrement('awarded');
+        }
     }
 }

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -18,13 +19,15 @@ return new class () extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('collectible_user', function (Blueprint $table) {
+        Schema::create('awards', function (Blueprint $table) {
+            $table->id();
             $table->unsignedInteger('user_id')->nullable(false);
             $table->foreignId('collectible_id')->constrained();
+            $table->integer('awarded')->default(1);
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
-
             $table->unique(['collectible_id', 'user_id']);
         });
     }

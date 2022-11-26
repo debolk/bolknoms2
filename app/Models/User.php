@@ -61,8 +61,13 @@ class User extends Authenticatable
             ->get();
     }
 
+    public function awards(): HasMany
+    {
+        return $this->hasMany(Award::class);
+    }
+
     public function collectibles(): BelongsToMany
     {
-        return $this->belongsToMany(Collectible::class);
+        return $this->BelongsToMany(Collectible::class, 'awards');
     }
 }

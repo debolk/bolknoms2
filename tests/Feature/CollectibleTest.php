@@ -11,9 +11,30 @@ it('can award a collectible to a user', function () {
 
     $collectible->awardTo($user);
 
+    expect($user->awards)
+        ->toHaveLength(1)
+        ->first()->collectible_id->toBe($collectible->id)
+        ->first()->awarded->toBe(1);
     expect($user->collectibles)
         ->toHaveLength(1)
         ->first()->id->toBe($collectible->id);
+});
+
+it('can award the same collectible multiple times', function () {
+    $user = User::factory()->create();
+    $collectible = Collectible::factory()->create();
+
+    $collectible->awardTo($user);
+
+    expect($user->awards)
+        ->toHaveLength(1)
+        ->first()->awarded->toBe(1);
+
+    $collectible->awardTo($user);
+
+    expect($user->fresh()->awards)
+        ->toHaveLength(1)
+        ->first()->awarded->toBe(2);
 });
 
 test('a meal awards a collectible', function () {
@@ -86,8 +107,6 @@ test('deregistering removes the awarded collectible', function () {
     expect($user->collectibles->contains($collectibleB))->toBeFalse();
 });
 
-// can earn collectibles multiple times, with counter
-// must assign collecible at random, allowing re-issues
 // if a collectible is awarded twice, deregistering allows you to keep it
 // anonymous users do not get collectibles
 // a page to view your collectibles
