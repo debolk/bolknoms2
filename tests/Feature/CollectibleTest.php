@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Award;
 use App\Models\Collectible;
 use App\Models\Meal;
 use App\Models\Registration;
@@ -50,6 +51,20 @@ test('a meal awards a collectible', function () {
 
     expect($user->collectibles)->toHaveCount(1);
     expect($user->collectibles->contains($collectible))->toBeTrue();
+});
+
+test('anonymous registrations don\'t get collectibles', function () {
+    $meal = Meal::factory()->available()->create();
+
+    $this->postJson(route('meal.register'), [
+        'meal_id' => $meal->id,
+        'name' => 'Hans Talmon',
+        'email' => 'hans@example.com',
+        'handicap' => null,
+    ])
+        ->assertNoContent();
+
+    expect(Award::all())->toHaveCount(0);
 });
 
 it('assigns a random collectible to a meal by default', function () {
@@ -108,7 +123,6 @@ test('deregistering removes the awarded collectible', function () {
 });
 
 // if a collectible is awarded twice, deregistering allows you to keep it
-// anonymous users do not get collectibles
 // a page to view your collectibles
 // unawarded collectibles are greyed out
 // popup for confirmation shows new collectible
