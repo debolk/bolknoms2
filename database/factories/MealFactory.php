@@ -21,7 +21,6 @@ class MealFactory extends Factory
         return [
             'meal_timestamp' => $this->faker->dateTime(),
             'locked_timestamp' => $this->faker->dateTime(),
-            'collectible_id' => Collectible::factory(),
         ];
     }
 
@@ -34,6 +33,15 @@ class MealFactory extends Factory
                     Carbon::now()->addWeeks(100)
                 ),
                 'capacity' => null,
+            ];
+        });
+    }
+
+    public function withCollectible()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'collectible_id' => Collectible::factory(),
             ];
         });
     }

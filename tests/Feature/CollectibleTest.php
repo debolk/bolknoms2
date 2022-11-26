@@ -16,20 +16,6 @@ it('can award a collectible to a user', function () {
         ->first()->id->toBe($collectible->id);
 });
 
-test('a meal doesn\'t have to award a collectible', function () {
-    $user = User::factory()->create();
-    Collectible::factory()->create();
-    $meal = Meal::factory()->available()->create(['collectible_id' => null]);
-
-    $this->actingAs($user)
-        ->postJson(route('meal.register'), [
-            'meal_id' => $meal->id,
-        ])
-        ->assertNoContent();
-
-    expect($user->collectibles)->toBeEmpty();
-});
-
 test('a meal awards a collectible', function () {
     $user = User::factory()->create();
     $collectible = Collectible::factory()->create();
@@ -43,6 +29,30 @@ test('a meal awards a collectible', function () {
 
     expect($user->collectibles)->toHaveCount(1);
     expect($user->collectibles->contains($collectible))->toBeTrue();
+});
+
+it('assigns a random collectible to a meal by default', function () {
+    $collectible = Collectible::factory()->create();
+    $meal = Meal::factory()->create();
+    $meal->save();
+
+    expect($meal->fresh()->awardsCollectible->is($collectible))->toBeTrue();
+});
+
+it('does not assign a random collectible to a meal by default when none are available', function () {
+    $meal = Meal::factory()->create();
+    $meal->save();
+
+    expect($meal->fresh()->awardsCollectible)->toBeNull();
+});
+
+it('does not assign a random collectible to a meal when updating', function () {
+    $meal = Meal::factory()->withCollectible()->create();
+    $originalCollectible = $meal->awardsCollectible;
+    Collectible::factory()->count(100)->create(); // accept a 1% risk we select the same by accident
+    $meal->save();
+
+    expect($meal->fresh()->awardsCollectible)->toEqual($originalCollectible);
 });
 
 test('deregistering removes the awarded collectible', function () {
@@ -76,7 +86,6 @@ test('deregistering removes the awarded collectible', function () {
     expect($user->collectibles->contains($collectibleB))->toBeFalse();
 });
 
-// seed meals with random collectibles
 // can earn collectibles multiple times, with counter
 // must assign collecible at random, allowing re-issues
 // if a collectible is awarded twice, deregistering allows you to keep it

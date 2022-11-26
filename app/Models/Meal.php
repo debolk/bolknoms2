@@ -26,6 +26,16 @@ class Meal extends Model
         'locked_timestamp' => 'datetime',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function (Meal $meal) {
+            // If a meal is created without a collectible, assign one at random
+            if (!$meal->awardsCollectible) {
+                $meal->awardsCollectible()->associate(Collectible::inRandomOrder()->limit(1)->first());
+            }
+        });
+    }
+
     /**
      * Relationship: one meal has many registrations
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
