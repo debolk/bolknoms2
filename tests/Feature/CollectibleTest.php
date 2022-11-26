@@ -122,9 +122,43 @@ test('deregistering removes the awarded collectible', function () {
     expect($user->collectibles->contains($collectibleB))->toBeFalse();
 });
 
-// if a collectible is awarded twice, deregistering allows you to keep it
+test('re-registering awards the collectible again', function () {
+    $user = User::factory()->create();
+    $collectible = Collectible::factory()->create();
+    $meal = Meal::factory()->available()->create(['collectible_id' => $collectible->id]);
+    Registration::factory()->create([
+        'meal_id' => $meal->id,
+        'user_id' => $user->id,
+    ]);
+    $collectible->awardTo($user);
+    $collectible->awardTo($user);
+
+    $user = $user->fresh();
+    expect($user->collectibles->contains($collectible))->toBeTrue();
+    expect($user->awards()->first()->awarded)->toBe(2);
+
+    $this->actingAs($user)
+        ->postJson(route('meal.deregister'), [
+            'meal_id' => $meal->id,
+        ])
+        ->assertNoContent();
+
+    $user = $user->fresh();
+    expect($user->collectibles->contains($collectible))->toBeTrue();
+    expect($user->awards()->first()->awarded)->toBe(1);
+
+    $this->actingAs($user)
+        ->postJson(route('meal.register'), [
+            'meal_id' => $meal->id,
+        ])
+        ->assertNoContent();
+
+    $user = $user->fresh();
+    expect($user->collectibles->contains($collectible))->toBeTrue();
+    expect($user->awards()->first()->awarded)->toBe(2);
+});
+
 // a page to view your collectibles
 // unawarded collectibles are greyed out
 // popup for confirmation shows new collectible
-// register > deregister > register must award the same GIF, or it never assigns a GIF as anti-cheat?
 // GIFs are NOT linked to a specific meal, two users registering can get different GIFs (could drop?)
