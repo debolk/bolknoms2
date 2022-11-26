@@ -38,4 +38,9 @@ class Collectible extends Model
             $award->decrement('awarded');
         }
     }
+
+    public function assetPath(): string
+    {
+        return asset('storage/collectibles/' . $this->uuid . '.mp4');
+    }
 }

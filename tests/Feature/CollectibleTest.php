@@ -47,7 +47,7 @@ test('a meal awards a collectible', function () {
         ->postJson(route('meal.register'), [
             'meal_id' => $meal->id,
         ])
-        ->assertNoContent();
+        ->assertOk();
 
     expect($user->collectibles)->toHaveCount(1);
     expect($user->collectibles->contains($collectible))->toBeTrue();
@@ -62,7 +62,7 @@ test('anonymous registrations don\'t get collectibles', function () {
         'email' => 'hans@example.com',
         'handicap' => null,
     ])
-        ->assertNoContent();
+        ->assertOk();
 
     expect(Award::all())->toHaveCount(0);
 });
@@ -151,14 +151,28 @@ test('re-registering awards the collectible again', function () {
         ->postJson(route('meal.register'), [
             'meal_id' => $meal->id,
         ])
-        ->assertNoContent();
+        ->assertOk();
 
     $user = $user->fresh();
     expect($user->collectibles->contains($collectible))->toBeTrue();
     expect($user->awards()->first()->awarded)->toBe(2);
 });
 
+it('shows the collectible when registering', function () {
+    $user = User::factory()->create();
+    $meal = Meal::factory()->available()->withCollectible()->create();
+
+    $this->actingAs($user)
+        ->postJson(route('meal.register'), [
+            'meal_id' => $meal->id,
+        ])
+        ->assertOk()
+        ->assertJson(['collectible' => 'http://bolknoms.test/storage/collectibles/' . $meal->awardsCollectible->uuid . '.mp4']);
+});
+
 // a page to view your collectibles
 // unawarded collectibles are greyed out
 // popup for confirmation shows new collectible
 // GIFs are NOT linked to a specific meal, two users registering can get different GIFs (could drop?)
+// administration UI to create new collectibles
+// utility command to create new collectibles?

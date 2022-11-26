@@ -50,9 +50,9 @@ class Register extends Controller
         $data = $request->all();
 
         // Populate the data from the session if not passed
-        if (! $request->has('name')) {
+        if (!$request->has('name')) {
             $user = Auth::user();
-            if (! $user) {
+            if (!$user) {
                 return $this->ajaxError(
                     500,
                     'user_not_found',
@@ -67,20 +67,22 @@ class Register extends Controller
 
         // Create registration
         try {
-            (new RegisterService($data, Auth::user()))->execute();
-
-            return response()->json([], 204);
-        } catch (ModelNotFoundException $e) {
+            $registration = (new RegisterService($data, Auth::user()))->execute();
+            $collectible = $registration->meal->awardsCollectible;
+            return response()->json([
+                'collectible' => $collectible ? $collectible->assetPath() : null,
+            ]);
+        } catch (ModelNotFoundException) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd waarvoor je je probeert aan te melden bestaat niet');
-        } catch (ValidationException $e) {
+        } catch (ValidationException) {
             return $this->ajaxError(400, 'input_invalid', 'Naam of e-mailadres niet ingevuld of ongeldig');
-        } catch (MealDeadlinePassedException $e) {
+        } catch (MealDeadlinePassedException) {
             return $this->ajaxError(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
-        } catch (UserBlockedException $e) {
+        } catch (UserBlockedException) {
             return $this->ajaxError(404, 'user_blocked', 'Je bent geblokkeerd op bolknoms. Je kunt je niet aanmelden voor maaltijden.');
-        } catch (DoubleRegistrationException $e) {
+        } catch (DoubleRegistrationException) {
             return $this->ajaxError(400, 'double_registration', 'Je bent al aangemeld voor deze maaltijd.');
-        } catch (MealCapacityExceededException $e) {
+        } catch (MealCapacityExceededException) {
             return $this->ajaxError(400, 'capacity_exceeded', 'De limiet voor het aantal eters is bereikt.');
         }
     }
@@ -92,18 +94,18 @@ class Register extends Controller
     {
         // Find the meal
         $meal = Meal::where('id', (int) $request->input('meal_id'))->first();
-        if (! $meal) {
+        if (!$meal) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd bestaat niet');
         }
 
         // Find the user
         $user = Auth::user();
-        if (! $user) {
+        if (!$user) {
             return $this->ajaxError(404, 'no_user', 'Deze gebruikers bestaat niet');
         }
 
         $registration = $user->registrationFor($meal);
-        if (! $registration) {
+        if (!$registration) {
             return $this->ajaxError(404, 'no_registration', 'Je bent niet aangemeld voor deze maaltijd');
         }
 
