@@ -123,7 +123,7 @@ window.Frontend = {
                 if (response.collectible) {
                     Swal.fire({
                         title: 'Nieuw plaatje!',
-                        html: `<video controls autoplay height="400"><source src="${response.collectible}" type="video/mp4"></video><p>Je hebt een nieuw verzamelplaatje gekregen. Verzamel ze allemaal door zo vaak mogelijk mee te eten!</p><p><a href="/verzamelplaatjes">Bekijk al je verzamelplaatjes</a></p>`,
+                        html: `<div><video controls autoplay height="400"><source src="${response.collectible.url}" type="video/mp4"></video><span class="award">${response.collectible.awarded}x!</span></div><p>Je hebt een nieuw verzamelplaatje gekregen. Verzamel ze allemaal door zo vaak mogelijk mee te eten!</p><p><a href="/profiel">Bekijk al je verzamelplaatjes</a></p>`,
                     });
                 }
             },

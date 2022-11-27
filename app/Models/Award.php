@@ -25,4 +25,9 @@ class Award extends Model
     {
         return $this->belongsTo(Collectible::class);
     }
+
+    public static function for(User $user, Collectible $collectible): ?Award
+    {
+        return self::where(['user_id' => $user->id, 'collectible_id' => $collectible->id])->first();
+    }
 }

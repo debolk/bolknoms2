@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Award;
 use App\Models\Meal;
 use App\Services\DeregisterService;
 use App\Services\DoubleRegistrationException;
@@ -69,9 +70,16 @@ class Register extends Controller
         try {
             $registration = (new RegisterService($data, Auth::user()))->execute();
             $collectible = $registration->meal->awardsCollectible;
-            return response()->json([
-                'collectible' => $collectible ? $collectible->assetPath() : null,
-            ]);
+            if (Auth::user() && $collectible) {
+                return response()->json([
+                    'collectible' => [
+                        'url' => $collectible ? $collectible->assetPath() : null,
+                        'awarded' => Award::for(Auth::user(), $collectible)?->awarded,
+                    ],
+                ]);
+            } else {
+                return response()->json(['collectible' => null]);
+            }
         } catch (ModelNotFoundException) {
             return $this->ajaxError(404, 'meal_not_found', 'De maaltijd waarvoor je je probeert aan te melden bestaat niet');
         } catch (ValidationException) {

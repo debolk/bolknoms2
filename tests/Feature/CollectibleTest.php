@@ -161,13 +161,19 @@ test('re-registering awards the collectible again', function () {
 it('shows the collectible when registering', function () {
     $user = User::factory()->create();
     $meal = Meal::factory()->available()->withCollectible()->create();
+    $meal->awardsCollectible->awardTo($user);
 
     $this->actingAs($user)
         ->postJson(route('meal.register'), [
             'meal_id' => $meal->id,
         ])
         ->assertOk()
-        ->assertJson(['collectible' => 'http://bolknoms.test/storage/collectibles/' . $meal->awardsCollectible->uuid . '.mp4']);
+        ->assertJson([
+            'collectible' => [
+                'url' => 'http://bolknoms.test/storage/collectibles/' . $meal->awardsCollectible->uuid . '.mp4',
+                'awarded' => 2,
+            ],
+        ]);
 });
 
 // a page to view your collectibles
