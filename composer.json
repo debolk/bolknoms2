@@ -22,6 +22,7 @@
     "require": {
         "php": "^8.0",
         "doctrine/dbal": "^3.0",
+        "dyrynda/laravel-model-uuid": "^6.6",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^3.0",

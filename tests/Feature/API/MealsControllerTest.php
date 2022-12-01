@@ -9,8 +9,14 @@ it('shows upcoming meals', function () {
     Carbon::setTestNow('2022-03-09 19:00:00');
 
     Meal::factory()->create(['meal_timestamp' => '2022-03-08 18:30:00']);
-    Meal::factory()->create(['meal_timestamp' => '2022-03-09 18:30:00']);
-    Meal::factory()->create(['meal_timestamp' => '2022-03-10 18:30:00']);
+    Meal::factory()->create([
+        'meal_timestamp' => '2022-03-09 18:30:00',
+        'uuid' => '74696411-a679-4eaf-8273-039d92864873',
+    ]);
+    Meal::factory()->create([
+        'meal_timestamp' => '2022-03-10 18:30:00',
+        'uuid' => 'b73688a4-a645-449f-893c-a754bd77132f',
+    ]);
 
     Sanctum::actingAs(User::factory()->create());
 
@@ -19,5 +25,7 @@ it('shows upcoming meals', function () {
 
     expect($response['data'])->toHaveCount(2);
     expect($response['data'][0]['meal_time'])->toBe('2022-03-09T18:30:00+01:00');
+    expect($response['data'][0]['id'])->toBe('74696411-a679-4eaf-8273-039d92864873');
     expect($response['data'][1]['meal_time'])->toBe('2022-03-10T18:30:00+01:00');
+    expect($response['data'][1]['id'])->toBe('b73688a4-a645-449f-893c-a754bd77132f');
 });
