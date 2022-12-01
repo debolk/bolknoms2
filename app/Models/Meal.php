@@ -49,7 +49,7 @@ class Meal extends Model
      */
     public function scopeUpcoming(Builder $query): Builder
     {
-        return $query->where('meal_timestamp', '>=', date('Y-m-d'))->orderBy('meal_timestamp');
+        return $query->where('meal_timestamp', '>=', Carbon::now()->format('Y-m-d'))->orderBy('meal_timestamp');
     }
 
     /**
@@ -57,7 +57,7 @@ class Meal extends Model
      */
     public function scopePrevious(Builder $query): Builder
     {
-        return $query->where('meal_timestamp', '<', date('Y-m-d'))->orderByDesc('meal_timestamp');
+        return $query->where('meal_timestamp', '<', Carbon::now()->format('Y-m-d'))->orderByDesc('meal_timestamp');
     }
 
     /**
@@ -65,7 +65,7 @@ class Meal extends Model
      */
     public function scopeToday(Builder $query): Builder
     {
-        return $query->where(DB::raw('DATE_FORMAT(`meal_timestamp`, "%Y-%m-%d")'), '=', date('Y-m-d'));
+        return $query->where(DB::raw('DATE_FORMAT(`meal_timestamp`, "%Y-%m-%d")'), '=', Carbon::now()->format('Y-m-d'));
     }
 
     /**
@@ -85,8 +85,8 @@ class Meal extends Model
     {
         $output = $this->longDate();
 
-        if (! empty($this->event)) {
-            $output .= ' ('.$this->event.')';
+        if (!empty($this->event)) {
+            $output .= ' (' . $this->event . ')';
         }
 
         return $output;
@@ -116,7 +116,7 @@ class Meal extends Model
      */
     public function isToday()
     {
-        return $this->meal_timestamp->format('Y-m-d') === date('Y-m-d');
+        return $this->meal_timestamp->format('Y-m-d') === Carbon::now()->format('Y-m-d');
     }
 
     /**
@@ -129,9 +129,9 @@ class Meal extends Model
         $lock = $this->locked_timestamp->format('Y-m-d');
 
         if ($meal === $lock) {
-            return $this->locked_timestamp->format('H:i').' uur';
+            return $this->locked_timestamp->format('H:i') . ' uur';
         } else {
-            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M').' uur';
+            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M') . ' uur';
         }
     }
 
@@ -165,7 +165,7 @@ class Meal extends Model
             return $this->cache[$timestamp->timestamp];
         }
 
-        if (! isset($this->registrationTimestamps)) {
+        if (!isset($this->registrationTimestamps)) {
             $this->registrationTimestamps = $this->registrations->map(function ($r) {
                 return $r->created_at->timestamp;
             });
