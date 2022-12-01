@@ -1,3 +1,8 @@
+.columns {
+    display: flex;
+    flex-direction: row;
+}
+
 .profile {
     width: 20em;
     margin: 0 1em 1em 0;
@@ -27,6 +32,7 @@
 .profile .medal.gold {
     color: #ffd700;
 }
+
 .profile .medal.silver {
     color: #c0c0c0;
 }
