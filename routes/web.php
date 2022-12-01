@@ -7,6 +7,7 @@ use App\Http\Controllers\Page;
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\ProfilePicture;
 use App\Http\Controllers\Register;
+use App\Http\Controllers\TokenController;
 use App\Http\Controllers\Top;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,7 @@ Route::middleware(['web'])->group(function () {
         // My Profile page
         Route::get('/profiel', [Profile::class, 'index']);
         Route::post('/handicap', [Profile::class, 'setHandicap']);
+        Route::post('/token/reset', [TokenController::class, 'reset'])->name('auth.token.create');
     });
 
     // Administration pages
@@ -80,6 +82,7 @@ Route::middleware(['web'])->group(function () {
 
         // Vacation periods
         Route::resource('vakanties', Administration\Vacations::class, [
-            'names' => 'vacations', ]);
+            'names' => 'vacations',
+        ]);
     });
 });

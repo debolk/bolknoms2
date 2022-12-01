@@ -30,6 +30,23 @@
     </div>
 
     <div class="profile">
+        <h2>API token</h2>
+        <p>
+            Met jouw API token kun je de Bolknoms API gebruiken. Dit token mag alles uitvoeren wat jij ook mag in Bolknoms.
+        </p>
+        <p>
+            <button id="token-reset">Reset token</button>
+        </p>
+        <p id="token-output">
+            <strong>Token:</strong><br>
+            <span id="token-secret"></span>
+        </p>
+        <p>
+            Je krijgt je token maar één keer te zien, maar je kunt de token altijd hier resetten.
+        </p>
+    </div>
+
+    <div class="profile">
         <h2>Maaltijden waar je hebt gegeten</h2>
         <ul>
             @foreach ($user->dateList() as $entry)
