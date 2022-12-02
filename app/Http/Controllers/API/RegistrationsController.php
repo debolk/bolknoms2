@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\API\SendsAPIErrors;
+use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Models\Registration;
 use App\Services\DeregisterService;
@@ -14,8 +16,10 @@ use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
-class RegistrationsController extends APIController
+class RegistrationsController extends Controller
 {
+    use SendsAPIErrors;
+
     public function store(string $mealUUID)
     {
         $meal = Meal::whereUUID($mealUUID)->first();

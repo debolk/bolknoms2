@@ -4,7 +4,7 @@ use App\Http\Controllers\API\MealsController;
 use App\Http\Controllers\API\RegistrationsController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')
+Route::middleware(['auth:sanctum', 'version'])
     ->name('api.')
     ->group(function () {
 
