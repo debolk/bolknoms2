@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 class Navigation
 {
     /**
-    * Logged-in menu entries
-    * @var array
-    */
+     * Logged-in menu entries
+     * @var array
+     */
     private $menu = [
         ['text' => 'Aanmelden', 'action' => [Register::class, 'index'], 'icon' => 'calendar', 'level' => '0'],
         ['text' => 'Spelregels', 'action' => [Page::class, 'spelregels'], 'icon' => 'file-text-o', 'level' => '0'],
@@ -32,6 +32,7 @@ class Navigation
             ['text' => 'Gebruikers', 'action' => [Users::class, 'index'], 'icon' => 'users'],
             ['text' => 'Vakanties', 'action' => [Vacations::class, 'index'], 'icon' => 'plane'],
         ]],
+        ['text' => 'API', 'action' => [Page::class, 'apidocs'], 'icon' => 'cog', 'level' => '1'],
     ];
 
     /**
@@ -81,7 +82,7 @@ class Navigation
         $current = Route::current();
 
         // Exceptional case for HTTP 404 errors (which have no route)
-        if (! $current) {
+        if (!$current) {
             return false;
         }
 

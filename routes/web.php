@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Administration;
+use App\Http\Controllers\APIDocumentation;
 use App\Http\Controllers\Confirm;
 use App\Http\Controllers\OAuth;
 use App\Http\Controllers\Page;
@@ -42,9 +43,11 @@ Route::middleware(['web'])->group(function () {
         Route::get('/top-eters', [Top::class, 'index']);
 
         // My Profile page
-        Route::get('/profiel', [Profile::class, 'index']);
+        Route::get('/profiel', [Profile::class, 'index'])->name('profile');
         Route::post('/handicap', [Profile::class, 'setHandicap']);
         Route::post('/token/reset', [TokenController::class, 'reset'])->name('auth.token.create');
+
+        Route::get('/apidocs', [Page::class, 'apidocs'])->name('apidocs');
     });
 
     // Administration pages
