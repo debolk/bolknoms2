@@ -15,11 +15,11 @@ class RequiresVersionHeader
         $accepts = $request->header('Accept');
 
         if (!$accepts) {
-            return $this->errorResponse(406, 'accepts_header_missing', 'You must send a valid Accepts-header to use the API');
+            return $this->errorResponse(406, 'accept_header_missing', 'You must send a valid Accepts-header to use the API');
         }
 
         if ($accepts !== 'application/vnd.bolknoms.v1+json') {
-            return $this->errorResponse(406, 'accepts_header_unsupported', 'The given API version is unsupported');
+            return $this->errorResponse(406, 'accept_header_unsupported', 'The given API version is unsupported');
         }
 
         return $next($request);

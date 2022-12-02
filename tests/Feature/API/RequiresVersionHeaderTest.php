@@ -17,7 +17,7 @@ it('requires a version header', function () {
     $this->withHeader('Accept', '')
         ->get(route('api.meals.upcoming'))
         ->assertStatus(406)
-        ->assertJsonPath('errors.0.code', 'accepts_header_missing');
+        ->assertJsonPath('errors.0.code', 'accept_header_missing');
 });
 
 it('requires a valid version identifier', function () {
@@ -26,5 +26,5 @@ it('requires a valid version identifier', function () {
     $this->withHeader('Accept', 'application/vnd.bolknoms.v2+json')
         ->get(route('api.meals.upcoming'))
         ->assertStatus(406)
-        ->assertJsonPath('errors.0.code', 'accepts_header_unsupported');
+        ->assertJsonPath('errors.0.code', 'accept_header_unsupported');
 });

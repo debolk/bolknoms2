@@ -66,12 +66,12 @@
             <tbody>
                 <tr>
                     <td class="code">406 Not Acceptable</td>
-                    <td class="code">accepts_header_missing</td>
+                    <td class="code">accept_header_missing</td>
                     <td>You must send an Accept-header, see "Versioning"</td>
                 </tr>
                 <tr>
                     <td class="code">406 Not Acceptable</td>
-                    <td class="code">accepts_header_unsupported</td>
+                    <td class="code">accept_header_unsupported</td>
                     <td>The Accept-header specifies an non-existent API version</td>
                 </tr>
                 <tr>
