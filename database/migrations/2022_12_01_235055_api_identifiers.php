@@ -11,11 +11,19 @@ return new class extends Migration
         Schema::table('meals', function (Blueprint $table) {
             $table->uuid('uuid')->nullable()->default(null);
         });
+
+        Schema::table('registrations', function (Blueprint $table) {
+            $table->uuid('uuid')->nullable()->default(null);
+        });
     }
 
     public function down()
     {
         Schema::table('meals', function (Blueprint $table) {
+            $table->dropColumn('uuid')->nullable()->default(null);
+        });
+
+        Schema::table('registrations', function (Blueprint $table) {
             $table->dropColumn('uuid')->nullable()->default(null);
         });
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Meal;
+use App\Models\Registration;
+use App\Services\DeregisterService;
 use App\Services\DoubleRegistrationException;
 use App\Services\MealCapacityExceededException;
 use App\Services\MealDeadlinePassedException;
@@ -16,7 +18,7 @@ class RegistrationsController extends APIController
 {
     public function store(string $mealUUID)
     {
-        $meal = Meal::whereUUID($mealUUID)->firstOrFail();
+        $meal = Meal::whereUUID($mealUUID)->first();
 
         $user = Auth::user();
         $data = [
@@ -44,5 +46,18 @@ class RegistrationsController extends APIController
         } catch (MealCapacityExceededException) {
             return $this->errorResponse(400, 'capacity_exceeded', 'De limiet voor het aantal eters is bereikt.');
         }
+    }
+
+    public function destroy(string $mealUUID, string $registrationUUID)
+    {
+        $registration = Registration::whereUUID($registrationUUID)->first();
+
+        try {
+            (new DeregisterService($registration))->execute();
+        } catch (MealDeadlinePassedException) {
+            return $this->errorResponse(400, 'meal_deadline_expired', 'De aanmeldingsdeadline is verstreken');
+        }
+
+        return response()->noContent();
     }
 }

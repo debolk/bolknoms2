@@ -14,6 +14,7 @@ class GenerateMissingUUIDs extends Command
     {
         $models = [
             \App\Models\Meal::class,
+            \App\Models\Registration::class,
         ];
 
         foreach ($models as $model) {

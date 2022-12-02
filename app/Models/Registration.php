@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ class Registration extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    use GeneratesUuid;
 
     /**
      * All properties that can be mass-assigned
