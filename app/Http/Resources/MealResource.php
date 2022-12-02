@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class MealResource extends JsonResource
 {
@@ -15,6 +16,7 @@ class MealResource extends JsonResource
             'open_for_registration' => $this->open_for_registrations(),
             'capacity' => $this->capacity,
             'event' => $this->event,
+            'current_user_registered' => Auth::user()->registeredFor($this->resource),
         ];
     }
 }
