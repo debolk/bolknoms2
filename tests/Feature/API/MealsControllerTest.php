@@ -12,6 +12,8 @@ it('shows upcoming meals', function () {
     Meal::factory()->create([
         'meal_timestamp' => '2022-03-09 18:30:00',
         'uuid' => '74696411-a679-4eaf-8273-039d92864873',
+        'capacity' => 13,
+        'event' => 'celebration dinner',
     ]);
     Meal::factory()->create([
         'meal_timestamp' => '2022-03-10 18:30:00',
@@ -26,6 +28,8 @@ it('shows upcoming meals', function () {
     expect($response['data'])->toHaveCount(2);
     expect($response['data'][0]['meal_time'])->toBe('2022-03-09T18:30:00+01:00');
     expect($response['data'][0]['id'])->toBe('74696411-a679-4eaf-8273-039d92864873');
+    expect($response['data'][0]['capacity'])->toBe(13);
+    expect($response['data'][0]['event'])->toBe('celebration dinner');
     expect($response['data'][1]['meal_time'])->toBe('2022-03-10T18:30:00+01:00');
     expect($response['data'][1]['id'])->toBe('b73688a4-a645-449f-893c-a754bd77132f');
 });

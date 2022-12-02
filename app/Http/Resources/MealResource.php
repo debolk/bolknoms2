@@ -14,6 +14,7 @@ class MealResource extends JsonResource
             'registations_close' => $this->locked_timestamp->toIso8601String(),
             'open_for_registration' => $this->open_for_registrations(),
             'capacity' => $this->capacity,
+            'event' => $this->event,
         ];
     }
 }
