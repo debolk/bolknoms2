@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Administration;
+use App\Http\Controllers\APIDocumentation;
 use App\Http\Controllers\Confirm;
 use App\Http\Controllers\OAuth;
 use App\Http\Controllers\Page;
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\ProfilePicture;
 use App\Http\Controllers\Register;
+use App\Http\Controllers\TokenController;
 use App\Http\Controllers\Top;
 use Illuminate\Support\Facades\Route;
 
@@ -41,8 +43,11 @@ Route::middleware(['web'])->group(function () {
         Route::get('/top-eters', [Top::class, 'index']);
 
         // My Profile page
-        Route::get('/profiel', [Profile::class, 'index']);
+        Route::get('/profiel', [Profile::class, 'index'])->name('profile');
         Route::post('/handicap', [Profile::class, 'setHandicap']);
+        Route::post('/token/reset', [TokenController::class, 'reset'])->name('auth.token.create');
+
+        Route::get('/apidocs', [Page::class, 'apidocs'])->name('apidocs');
     });
 
     // Administration pages
@@ -80,6 +85,7 @@ Route::middleware(['web'])->group(function () {
 
         // Vacation periods
         Route::resource('vakanties', Administration\Vacations::class, [
-            'names' => 'vacations', ]);
+            'names' => 'vacations',
+        ]);
     });
 });

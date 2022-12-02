@@ -1,5 +1,5 @@
 .profile {
-    width: 20em;
+    width: 28em;
     margin: 0 1em 1em 0;
     padding: 1em;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
@@ -27,6 +27,7 @@
 .profile .medal.gold {
     color: #ffd700;
 }
+
 .profile .medal.silver {
     color: #c0c0c0;
 }
@@ -47,4 +48,12 @@
     height: 128px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.profile #token-output {
+    display: none;
+    border: 2px solid #EE9;
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: #FFB;
 }

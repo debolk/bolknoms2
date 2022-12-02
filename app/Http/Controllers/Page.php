@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+
 class Page extends Controller
 {
     /**
@@ -29,5 +31,10 @@ class Page extends Controller
     public function spelregels()
     {
         return view('page/spelregels');
+    }
+
+    public function apidocs(): View
+    {
+        return view('page/apidocs');
     }
 }

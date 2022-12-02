@@ -9,4 +9,13 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
     use LazilyRefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withHeaders([
+            'Accept' => 'application/vnd.bolknoms.v1+json',
+        ]);
+    }
 }

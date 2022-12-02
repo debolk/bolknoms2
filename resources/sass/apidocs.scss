@@ -1,0 +1,18 @@
+.apidocs code {
+    padding: 1em;
+    background-color: rgb(221, 221, 221);
+    border: 2px solid rgb(170, 170, 170);
+    display: block;
+    margin-bottom: 1em;
+}
+
+.apidocs th,
+.apidocs td {
+    border: 1px solid rgb(170, 170, 170);
+    border-collapse: collapse;
+    padding: 0.25em;
+}
+
+.apidocs .code {
+    white-space: nowrap;
+}

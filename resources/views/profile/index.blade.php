@@ -3,7 +3,7 @@
 @section('title', 'Mijn profiel')
 
 @section('content')
-    <h1>Mijn profiel</h1>
+    <h1>z</h1>
 
     <div class="profile">
         <h2>Dieetwensen</h2>
@@ -26,6 +26,23 @@
 
         <p>
             Je kunt je profielfoto veranderen in Gosa via <a href="http://gosa.i.bolkhuis.nl">gosa.i.bolkhuis.nl</a>. Hiervoor moet je wel eerst verbinding maken met <a href="http://wiki.debolk.nl/index.php?title=ICT#Internet_op_de_soci.C3.ABteit">Bolknet</a> of de <a href="http://wiki.debolk.nl/index.php?title=ICT#Verbinding_met_de_VPN_maken">VPN</a>.
+        </p>
+    </div>
+
+    <div class="profile">
+        <h2>API token</h2>
+        <p>
+            Met jouw API token kun je de Bolknoms API gebruiken. Dit token mag alles uitvoeren wat jij ook mag in Bolknoms.
+        </p>
+        <p>
+            <button id="token-reset">Reset token</button>
+        </p>
+        <p id="token-output">
+            <strong>Token:</strong><br>
+            <span id="token-secret"></span>
+        </p>
+        <p>
+            Je krijgt je token maar één keer te zien, maar je kunt de token altijd hier resetten.
         </p>
     </div>
 
