@@ -50,7 +50,7 @@ test('users can unsubscribe from meals', function () {
     ]);
 
     Sanctum::actingAs($user);
-    $this->post(route('api.meals.registrations.destroy', ['meal' => $meal->uuid, 'registration' => $registration->uuid]))
+    $this->delete(route('api.meals.registrations.destroy', ['meal' => $meal->uuid, 'registration' => $registration->uuid]))
         ->assertNoContent();
 
     expect($user->registrations)

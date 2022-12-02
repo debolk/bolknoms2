@@ -10,5 +10,5 @@ Route::middleware(['auth:sanctum', 'version'])
 
         Route::get('meals/upcoming', [MealsController::class, 'upcoming'])->name('meals.upcoming');
         Route::post('meals/{meal}/registrations', [RegistrationsController::class, 'store'])->name('meals.registrations');
-        Route::post('meals/{meal}/registrations/{registration}', [RegistrationsController::class, 'destroy'])->name('meals.registrations.destroy');
+        Route::delete('meals/{meal}/registrations/{registration}', [RegistrationsController::class, 'destroy'])->name('meals.registrations.destroy');
     });
