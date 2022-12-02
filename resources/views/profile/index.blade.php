@@ -3,7 +3,7 @@
 @section('title', 'Mijn profiel')
 
 @section('content')
-    <h1>z</h1>
+    <h1>Mijn profiel</h1>
 
     <div class="profile">
         <h2>Dieetwensen</h2>
