@@ -104,6 +104,11 @@
                     <td class="code">capacity_exceeded</td>
                     <td>There is a limit to the number of registrations to this meal. That limit has been exceeded and you cannot register. The limit is included in the data of the meal, named "capacity". Null means no limit.</td>
                 </tr>
+                <tr>
+                    <td class="code">403 Forbidden</td>
+                    <td class="code">object_not_owned</td>
+                    <td>You're trying to modify or remove an object in Bolknoms that is not yours.</td>
+                </tr>
             </tbody>
         </table>
     </div>

@@ -56,6 +56,10 @@ class RegistrationsController extends Controller
     {
         $registration = Registration::whereUUID($registrationUUID)->first();
 
+        if (!$registration->user->is(Auth::user())) {
+            return $this->errorResponse(403, 'object_not_owned', 'Deze aanmelding is niet van jou');
+        }
+
         try {
             (new DeregisterService($registration))->execute();
         } catch (MealDeadlinePassedException) {

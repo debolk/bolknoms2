@@ -56,3 +56,23 @@ test('users can unsubscribe from meals', function () {
     expect($user->registrations)
         ->toHaveCount(0);
 });
+
+test('users can only unsubscribe from their own meals', function () {
+    Carbon::setTestNow('2022-03-09 19:00:00');
+    $meal = Meal::factory()->create([
+        'locked_timestamp' => '2022-03-10 15:00:00',
+    ]);
+    $user = User::factory()->create();
+    $other = User::factory()->create();
+    $registration = Registration::factory()->create([
+        'meal_id' => $meal->id,
+        'user_id' => $other->id,
+    ]);
+
+    Sanctum::actingAs($user);
+    $this->delete(route('api.meals.registrations.destroy', ['meal' => $meal->uuid, 'registration' => $registration->uuid]))
+        ->assertForbidden()
+        ->assertJsonPath('errors.0.code', 'object_not_owned');
+
+    expect($other->fresh()->registrations)->toHaveCount(1);
+});
