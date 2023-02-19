@@ -4,7 +4,9 @@ namespace App\Http\Helpers;
 
 use App\Models\User;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class ProfilePicture
 {
@@ -16,10 +18,17 @@ class ProfilePicture
         // Calculate location of image
         $path = $this->picturePathFor($user);
 
-        $client = app(Client::class);
-        $url = 'https://people.debolk.nl/persons/' . $user->username . '/photo/256/256?access_token=' . $token;
-        $file = fopen($path, 'w');
-        $client->get($url, ['sink' => $file]);
+        try {
+            $client = app(Client::class);
+            $url = 'https://people.debolk.nl/persons/' . $user->username . '/photo/256/256?access_token=' . $token;
+            $file = fopen($path, 'w');
+            $client->get($url, ['sink' => $file]);
+        } catch (TransferException $exception) {
+            Log::error('Failed to retrieve profile picture', ['exception' => $exception, 'user' => $user]);
+            \Sentry\captureException($exception);
+            unlink($path);
+            return;
+        }
 
         if (!is_readable($path)) {
             unlink($path);
