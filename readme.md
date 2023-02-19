@@ -11,7 +11,7 @@ Local installation is done as with any plain Laravel project. You can use [Homes
 # Deployment (production)
 For the initial installation, use the following *rough* process:
 
-1. Install the server-dependencies: PHP, MySQL/MariaDB, NodeJS, NGINX, and Composer.
+1. Install the server-dependencies: PHP 8.2, MySQL/MariaDB, NodeJS 19, NGINX, and Composer.
 1. Install required PHP modules: curl, mysql and xml.
 1. Install the dependencies by running both `composer install` and `npm install`.
 1. Copy or create the MySQL database.
