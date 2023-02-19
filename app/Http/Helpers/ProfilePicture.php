@@ -21,10 +21,15 @@ class ProfilePicture
         $file = fopen($path, 'w');
         $client->get($url, ['sink' => $file]);
 
+        if (!is_readable($path)) {
+            unlink($path);
+            return;
+        }
+
         // Check the mimetype of the resulting image
         // to make sure we have a valid image
-        $mimeType = mime_content_type($path) ?: '';
-        if (file_exists($path) && substr($mimeType, 0, 6) !== 'image/') {
+        $mimeType = mime_content_type($path);
+        if (!$mimeType || substr($mimeType, 0, 6) !== 'image/') {
             unlink($path);
         }
     }
