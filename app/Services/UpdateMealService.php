@@ -32,7 +32,7 @@ class UpdateMealService extends Service
         $validator = Validator::make($this->data, [
             'meal_timestamp'   => ['date_format:d-m-Y G:i', 'required', 'unique:meals,meal_timestamp,'.$this->meal->id],
             'locked_timestamp' => ['date_format:d-m-Y G:i', 'required', 'before:meal_timestamp'],
-            'capacity' => ['integer', 'min:1'],
+            'capacity' => ['nullable', 'integer', 'min:1'],
         ], [
             'meal_timestamp.date_format'   => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
             'meal_timestamp.required'      => 'De ingevulde maaltijd is ongeldig (formaat DD-MM-YYYY HH:MM)',
