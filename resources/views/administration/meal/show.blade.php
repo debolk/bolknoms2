@@ -52,7 +52,7 @@
             </select>
         </p>
         <p>
-            <input type="submit" value="Toevoegen">
+            <button type="submit" value="Toevoegen">
         </p>
     </form>
     <p class="non_print">

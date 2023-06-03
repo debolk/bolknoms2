@@ -26,7 +26,7 @@
             <br><small>Laat leeg om geen limiet te hanteren.</small>
         </p>
         <p>
-            <input type="submit" value="Maaltijd toevoegen" />
+            <button type="submit" value="Maaltijd toevoegen" />
             of <a href="{{ action([\App\Http\Controllers\Administration\Meals::class, 'index'])}}">niet toevoegen</a>
         </p>
     </form>

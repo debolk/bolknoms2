@@ -27,7 +27,7 @@
             <br><small>Laat leeg om geen limiet te hanteren.</small>
         </p>
         <p>
-            <input type="submit" value="Wijzigingen opslaan" />
+            <button type="submit" value="Wijzigingen opslaan" />
             of <a href="{{ action([\App\Http\Controllers\Administration\ShowMeal::class, 'show'], $meal->id) }}">niet opslaan</a>
         </p>
     </form>
