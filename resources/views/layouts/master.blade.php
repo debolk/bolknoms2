@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
+    @livewireStyles
 
     <title>@yield('title') - Bolknoms</title>
 </head>
@@ -42,5 +43,6 @@
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+    @livewireScripts
 </body>
 </html>

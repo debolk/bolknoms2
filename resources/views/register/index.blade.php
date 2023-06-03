@@ -14,7 +14,7 @@
         @else
             <div class="meals">
                 @foreach ($meals as $meal)
-                    @include('register/_meal', ['meal' => $meal, 'user' => $user])
+                    @livewire('meal-registration', ['user' => $user, 'meal' => $meal], key($meal->id))
                 @endforeach
             </div>
         @endif
