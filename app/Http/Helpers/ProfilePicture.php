@@ -26,12 +26,12 @@ class ProfilePicture
         } catch (TransferException $exception) {
             Log::error('Failed to retrieve profile picture', ['exception' => $exception, 'user' => $user]);
             \Sentry\captureException($exception);
-            unlink($path);
+            @unlink($path);
             return;
         }
 
         if (!is_readable($path)) {
-            unlink($path);
+            @unlink($path);
             return;
         }
 
@@ -39,7 +39,7 @@ class ProfilePicture
         // to make sure we have a valid image
         $mimeType = mime_content_type($path);
         if (!$mimeType || substr($mimeType, 0, 6) !== 'image/') {
-            unlink($path);
+            @unlink($path);
         }
     }
 
