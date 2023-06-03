@@ -13,13 +13,15 @@ use App\Services\RegisterService;
 use App\Services\UserBlockedException;
 use App\Services\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrationsController extends Controller
 {
     use SendsAPIErrors;
 
-    public function store(string $mealUUID)
+    public function store(string $mealUUID): Response|JsonResponse
     {
         $meal = Meal::whereUUID($mealUUID)->first();
 
@@ -51,7 +53,7 @@ class RegistrationsController extends Controller
         }
     }
 
-    public function destroy(string $mealUUID, string $registrationUUID)
+    public function destroy(string $mealUUID, string $registrationUUID): Response|JsonResponse
     {
         $registration = Registration::whereUUID($registrationUUID)->first();
 

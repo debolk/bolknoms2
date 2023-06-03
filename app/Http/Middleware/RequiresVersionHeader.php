@@ -10,7 +10,7 @@ class RequiresVersionHeader
 {
     use SendsAPIErrors;
 
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $accepts = $request->header('Accept');
 

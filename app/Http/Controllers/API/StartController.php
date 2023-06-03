@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class StartController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(): array
     {
         return [
             'links' => [

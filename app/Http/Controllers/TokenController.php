@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TokenController extends Controller
 {
-    public function reset()
+    public function reset(): array
     {
         $user = Auth::user();
         $user->tokens()->delete();

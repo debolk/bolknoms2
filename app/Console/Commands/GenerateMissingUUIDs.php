@@ -10,7 +10,7 @@ class GenerateMissingUUIDs extends Command
     protected $signature = 'uuids:generate';
     protected $description = 'Generates missing UUIDs for existing models';
 
-    public function handle()
+    public function handle(): int
     {
         $models = [
             \App\Models\Meal::class,

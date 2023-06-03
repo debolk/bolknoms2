@@ -11,8 +11,7 @@ class BolkLoginServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $socialite = app(Factory::class);
-        $socialite->extend('BolkLogin', function () use ($socialite) { // @phpstan-ignore-line
-            // @phpstan-ignore-next-line
+        $socialite->extend('BolkLogin', function () use ($socialite) {
             return $socialite->buildProvider(BolkLoginSocialiteProvider::class, config('services.bolklogin'));
         });
     }
