@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Administration;
-use App\Http\Controllers\APIDocumentation;
 use App\Http\Controllers\Confirm;
 use App\Http\Controllers\OAuth;
 use App\Http\Controllers\Page;
