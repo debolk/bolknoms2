@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BolkLogin\BolkLoginService;
+use App\Exceptions\BolkLoginUnknownException;
 use App\Http\Helpers\ProfilePicture;
 use App\Models\User;
 use GuzzleHttp\Exception\ClientException;
@@ -34,7 +35,15 @@ class OAuth extends Controller
         }
 
         // Find or create user
-        $details = app(BolkLoginService::class)->userDetails($token);
+        try {
+            $details = app(BolkLoginService::class)->userDetails($token);
+        } catch (BolkLoginUnknownException) {
+            return redirect(route('register.index'))->with('action_result', [
+                'status' => 'error',
+                'message' => 'Je bent niet \'bekend\' in Bolklogin en kunt Bolknoms niet gebruiken. Neem contact op met het bestuur.',
+            ]);
+        }
+
         $user = User::updateOrCreate([
             'username' => $details['username'],
         ], [
