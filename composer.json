@@ -39,6 +39,7 @@
         "filp/whoops": "~2.0",
         "laravel/pint": "^1.2",
         "laravel/sail": "^1.15",
+        "mockery/mockery": "^1.5",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^1.22",
