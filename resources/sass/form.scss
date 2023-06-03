@@ -1,8 +1,9 @@
 /*
  * Sensible default styling for forms
  */
-input, select {
-    font-size: 1.5em;
+input,
+select {
+  font-size: 1.5em;
 }
 
 input[type=checkbox] {
@@ -11,46 +12,52 @@ input[type=checkbox] {
 }
 
 .error_message {
-    background: none repeat scroll 0 0 #57a957;
-    border: none;
-    border-radius: 0.5em;
-    color: white;
-    cursor: pointer;
-    padding: 1em;
-    font-family: monospace;
-    background: none repeat scroll 0 0 #c43c35;
-    border-color: #c43c35;
-    color: white;
+  background: none repeat scroll 0 0 #57a957;
+  border: none;
+  border-radius: 0.5em;
+  color: white;
+  cursor: pointer;
+  padding: 1em;
+  font-family: monospace;
+  background: none repeat scroll 0 0 #c43c35;
+  border-color: #c43c35;
+  color: white;
 }
 
-button, .button, input[type="submit"] {
-    cursor: pointer;
-    background-color: #d13138;
-    border: medium none;
-    border-radius: 6px;
-    bottom: 0;
-    box-shadow: 0 1px #d6464c inset, 0 5px #942126, 0 3px 5px rgba(0, 0, 0, 0.3);
-    color: #fff;
-    display: inline-block;
-    font-weight: bold;
-    padding: 0.5em;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: -1px 1px #942126;
-    transition: background-color 0.25s ease 0s;
+button,
+.button,
+input[type="submit"] {
+  cursor: pointer;
+  background-color: #d13138;
+  border: medium none;
+  border-radius: 6px;
+  bottom: 0;
+  box-shadow: 0 1px #d6464c inset, 0 5px #942126, 0 3px 5px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.5em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: -1px 1px #942126;
+  transition: background-color 0.25s ease 0s;
 }
 
-button:active, .button:active, input[type="submit"]:active {
-    box-shadow: none;
-    position: relative;
-    top: 5px;
+button:active,
+.button:active,
+input[type="submit"]:active {
+  box-shadow: none;
+  position: relative;
+  top: 5px;
 }
 
 /*
  * Firefox-hack: do not show stupid inner dashed border
  * when clicking on buttons
  */
-button::-moz-focus-inner, .button::-moz-focus-inner, input[type="submit"]::-moz-focus-inner {
+button::-moz-focus-inner,
+.button::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner {
   border: 0;
 }

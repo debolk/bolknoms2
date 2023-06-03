@@ -2,7 +2,13 @@
     body {
         font-size: large;
     }
-    header, nav, h2, form, .remove_registration, .non_print {
+
+    header,
+    nav,
+    h2,
+    form,
+    .remove_registration,
+    .non_print {
         display: none;
     }
 

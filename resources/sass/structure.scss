@@ -1,7 +1,7 @@
 /*
  * Main page structural elements: header, content, footer;
  */
- body {
+body {
     margin: 0;
     padding: 0;
     position: relative;
@@ -19,7 +19,7 @@ header {
     color: white;
     background-color: #80090c;
     padding: 0 0 0 1em;
-    box-shadow: 0px 1px 5px rgba(0,0,0, 0.5);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 nav {
@@ -38,4 +38,3 @@ section {
     left: 10em;
     padding: 1em;
 }
-

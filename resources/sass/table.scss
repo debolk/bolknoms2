@@ -5,16 +5,21 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-th, td {
+
+th,
+td {
     text-align: left;
     padding: 3px 1em 3px 3px;
 }
+
 td.date {
     text-align: right;
 }
+
 td.number {
     text-align: center;
 }
+
 tr:nth-child(2n) {
     background-color: #ddd;
 }

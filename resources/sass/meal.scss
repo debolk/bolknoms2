@@ -11,9 +11,9 @@
 
     // Meals are clearfixed for their (floating) content
     &:after {
-        content:"";
-        display:table;
-        clear:both;
+        content: "";
+        display: table;
+        clear: both;
     }
 
     .details {
@@ -25,7 +25,8 @@
         color: red;
     }
 
-    h3, h4 {
+    h3,
+    h4 {
         margin: 0;
     }
 
@@ -43,6 +44,7 @@
         button {
             background-color: #912127;
         }
+
         button.registered {
             background-color: #137c3f;
         }
