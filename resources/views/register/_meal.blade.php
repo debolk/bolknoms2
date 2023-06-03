@@ -32,13 +32,13 @@
             Eten om {{ $meal->meal_timestamp->format('H:i') }} uur
         </span>
         <br>
-        <span class="{{ $meal->capacity ? 'attention' : '' }}">
+        <span>
             <i class="fa fa-fw fa-list"></i>
+            {{ $meal->registrations()->count() }}
             @if ($meal->capacity !== null)
-                Maximaal {{ $meal->capacity }} eters
-            @else
-                Geen limiet aantal eters
+                / {{ $meal->capacity }}
             @endif
+            {{ ($meal->registrations()->count() === 1 && $meal->capacity === null) ? 'eter' : 'eters' }}
         </span>
     </div>
 </div>
