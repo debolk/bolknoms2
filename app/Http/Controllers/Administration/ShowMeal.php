@@ -28,7 +28,12 @@ class ShowMeal extends Controller
             abort(404, 'Maaltijd niet gevonden');
         }
 
-        return view('administration/meal/show', ['meal' => $meal, 'users' => User::orderBy('name')->get()]);
+        return view('administration/meal/show', [
+            'meal' => $meal,
+            'users' => User::orderBy('name')->get(),
+            'registrations_confirmed' => $meal->registrations()->confirmed()->get(),
+            'registrations_unconfirmed' => $meal->registrations()->unconfirmed()->get(),
+        ]);
     }
 
     /**

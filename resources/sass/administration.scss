@@ -1,9 +1,9 @@
-
-#print, .remove_registration {
+#print,
+.remove_registration {
     cursor: pointer;
 }
 
-#registrations .box {
+.registrations-table .box {
     display: none;
 }
 

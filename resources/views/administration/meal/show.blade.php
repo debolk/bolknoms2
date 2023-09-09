@@ -23,23 +23,43 @@
         Bonnetjes opgehaald door: _____________________________
     </p>
 
-    <table id="registrations">
+    <table class="registrations-table" id="registrations" style="width: 40em">
         <thead>
             <tr>
-                <th>&nbsp;</th>
                 <th class="non_print">&nbsp;</th>
                 <th>Naam</th>
-                <th class="non_print">Bolkaccount</th>
+                <th class="non_print">Bevestigd</th>
                 <th>Dieet</th>
                 <th class="non_print">Verwijderen</th>
             </tr>
         </thead>
         <tbody>
-            @each('administration/meal/_registration', $meal->registrations()->confirmed()->get(), 'registration')
+            @each('administration/meal/_registration', $registrations_confirmed, 'registration')
         </tbody>
     </table>
 
-    @include('administration/meal/_unconfirmed_list')
+    @if (count($registrations_unconfirmed) > 0)
+        <div class="non_print">
+            <h2>Niet-bevestigde aanmeldingen</h2>
+            <div class="notification warning" style="max-width: 40em;">
+                <strong>Let op:</strong> we koken niet voor niet-bevestigde aanmeldingen. Je kunt deze namelijk ook niet factureren volgens de <a href="/spelregels">spelregels</a>. Ze staan ook niet op de geprinte lijst voor de kok.
+            </div>
+            <table class="registrations-table" style="width: 40em">
+                <thead>
+                    <tr>
+                        <th class="non_print">&nbsp;</th>
+                        <th>Naam</th>
+                        <th class="non_print">Bevestigd</th>
+                        <th>Dieet</th>
+                        <th class="non_print">Verwijderen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @each('administration/meal/_registration', $registrations_unconfirmed, 'registration')
+                </tbody>
+            </table>
+        </div>
+    @endif
 
     <h2>Nieuwe eter toevoegen</h2>
     <form action="#new_registration" id="new_registration" data-meal_id="{{ $meal->id }}">
