@@ -12,7 +12,10 @@
             </p>
             <ul>
                 <?php foreach ($unconfirmed as $registration): ?>
-                    <li>{{ $registration->name }} ({{ strftime('%R', strtotime($registration->created_at)) }} uur)</li>
+                    <li>
+                        {{ $registration->name }}
+                        <a href="mailto:{{ $registration->email }}">{{ $registration->email }}</a>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </div>
