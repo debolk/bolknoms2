@@ -27,6 +27,6 @@
     <h2>Betalen</h2>
     <ol>
         <li>Je betaalt de maaltijd met een bonnetje. Die kun je kopen in de soci&euml;teit.</li>
-        <li>Als je niet op tijd afmeldt en niet komt opdagen, moet je wel voor de maaltijd betalen (meestal &euro;3,50). Er is immers wel voor je gekookt. Voor leden gaat dat op Bolkrekening, externen krijgen een factuur gemaild.</li>
+        <li>Als je niet op tijd afmeldt en niet komt opdagen, moet je wel voor de maaltijd betalen (meestal &euro;4,00). Er is immers wel voor je gekookt. Voor leden gaat dat op Bolkrekening, externen krijgen een factuur gemaild.</li>
     </ol>
 @endsection
