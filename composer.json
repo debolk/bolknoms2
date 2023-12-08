@@ -37,11 +37,11 @@
         "deployer/deployer": "^7.0",
         "fakerphp/faker": "^1.13",
         "filp/whoops": "~2.0",
+        "larastan/larastan": "^2.7",
         "laravel/pint": "^1.2",
         "laravel/sail": "^1.15",
         "mockery/mockery": "^1.5",
         "nunomaduro/collision": "^7.10",
-        "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^2.24",
         "pestphp/pest-plugin-laravel": "^2.2",
         "roave/security-advisories": "dev-latest"
