@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @mixin \App\Models\Meal
+ */
 class MealResource extends JsonResource
 {
     public function toArray($request)
