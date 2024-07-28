@@ -26,3 +26,10 @@ before('deploy:publish', 'build:frontend');
 
 // Always migrate on deployment
 before('deploy:symlink', 'artisan:migrate');
+
+// Verify the build locally before starting
+task('build:verify', function () {
+    runLocally('vendor/bin/sail test');
+    runLocally('vendor/bin/phpstan');
+});
+after('deploy:setup', 'build:verify');
