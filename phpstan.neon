@@ -5,5 +5,3 @@ parameters:
         - app
     level: 6
     inferPrivatePropertyTypeFromConstructor: true
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
