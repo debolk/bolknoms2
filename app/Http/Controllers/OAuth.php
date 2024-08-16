@@ -11,12 +11,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
+use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirect;
 
 class OAuth extends Controller
 {
     public function callback(): RedirectResponse
     {
         try {
+            /** @var \Laravel\Socialite\Two\User $token */
             $token = Socialite::driver('BolkLogin')->user();
         } catch (InvalidStateException) {
             // usually happens when someone goes back or refreshes in the process
@@ -58,7 +60,7 @@ class OAuth extends Controller
         return redirect(route('register.index'));
     }
 
-    public function login(): RedirectResponse
+    public function login(): SymfonyRedirect
     {
         return Socialite::driver('BolkLogin')->redirect();
     }
