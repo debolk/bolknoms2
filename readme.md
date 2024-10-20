@@ -2,7 +2,7 @@
 The very best application in the world for feeding your members in an organized and predictable way.
 
 ## Local installation
-Local installation is done as with any plain Laravel project. You can use [Homestead](https://laravel.com/docs/9.x/homestead), [Laravel Valet](https://laravel.com/docs/9.x/valet) or [Laravel Sail](https://laravel.com/docs/9.x/sail) to run the project. If you have no existing setup, Sail is recommended.
+Local installation is done as with any plain Laravel project. If you have no existing setup, Sail is recommended.
 
 ### Next steps that are probably useful
 1. Opening the administration panel of bolknoms requires board-level permissions. Using Gosa, you can add yourself temporarily(!) to the group "oauth-test". This requires that you have ICTcom-level access or above. Adding your account to this group will grant you access to all OAuth-protected resources regardless of the permission level. Use it for testing on your local machine and remove yourself from the group when done.
