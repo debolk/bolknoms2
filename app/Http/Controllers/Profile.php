@@ -34,7 +34,7 @@ class Profile extends Controller
         }
 
         $existingHandicap = $user->handicap;
-        $user->handicap = $request->get('handicap');
+        $user->handicap = substr((string) $request->get('handicap'), 0, 250);
 
         if ($user->save()) {
             Log::info('User changed diet', [
