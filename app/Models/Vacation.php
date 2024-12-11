@@ -27,7 +27,7 @@ class Vacation extends Model
         return implode(' ', [$start, 'tot', $end]);
     }
 
-    public function scopeUpcoming(Builder $query, CarbonInterface $date = null): Builder
+    public function scopeUpcoming(Builder $query, ?CarbonInterface $date = null): Builder
     {
         if ($date === null) {
             $date = Carbon::now();
