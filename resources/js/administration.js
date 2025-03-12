@@ -10,7 +10,8 @@ window.Administration = {
         // Bind event handlers
         $('#print').on('click', Administration.printList);
         $('#new_registration').on('submit', Administration.addRegistration);
-        $('#registrations').on('click', '.remove_registration', Administration.removeRegistration);
+        $('#registrations-confirmed').on('click', '.remove_registration', Administration.removeRegistration);
+        $('#registrations-unconfirmed').on('click', '.remove_registration', Administration.removeRegistration);
         $('#subscribe_anonymous').on('click', Administration.addAnonymousRegistration);
         $(document).on('click', '.edit-handicap', Administration.editHandicap);
         $(document).on('click', '.block-user', Administration.blockUser);

@@ -24,7 +24,7 @@
         Bonnetjes opgehaald door: _____________________________
     </p>
 
-    <table class="registrations-table" id="registrations" style="width: 40em">
+    <table class="registrations-table" id="registrations-confirmed" style="width: 40em">
         <thead>
             <tr>
                 <th class="non_print">&nbsp;</th>
@@ -47,7 +47,7 @@
                 factureren volgens de <a href="/spelregels">spelregels</a>. Ze staan ook niet op de geprinte lijst voor de
                 kok.
             </div>
-            <table class="registrations-table" style="width: 40em">
+            <table class="registrations-table" id="registrations-unconfirmed" style="width: 40em">
                 <thead>
                     <tr>
                         <th class="non_print">&nbsp;</th>
