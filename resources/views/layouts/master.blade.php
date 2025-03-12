@@ -2,8 +2,9 @@
 
 <!doctype html>
 <html lang="nl">
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="description" content="Join the Mon-Thu dinner at De Bolk">
@@ -12,10 +13,11 @@
 
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
+    @vite('resources/sass/bootstrap.scss')
 
     <title>@yield('title') - Bolknoms</title>
 </head>
+
 <body>
     <header>
         <h1>Bolknoms</h1>
@@ -39,8 +41,8 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    @vite('resources/js/bootstrap.js')
 </body>
+
 </html>
