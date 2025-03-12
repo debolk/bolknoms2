@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfilePicture;
 use App\Http\Controllers\Register;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\Top;
+use App\Http\Middleware\Board;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web'])->group(function () {
@@ -50,7 +51,7 @@ Route::middleware(['web'])->group(function () {
     });
 
     // Administration pages
-    Route::prefix('/administratie/')->middleware('auth', 'board')->group(function () {
+    Route::prefix('/administratie/')->middleware('auth', Board::class)->group(function () {
         // Administration dashboard
         Route::get('', [Administration\Dashboard::class, 'index']);
 

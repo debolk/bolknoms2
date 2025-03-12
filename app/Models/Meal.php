@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -28,12 +29,11 @@ class Meal extends Model
     ];
 
     /**
-     * Relationship: one meal has many registrations
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany<Registration, $this>
      */
-    public function registrations()
+    public function registrations(): HasMany
     {
-        return $this->hasMany(\App\Models\Registration::class)->orderBy('name');
+        return $this->hasMany(Registration::class)->orderBy('name');
     }
 
     /**
@@ -76,7 +76,7 @@ class Meal extends Model
      */
     public function longDate()
     {
-        return $this->meal_timestamp->formatLocalized('%A %e %B %Y');
+        return $this->meal_timestamp->isoFormat('%A %e %B %Y');
     }
 
     /**
@@ -133,7 +133,7 @@ class Meal extends Model
         if ($meal === $lock) {
             return $this->locked_timestamp->format('H:i') . ' uur';
         } else {
-            return $this->locked_timestamp->formatLocalized('%A %e %B %H:%M') . ' uur';
+            return $this->locked_timestamp->isoFormat('%A %e %B %H:%M') . ' uur';
         }
     }
 

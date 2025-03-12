@@ -27,7 +27,7 @@ class DestroyMealService extends Service
     public function execute()
     {
         // Remove all guests and send them notification e-mails
-        foreach ($this->meal->registrations()->get() as $registration) {
+        foreach ($this->meal->registrations as $registration) {
             Mail::send(new MealDestroyed($this->meal, $registration));
             $registration->delete();
         }

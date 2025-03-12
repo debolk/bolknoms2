@@ -13,16 +13,16 @@
 
     <p>
         @if ($currentVacation)
-            Het is nu vakantie. De maaltijden worden hervat op {{ $currentVacation->end->formatLocalized('%e %B %Y') }}.
+            Het is nu vakantie. De maaltijden worden hervat op {{ $currentVacation->end->isoFormat('%e %B %Y') }}.
         @else
             Er is nu geen vakantie.
         @endif
 
         @if ($upcomingVacation)
             De eerstvolgende vakantie begint op
-            {{ $upcomingVacation->start->formatLocalized('%e %B %Y') }}.
+            {{ $upcomingVacation->start->isoFormat('%e %B %Y') }}.
             De maaltijden beginnen dan weer op
-            {{ $upcomingVacation->end->formatLocalized('%e %B %Y') }}.
+            {{ $upcomingVacation->end->isoFormat('%e %B %Y') }}.
         @endif
     </p>
 

@@ -21,8 +21,8 @@ class Vacation extends Model
 
     public function span(): string
     {
-        $start = $this->start->formatLocalized('%e %B %Y');
-        $end = $this->end->formatLocalized('%e %B %Y');
+        $start = $this->start->isoFormat('%e %B %Y');
+        $end = $this->end->isoFormat('%e %B %Y');
 
         return implode(' ', [$start, 'tot', $end]);
     }

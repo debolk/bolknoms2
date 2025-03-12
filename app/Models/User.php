@@ -25,8 +25,13 @@ class User extends Authenticatable
 
     protected $casts = [
         'authorizations' => 'array',
+        'blocked' => 'boolean',
+        'is_board' => 'boolean',
     ];
 
+    /**
+     * @return HasMany<Registration, $this>
+     */
     public function registrations(): HasMany
     {
         return $this->hasMany(\App\Models\Registration::class)->orderBy('name');

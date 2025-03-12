@@ -6,6 +6,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
@@ -20,9 +21,12 @@ class Registration extends Model
      */
     protected $fillable = ['name', 'email', 'handicap'];
 
+    protected $casts = [
+        'confirmed' => 'boolean',
+    ];
+
     /**
-     * Relationship: a registration belongs to a meal
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo<Meal, $this>
      */
     public function meal()
     {
@@ -30,8 +34,7 @@ class Registration extends Model
     }
 
     /**
-     * Relationship: a registration belongs to a user
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo<User, $this>
      */
     public function user()
     {

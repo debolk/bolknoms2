@@ -3,9 +3,10 @@
 use App\Http\Controllers\API\MealsController;
 use App\Http\Controllers\API\RegistrationsController;
 use App\Http\Controllers\API\StartController;
+use App\Http\Middleware\RequiresVersionHeader;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'version'])
+Route::middleware(['auth:sanctum', RequiresVersionHeader::class])
     ->name('api.')
     ->group(function () {
 
