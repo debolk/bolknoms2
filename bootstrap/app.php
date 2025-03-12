@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(LoggedInUserData::class);
         $middleware->validateCsrfTokens(except: ['*']);
+        $middleware->trustProxies(at: [
+            '10.99.1.16', // nginx.i.bolkhuis.nl
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
