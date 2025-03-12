@@ -1,22 +1,23 @@
 <tr data-id="{{ $meal->id }}">
-	<td class="date">
+    <td class="date">
         <a href="{{ action([\App\Http\Controllers\Administration\ShowMeal::class, 'show'], ['id' => $meal->id]) }}">
             {{ $meal->longDate() }}
         </a>
     </td>
     <td>{{ $meal->event }}</td>
     <td class="number">{{ $meal->registrations()->confirmed()->count() }}</td>
-	<td class="number">{{ $meal->registrations()->unconfirmed()->count() }}</td>
+    <td class="number">{{ $meal->registrations()->unconfirmed()->count() }}</td>
     <td class="date {{ !$meal->normalDeadline() ? 'attention' : '' }}">
         {{ $meal->deadline() }}
     </td>
     <td class="date {{ !$meal->normalMealTime() ? 'attention' : '' }}">
-        {{ strftime("%H:%M", strtotime($meal->meal_timestamp)) }} uur
+        {{ strftime('%H:%M', strtotime($meal->meal_timestamp)) }} uur
     </td>
-	<td>
-		</a>
-		<a href="{{ action([\App\Http\Controllers\Administration\Meals::class, 'verwijder'], ['id' => $meal->id]) }}" class="button confirm-intent" title="Verwijderen">
+    <td>
+        </a>
+        <a href="{{ action([\App\Http\Controllers\Administration\Meals::class, 'verwijder'], ['id' => $meal->id]) }}"
+            class="button confirm-intent" title="Verwijderen">
             Verwijderen
-		</a>
-	</td>
+        </a>
+    </td>
 </tr>

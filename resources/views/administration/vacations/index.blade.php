@@ -28,11 +28,13 @@
 
     <h2>Alle vakanties</h2>
     <table border-spacing=0>
-        <thead><tr>
-            <th>Start vakantie</th>
-            <th>Maaltijden hervat</th>
-            <th>&nbsp;</th>
-        </tr></thead>
+        <thead>
+            <tr>
+                <th>Start vakantie</th>
+                <th>Maaltijden hervat</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
         <tbody>
             @include('administration/vacations/_create')
 

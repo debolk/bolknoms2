@@ -18,6 +18,7 @@
         {{ $registration->handicap }}
     </td>
     <td class="non_print">
-        <a href="#" class="button remove_registration" data-name="{{ $registration->name }}" data-id="{{ $registration->id }}">Afmelden</a>
+        <a href="#" class="button remove_registration" data-name="{{ $registration->name }}"
+            data-id="{{ $registration->id }}">Afmelden</a>
     </td>
 </tr>

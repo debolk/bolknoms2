@@ -6,7 +6,7 @@ window.App = {
      * Bootstrap the application, set event handlers, etc.
      * @return {undefined}
      */
-    init: function() {
+    init: function () {
         // Common functionality enhancements
         $('.auto-submit').on('change', App.autoSubmit);
         $('.confirm-intent').on('click', App.confirmIntent);
@@ -17,7 +17,7 @@ window.App = {
      * @param  {Event} event
      * @return {undefined}
      */
-    autoSubmit: function(event) {
+    autoSubmit: function (event) {
         this.form.submit();
     },
 
@@ -26,7 +26,7 @@ window.App = {
      * @param  {Event} event
      * @return {undefined}
      */
-    confirmIntent: function(event) {
+    confirmIntent: function (event) {
         if (!confirm('Weet je het zeker?')) {
             event.preventDefault();
         }
@@ -39,7 +39,7 @@ window.App = {
      * @param  {String} type    type of message to show
      * @return {void}
      */
-    showNotification: function(message, title, type) {
+    showNotification: function (message, title, type) {
         if (type === undefined) {
             type = 'error';
         }

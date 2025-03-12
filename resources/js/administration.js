@@ -6,7 +6,7 @@ window.Administration = {
      * Start the Adminstration specific log
      * @return {undefined}
      */
-    init: function() {
+    init: function () {
         // Bind event handlers
         $('#print').on('click', Administration.printList);
         $('#new_registration').on('submit', Administration.addRegistration);
@@ -22,7 +22,7 @@ window.Administration = {
      * asking for confirmation if no registrations are present
      * @return {undefined}
      */
-    printList: function() {
+    printList: function () {
         var counter = parseInt($('#count').html());
         if (counter === 0 && !confirm('De lijst is leeg. Weet je zeker dat je deze wilt afdrukken?')) {
             return;
@@ -35,7 +35,7 @@ window.Administration = {
      * @param {Event} event
      * @return {undefined}
      */
-    addRegistration: function(event) {
+    addRegistration: function (event) {
         event.preventDefault();
 
         var form = this;
@@ -47,10 +47,10 @@ window.Administration = {
             contentType: 'application/json',
             dataType: 'html',
             data: JSON.stringify({
-                meal_id:  $(this).attr('data-meal_id'),
+                meal_id: $(this).attr('data-meal_id'),
                 user_id: $('#user_id').val()
             }),
-            success: function(response) {
+            success: function (response) {
                 $('#registrations tbody').append(response);
                 Administration.updateCounter(+1);
                 form.reset();
@@ -64,7 +64,7 @@ window.Administration = {
      * @param {Event} event
      * @return {undefined}
      */
-    addAnonymousRegistration: function(event) {
+    addAnonymousRegistration: function (event) {
 
         event.preventDefault();
 
@@ -82,11 +82,11 @@ window.Administration = {
             contentType: 'application/json',
             dataType: 'html',
             data: JSON.stringify({
-                meal_id:  $(this).attr('data-meal_id'),
-                name:     name,
+                meal_id: $(this).attr('data-meal_id'),
+                name: name,
                 handicap: handicap
             }),
-            success: function(response) {
+            success: function (response) {
                 $('#registrations tbody').append(response);
                 Administration.updateCounter(+1);
             },
@@ -99,22 +99,22 @@ window.Administration = {
      * @param  {Event} event
      * @return {undefined}
      */
-    removeRegistration: function(event) {
+    removeRegistration: function (event) {
         event.preventDefault();
 
         // Ask for confirmation
         var registration = $(this).parents('.registration');
-        if (! confirm('Weet je zeker dat je '+$(this).attr('data-name')+' wilt uitschrijven?')) {
+        if (!confirm('Weet je zeker dat je ' + $(this).attr('data-name') + ' wilt uitschrijven?')) {
             return;
         }
 
         // Remove registration
         $.ajax({
             type: 'POST',
-            url: '/administratie/maaltijden/afmelden/'+$(this).attr('data-id'),
+            url: '/administratie/maaltijden/afmelden/' + $(this).attr('data-id'),
             contentType: 'application/json',
             dataType: 'html',
-            success: function(response) {
+            success: function (response) {
                 registration.remove();
                 Administration.updateCounter(-1);
             },
@@ -126,7 +126,7 @@ window.Administration = {
      * Updates the number of registrations in the interface
      * @param  {int} increment the number to add to the counter, can be negative
      */
-    updateCounter: function(increment) {
+    updateCounter: function (increment) {
         var counter = $('#count');
         var value = parseInt(counter.html());
         value += increment;
@@ -139,7 +139,7 @@ window.Administration = {
      * @param  {Event} event
      * @return {undefined}
      */
-    editHandicap: function(event) {
+    editHandicap: function (event) {
         event.preventDefault();
 
         var button = $(this);
@@ -158,13 +158,13 @@ window.Administration = {
         // Update server
         $.ajax({
             type: 'POST',
-            url: '/administratie/gebruikers/'+user_id+'/handicap',
+            url: '/administratie/gebruikers/' + user_id + '/handicap',
             contentType: 'application/json',
             data: JSON.stringify({
                 handicap: new_handicap
             }),
             dataType: 'html',
-            success: function(html){
+            success: function (html) {
                 $(button.parents('tr')[0]).replaceWith(html);
             },
             error: App.fatalError,
@@ -176,16 +176,16 @@ window.Administration = {
      * @param  {Event} event
      * @return {undefined}
      */
-    blockUser: function(event) {
+    blockUser: function (event) {
         event.preventDefault();
 
         var button = $(this);
         $.ajax({
             type: 'POST',
-            url: '/administratie/gebruikers/'+button.attr('data-id')+'/blokkeren',
+            url: '/administratie/gebruikers/' + button.attr('data-id') + '/blokkeren',
             contentType: 'application/json',
             dataType: 'html',
-            success: function(html){
+            success: function (html) {
                 $(button.parents('tr')[0]).replaceWith(html);
             },
             error: App.fatalError,
@@ -197,15 +197,15 @@ window.Administration = {
      * @param  {Event} event
      * @return {undefined}
      */
-    releaseUser: function(event) {
+    releaseUser: function (event) {
         event.preventDefault();
 
         var button = $(this);
         $.ajax({
             type: 'POST',
-            url: '/administratie/gebruikers/'+button.attr('data-id')+'/vrijgeven',
+            url: '/administratie/gebruikers/' + button.attr('data-id') + '/vrijgeven',
             contentType: 'application/json',
-            success: function(html){
+            success: function (html) {
                 $(button.parents('tr')[0]).replaceWith(html);
             },
             error: App.fatalError,

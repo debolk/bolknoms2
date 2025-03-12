@@ -7,7 +7,7 @@ window.Frontend = {
      * adding event handlers, etc.
      * @return {undefined}
      */
-    init: function() {
+    init: function () {
         Frontend.hideMealsIfNotLoggedIn();
 
         // Proceeding without logging in shows a form (name, email, handicaps)
@@ -34,7 +34,7 @@ window.Frontend = {
      * @param  {Event} event
      * @return {undefined}
      */
-    tooLate: function(event) {
+    tooLate: function (event) {
         event.preventDefault();
         App.showNotification('Je kunt je niet meer aanmelden of afmelden voor deze maaltijd', 'Deadline verstreken', 'error');
     },
@@ -43,7 +43,7 @@ window.Frontend = {
      * Hide existing meals from UI when the user is not logged in
      * @return {undefined}
      */
-    hideMealsIfNotLoggedIn: function() {
+    hideMealsIfNotLoggedIn: function () {
         if ($('.user.noone').length > 0) {
             $('.meal').hide();
         }
@@ -54,7 +54,7 @@ window.Frontend = {
      * @param  {Event} event
      * @return {undefined}
      */
-    showAnonymousDetailsForm: function(event){
+    showAnonymousDetailsForm: function (event) {
         event.preventDefault();
 
         $('.anonymous .method').hide(200);
@@ -68,7 +68,7 @@ window.Frontend = {
      * @param  {Event} event
      * @return {undefined}
      */
-    processRegistration: function(event){
+    processRegistration: function (event) {
 
         event.preventDefault();
 
@@ -96,7 +96,7 @@ window.Frontend = {
      * @param  {DOMelement} button the button that was clicked
      * @return {undefined}
      */
-    register: function(button) {
+    register: function (button) {
         Frontend.setButtonState(button, 'busy', false);
 
         // Send AJAX-call to register for meal
@@ -106,9 +106,9 @@ window.Frontend = {
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify({
-               meal_id: button.data('id')
+                meal_id: button.data('id')
             }),
-            success: function() {
+            success: function () {
                 Frontend.setButtonState(button, 'registered', true);
 
                 // Add the users photo to a meal
@@ -120,7 +120,7 @@ window.Frontend = {
                 $('.registrations', meal).append(image);
                 image.fadeIn(600);
             },
-            error: function(error) {
+            error: function (error) {
                 Frontend.setButtonState(button, 'unregistered', true);
                 App.fatalError(error);
             },
@@ -132,7 +132,7 @@ window.Frontend = {
      * @param  {DOMelement} button
      * @return {undefined}
      */
-    deregister: function(button) {
+    deregister: function (button) {
         Frontend.setButtonState(button, 'busy', false);
 
         // Send AJAX-call to deregister for meal
@@ -142,25 +142,25 @@ window.Frontend = {
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify({
-               meal_id: button.data('id')
+                meal_id: button.data('id')
             }),
-            success: function() {
+            success: function () {
                 Frontend.setButtonState(button, 'unregistered', true);
 
                 // Remove the users' photo from a meal
                 var meal = button.parents('.meal')[0];
-                $('.registrations .me', meal).fadeOut(600, function(){
+                $('.registrations .me', meal).fadeOut(600, function () {
                     $(this).remove();
                 });
             },
-            error: function(error) {
+            error: function (error) {
                 Frontend.setButtonState(button, 'registered', true);
                 App.fatalError(error);
             },
         });
     },
 
-    registerNonUser: function(button) {
+    registerNonUser: function (button) {
         Frontend.setButtonState(button, 'busy', false);
 
         // Check form fields
@@ -182,13 +182,13 @@ window.Frontend = {
                 handicap: $('#handicap').val(),
                 meal_id: button.data('id')
             }),
-            success: function() {
+            success: function () {
                 Frontend.setButtonState(button, 'registered', false);
 
                 // Show warning that email confirmation is needed
                 App.showNotification('Je moet je aanmelding nog bevestigen. We hebben je hiervoor een e-mail gestuurd. Volg de link in de e-mail om je aanmelding definitief te maken.', 'Bevestiging nodig', 'warning');
             },
-            error: function(error){
+            error: function (error) {
                 Frontend.setButtonState(button, 'unregistered', true);
                 App.fatalError(error);
             },
@@ -202,30 +202,29 @@ window.Frontend = {
      * @param {Boolean} useable true if clicking the button will do something, false otherwise
      * @return {undefined}
      */
-    setButtonState: function(button, state, useable) {
+    setButtonState: function (button, state, useable) {
         button.removeClass();
         button.addClass(state);
         if (!useable) {
             button.addClass('unusable');
         }
 
-        switch (state)
-        {
+        switch (state) {
             case 'unregistered':
-            {
-                button.html('Aanmelden');
-                break;
-            }
+                {
+                    button.html('Aanmelden');
+                    break;
+                }
             case 'busy':
-            {
-                button.html('<img src="images/spinner.gif" height="16" width="16" alt=""> nom nom nom');
-                break;
-            }
+                {
+                    button.html('<img src="images/spinner.gif" height="16" width="16" alt=""> nom nom nom');
+                    break;
+                }
             case 'registered':
-            {
-                button.html('&#10004; Je eet mee');
-                break;
-            }
+                {
+                    button.html('&#10004; Je eet mee');
+                    break;
+                }
         }
     },
 
@@ -235,7 +234,7 @@ window.Frontend = {
      * @param  {Event} event
      * @return {undefined}
      */
-    updateHandicap: function(event) {
+    updateHandicap: function (event) {
         event.preventDefault();
 
         var existing_handicap = $('#handicap').attr('data-handicap');
@@ -253,8 +252,8 @@ window.Frontend = {
             url: '/handicap',
             contentType: 'application/json',
             dataType: 'application/json',
-            data: JSON.stringify({handicap: new_handicap}),
-            success: function() {
+            data: JSON.stringify({ handicap: new_handicap }),
+            success: function () {
                 // Store in data
                 $('#handicap').data('handicap', new_handicap);
 
@@ -275,14 +274,14 @@ window.Frontend = {
      * @param  {Event} event
      * @return {undefined}
      */
-    randomChefPromotion: function(event) {
+    randomChefPromotion: function (event) {
         event.preventDefault();
 
         // Movies to play
         var recipes = [
-            {name: 'Chocolate Moose', id: 'CAsYwW7pt7o'},
-            {name: 'Pöpcørn', id: 'B7UmUX68KtE'},
-            {name: 'Meatballs', id: 'sY_Yf4zz-yo'},
+            { name: 'Chocolate Moose', id: 'CAsYwW7pt7o' },
+            { name: 'Pöpcørn', id: 'B7UmUX68KtE' },
+            { name: 'Meatballs', id: 'sY_Yf4zz-yo' },
         ];
 
         // Choose a random entry
@@ -291,7 +290,7 @@ window.Frontend = {
         // Show popup
         Swal.fire({
             title: "How to make " + recipe.name,
-            text: "<iframe width=420 height=315 src=\"https://www.youtube-nocookie.com/embed/"+recipe.id+"?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0\" frameborder=0 allowfullscreen></iframe>",
+            text: "<iframe width=420 height=315 src=\"https://www.youtube-nocookie.com/embed/" + recipe.id + "?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0\" frameborder=0 allowfullscreen></iframe>",
             html: true,
         });
     }

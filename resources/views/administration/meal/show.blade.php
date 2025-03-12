@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Aftekenlijst '.$meal)
+@section('title', 'Aftekenlijst ' . $meal)
 
 @section('content')
     <h1>Aftekenlijst {{ $meal }}</h1>
@@ -10,7 +10,8 @@
         <i class="fa fa-fw fa-clock-o"></i> {{ $meal->deadline() }}
         <i class="fa fa-fw fa-cutlery"></i> {{ $meal->meal_timestamp->format('H:i') }} uur
         <span class="non_print">
-            <a href="{{ action([\App\Http\Controllers\Administration\UpdateMeal::class, 'edit'], $meal->id) }}">maaltijd bewerken</a>
+            <a href="{{ action([\App\Http\Controllers\Administration\UpdateMeal::class, 'edit'], $meal->id) }}">maaltijd
+                bewerken</a>
         </span>
     </p>
 
@@ -42,7 +43,9 @@
         <div class="non_print">
             <h2>Niet-bevestigde aanmeldingen</h2>
             <div class="notification warning" style="max-width: 40em;">
-                <strong>Let op:</strong> we koken niet voor niet-bevestigde aanmeldingen. Je kunt deze namelijk ook niet factureren volgens de <a href="/spelregels">spelregels</a>. Ze staan ook niet op de geprinte lijst voor de kok.
+                <strong>Let op:</strong> we koken niet voor niet-bevestigde aanmeldingen. Je kunt deze namelijk ook niet
+                factureren volgens de <a href="/spelregels">spelregels</a>. Ze staan ook niet op de geprinte lijst voor de
+                kok.
             </div>
             <table class="registrations-table" style="width: 40em">
                 <thead>
