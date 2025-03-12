@@ -76,7 +76,7 @@ class Meal extends Model
      */
     public function longDate()
     {
-        return $this->meal_timestamp->isoFormat('%A %e %B %Y');
+        return $this->meal_timestamp->isoFormat('dddd D MMMM YYYY');
     }
 
     /**
@@ -133,7 +133,7 @@ class Meal extends Model
         if ($meal === $lock) {
             return $this->locked_timestamp->format('H:i') . ' uur';
         } else {
-            return $this->locked_timestamp->isoFormat('%A %e %B %H:%M') . ' uur';
+            return $this->locked_timestamp->isoFormat('dddd D MMMM HH:mm') . ' uur';
         }
     }
 

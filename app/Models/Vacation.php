@@ -21,8 +21,8 @@ class Vacation extends Model
 
     public function span(): string
     {
-        $start = $this->start->isoFormat('%e %B %Y');
-        $end = $this->end->isoFormat('%e %B %Y');
+        $start = $this->start->isoFormat('D MMMM YYYY');
+        $end = $this->end->isoFormat('D MMMM YYYY');
 
         return implode(' ', [$start, 'tot', $end]);
     }
