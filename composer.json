@@ -21,9 +21,9 @@
     ],
     "require": {
         "php": "^8.2",
-        "dyrynda/laravel-model-uuid": "^8.1",
+        "dyrynda/laravel-model-uuid": "^8.2",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.0",
@@ -40,9 +40,9 @@
         "laravel/pint": "^1.2",
         "laravel/sail": "^1.15",
         "mockery/mockery": "^1.5",
-        "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^2.24",
-        "pestphp/pest-plugin-laravel": "^2.2",
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^3.7",
+        "pestphp/pest-plugin-laravel": "^3.1",
         "roave/security-advisories": "dev-latest"
     },
     "config": {
