@@ -52,7 +52,7 @@ window.Administration = {
                 user_id: $('#user_id').val()
             }),
             success: function (response) {
-                $('#registrations tbody').append(response);
+                $('#registrations-confirmed tbody').append(response);
                 Administration.updateCounter(+1);
                 form.reset();
             },
@@ -88,7 +88,7 @@ window.Administration = {
                 handicap: handicap
             }),
             success: function (response) {
-                $('#registrations tbody').append(response);
+                $('#registrations-confirmed tbody').append(response);
                 Administration.updateCounter(+1);
             },
             error: App.fatalError
