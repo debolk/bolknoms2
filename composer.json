@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.2",
         "dyrynda/laravel-model-uuid": "^8.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^11.0",
