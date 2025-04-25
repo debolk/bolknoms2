@@ -28,6 +28,10 @@ class BolkLoginService
             $response = $client->get($url);
             $basicData = json_decode($response->getBody());
 
+            if (!isset($basicData->email)) { //if the user doesn't want to share their email address... though titties.
+                $basicData->email = "invalid@nieuwedelft.nl.";
+            }
+
             return [
                 'username' => $username,
                 'name' => $basicData->name,
