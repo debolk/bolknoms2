@@ -20,7 +20,7 @@ class ProfilePicture
 
         try {
             $client = app(Client::class);
-            $url = 'https://people.debolk.nl/persons/' . $user->username . '/photo/256/256?access_token=' . $token;
+            $url = 'https://people.debolk.nl/person/' . $user->username . '/photo?access_token=' . $token;
             $file = fopen($path, 'w');
             $client->get($url, ['sink' => $file]);
         } catch (TransferException $exception) {
