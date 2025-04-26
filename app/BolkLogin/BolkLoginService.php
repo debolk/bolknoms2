@@ -20,7 +20,7 @@ class BolkLoginService
 
         try {
             $username = null;
-            $url = 'https://auth.debolk.nl/resource/?access_token=' . $user->token;
+            $url = 'https://auth.debolk.nl/resource?access_token=' . $user->token;
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
 
@@ -55,7 +55,7 @@ class BolkLoginService
     {
         try {
             $client = app(Client::class);
-            $url = 'https://auth.debolk.nl/bestuur/?access_token=' . $user->token;
+            $url = 'https://auth.debolk.nl/bestuur?access_token=' . $user->token;
             $client->get($url);
             return true;
         } catch (ClientException $e) {
