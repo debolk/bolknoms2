@@ -28,6 +28,9 @@ class DestroyMealService extends Service
     {
         // Remove all guests and send them notification e-mails
         foreach ($this->meal->registrations as $registration) {
+            if ($registration->email == "invalid@nieuwedelft.nl.") {
+                continue;
+            }
             Mail::send(new MealDestroyed($this->meal, $registration));
             $registration->delete();
         }
