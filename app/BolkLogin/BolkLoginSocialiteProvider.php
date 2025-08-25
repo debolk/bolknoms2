@@ -12,7 +12,7 @@ class BolkLoginSocialiteProvider extends AbstractProvider implements ProviderInt
 
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://auth.debolk.nl/authenticate', $state);
+        return $this->buildAuthUrlFromBase('https://auth.debolk.nl/authorize', $state);
     }
 
     protected function getTokenUrl()
