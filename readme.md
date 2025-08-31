@@ -5,7 +5,7 @@ The very best application in the world for feeding your members in an organized 
 Local installation is done as with any plain Laravel project. If you have no existing setup, Sail is recommended.
 
 ### Next steps that are probably useful
-1. Opening the administration panel of bolknoms requires board-level permissions. Using Gosa, you can add yourself temporarily(!) to the group "oauth-test". This requires that you have ICTcom-level access or above. Adding your account to this group will grant you access to all OAuth-protected resources regardless of the permission level. Use it for testing on your local machine and remove yourself from the group when done.
+1. Opening the administration panel of bolknoms requires board-level permissions. Using fusion, you can add yourself temporarily(!) to the group "oauth-test". This requires that you have ICTcom-level access or above. Adding your account to this group will grant you access to all OAuth-protected resources regardless of the permission level. Use it for testing on your local machine and remove yourself from the group when done.
 1. Meals for the next week can be automatically generated using the command line: `php artisan meals:generate`.
 
 # Deployment (production)
