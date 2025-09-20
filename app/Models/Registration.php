@@ -25,6 +25,15 @@ class Registration extends Model
         'confirmed' => 'boolean',
     ];
 
+    protected static function booted(): void
+    {
+        static::creating(function (Registration $registration) {
+            if (!$registration->salt) {
+                $registration->salt = substr(str_shuffle(md5(microtime())), 0, 10);
+            }
+        });
+    }
+
     /**
      * @return BelongsTo<Meal, $this>
      */
@@ -73,31 +82,6 @@ class Registration extends Model
     public function scopeUnconfirmed(Builder $query): Builder
     {
         return $query->where('confirmed', '=', false);
-    }
-
-    /**
-     * Set the salt and save the model to the database.
-     *
-     * @param  array  $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        // Set the salt
-        if ($this->salt === null) {
-            $this->salt = self::generateSalt();
-        }
-
-        return parent::save($options);
-    }
-
-    /**
-     * Generates a random string to use as a salt
-     * @return string
-     */
-    private static function generateSalt()
-    {
-        return substr(str_shuffle(md5(microtime())), 0, 10);
     }
 
     /**
