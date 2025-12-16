@@ -20,11 +20,11 @@ class BolkLoginService
 
         try {
             $username = null;
-            $url = 'https://auth.debolk.nl/resource?access_token=' . $user->token;
+            $url = env('AUTH_URL', 'https://auth.debolk.nl/') . 'resource?access_token=' . $user->token;
             $response = $client->get($url);
             $username = json_decode($response->getBody())->user_id;
 
-            $url = 'https://people.debolk.nl/person/' . $username . '?access_token=' . $user->token;
+            $url = env('BLIP_URL', 'https://people.debolk.nl/') . 'person/' . $username . '?access_token=' . $user->token;
             $response = $client->get($url);
             $basicData = json_decode($response->getBody());
 
@@ -34,7 +34,7 @@ class BolkLoginService
 
             return [
                 'username' => $username,
-                'name' => $basicData->name,
+                'name' => $basicData->firstname,
                 'email' => $basicData->email,
             ];
         } catch (ClientException $e) {
@@ -55,7 +55,7 @@ class BolkLoginService
     {
         try {
             $client = app(Client::class);
-            $url = 'https://auth.debolk.nl/bestuur?access_token=' . $user->token;
+            $url = env('AUTH_URL', 'https://auth.debolk.nl/') . 'bestuur?access_token=' . $user->token;
             $client->get($url);
             return true;
         } catch (ClientException $e) {

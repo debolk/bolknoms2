@@ -12,12 +12,12 @@ class BolkLoginSocialiteProvider extends AbstractProvider implements ProviderInt
 
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://auth.debolk.nl/authorize', $state);
+        return $this->buildAuthUrlFromBase(env('AUTH_URL', 'https://auth.debolk.nl/') . 'authorize', $state);
     }
 
     protected function getTokenUrl()
     {
-        return 'https://auth.debolk.nl/token';
+        return env('AUTH_URL', 'https://auth.debolk.nl/') . 'token';
     }
 
     protected function getUserByToken($token)
@@ -27,7 +27,7 @@ class BolkLoginSocialiteProvider extends AbstractProvider implements ProviderInt
 
     protected function mapUserToObject(array $user)
     {
-        return (new User())->setRaw($user);
+        return new User()->setRaw($user);
     }
 
     public static function getAuthorizations(User $user): array
