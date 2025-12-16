@@ -34,7 +34,7 @@ class BolkLoginService
 
             return [
                 'username' => $username,
-                'name' => $basicData->firstname,
+                'name' => "$($basicData->firstname) $($basicData->surname)",
                 'email' => $basicData->email,
             ];
         } catch (ClientException $e) {
