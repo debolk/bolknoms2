@@ -55,7 +55,8 @@ class BolkLoginService
     {
         try {
             $client = app(Client::class);
-            $url = 'https://auth.debolk.nl/bestuur?access_token=' . $user->token;
+            // Checks if the user is a member of bestuur/beheer/ictcom
+            $url = 'https://auth.debolk.nl/ictcom?access_token=' . $user->token;
             $client->get($url);
             return true;
         } catch (ClientException $e) {
